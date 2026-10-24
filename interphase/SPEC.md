@@ -45,7 +45,7 @@ One ordinary entry remains at `/`: the existing FIELD host with words folded.
 The resting surface is its address bar, one held title/native action and compact
 addressed tool targets. Aa unfolds the original descriptions, history and status
 in place. The duplicate command dock and passive explanation/status chrome are
-folded away. Tool names stay accessible and the held name remains visible. The AWAKE
+folded away. Concise native names remain visible beside each glyph: category marks alone do not identify a tool. HOLD also projects its exact route into the existing address bar while passive state updates preserve active typing. The held full name remains visible. The AWAKE
 introduction is neither loaded nor opened on first visit/HOLD; `?visor=1` retains
 explicit access. Full route names remain available through selection and the explicit word reveal. Selecting a route holds it; OPEN reaches its actual native
 owner. Existing context and re-entry mechanisms remain in that host. Axis-scroll selection

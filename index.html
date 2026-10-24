@@ -352,7 +352,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
 .fold>summary{flex-wrap:wrap}.sRail{white-space:normal}.sRail u{white-space:normal;overflow-wrap:anywhere}}
 
 /* FOLDED WORDS: the existing page, with detail explicitly revealed. */
-html[data-field-words="folded"]:not([data-instrument="1"]) main{max-width:800px;margin:10vh auto 0;padding:16px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) main{max-width:720px;margin:6vh auto 0;padding:16px;}
 html[data-field-words="folded"]:not([data-instrument="1"]) header, html[data-field-words="folded"]:not([data-instrument="1"]) #workedOn, html[data-field-words="folded"]:not([data-instrument="1"]) .reentryFold:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) .syncLine, html[data-field-words="folded"]:not([data-instrument="1"]) #workDepth:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) #refineFold:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) #statusFold:not([open]), html[data-field-words="folded"]:not([data-instrument="1"]) .fieldGesture, html[data-field-words="folded"]:not([data-instrument="1"]) #axialLatest>.sectionHead{display:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar{margin:0 0 22px;background:var(--bg);backdrop-filter:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{height:52px;grid-template-columns:auto 36px minmax(0,1fr);box-shadow:none;background:transparent;}
@@ -371,19 +371,23 @@ html[data-field-words="folded"]:not([data-instrument="1"]) .apActions button, ht
 html[data-field-words="folded"]:not([data-instrument="1"]) .apActions a{font-size:12px;min-height:44px;padding:10px 14px;}
 html[data-field-words="folded"]:not([data-instrument="1"]) .apFlow{margin:6px 0 0;padding:0;border:0;}
 html[data-field-words="folded"]:not([data-instrument="1"]) .capMove[data-cap-dayline], html[data-field-words="folded"]:not([data-instrument="1"]) .capMove[data-cap-copy]{display:none;}
-html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(auto-fit,minmax(52px,1fr));gap:6px;padding:12px 0;border-top:1px solid var(--line);}
-html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip{position:relative;min-height:60px;height:60px;padding:7px;grid-template-columns:1fr;grid-template-rows:1fr;gap:0;border:1px solid transparent;background:transparent;box-shadow:none;}
+.feedShort{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 16px;padding:6px 0;border-top:1px solid var(--line);}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip{position:relative;min-height:56px;height:auto;padding:10px 6px;grid-template-columns:28px minmax(0,1fr);grid-template-rows:1fr;gap:10px;border:0;border-bottom:1px solid var(--line);background:transparent;box-shadow:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip::before, html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip::after{display:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:hover, html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible{border-color:var(--mut);background:var(--p2);}
-html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip.on{border-color:var(--hot);background:var(--p2);}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip.on{box-shadow:inset 2px 0 0 var(--hot);background:var(--p2);}
 html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedName, html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip tt{display:none;}
-html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip svg{width:36px!important;height:36px!important;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip svg{width:28px!important;height:28px!important;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedShort{display:block;font:600 12px/1.35 system-ui,sans-serif;letter-spacing:.01em;overflow-wrap:anywhere;}
 html[data-field-words="folded"]:not([data-instrument="1"]) #runDock{display:none!important;}
 html[data-field-words="folded"]:not([data-instrument="1"]) body.runDockOn{padding-bottom:0;}
-html[data-field-words="folded"]:not([data-instrument="1"]) .foot{margin-top:10px;padding-top:10px;border:0;gap:8px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .foot{margin-top:10px;padding-top:10px;border:0;gap:8px;justify-content:flex-start;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fiTheme{margin-left:auto;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #foveaToggle{display:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) .foot button, html[data-field-words="folded"]:not([data-instrument="1"]) .footMenu>summary{min-height:36px;min-width:36px;padding:7px;font-size:10px;border:1px solid var(--line);border-radius:0;background:transparent;}
 html[data-field-words="folded"]:not([data-instrument="1"]) .footLaw{display:none;}
-@media(max-width:520px){html[data-field-words="folded"]:not([data-instrument="1"]) main{margin-top:5vh;padding:12px;}html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(5,minmax(0,1fr));}html[data-field-words="folded"]:not([data-instrument="1"]) .aperture{grid-template-columns:40px minmax(0,1fr) auto;}html[data-field-words="folded"]:not([data-instrument="1"]) .apBody strong{font-size:18px;}html[data-field-words="folded"]:not([data-instrument="1"]) .apActions a{padding:9px;font-size:11px;}}
+@media(max-width:520px){html[data-field-words="folded"]:not([data-instrument="1"]) main{margin-top:2vh;padding:8px;}html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px;}html[data-field-words="folded"]:not([data-instrument="1"]) .aperture{grid-template-columns:40px minmax(0,1fr) auto;}html[data-field-words="folded"]:not([data-instrument="1"]) .apBody strong{font-size:18px;}html[data-field-words="folded"]:not([data-instrument="1"]) .apActions a{padding:9px;font-size:11px;}}
 
 html[data-field-words="folded"]:not([data-instrument="1"]) .apGlyph:empty{display:none;}
 html[data-field-words="folded"]:not([data-instrument="1"]) .aperture:has(.apGlyph:empty){grid-template-columns:minmax(0,1fr) auto;}
@@ -1482,7 +1486,8 @@ function renderFeed(){
    const d=shortDay(r.index?.updated_at||'');
    if(feedScope==='RECENT'&&d&&d!==lastDay){const age=dayAge(r.index?.updated_at||'');parts.push('<span class="feedDay"'+(age!=null?' data-age="'+Math.min(Math.max(age,0),3)+'"':'')+' title="manifest index day '+esc(d)+(age!=null?' · '+age+'d ago':'')+'">'+esc(d)+'</span>');lastDay=d}
    const signal=routeSignal(r),lab=[feedScope==='HEADS'?'CURRENT HEAD':null,r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/'),signal!=='CLEAR'?signal:null].filter(Boolean).join(' · ');
-   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt><span class="feedName">'+esc(r.title||r.href)+'</span></button>');
+   const shortName=String(r.title||r.href).split(/\s+(?:\/\/|\/|·)\s+/)[0].replace(/\s+v?\d+(?:\.\d+)*(?:\s.*)?$/i,'');
+   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt><span class="feedShort" aria-hidden="true">'+esc(shortName)+'</span><span class="feedName">'+esc(r.title||r.href)+'</span></button>');
  }
  rail.innerHTML=parts.join('');
  rail.querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,feedScope==='HEADS'?'HEADS':'LATEST')});
@@ -1760,11 +1765,11 @@ window.FieldIndexReadModel=Object.freeze({
 </script>
 <script src="./lib/interphase-field.js"></script>
 <script>queueMicrotask(()=>{try{renderAperture()}catch(_){}})</script>
-<script src="./field-lens.js"></script>
+<script src="./field-lens.js?v=0.10.7"></script>
 <script src="./lens-focus-ring.js"></script>
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
-<script type="module" src="./field-instrument.mjs?v=0.10.6"></script>
-<script type="module" src="./field-work.mjs?v=0.10.6"></script>
+<script type="module" src="./field-instrument.mjs?v=0.10.7"></script>
+<script type="module" src="./field-work.mjs?v=0.10.7"></script>
 </main></body></html>

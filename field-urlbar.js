@@ -339,7 +339,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  <div class="fieldUrlFrame">
   <span class="fieldUrlProto">FIELD://</span>
   <span class="fieldUrlGlyph" id="fieldUrlGlyph" aria-hidden="true">Φ</span>
-  <input class="fieldUrlInput" id="fieldUrlInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-controls="fieldUrlPanel" aria-expanded="false" placeholder="address · glyph · command" value="${esc(existing)}">
+  <input class="fieldUrlInput" id="fieldUrlInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-label="Find a tool or enter a command" aria-autocomplete="list" aria-controls="fieldUrlPanel" aria-expanded="false" placeholder="Find a tool…" value="${esc(existing)}">
   <span class="fieldUrlMode" id="fieldUrlMode"><b>位</b><span>ADDRESS</span></span>
   <a class="fieldUrlSpine" id="fieldUrlSpine" href="/nexus/board.html" title="status spine — board counts as of the board's own generation stamp" aria-label="status spine: board counts, click for the board"><b>·</b></a>
  </div>
@@ -579,13 +579,16 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   selected=(selected+delta+total)%total;paint({forceOpen:true});panel.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})
  }
  function focusBar(seed){if(win.FieldInstrument?.active?.()){win.FieldInstrument.edit(seed);return}input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;helpOpen=false;moved=false;paint({forceOpen:true})}
- function syncHeld(href){
+ function syncHeld(href,reflectAddress=true){
   focusHref=href||win.__fieldAct?.focusHref?.()||null;const r=focusHref&&routeMap().get(focusHref);
   glyphNode.innerHTML=r&&win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'Φ';glyphNode.title=r?(glyphMnemonic(r)+' · '+r.href):'FIELD';
+  // Native HOLD and palette HOLD share the same address. Never replace typing
+  // or the native instrument's editing state with this passive projection.
+  if(reflectAddress&&routes.length&&doc.activeElement!==input&&!win.FieldInstrument?.active?.())input.value=r?.href||'';
  }
  function targetIsTyping(t){const tag=t?.tagName?.toLowerCase?.();return t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select'}
 
- input.addEventListener('focus',()=>paint({forceOpen:true}));
+ input.addEventListener('focus',()=>{if(!win.FieldInstrument?.active?.())input.setSelectionRange(0,input.value.length);paint({forceOpen:true})});
  input.addEventListener('input',()=>{selected=0;helpOpen=false;moved=false;syncURL(input.value);paint({forceOpen:true})});
  input.addEventListener('keydown',e=>{
   if(win.FieldInstrument?.active?.()&&win.FieldInstrument.key(e))return;
@@ -594,7 +597,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(e.key==='Enter'){e.preventDefault();applySelection(e.ctrlKey||e.metaKey,'enter');return}
   if(e.key==='Escape'){e.preventDefault();if(input.value){clearInput();input.focus()}else{panel.hidden=true;input.setAttribute('aria-expanded','false');input.blur()}return}
  });
- input.addEventListener('blur',()=>setTimeout(()=>{if(!shell.contains(doc.activeElement)){panel.hidden=true;input.setAttribute('aria-expanded','false')}},80));
+ input.addEventListener('blur',()=>setTimeout(()=>{if(!shell.contains(doc.activeElement)){panel.hidden=true;input.setAttribute('aria-expanded','false');syncHeld(focusHref)}},80));
  doc.addEventListener('keydown',e=>{
   // M3 · THE single document-level entry owner — ⌘K / / / : live only here;
   // field-omnibar.js keeps a passthrough listener for its fallback line only.
@@ -602,7 +605,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar('/');return}
   if(e.key===':'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar(':');return}
  });
- win.addEventListener('field-index:state',e=>syncHeld(e.detail?.focus||null));
+ win.addEventListener('field-index:state',e=>{const href=e.detail?.focus||null;if(href!==focusHref)syncHeld(href)});
 
  Promise.all([
   fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('manifest '+r.status);return r.json()}),
@@ -610,7 +613,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  ]).then(([manifest,current])=>{
   routes=(manifest.routes||manifest.entries||[]).filter(r=>r?.href&&r.href!=='/');
   heads=new Set((current.current_heads||[]).map(h=>h.route).filter(Boolean));
-  syncHeld(win.__fieldAct?.focusHref?.()||new URLSearchParams(win.location.search).get('focus'));
+  syncHeld(win.__fieldAct?.focusHref?.()||new URLSearchParams(win.location.search).get('focus'),!existing);
   paint({forceOpen:false});
   if(existing){selected=0;paint({forceOpen:false})}
  }).catch(err=>{

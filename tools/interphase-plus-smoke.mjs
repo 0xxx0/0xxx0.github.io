@@ -34,13 +34,19 @@ async function continuumBrowserProof(){
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),true);
    assert.ok((await page.locator('body').innerText()).length>foldedText*2,'one reveal unfolds the existing detail');
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
-   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
-   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'addressed tool targets must remain named and reachable');
+   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedShort'),l=label?.getBoundingClientRect();return {title:label?.textContent,height:r.height,labelVisible:l?.width>0&&l?.height>0,clipped:r.left<0||r.right>innerWidth+1}}));
+   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.labelVisible&&x.height>=44&&!x.clipped),'tools must be identifiable without hover or trying each glyph');
    await page.waitForFunction(()=>window.FieldOmnibar);
    await page.locator('#feedRail [data-href="/house/"]').click();
    assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open the AWAKE introduction');
    assert.equal(await page.locator('#fieldAwakeVisor').count(),0);
    await page.waitForFunction(()=>document.getElementById('apTitle').textContent==='HOUSE / FIELD');
+   await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
+   await page.locator('#fieldUrlInput').fill('a query I am still typing');
+   await page.evaluate(()=>window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:'/house/'}})));
+   assert.equal(await page.locator('#fieldUrlInput').inputValue(),'a query I am still typing','passive state updates preserve editing');
+   await page.locator('#fieldUrlInput').press('Escape');await page.locator('#fieldUrlInput').press('Escape');
+   await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD');
    await page.locator('#fieldWords').click();
    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
@@ -53,6 +59,9 @@ async function continuumBrowserProof(){
    await page.waitForTimeout(250);
    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','layout/history scroll must never select a different object');
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`field-entry-${width}.png`)})}
+   await page.goto(base+'/?fi=house');await page.waitForSelector('#feedRail .feedChip');
+   await page.waitForFunction(()=>window.FieldURLBar?.results().length>0);
+   assert.equal(await page.locator('#fieldUrlInput').inputValue(),'house','initial query survives passive boot state');
    await page.goto(base+'/?work=1');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
    let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);

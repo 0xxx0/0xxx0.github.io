@@ -65,7 +65,7 @@ const instrumentCSS=fs.readFileSync(new URL('../field-instrument.css',import.met
 const omni=fs.readFileSync(new URL('../field-omnibar.js',import.meta.url),'utf8');
 ok(!urlbar.includes('/v1/runs'),'public URLbar must not call Hermes Runs API directly');
 ok(!signal.includes('field-urlbar'),'shared signal grammar must remain presentation-free');
-ok(lens.includes("import('./field-urlbar.js')"),'root FIELD lens host must mount the URLbar projection');
+ok(/import\(['"]\.\/field-urlbar\.js(?:\?[^'"]*)?['"]\)/.test(lens),'root FIELD lens host must mount the URLbar projection');
 ok(urlbar.includes("if(text(currentParsed.query)&&!target){flash('Exact route required');return}"),'explicit command target cannot silently fall back to held object');
 ok(instrument.includes("if(parsed.mode==='COMMAND')"),'instrument must delegate typed commands to shared parser');
 ok(instrument.includes("turn:()=>{if(!enabled)return false;command('turn');return true}"),'camera turn is callable, unavailable when plain');
