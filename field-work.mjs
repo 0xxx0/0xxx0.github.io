@@ -8,6 +8,8 @@ function startFieldWork(){
   const css=document.createElement('link');css.rel='stylesheet';css.href='/field-work.css?v=0.10.0';document.head.append(css);
   const get=id=>document.getElementById(id);let lastNative=null,api,ready=false;
   api=await mountContinuum(host,{route:'/',onRoute:href=>{if(href!==lastNative){lastNative=href;native.hold(href)}},onFocus:s=>{
+   // A new source consumes the caller's old FIELD selection; reload must resume this source.
+   if(!s.route&&new URLSearchParams(location.search).has('focus')){const u=new URL(location.href);u.searchParams.delete('focus');history.replaceState(history.state,'',u)}
    if(get('fiBarName'))get('fiBarName').textContent=s.label;
    if(get('fiBarMeta'))get('fiBarMeta').textContent=`${s.scopeLabel} · ${s.index} / ${s.count}`;
    if(get('fiScopeGlyph'))get('fiScopeGlyph').textContent='☷';
