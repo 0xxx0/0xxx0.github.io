@@ -1,0 +1,57 @@
+'use strict';
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const bridge=require('../sleeper/source-aperture.js');
+const read=p=>fs.readFileSync(path.join(__dirname,'..',p),'utf8');
+function rejects(fn,label){assert.throws(fn,undefined,label)}
+const excerpt='A rule holds until an independent witness contradicts it.';
+const source='Preface. '+excerpt+' Afterwards.';
+const start=source.indexOf(excerpt);
+const model={source,sha256:'f'.repeat(64),hash:'a0b1c2d3',meta:{title:'An observed rule',url:'https://example.com/source'},nodes:[{id:'n:1',start:0,end:source.length}]};
+const w={node:'n:1',start,end:start+excerpt.length,quoteHash:bridge.hash(excerpt)};
+const packet=bridge.capture(model,w);
+assert.equal(packet.excerpt,excerpt);
+assert.equal(packet.span.start,start);
+assert.equal(bridge.inspect(JSON.parse(JSON.stringify(packet))).compiled,excerpt);
+const bound=bridge.bind(packet,excerpt,'0A1B2C3');
+assert.equal(bound.document.sha256,model.sha256);
+assert.equal(bound.worldKey,'0A1B2C3');
+assert.equal(bound.authority,bridge.AUTHORITY);
+assert.equal(bound.verification.includes('NOT verified'),true);
+assert.equal(Object.hasOwn(bound,'proofs'),false);
+rejects(()=>bridge.capture(model,{...w,quoteHash:'00000000'}),'stale source witness');
+rejects(()=>bridge.capture(model,{...w,start:-1}),'negative offset');
+rejects(()=>bridge.capture(model,{...w,node:'wrong'}),'wrong node');
+rejects(()=>bridge.capture({...model,source:'Z'.repeat(121),nodes:[{id:'n:1',start:0,end:121}]},{node:'n:1',start:0,end:121,quoteHash:bridge.hash('Z'.repeat(121))}),'too long');
+rejects(()=>bridge.inspect({...packet,excerpt:'X'+excerpt.slice(1)}),'altered quote');
+rejects(()=>bridge.inspect({...packet,span:{...packet.span,start:start+1}}),'altered span');
+rejects(()=>bridge.inspect({...packet,document:{...packet.document,sha256:'bad'}}),'invalid digest');
+rejects(()=>bridge.bind(packet,'not the selected source','0A1B2C3'),'source substitution');
+rejects(()=>bridge.bind(packet,excerpt,'?'),'world key substitution');
+const normalized='a  \n  b';
+assert.equal(bridge.normalize(normalized),'a b');
+// Prove the native layout still responds only to source/cell/figure, not the evidence sidecar.
+const core=Function(read('sleeper/native-core.js')+';return {compile,buildCity}')();
+const original=core.buildCity(excerpt,'doors','urchin');
+const again=core.buildCity(excerpt,'doors','urchin');
+const changed=core.buildCity(excerpt+' changed','doors','urchin');
+assert.equal(original.law.key,again.law.key);
+assert.notEqual(original.law.key,changed.law.key);
+assert.deepEqual(original.grid,again.grid);
+assert.equal(original.gates.length,8);
+assert.equal(original.grid.length,27);
+assert.equal(core.compile(excerpt,'doors','urchin').source,excerpt);
+// Critical authority boundary: original artifact function and native gate engine were not altered.
+const ui=read('sleeper/native-ui.js'),engine=read('sleeper/native-engine.js'),html=read('sleeper/index.html'),axis=read('sleeper/axis-score.html');
+assert.match(ui,/bundle\.sourceWitness=game\.sourceWitness/);
+assert.match(ui,/function makeArtifact\(\)/);
+assert.match(ui,/SleeperSourceAperture\.bind\(heldSourceAperture,game\.law\.source,game\.law\.key\)/);
+assert.doesNotMatch(engine,/sourceWitness|SourceAperture/);
+assert.ok(html.indexOf('source-aperture.js')<html.indexOf('native-ui.js'));
+assert.ok(axis.indexOf('source-aperture.js')<axis.indexOf("const T=Threadwalk,A=ThreadAxis"));
+for(const p of ['sleeper/native-core.js','sleeper/native-engine.js','sleeper/native-ui.js','sleeper/source-aperture.js']){
+  new Function(read(p));
+}
+for(const match of axis.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g))new Function(match[1]);
+console.log('SLEEPER SOURCE APERTURE PASS: source-exact binding, tamper/length/source rejection, deterministic native world, gate isolation, syntax');
