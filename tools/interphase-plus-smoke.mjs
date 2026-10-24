@@ -48,7 +48,7 @@ async function continuumBrowserProof(){
    const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
    // First prove the ordinary job: identify a named tool, open its owner, return.
    // Reader round trips below must not silently replace this entry again.
-   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&document.documentElement.dataset.fieldBarPane==='none');
+   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&window.FieldBarLanding&&document.documentElement.dataset.fieldBarPane==='none');
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
    assert.equal(await page.locator('#interphaseWorkspace').count(),0);
    assert.equal(requests.includes('/interphase/continuum.mjs'),false,'ordinary entry must not load the experimental reader');
@@ -84,7 +84,7 @@ async function continuumBrowserProof(){
    assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open AWAKE');
    assert.equal(await page.locator('#fieldAwakeVisor').count(),0);
    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
-   await page.goBack();await page.waitForSelector('#feedRail .feedChip');
+   await page.goBack();await page.waitForSelector('#feedRail .feedChip',{state:'attached'});
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD');
    // Native history/layout restoration can emit late scrolls on collapsed strips.
