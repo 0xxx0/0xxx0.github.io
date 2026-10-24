@@ -30,6 +30,48 @@ const browser=await chromium.launch({headless:true,executablePath:browserBin(),a
 // Native FIELD projection fixture; default source continuum is proved by interphase-plus-smoke.
 const results=[];
 try{
+  // Default FIELD landing, not the opt-in spatial instrument.
+  for(const [width,height] of [[320,640],[390,844],[1280,800]]){
+    const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce'});
+    const page=await context.newPage(),errors=[];
+    page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(base+'/');
+    await page.waitForFunction(()=>document.querySelectorAll('#feedRail .feedChip').length>=3
+      &&document.querySelector('#fieldWords')?.parentElement?.classList.contains('fieldUrlFrame'));
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
+    const initial=await page.evaluate(()=>{
+      const rail=document.getElementById('feedRail'),tiles=[...rail.querySelectorAll('.feedChip')];
+      const y=tiles.map(n=>n.getBoundingClientRect().top),label=tiles[0].querySelector('.feedName'),r=tiles[0].getBoundingClientRect();
+      const out={pageWidth:document.documentElement.scrollWidth,viewport:innerWidth,railScroll:rail.scrollWidth,railWidth:rail.clientWidth,
+        oneRow:y.every(v=>Math.abs(v-y[0])<2),label:getComputedStyle(label).display,
+        labelText:label.textContent,idleHint:getComputedStyle(document.getElementById('apRole')).display,
+        idleOpen:document.getElementById('apOpen').hasAttribute('href'),width:r.width,height:r.height};
+      rail.scrollLeft=rail.scrollWidth;out.reachesEnd=rail.scrollLeft>0;return out;
+    });
+    assert.ok(initial.oneRow&&initial.label==='none'&&initial.labelText,'canonical source names kept in glyph-only row '+width);
+    const expectedHeld=(JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads||[]).map(h=>h.route).find(h=>h&&h!=='/');
+    assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,expectedHeld,'first exact CURRENT head offers explicit OPEN '+width);
+    assert.ok(initial.idleOpen,'existing CURRENT head is held on landing '+width);
+    assert.ok(initial.railScroll<=initial.railWidth||initial.reachesEnd,'glyph rail reaches final source when overflowed '+width);
+    assert.ok(initial.width>=44&&initial.height>=44&&initial.height<=64,'compact finger-size glyphs '+width);
+    assert.ok(initial.pageWidth<=initial.viewport+2,'no document horizontal overflow '+width);
+    await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
+    assert.ok(await page.locator('#apOpen').getAttribute('href'),'held tool has explicit OPEN '+width);
+    const held=await page.locator('#apTitle').textContent();
+    await page.locator('#fieldWords').click();
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'open');
+    assert.equal(await page.locator('#apTitle').textContent(),held);
+    await page.locator('#fieldWords').click();
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
+    assert.equal(await page.locator('#apTitle').textContent(),held);
+    assert.deepEqual(errors,[],'no landing script errors '+width);
+    if(process.env.SCREENSHOT_DIR){
+      fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
+      await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`landing-folded-${width}.png`)});
+    }
+    await context.close();
+  }
   // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
   // bytes must not combine with the newly fetched CURRENT/manifest data.
   const cached=await browser.newContext(),cachePage=await cached.newPage();warmLegacy=true;
