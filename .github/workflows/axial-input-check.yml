@@ -1,0 +1,24 @@
+name: AXIAL bound-input proof
+on:
+  pull_request:
+    paths:
+      - 'foundry/axial/**'
+      - '.github/workflows/axial-input-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  axial-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse input bridge and browser proof
+        run: |
+          node --check foundry/axial/input-bridge.js
+          node --check foundry/axial/input-browser-proof.mjs
+      - name: Verify native AXIAL against real FIELD source
+        run: node foundry/axial/input-browser-proof.mjs
