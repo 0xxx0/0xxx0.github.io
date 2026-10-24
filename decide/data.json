@@ -1,6 +1,6 @@
 {
  "schema": "decide-desk/v1",
- "generated_at": "2026-10-24T18:20:00+08:00",
+ "generated_at": "2026-10-25T01:42:44+08:00",
  "promises": [
   {
    "n": 1,
@@ -173,24 +173,6 @@
  ],
  "calls": [
   {
-   "id": "triangle-bench",
-   "title": "TRIANGLE BENCH simplex — recover it?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Recover as an optional triangle view over the bench (5 bounded deltas; numeric table stays canonical; kill at "
-    },
-    {
-     "k": "B",
-     "t": "Restore old Bench 0.1 exactly as it was"
-    },
-    {
-     "k": "C",
-     "t": "Leave parked"
-    }
-   ]
-  },
-  {
    "id": "interphase-two-tree",
    "title": "INTERPHASE two-tree drift (vault vs published) — drop or port b9d1b2e2?",
    "options": [
@@ -205,24 +187,6 @@
     {
      "k": "C",
      "t": "Defer"
-    }
-   ]
-  },
-  {
-   "id": "whatsapp-pair",
-   "title": "WhatsApp — pair it?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Do it now — walk me through in chat"
-    },
-    {
-     "k": "B",
-     "t": "Later"
-    },
-    {
-     "k": "C",
-     "t": "Skip WhatsApp"
     }
    ]
   },
@@ -245,106 +209,38 @@
    ]
   },
   {
-   "id": "six-0817-retire",
-   "title": "The six Aug-17 decisions — retire?",
+   "id": "sleeper-donor",
+   "title": "The old ONE RETURN donor: what happens to it?",
    "options": [
     {
      "k": "A",
-     "t": "Retire all six"
+     "t": "Redirect to canonical"
     },
     {
      "k": "B",
-     "t": "Keep open — I'll answer"
+     "t": "Keep as museum"
+    },
+    {
+     "k": "C",
+     "t": "Build compat layer"
     }
    ]
   },
   {
-   "id": "promise-secret-scan-weekly-enabled",
-   "title": "BROKEN PROMISE: secret-scan-weekly cron is re-enabled and live (job 8c5dc7f89ab2)",
+   "id": "sleeper-substrate",
+   "title": "What text becomes the city's matter?",
    "options": [
     {
      "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
+     "t": "Your own archive"
     },
     {
      "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
+     "t": "The sleeper canon"
     },
     {
      "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
-   "id": "promise-ab-voice-scoring-pass",
-   "title": "BROKEN PROMISE: A/B blind voice scoring pass run — the 'tests among ourselves' (10 real/10 twin set scored",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
-   "id": "promise-qwen3-8-27b-fallback-pull",
-   "title": "BROKEN PROMISE: Local fallback lane fixed: qwen3.8:27b pulled or kestrel ollama-local.default_model repoin",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
-   "id": "promise-memory-crowding-consolidate",
-   "title": "BROKEN PROMISE: Memory crowding fixed: every profile private tail ≤1.5 KB AND shared block ≥2,200 B (MEMPR",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  },
-  {
-   "id": "publish-media-consolidated",
-   "title": "Publish the Poo Baby + sleeper archive?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Publish both (reviewed contact sheets first)"
-    },
-    {
-     "k": "B",
-     "t": "Publish Poo Baby only"
-    },
-    {
-     "k": "C",
-     "t": "Keep it all local"
+     "t": "Your chat corpus"
     }
    ]
   }
