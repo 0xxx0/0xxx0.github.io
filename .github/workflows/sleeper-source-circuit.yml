@@ -1,0 +1,28 @@
+name: Sleeper source circuit
+on:
+  pull_request:
+    paths:
+      - 'sleeper/**'
+      - 'tools/sleeper-source-aperture-*.mjs'
+      - 'tools/sleeper-source-aperture-*.cjs'
+      - '.github/workflows/sleeper-source-circuit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-circuit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source identity / native authority fixture
+        run: node tools/sleeper-source-aperture-selftest.cjs
+      - name: Native eight Gate regression
+        run: |
+          node tools/sleeper-native-port-selftest.cjs
+          node tools/sleeper-native-encounter-selftest.cjs
+      - name: Real Chromium source selection to native city
+        run: node tools/sleeper-source-aperture-smoke.mjs
