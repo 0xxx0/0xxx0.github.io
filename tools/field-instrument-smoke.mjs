@@ -27,7 +27,7 @@ const expected=manifest.routes.filter(r=>r.href!=='/').length,version=manifest.r
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,executablePath:browserBin(),args:['--no-sandbox','--disable-dev-shm-usage']});
-// Native FIELD projection fixture; default WORK composition is proved by interphase-plus-smoke.
+// Native FIELD projection fixture; default source continuum is proved by interphase-plus-smoke.
 const results=[];
 try{
   // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
@@ -45,7 +45,9 @@ try{
   assert.equal(await cachePage.locator('[data-map-id]').count(),expected);
   // Non-reduced motion is an actual aperture traversal, not a TURN menu pose.
   const cacheStart=await cachePage.evaluate(()=>FieldInstrument.snapshot().frame);
-  await cachePage.locator('#fiReading [data-action="heads"]').click();
+  // The overview reading can legitimately become the held object's reading as native data arrives.
+  // Use the stable native bar to select CURRENT rather than racing contextual hover text.
+  await cachePage.locator('#fiAddress').click();await cachePage.locator('#fieldUrlInput').fill(':heads');await cachePage.locator('#fieldUrlInput').press('Enter');
   const house=cachePage.getByRole('button',{name:'Enter HOUSE / FIELD · /house/ · 1 objects',exact:true});
   const smallBox=await house.boundingBox();await house.click();
   assert.equal((await cachePage.evaluate(()=>FieldInstrument.snapshot())).view.inside,1);

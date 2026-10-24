@@ -2,7 +2,7 @@
   "schema": "field-index-return/v0.1",
   "date": "2026-10-24",
   "version": "0.10.0",
-  "status": "EXACT_RECOVERED_CANDIDATE_CI_PENDING",
+  "status": "IMPLEMENTED / COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
   "spec": "/interphase/SPEC.md",
   "source": "https://github.com/0xxx0/0xxx0.github.io/pull/988",
   "problem": "Operator rejected 0.9.0 as aggregated bloat and requested formal source/attention convergence.",
@@ -18,8 +18,30 @@
   ],
   "authority": "LOCAL_SOURCE_ONLY; native hosts retain domain effects",
   "verification": {
-    "status": "PENDING",
-    "reason": "The local execution environment disconnected. This recovered revision must pass its own remote CI before release; previous local tests do not certify it."
+    "status": "COMPLETED_COMPONENT_VALIDATION",
+    "source_head": "68a528a6a17aba89a0a796494c4d06a540125cac",
+    "workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183173",
+    "checks": [
+      "Native source ranges, Unicode, duplicate JSON rejection, GetPut / PutGet, monotone scope and strict quoted relations",
+      "320/390/1280 browser: one native clock, exact source, caller focus, same DOM plain/walk, query, ring, finite end, linked traversal/RETURN, local edit/undo/redo, real download/import, forged packet rejection, annotated reader/wrist round trips, new JSON handoff",
+      "Native FIELD at five viewports with stale HTTP-cache rejection, native open/BACK/RETURN and unchanged source",
+      "Retained Ω/history/Dayline/Fan/AXIS browser regression and 44 recovered Python tests",
+      "Installed 0.3.0 package and strict TypeScript consumer",
+      "215 routes, 12 heads, one active front; release coherence; static link and document integrity",
+      "Redaction aperture and gitleaks",
+      "Exact existing source-echo ride and reader-door probes in a real browser"
+    ],
+    "visual_review": "320px and 1280px exact runner captures inspected; transport kept in viewport; SOURCE/editor stay below the fixed bar",
+    "broader_suite": {
+      "status": "NOT_GREEN",
+      "workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183248",
+      "observed": "Chrome --dump-dom virtual-time READ/RIDE probe timed out after 26 seconds; first-use and convergence assertions now pass after integrating current master. Earlier broad runs also exposed legacy probe completion races. No whole-repository green claim."
+    },
+    "field_urlbar": {
+      "status": "FIXTURE_STABILIZED",
+      "observed": "One independent native browser run raced the contextual overview's CURRENT button while the dedicated run passed. The fixture now selects the same CURRENT command through the stable native address bar; the frame/RETURN assertions are unchanged."
+    },
+    "scope": "These links certify the named tested revision; subsequent release metadata is checked again before merge."
   },
   "limitations": [
     "Human usefulness and first-use comprehension require lived observation",

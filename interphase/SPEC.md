@@ -174,3 +174,25 @@ Local results do not certify this reconstructed exact tree: GitHub CI must valid
 the exact new head before any merge/deployment. The live 0.9.0 remains unchanged
 until then. Preserve this distinction; do not report the requested revision shipped
 merely because the earlier local variant passed.
+
+### Recovered execution evidence
+
+Recovered source revision 68a528a6a17aba89a0a796494c4d06a540125cac passed
+[the complete component workflow](https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183173).
+This includes native source laws, actual RETURN file transport, annotated reader/watch
+round trips at 320/390/1280px, native FIELD at five sizes, the retained workbench,
+fresh package and strict TypeScript consumer, release/static integrity and redaction.
+The deterministic phone and desktop captures were inspected. The transport stays
+visible; SOURCE/editor are fixed below the one native bar.
+
+The current master repairs to THE BELL and its independent tests were integrated
+from 7bf027dbe37b6d3edd2e5ae6218e303bf23b51df, preserving that thread's work.
+The broad public suite is not certified green: run 40093183248 reached the native
+LIVE READ/RIDE Chrome virtual-time probe and timed out. Its first-use and convergence
+assertions now pass. Real-browser versions reuse the exact probe functions and
+assertions, with UTF-8 preserved; they do not relax the application contract.
+A separate native FIELD fixture race is repaired by selecting CURRENT through its
+stable native address command rather than transient contextual hover text.
+
+Human first-use comprehension and the comparative usefulness of WALK remain open
+observations. These tests establish mechanical continuity, not an operator's verdict.

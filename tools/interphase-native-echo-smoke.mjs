@@ -7,7 +7,7 @@ import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function nativeEchoProof(){
  const fixtures=new Map();
- for(const [key,file] of [['ride','tools/source-echo-read-ride-smoke.mjs'],['door','tools/readfield-echo-door-smoke.mjs']]){
+ for(const [key,file] of [['ride','tools/source-echo-read-ride-smoke.mjs'],['door','tools/readfield-echo-door-smoke.mjs'],['local-ride','tools/fold-bloom-live-read-ride-smoke.mjs']]){
   const source=fs.readFileSync(file,'utf8'),start=source.indexOf('function probe(){'),end=source.indexOf('\nconst server=',start);
   assert.ok(start>=0&&end>start);fixtures.set(key,vm.runInNewContext('('+source.slice(start,end).trim()+')()'));
  }

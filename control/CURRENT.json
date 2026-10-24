@@ -110,10 +110,17 @@
       "version": "0.10.0",
       "latest_return": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
       "repo_verification": {
-        "status": "RECOVERED_CANDIDATE / EXACT_CI_PENDING",
+        "status": "COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
         "source": "https://github.com/0xxx0/0xxx0.github.io/pull/988",
+        "source_head": "68a528a6a17aba89a0a796494c4d06a540125cac",
+        "component_workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183173",
         "evidence": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
-        "note": "Execution environment disappeared during final validation; recovered source is being independently checked in GitHub Actions. Earlier local proof does not certify this exact recovered revision.",
+        "checks": "Native source laws; three viewport continuum browser task including real RETURN files and annotated reader round trips; five viewport native FIELD; retained workbench; package/types; static/release/redaction",
+        "broader_suite": {
+          "status": "NOT_GREEN",
+          "workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183248",
+          "observed": "Chrome --dump-dom virtual-time READ/RIDE probe timed out after 26 seconds; first-use and convergence assertions now pass after integrating current master. Earlier broad runs also exposed legacy probe completion races. No whole-repository green claim."
+        },
         "previous_release": {
           "status": "COMPONENT_PASS / CI_UNCLAIMED",
           "local": {
