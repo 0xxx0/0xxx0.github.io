@@ -39,8 +39,9 @@ function bind(raw,source,worldKey){
 }
 const RETURN='sleeper.source-aperture-return/v1';
 const RETURN_KEY='sleeper:source-aperture/return/v1';
+const NATIVE_GATES=['PROVENANCE','TRUTH','COMPRESSION','RETRIEVAL','OPERATION','MEASURE','TRANSFER','RESILIENCE'];
 function receipt(bound,artifact){
- if(!bound||bound.schema!==SCHEMA||!artifact||artifact.version!==2||artifact.schema!=='sleeper.one-return'||artifact.worldKey!==bound.worldKey||!Array.isArray(artifact.proofs)||artifact.proofs.length!==8||!['conch','keris','w8','spiral'].includes(artifact.dominantOperator))throw Error('APERTURE_NATIVE_RETURN_REQUIRED');
+ if(!bound||bound.schema!==SCHEMA||!artifact||artifact.version!==2||artifact.schema!=='sleeper.one-return'||artifact.worldKey!==bound.worldKey||!Array.isArray(artifact.proofs)||artifact.proofs.length!==8||new Set(artifact.proofs.map(p=>p?.gate)).size!==8||!NATIVE_GATES.every(g=>artifact.proofs.some(p=>p?.gate===g))||!['conch','keris','w8','spiral'].includes(artifact.dominantOperator))throw Error('APERTURE_NATIVE_RETURN_REQUIRED');
  return Object.freeze({schema:RETURN,authority:AUTHORITY,document:bound.document,span:bound.span,worldKey:bound.worldKey,nativeGateCount:artifact.proofs.length,operator:artifact.dominantOperator,transferInstruction:String(artifact.transferInstruction||'').slice(0,300)});
 }
 function inspectReceipt(raw,sourceSha){
