@@ -1,6 +1,6 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T05:17:40.131Z",
+ "generated": "2026-10-24T05:43:24.744Z",
  "returns_total": 294,
  "raw_distinct_states": 112,
  "folded_onto_enum": 4,
@@ -2899,18 +2899,18 @@
   }
  ],
  "routes": {
-  "routes_total": 211,
+  "routes_total": 212,
   "route_state_raw_distinct": 10,
   "route_state_folded_onto": 3,
   "route_state_dist": {
    "SOURCE": 42,
    "HOLD": 39,
-   "RETURN": 130,
+   "RETURN": 131,
    "RESIDUE": 0
   },
   "route_state_residue": [],
-  "operation_distinct": 71,
-  "operation_compound_count": 19,
+  "operation_distinct": 72,
+  "operation_compound_count": 20,
   "operation_debt_sample": [
    "ENTER / ROUTE",
    "REMEMBER / PATH",
@@ -2926,7 +2926,8 @@
    "SEE": 15,
    "MAKE": 21,
    "WAYFIND": 7,
-   "PLAY": 13
+   "PLAY": 13,
+   "OTHER": 1
   },
   "operation_class_map": {
    "ADDRESS": "RECOVER",
@@ -2986,6 +2987,7 @@
    "ENCODE": "MAKE",
    "INHABIT": "PLAY",
    "RECOVER / RETRIEVE": "RECOVER",
+   "PUBLISH / RETRIEVE": "OTHER",
    "WEAVE": "MAKE",
    "FEDERATE": "WAYFIND",
    "COMPILE": "MAKE",
