@@ -37,5 +37,15 @@ function bind(raw,source,worldKey){
   if(!/^[0-9A-Z]{7,}$/.test(String(worldKey||'')))throw Error('APERTURE_WORLD_KEY_INVALID');
   return Object.freeze({schema:SCHEMA,authority:AUTHORITY,document:p.document,span:p.span,worldKey,canonicalSource:p.compiled,verification:'Selected exact source offsets were checked on the AXIS side; document truth, semantic inference and native Gate proofs are NOT verified here.'});
 }
-return Object.freeze({KEY,BACK,SCHEMA,AUTHORITY,normalize,hash,capture,inspect,bind});
+const RETURN='sleeper.source-aperture-return/v1';
+const RETURN_KEY='sleeper:source-aperture/return/v1';
+function receipt(bound,artifact){
+ if(!bound||bound.schema!==SCHEMA||!artifact||artifact.version!==2||artifact.schema!=='sleeper.one-return'||artifact.worldKey!==bound.worldKey||!Array.isArray(artifact.proofs)||artifact.proofs.length!==8||!['conch','keris','w8','spiral'].includes(artifact.dominantOperator))throw Error('APERTURE_NATIVE_RETURN_REQUIRED');
+ return Object.freeze({schema:RETURN,authority:AUTHORITY,document:bound.document,span:bound.span,worldKey:bound.worldKey,nativeGateCount:artifact.proofs.length,operator:artifact.dominantOperator,transferInstruction:String(artifact.transferInstruction||'').slice(0,300)});
+}
+function inspectReceipt(raw,sourceSha){
+ if(!raw||raw.schema!==RETURN||raw.authority!==AUTHORITY||raw.document?.sha256!==sourceSha||!/^[0-9A-Z]{7,}$/.test(raw.worldKey)||raw.nativeGateCount!==8||!['conch','keris','w8','spiral'].includes(raw.operator)||typeof raw.transferInstruction!=='string'||raw.transferInstruction.length>300||!Number.isInteger(raw.span?.start)||!Number.isInteger(raw.span?.end)||raw.span.start<0||raw.span.end<=raw.span.start)throw Error('APERTURE_RETURN_INVALID');
+ return raw;
+}
+return Object.freeze({KEY,BACK,SCHEMA,AUTHORITY,RETURN,RETURN_KEY,normalize,hash,capture,inspect,bind,receipt,inspectReceipt});
 });
