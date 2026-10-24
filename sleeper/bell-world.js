@@ -15,8 +15,8 @@ function create(){return{x:2.5,y:8.5,a:0,heard:false,choice:null,opened:false,lo
 function snapshot(s){return{x:s.x,y:s.y,a:s.a,heard:s.heard,choice:s.choice,opened:s.opened,loops:s.loops,won:s.won,seconds:s.seconds,steps:s.steps,note:s.note}}
 function record(s){s.history.push(snapshot(s));if(s.history.length>700)s.history.shift()}
 function openCell(s,x,y){const X=Math.floor(x),Y=Math.floor(y);return X>=0&&Y>=0&&X<25&&Y<17&&grid[Y][X]===0&&!(X===18&&Y===10&&!s.opened)}
-function canChoose(s){return s.heard&&!s.choice&&s.x>13.3&&Math.abs(s.y-8.5)<1.1&&!s.won}
-function choose(s,v){if(!s.heard||s.won)throw Error('HEAR_FIRST');if(v==='follow'&&!s.opened){s.choice='follow';s.note='Follow the upper road. Its far end returns to the bell.'}else if(v==='notice'){s.choice='notice';s.opened=true;s.note='The sound persists. The lower gate is now permeable.'}else throw Error('INVALID_CHOICE');record(s);return s}
+function canChoose(s){return s.heard&&!s.choice&&s.x>13.3&&s.x<15.4&&Math.abs(s.y-8.5)<.85&&!s.won}
+function choose(s,v){if(!s.heard||s.won)throw Error('HEAR_FIRST');if(v==='follow'&&canChoose(s)){s.choice='follow';s.note='Follow the upper road. Its far end returns to the bell.'}else if(v==='notice'&&(canChoose(s)||(s.choice==='follow'&&s.loops>0))){s.choice='notice';s.opened=true;s.note='The sound persists. The lower gate is now permeable.'}else throw Error('DECISION_NOT_AVAILABLE');record(s);return s}
 function step(s,f,turn,dt){if(s.won)return s;dt=clamp(Number(dt)||0,0,.05);s.seconds+=dt;s.a=(s.a+TAU+turn*dt*2.6)%TAU;
 const distance=clamp(f,-1,1)*dt*3.1,dx=Math.cos(s.a)*distance,dy=Math.sin(s.a)*distance,r=.17;
 const free=(x,y)=>[[x-r,y-r],[x+r,y-r],[x-r,y+r],[x+r,y+r]].every(p=>openCell(s,p[0],p[1]));
@@ -41,7 +41,7 @@ css.textContent=[
 '#bellStage{position:relative;min-height:0;flex:1}#bellScene{width:100%;height:100%;display:block;touch-action:none}#bellText{position:absolute;left:14px;top:16px;pointer-events:none;max-width:min(500px,85vw);text-shadow:0 2px 12px #000}#bellHeading{font:bold clamp(18px,3vw,30px)/1.2 system-ui,sans-serif;max-width:24ch}#bellNote{border-left:2px solid #f0c47e;background:#051018d9;padding:9px;margin-top:12px;max-width:43ch;color:#bfcfd0;font-size:11px}#bellPhase{letter-spacing:.12em;color:#ecc783;font-size:10px;margin-bottom:8px}',
 '#bellAction{position:absolute;left:50%;transform:translateX(-50%);bottom:172px;background:#091a23f2;border:1px solid #e2b876;padding:12px;display:none;width:min(550px,calc(100% - 18px));box-shadow:0 0 30px #0008}#bellAction.active{display:block}#bellAction p{margin:0 0 9px;color:#c3d4d2}#bellAction .row>*{flex:1}',
 '#bellControls{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:end;justify-content:space-between;gap:8px;padding:9px 12px 14px;background:linear-gradient(transparent,#071119ef 18%)}#bellPad{display:flex;gap:5px}#bellPad button{min-width:54px;min-height:58px;font-size:20px}#bellRing{width:140px;height:140px;touch-action:none;cursor:crosshair}#bellDialArea{text-align:center;color:#a3b7be;font-size:9px;letter-spacing:.04em}',
-'#bellCover{position:absolute;inset:0;background:#061018d9;display:grid;place-items:center;padding:14px}#bellCover[hidden]{display:none!important}#bellCover[hidden]{display:none}#bellCard{max-width:590px;background:#0e1d25;border-top:3px solid #f0c47e;padding:clamp(22px,4vw,42px)}#bellCard h1{font:750 clamp(33px,6vw,54px)/1 system-ui,sans-serif;letter-spacing:-.065em;margin:5px 0 20px}#bellCard p{font:15px/1.7 system-ui,sans-serif;color:#cad8d5}#bellCard .row{flex-wrap:wrap;margin-top:15px}#bellCard small{display:block;margin-top:15px;color:#9db0ba}',
+'#bellCover{position:absolute;inset:0;background:#061018d9;display:grid;place-items:center;padding:14px}#bellCover[hidden]{display:none!important}#bellCard{max-width:590px;background:#0e1d25;border-top:3px solid #f0c47e;padding:clamp(22px,4vw,42px)}#bellCard h1{font:750 clamp(33px,6vw,54px)/1 system-ui,sans-serif;letter-spacing:-.065em;margin:5px 0 20px}#bellCard p{font:15px/1.7 system-ui,sans-serif;color:#cad8d5}#bellCard .row{flex-wrap:wrap;margin-top:15px}#bellCard small{display:block;margin-top:15px;color:#9db0ba}',
 '@media(max-width:660px){#bellPad button{min-width:43px;min-height:52px;padding:5px}#bellRing{width:107px;height:107px}#bellControls{padding:6px 6px max(10px,env(safe-area-inset-bottom))}#bellAction{bottom:143px}#bellText{max-width:75vw}#bellExperience header span{display:none}#bellCard p{font-size:14px}}'
 ].join('');document.head.append(css);
 const root=document.createElement('section');root.id='bellExperience';root.setAttribute('role','dialog');root.setAttribute('aria-label','The Bell: first person encounter');
@@ -51,7 +51,7 @@ root.innerHTML=[
 '<div id="bellText"><div id="bellPhase">01 / CONTACT</div><div id="bellHeading">A sound is ahead.</div><div id="bellNote"></div></div>',
 '<div id="bellAction"><p id="bellQuestion">The sound is pleasant; wanting follows. Which rule will the road obey?</p><div class="row"><button id="bellFollow">FOLLOW · FOLD BACK</button><button class="gold" id="bellNotice">NOTICE · OPEN PASSAGE</button></div></div>',
 '<div id="bellControls"><div id="bellPad"><button data-drive="left" aria-label="Turn left">↶</button><button data-drive="forward" aria-label="Forward">↑</button><button data-drive="back" aria-label="Backward">↓</button><button data-drive="right" aria-label="Turn right">↷</button></div><div id="bellDialArea"><canvas id="bellRing" width="180" height="180" aria-label="Outer ring turns. Inner ring rewinds. Center changes aperture."></canvas><div>OUTER TURN / INNER REWIND</div></div></div>',
-'<div id="bellCover"><div id="bellCard"><div style="color:#f0c47e;letter-spacing:.16em">CHAPTER 1 / FIVE AGGREGATES / CASE STUDY</div><h1 id="bellCardTitle">THE BELL</h1><p id="bellCardText">You hear a bell. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk into this situation. A decision at the crossroads will change the reachable world. The bell itself will not change.</p><div class="row"><button class="gold" id="bellBegin">ENTER WORLD →</button><button id="bellBook">READ ORIGINAL CHAPTER ↗</button><button id="bellSave" hidden>EXPORT TRACE</button></div><small>W/S walk · A/D turn · touch arrows · OUTER DIAL turns · INNER DIAL rewinds actual state · APERTURE changes view.</small></div></div>',
+'<div id="bellCover"><div id="bellCard"><div style="color:#f0c47e;letter-spacing:.16em">CHAPTER 1 / FIVE AGGREGATES / CASE STUDY</div><h1 id="bellCardTitle">THE BELL</h1><p id="bellCardText">You hear a bell. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk into this situation. A decision at the crossroads will change the reachable world. The bell itself will not change.</p><div class="row"><button class="gold" id="bellBegin">ENTER WORLD →</button><button id="bellBook">READ ORIGINAL CHAPTER ↗</button><button id="bellBefore" hidden>REWIND TO FORK</button><button id="bellSave" hidden>EXPORT TRACE</button></div><small>W/S walk · A/D turn · touch arrows · OUTER DIAL turns · INNER DIAL rewinds actual state · APERTURE changes view.</small></div></div>',
 '</div>'
 ].join('');
 document.body.append(root);
@@ -59,11 +59,11 @@ const $=id=>root.querySelector('#'+id),cv=$('bellScene'),cx=cv.getContext('2d'),
 let s=create(),view='POV',pressed=new Set(),frameId=0,last=0,audio=null,dialAct=null,finished=false;
 function bellSound(){try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=440;g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+1.2);o.connect(g).connect(audio.destination);o.start();o.stop(audio.currentTime+1.21)}catch(e){}}
 function resize(){const box=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);cv.width=Math.round(box.width*d);cv.height=Math.round(box.height*d);cx.setTransform(d,0,0,d,0,0)}
-function showWin(){if(finished)return;finished=true;$('bellCover').hidden=false;$('bellCardTitle').textContent='THE SOUND DID NOT CHANGE';$('bellCardText').textContent='The lower passage was reachable only after one transition changed. The bell remained. Replay from the origin to try the other future; the dial rewinds the living world before completion.';$('bellBegin').textContent='REPLAY FROM ORIGIN';$('bellSave').hidden=false}
+function showWin(){if(finished)return;finished=true;$('bellCover').hidden=false;$('bellCardTitle').textContent='THE SOUND DID NOT CHANGE';$('bellCardText').textContent='The lower passage was reachable only after one transition changed. The bell remained. Replay from the origin to try the other future; the dial rewinds the living world before completion.';$('bellBegin').textContent='REPLAY FROM ORIGIN';$('bellBefore').hidden=false;$('bellSave').hidden=false}
 function ui(){let state=!s.heard?'01 / CONTACT':!s.choice?'02 / FEELING':!s.opened?'03 / GRASP':'04 / RELEASE';
 $('bellPhase').textContent=state;$('bellHeading').textContent=!s.heard?'A sound is ahead.':!s.choice?'Pleasure becomes a wish.':!s.opened?'The road returns to the bell.':s.won?'The bell remains.':'A different road is open.';
 $('bellNote').textContent=s.note;
-const act=canChoose(s)||(s.choice==='follow'&&!s.opened);
+const act=canChoose(s)||(s.choice==='follow'&&!s.opened&&s.loops>0);
 $('bellAction').classList.toggle('active',act);
 $('bellFollow').hidden=s.choice==='follow';$('bellNotice').textContent=s.choice==='follow'?'CUT THE PULL · OPEN LOWER ROAD':'NOTICE THE PULL · OPEN LOWER ROAD';
 $('bellQuestion').textContent=s.choice==='follow'?'The loop is real. You can change the rule without erasing the event.':'A wish appears. This is another event, not an instruction.';
@@ -93,29 +93,53 @@ cx.font='11px monospace';cx.textAlign='center';cx.fillStyle='#ddcaac';for(const 
 if(view==='CAUSE'){cx.fillStyle='#07151bdd';cx.fillRect(0,0,w,66);cx.textAlign='center';cx.fillStyle='#efc585';cx.font='bold 12px monospace';cx.fillText('CONTACT → FEELING → WANTING → CHOICE → CONSEQUENCE',w/2,35)}
 }
 }
+let dialPreview=null;
 function ringPaint(){
 dc.clearRect(0,0,180,180);dc.save();dc.translate(90,90);
-for(const [r,width,col] of [[75,12,'#374b54'],[49,12,'#36515a']]){dc.beginPath();dc.strokeStyle=col;dc.lineWidth=width;dc.arc(0,0,r,0,TAU);dc.stroke()}
-dc.strokeStyle='#e9b978';dc.lineWidth=5;dc.beginPath();dc.arc(0,0,75,-Math.PI/2,s.a-Math.PI/2);dc.stroke();
+const arc=(r,col,width,start,end)=>{dc.beginPath();dc.strokeStyle=col;dc.lineWidth=width;dc.arc(0,0,r,start,end);dc.stroke()};
+arc(75,'#374b54',12,0,TAU);arc(49,'#36515a',12,0,TAU);
+arc(75,'#e9b978',5,-Math.PI/2,s.a-Math.PI/2);
 dc.fillStyle='#e9b978';dc.beginPath();dc.arc(75*Math.cos(s.a-Math.PI/2),75*Math.sin(s.a-Math.PI/2),5,0,TAU);dc.fill();
-dc.strokeStyle='#8bc2cc';dc.lineWidth=5;dc.beginPath();dc.arc(0,0,49,-Math.PI/2,-Math.PI/2+(s.history.length>1?TAU:0));dc.stroke();
-dc.fillStyle='#e7d3ad';dc.font='bold 13px monospace';dc.textAlign='center';dc.fillText(view,0,2);dc.font='9px monospace';dc.fillStyle='#9db5be';dc.fillText('↶ TIME',0,17);dc.restore();
+const n=s.history.length;
+if(n>1){
+ const stage=p=>!p.heard?0:!p.choice?1:!p.opened?2:!p.won?3:4;
+ const colors=['#627b86','#84c2cc','#d6ad73','#91b995','#e6e9df'];
+ const count=Math.min(180,n-1);
+ for(let k=0;k<count;k++){
+  const idx=Math.floor(k*(n-1)/count),phase=stage(s.history[idx]);
+  arc(49,colors[phase],5,-Math.PI/2+(k/count)*TAU,-Math.PI/2+((k+.94)/count)*TAU);
+ }
+ const selected=dialPreview==null?n-1:dialPreview,ang=-Math.PI/2+selected/(n-1)*TAU;
+ dc.fillStyle=dialPreview==null?'#eff6f2':'#f0c47e';dc.beginPath();dc.arc(49*Math.cos(ang),49*Math.sin(ang),5.4,0,TAU);dc.fill();
+}
+dc.fillStyle='#e7d3ad';dc.font='bold 13px monospace';dc.textAlign='center';dc.fillText(view,0,2);dc.font='9px monospace';dc.fillStyle='#9db5be';
+dc.fillText(dialPreview==null?'↶ TIME':(dialPreview+1)+' / '+s.history.length,0,17);dc.restore();
 }
 function tick(t){const dt=clamp((t-last)/1000,0,.04);last=t;if($('bellCover').hidden){const was=s.heard;step(s,Number(pressed.has('forward'))-Number(pressed.has('back')),Number(pressed.has('right'))-Number(pressed.has('left')),dt);if(s.heard&&!was)bellSound();ui()}paint();ringPaint();frameId=requestAnimationFrame(tick)}
-function start(){s=create();record(s);finished=false;pressed.clear();view='POV';$('bellLens').textContent='APERTURE / POV';$('bellCover').hidden=true;last=performance.now();cv.focus()}
-function enter(){root.classList.add('active');document.body.style.overflow='hidden';s=create();record(s);finished=false;$('bellCover').hidden=false;$('bellCardTitle').textContent='THE BELL';$('bellCardText').innerHTML='You hear a bell. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk into this situation. At the crossroads your action will change the reachable world. The bell itself will not change.';$('bellBegin').textContent='ENTER WORLD →';$('bellSave').hidden=true;resize();ui();if(!frameId){last=performance.now();frameId=requestAnimationFrame(tick)}}
+function start(){s=create();record(s);finished=false;pressed.clear();view='POV';$('bellLens').textContent='APERTURE / POV';$('bellCover').hidden=true;$('bellBefore').hidden=true;last=performance.now();cv.focus()}
+function enter(){root.classList.add('active');document.body.style.overflow='hidden';s=create();record(s);finished=false;$('bellCover').hidden=false;$('bellCardTitle').textContent='THE BELL';$('bellCardText').innerHTML='You hear a bell. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk into this situation. At the crossroads your action will change the reachable world. The bell itself will not change.';$('bellBegin').textContent='ENTER WORLD →';$('bellBefore').hidden=true;$('bellSave').hidden=true;resize();ui();if(!frameId){last=performance.now();frameId=requestAnimationFrame(tick)}}
 function exit(){root.classList.remove('active');document.body.style.overflow='';pressed.clear();cancelAnimationFrame(frameId);frameId=0}
 function lens(){view=view==='POV'?'PLAN':view==='PLAN'?'CAUSE':'POV';$('bellLens').textContent='APERTURE / '+view}
-entry.onclick=enter;$('bellQuit').onclick=exit;$('bellBegin').onclick=start;$('bellLens').onclick=lens;$('bellBook').onclick=()=>window.open(SOURCE,'_blank','noopener');
+entry.onclick=enter;$('bellQuit').onclick=exit;$('bellBegin').onclick=start;$('bellLens').onclick=lens;$('bellBefore').onclick=()=>{const ix=s.history.findIndex(p=>canChoose(p));if(ix<0)return;rewind(s,ix);finished=false;$('bellCover').hidden=true;$('bellBefore').hidden=true;$('bellSave').hidden=true;ui();cv.focus()};$('bellBook').onclick=()=>window.open(SOURCE,'_blank','noopener');
 $('bellFollow').onclick=()=>{choose(s,'follow');ui()};$('bellNotice').onclick=()=>{choose(s,'notice');ui()};
 $('bellSave').onclick=()=>{const u=URL.createObjectURL(new Blob([JSON.stringify(exportState(s),null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='sleeper-bell-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1200)};
 root.querySelectorAll('[data-drive]').forEach(btn=>{const k=btn.dataset.drive;btn.addEventListener('pointerdown',e=>{e.preventDefault();pressed.add(k)});for(const event of ['pointerup','pointercancel','pointerleave','lostpointercapture'])btn.addEventListener(event,()=>pressed.delete(k))});
 let drag=null;
-function dialTouch(e){const r=dial.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*180-90,y=(e.clientY-r.top)/r.height*180-90,rad=Math.hypot(x,y),p=((Math.atan2(y,x)+Math.PI/2)/TAU+1)%1;if(!drag)drag=rad>62?'TURN':rad>29?'REWIND':'LENS';if(drag==='TURN')s.a=p*TAU;if(drag==='REWIND'&&s.history.length>1){rewind(s,Math.round(p*(s.history.length-1)));ui()}}
-dial.addEventListener('pointerdown',e=>{drag=null;dial.setPointerCapture(e.pointerId);dialTouch(e)});dial.addEventListener('pointermove',e=>{if(e.buttons&&drag)dialTouch(e)});dial.addEventListener('pointerup',()=>{if(drag==='LENS')lens();drag=null});dial.addEventListener('pointercancel',()=>drag=null);
+function dialTouch(e){
+ const r=dial.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*180-90,y=(e.clientY-r.top)/r.height*180-90;
+ const radius=Math.hypot(x,y),fraction=((Math.atan2(y,x)+Math.PI/2)/TAU+1)%1;
+ if(!drag)drag=radius>62?'TURN':radius>29?'REWIND':'LENS';
+ if(drag==='TURN')s.a=fraction*TAU;
+ if(drag==='REWIND'&&s.history.length>1)dialPreview=Math.round(fraction*(s.history.length-1));
+}
+dial.addEventListener('pointerdown',e=>{e.preventDefault();drag=null;dial.setPointerCapture(e.pointerId);dialTouch(e)});
+dial.addEventListener('pointermove',e=>{if(e.buttons&&drag)dialTouch(e)});
+dial.addEventListener('pointerup',()=>{if(drag==='LENS')lens();if(drag==='REWIND'&&dialPreview!==null){rewind(s,dialPreview);ui()}drag=null;dialPreview=null});
+dial.addEventListener('pointercancel',()=>{drag=null;dialPreview=null});
 const keys={w:'forward',ArrowUp:'forward',s:'back',ArrowDown:'back',a:'left',ArrowLeft:'left',d:'right',ArrowRight:'right'};
 document.addEventListener('keydown',e=>{if(!root.classList.contains('active'))return;if(e.key==='Escape'){exit();return}if(keys[e.key]){e.preventDefault();pressed.add(keys[e.key])}});
 document.addEventListener('keyup',e=>pressed.delete(keys[e.key]));window.addEventListener('blur',()=>pressed.clear());window.addEventListener('resize',()=>{if(root.classList.contains('active'))resize()});
+if(typeof location!=='undefined'&&new URLSearchParams(location.search).get('bell')==='1')enter();
 }
 return Object.freeze({create,step,choose,rewind,canChoose,openCell,ray,exportState,mount,grid:()=>grid.map(row=>row.slice())});
 });
