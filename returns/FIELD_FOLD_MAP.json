@@ -1,14 +1,14 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T13:04:16.376Z",
- "returns_total": 299,
- "raw_distinct_states": 114,
+ "generated": "2026-10-24T13:08:02.554Z",
+ "returns_total": 300,
+ "raw_distinct_states": 115,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
  "phase_distribution": {
   "SOURCE": 0,
   "HOLD": 97,
-  "RETURN": 147,
+  "RETURN": 148,
   "RESIDUE": 55
  },
  "residue_count": 55,
@@ -515,6 +515,10 @@
   },
   {
    "state": "CANDIDATE / LOCAL_CORE_PASS / INLINE_JS_PASS / CI_REQUIRED / UNPROMOTED_DONOR",
+   "count": 1
+  },
+  {
+   "state": "MERGED / OPERATIONAL",
    "count": 1
   },
   {
@@ -1162,6 +1166,13 @@
    "verified": false,
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "residue_kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_CREW_SOURCE_WITNESS_2026-10-24.json",
+   "raw": "MERGED / OPERATIONAL",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "FIELD_EVOLUTION_2026-09-21.json",
@@ -3089,7 +3100,7 @@
     "mismatches": [
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 97",
-     "phase_distribution.RETURN: receipt 135 vs map 147",
+     "phase_distribution.RETURN: receipt 135 vs map 148",
      "phase_distribution.RESIDUE: receipt 7 vs map 55",
      "verified_flagged: receipt 95 vs map 73"
     ],
