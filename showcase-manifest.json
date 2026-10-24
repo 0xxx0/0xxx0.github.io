@@ -71,8 +71,9 @@
       "state": "ACTIVE",
       "receipt": "/returns/FIELD_INDEX_CREW_HANDOFF_0101_2026-10-24.json",
       "machine_view": "FIELD",
-      "version": "0.10.1",
+      "version": "0.10.2",
       "transfer": [
+        "0.10.2 HELD WALK: native LIST pins the held source across paging, walks declared parent/child/peer edges without inferred similarity, and preserves frame STEP / exact RETURN.",
         "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
