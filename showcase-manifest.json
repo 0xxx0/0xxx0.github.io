@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-25T00:04:25+08:00",
+  "updated": "2026-10-25T01:42:44+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10419,7 +10419,7 @@
       "family": "FIELD / OPS",
       "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers via one-tap Telegram deep links, fold receipts. Projection of sovereign-node/corpus/calls/calls.json; regenerate with scripts/build-calls.py.",
       "index": {
-        "updated_at": "2026-10-25T00:04:25+08:00",
+        "updated_at": "2026-10-25T01:42:44+08:00",
         "work_modes": [
           "OPERATE",
           "IMPLEMENT",
@@ -10831,7 +10831,7 @@
       "family": "FIELD / OPS",
       "role": "Decision surface: 14 escalated promises pre-set to kestrel's recommendation with reasons + 10 open calls with real options. Tap, copy the one-line reply, paste back to execute. 12 closed / 1 snoozed / 1 held on 2026-10-24.",
       "index": {
-        "updated_at": "2026-10-24T22:58:17+08:00",
+        "updated_at": "2026-10-25T01:42:44+08:00",
         "work_modes": [
           "OPERATE"
         ]
