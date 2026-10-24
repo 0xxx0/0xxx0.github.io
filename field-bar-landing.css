@@ -14,7 +14,7 @@ html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):
  border-color:var(--line);box-shadow:inset 2px 0 0 var(--cool);height:52px;
 }
 html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlInput{
- font-size:clamp(13px,2.5vw,17px);font-weight:550;letter-spacing:0;
+ font-size:clamp(16px,2.5vw,17px);font-weight:550;letter-spacing:0;
 }
 html[data-field-words="folded"][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlPanel{
  max-height:min(62svh,480px);overscroll-behavior:contain;
