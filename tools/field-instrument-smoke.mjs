@@ -44,16 +44,16 @@ try{
       const y=tiles.map(n=>n.getBoundingClientRect().top),label=tiles[0].querySelector('.feedName'),r=tiles[0].getBoundingClientRect();
       const out={pageWidth:document.documentElement.scrollWidth,viewport:innerWidth,railScroll:rail.scrollWidth,railWidth:rail.clientWidth,
         oneRow:y.every(v=>Math.abs(v-y[0])<2),label:getComputedStyle(label).display,
-        labelText:label.textContent,idleHint:getComputedStyle(document.getElementById('apRole')).display,
+        labelText:label.textContent,labelPosition:getComputedStyle(label).position,labelVisible:label.getBoundingClientRect().height>0,idleHint:getComputedStyle(document.getElementById('apRole')).display,
         idleOpen:document.getElementById('apOpen').hasAttribute('href'),width:r.width,height:r.height};
       rail.scrollLeft=rail.scrollWidth;out.reachesEnd=rail.scrollLeft>0;return out;
     });
-    assert.ok(initial.oneRow&&initial.label==='none'&&initial.labelText,'canonical source names kept in glyph-only row '+width);
+    assert.ok(initial.oneRow&&initial.label!=='none'&&initial.labelPosition==='static'&&initial.labelVisible&&initial.labelText,'CURRENT source names visible in one strip '+width);
     const expectedHeld=(JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads||[]).map(h=>h.route).find(h=>h&&h!=='/');
     assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,expectedHeld,'first exact CURRENT head offers explicit OPEN '+width);
     assert.ok(initial.idleOpen,'existing CURRENT head is held on landing '+width);
     assert.ok(initial.railScroll<=initial.railWidth||initial.reachesEnd,'glyph rail reaches final source when overflowed '+width);
-    assert.ok(initial.width>=44&&initial.height>=44&&initial.height<=64,'compact finger-size glyphs '+width);
+    assert.ok(initial.width>=96&&initial.width<=110&&initial.height>=80&&initial.height<=94,'compact named touch targets '+width);
     assert.ok(initial.pageWidth<=initial.viewport+2,'no document horizontal overflow '+width);
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
