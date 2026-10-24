@@ -96,15 +96,16 @@ Next useful levers: measure cue usefulness before adding lore; compare WOVEN/GLY
 
 ### One enacted difference
 
-Walk from the entrance to the bell and through the east corridor. At the crossroads:
+Walk from the entrance to the bell and through the east corridor. There are **no answer buttons**. The branch is an actual change in physical law:
 
-- **FOLLOW** leaves the lower gateway closed and admits an upper circuit that returns the player to the bell via a nonlocal seam. Continuing produces a measurable additional loop.
-- **NOTICE / CUT** opens cell `(18,10)` in the lower passage while leaving the sound/contact unchanged. The player must physically reach the far exit at `(23,13)`; no button awards completion.
-- The **outer dial** rotates the actual view direction; the **inner dial** rewinds the actual player state/history and retains an evidence-only ghost of the abandoned future; centre switches POV/PLAN/CAUSE projections without mutating the player. Mobile touch and W/S/A/D controls remain available.
+- **Continue forward** past the crossroads: ordinary walking binds the pleasant sound to an upper circuit that folds back to the bell. The lower passage stays physically closed.
+- **Touch the AXIS core** while standing at the crossroads, or after experiencing the fold (keyboard: Space/E): cut the pull. The lower cell `(18,10)` becomes traversable, without changing or silencing the bell.
+- The **outer ring** turns the actual view, the **inner ring** rewinds the visited physical/causal state and exposes an occluded ghost of the discarded future. The core shows **CUT** only where it can affect the world; otherwise it switches the view between POV/PLAN/CAUSE. The header APERTURE button always switches view.
+- Completion still requires walking to the exit at `(23,13)`. A button cannot award it. One source and one native ONE RETURN engine remain untouched.
 
 The chapter is linked externally. No third-party text is fetched, stored, republished, or included in the exported source-free route. Source-addressed word/paragraph ring and user-imported sources remain available in AXIS SCORE; the illustrative Bell scenario is explicitly **not** automatically derived from arbitrary prose. The ported `/sleeper/` ONE RETURN Gate engine remains unchanged and authoritative for its own proofs.
 
-**Executable fixture:** `node tools/sleeper-bell-selftest.cjs`. The original bounded fixture completed **163 assertions** under an isolated V8 execution of exact repository source; the checked-out Node command and graphical/mobile browser remain unexecuted in this session. The rewind dial previews a history position before committing on release, and the completed scene offers an explicit rewind to the original fork.
+The rewind dial previews a history position before committing on release, and the completed scene offers explicit rewind to the original fork.
 
 ### 2026-10-24 / AXIS as an enacted timeline
 
@@ -112,7 +113,7 @@ The inner dial now records **changed position, gaze, and causal transitions**, n
 
 The source has not been remapped to a generated geometry and no outside interpretation has gained authority. The ring is a movement/conditionality instrument **within this one authored example**; it is not yet the general long-text score or Levin-inspired morphogenesis interface.
 
-**Executable fixture:** `node tools/sleeper-bell-selftest.cjs` now exercises 168 assertions (V8 replay of repository source), including six idle minutes with no forged timeline samples and a spatial echo that cannot pass through current walls. Browser/device ergonomics remain to be checked on an actual device.
+**Executable fixture:** `node tools/sleeper-bell-selftest.cjs` now exercises **184 assertions** (exact source in V8), including automatic follow from actual movement, non-bypassable gate law, six idle minutes with no forged timeline samples, and a spatial echo occluded by walls. Browser/device ergonomics still require independent verification.
 
 **Verification contract:** walk the source-contact path; reject choice before hearing; prove FOLLOW keeps the gate closed and crosses the nonlocal seam; prove NOTICE opens only the conditioned gate and permits actual exit traversal; rewind to an earlier state and branch again; inspect mobile/desktop DOM, ring hit regions, keyboard/touch and accessibility. Browser/device ergonomics not established by pure state tests. Do not call it a complete game or infer psychological/educational benefit until compared against a straightforward reading of the same example.
 

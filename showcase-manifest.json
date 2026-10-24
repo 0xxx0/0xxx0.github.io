@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T21:35:08+08:00",
+  "updated": "2026-10-24T22:58:17+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -73,7 +73,7 @@
       "machine_view": "FIELD",
       "version": "0.10.2",
       "transfer": [
-        "0.10.2 HELD WALK: native LIST pins the held source across paging, walks declared parent/child/peer edges without inferred similarity, and preserves frame STEP / exact RETURN.",
+        "0.10.2 HELD WALK: LIST pins the current source across pagination, WALK follows only declared parent/child/peer edges, STEP restores previous position and exact RETURN remains; no inferred relationship or second authority.",
         "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
@@ -10796,6 +10796,24 @@
         "work_modes": [
           "OPERATE",
           "RESEARCH"
+        ]
+      }
+    },
+    {
+      "href": "/decide/",
+      "title": "THE DESK — 14 escalated + 10 calls",
+      "kind": "instrument",
+      "parent": "/calls/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / OPS",
+      "role": "Decision surface: 14 escalated promises pre-set to kestrel's recommendation with reasons + 10 open calls with real options. Tap, copy the one-line reply, paste back to execute. 12 closed / 1 snoozed / 1 held on 2026-10-24.",
+      "index": {
+        "updated_at": "2026-10-24T22:58:17+08:00",
+        "work_modes": [
+          "OPERATE"
         ]
       }
     }
