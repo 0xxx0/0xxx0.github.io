@@ -48,7 +48,9 @@ export function mountSemanticField(api,{start=false}={}){
   if(fold.schema!=='field-fold/v2'||fold.routes?.routes_total!==routes.length||!map)
    throw Error('FIELD operation fold does not match current manifest');
   const verbs=[...new Set(routes.map(r=>String(r.operation||'').trim()).filter(Boolean))];
-  if(verbs.some(v=>!Object.hasOwn(map,v)||!ACTION_KERNEL.includes(map[v])))
+  // Explicit OTHER and missing raw operation are *residue*, never fabricated coordinates.
+  // Only an absent fold entry or an unrecognised class schema invalidates the fold itself.
+  if(verbs.some(v=>!Object.hasOwn(map,v)||(!ACTION_KERNEL.includes(map[v])&&map[v]!=='OTHER')))
    throw Error('FIELD operation mapping incomplete; no invented placement');
   return {routes,map,hash:await hashText(raw)};
  }
