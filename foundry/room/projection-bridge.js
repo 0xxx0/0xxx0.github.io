@@ -114,7 +114,7 @@ function setView(next){
  if(next==='room')draw();
 }
 select.addEventListener('change',()=>setView(select.value));
-lens.querySelector('#unfoldRoom').addEventListener('click',()=>setView('plain'));
+lens.querySelector('#unfoldRoom').addEventListener('click',()=>unfoldAt(RM.snapshot().focus));
 function audit(){
  const all=[...program().querySelectorAll('.block')],ids=all.map(x=>x.id),issues=[];
  if(new Set(ids).size!==ids.length)issues.push('DUPLICATE_BLOCK_ID');
@@ -137,9 +137,9 @@ setView(['plain','rail','room'].includes(requested)?requested:'plain');
 document.addEventListener('click',e=>{if(e.target.closest('.tools,.viewport'))requestAnimationFrame(()=>{if(mode==='room')draw()})});
 document.addEventListener('input',()=>{if(mode==='room')requestAnimationFrame(draw)});
 document.addEventListener('keydown',e=>{
+ if(e.target.closest('#projectionMode')&&['ArrowLeft','ArrowRight','Enter'].includes(e.key)){e.stopPropagation();return}
  if(mode!=='room')return;
  if(e.target.closest('#roomLens')&&e.key==='Enter'){e.stopPropagation();return}
- if(e.target.closest('#projectionMode')&&['ArrowLeft','ArrowRight','Enter'].includes(e.key)){e.stopPropagation();return}
  if(e.target.closest('input,textarea,select'))return;
  const i=faces.findIndex(f=>f.id===face);
  if(e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();setFace(faces[(i+faces.length-1)%faces.length].id)}
