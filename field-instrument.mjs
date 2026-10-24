@@ -99,7 +99,19 @@ function wire(){
   // THE VIEW CYCLE: STRIP <-> PLAN. The room is the third state and is reached
   // by folding a mark, never by this chip — and the chip moves no frame field.
   $('#fiView').onclick=()=>toggleViews();
-  $('#fiViewTabs').querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+  const readingTabs=$('#fiViewTabs');
+  readingTabs.querySelectorAll('[data-view]').forEach(b=>{
+    b.onclick=()=>setView(b.dataset.view);
+    b.onkeydown=e=>{
+      const tabs=[...readingTabs.querySelectorAll('[data-view]')],i=tabs.indexOf(b);
+      if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){
+        e.preventDefault();e.stopPropagation();
+        const k=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;
+        tabs[k].focus({preventScroll:true});return
+      }
+      if(e.key==='Escape'){e.preventDefault();e.stopPropagation();toggleViews(false)}
+    };
+  });
   wireRibbon();wirePlan();wireDecode();
   let resizeTimer=0;
   // The plan re-fits its box, like the strip: the sizing law is pure, the box is not.
@@ -351,7 +363,6 @@ function setView(mode){
   notice(mode.toUpperCase()+' · same source, focus and RETURN');
   return true;
 }
-function cycleView(){return setView(planView?'strip':'plan')}
 // LIST uses exactly the route identities of the ribbon and plan, in AXIS order.
 function renderList(){
   const host=$('#fiList');if(!enabled||!view||!host)return;
