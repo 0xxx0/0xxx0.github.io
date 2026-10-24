@@ -64,6 +64,19 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(digest!==e.hash||raw.slice(e.start,e.end)!==e.quote)throw Error('DOOR revision/quote drift. Current source unchanged.');
   return raw;
  }
+ async function citedSource(path){
+  // A literal source citation is navigation, never an inferred claim of support.
+  const address=sourcePath(path);if(!address)throw Error('Not an addressed text/JSON citation.');
+  const request=epoch,r=await fetch(address,{cache:'no-store'});
+  if(!r.ok)throw Error('Cited source unavailable: HTTP '+r.status);
+  const raw=await r.text();
+  if(request!==epoch||disposed)throw Error('Source selection changed.');
+  const digest=await hashText(raw);if(request!==epoch||disposed)throw Error('Source selection changed.');
+  const departure={at:endpoint(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),returnTo:source.returnTo};
+  const next=++epoch;await load(raw,address.split('/').at(-1),address,{request:next,hash:digest});
+  doorFrames.push(departure);if(doorFrames.length>DOOR_DEPTH)doorFrames.shift();
+  persist(snap(),true);status('Opened cited source, without inferring its meaning. RETURN restores the prior document.');
+ }
  async function cross(e,remember=true){
   const raw=await verifiedEnd(e);
   const from=remember?{at:endpoint(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),returnTo:source.returnTo}:null;
@@ -157,6 +170,14 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    b.title='Cross-source interpretation. Destination bytes and quote verified before crossing; RETURN restores exact departure.';
    b.onclick=run(()=>cross(to));port(b);
   }
+  // Only literal code-delimited same-origin document paths are navigable:
+  // no guessed relationships, search results, remote hosts, or auto-follow.
+  const cited=new Set();
+  if(u&&source.address){
+   const quoted=source.raw.slice(u.start,u.end),rx=/`(\/[a-zA-Z0-9._\/-]+\.(?:md|markdown|txt|json|csv|log|ya?ml))`/g;
+   for(const m of quoted.matchAll(rx)){const path=sourcePath(m[1]);if(path&&path!==source.address)cited.add(path);if(cited.size>=8)break}
+  }
+  for(const path of cited){const b=document.createElement('button');b.className='ip-relation';b.textContent='SOURCE ↗ '+path;b.title='Literal source citation from this exact text; no semantic claim';b.onclick=run(()=>citedSource(path));port(b)}
   for(const action of nativeActions()){const a=document.createElement('a');a.href=action.target;a.textContent=(action.label||action.via||action.class||'OPEN')+' ↗';a.title='Native owner: '+(nativeRecord.field?.owner||'FIELD ROUTE');port(a)}
   if(source.returnTo){const a=document.createElement('a');a.href=source.returnTo;a.textContent='↩ CALLER';port(a)}
   el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:''].filter(Boolean).join(' · ');
