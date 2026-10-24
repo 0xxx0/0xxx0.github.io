@@ -1,6 +1,6 @@
 import {glyph as G,history as H} from '../lib/interphase.mjs?v=0.5.0';
 import {esc} from '../lib/dom.js';
-import {substrateModel,semanticPoint,OP_MARK,REL_MARK,ACTION_KERNEL} from './substrate-kernel.mjs';
+import {substrateModel,semanticPoint,OP_MARK,REL_MARK,ACTION_KERNEL,validatedOperationFold} from './substrate-kernel.mjs';
 
 const body=document.querySelector('#surfaceBody'),modes=document.querySelector('.modes');
 if(body&&modes){
@@ -9,7 +9,8 @@ if(body&&modes){
     modeButton=document.createElement('button');modeButton.type='button';modeButton.className='mode';modeButton.dataset.mode='SUBSTRATE';modeButton.textContent='GLYPHFIELD';
     const research=modes.querySelector('[data-mode="RESEARCH"]');research?research.insertAdjacentElement('beforebegin',modeButton):modes.append(modeButton);
   }
-  let source=null,loading=null,hops=Math.max(1,Math.min(3,Number(localStorage.getItem('interphase.substrate.hops'))||2));
+  const savedDepth=()=>{try{return Math.max(1,Math.min(3,Number(localStorage.getItem('interphase.substrate.hops'))||2))}catch{return 2}};
+  let source=null,loading=null,hops=savedDepth();
   let selectedKey=null;const memberAt=new Map();let wheelDelta=0;
   const json=async(url,label)=>{const r=await fetch(url);if(!r.ok)throw Error(label);return r.json()};
   const load=()=>source?Promise.resolve(source):(loading||=Promise.all([
@@ -20,20 +21,13 @@ if(body&&modes){
   const routeId=r=>{try{return H.objectFromRoute(r).id}catch{return 'route:'+String(r?.href||'')}};
   const currentRoute=routes=>routes.find(r=>routeId(r)===currentId())||null;
   const relationMarks=items=>[...new Set(items.map(x=>REL_MARK[x.relation]||'?'))].join('');
-  const hrefFor=r=>`/interphase/?route=${encodeURIComponent(r.href)}#substrate`;
+  const hrefFor=r=>`/interphase/?legacy=1&route=${encodeURIComponent(r.href)}#substrate`;
   const glyphFor=(item,distance)=>G.svg({
     id:routeId(item.record),label:item.record.title||item.href,kind:item.record.kind||'route',address:item.href,
     channels:['identity','address',...(distance?['depth']:[])],authority:'VIEW',operations:[]
   },{size:96,projection:'SUBSTRATE'});
   const pointPct=p=>`left:${(p.x*100).toFixed(3)}%;top:${(p.y*100).toFixed(3)}%`;
 
-  function exactFold(fold,routes){
-    const rt=fold?.routes,map=rt?.operation_class_map;
-    if(fold?.schema!=='field-fold/v2'||!rt||rt.routes_total!==routes.length||!map||typeof map!=='object')return null;
-    const raw=[...new Set(routes.map(r=>String(r?.operation??'').trim()).filter(Boolean))];
-    if(raw.some(op=>!Object.prototype.hasOwnProperty.call(map,op)||!ACTION_KERNEL.includes(String(map[op]||'').trim())))return null;
-    return map;
-  }
   function selectedMember(model){
     if(!selectedKey)return null;const g=model.groups.find(x=>x.key===selectedKey);if(!g)return null;
     const i=Math.max(0,Math.min(g.items.length-1,memberAt.get(g.key)||0));return {group:g,item:g.items[i],index:i};
@@ -53,9 +47,9 @@ if(body&&modes){
     }).join('');
     const chosen=selectedMember(model);
     const readout=chosen?`<span><b>${esc(chosen.item.record.title||chosen.item.href)}</b><small>${esc(chosen.item.href)} · ${esc(chosen.item.rawOperation)} → ${esc(chosen.group.operation)} · ${chosen.group.distance} hop${chosen.group.distance===1?'':'s'} · ${esc(chosen.item.relation)}</small></span><a class="btn hot" href="${hrefFor(chosen.item.record)}">HOLD / RECENTER</a>`:`<span><b>SEMANTIC CURSOR</b><small>tap a glyph · repeated tap cycles exact-coordinate collisions · ${model.placedCount}/${model.visibleCount} placed</small></span>`;
-    const unplaced=model.unplaced.length?`<div class="substrate-residue" title="No position is invented when the explicit operation fold lacks a class.">RESIDUE · ${model.unplaced.length} unplaced · operation fold has no lawful class</div>`:'';
+    const unplaced=model.unplaced.length?`<div class="substrate-residue" aria-label="Routes without warranted coordinates">RESIDUE · ${model.unplaced.length} unplaced · ${model.unplaced.slice(0,8).map(item=>`<a href="${hrefFor(item.record)}" title="${esc(item.rawOperation||'No operation recorded')} → ${esc(item.operationClass||'UNRECORDED')}">${esc(item.record.title||item.href)}</a>`).join(' · ')}${model.unplaced.length>8?` · +${model.unplaced.length-8} unplaced in SOURCE`:''}</div>`:'';
     const generated=String(fold?.generated||'').replace('T',' ').replace(/\.\d+Z$/,'Z');
-    body.innerHTML=`<section class="substrate-shell" data-hops="${model.maxHops}" data-mapping="${esc(model.mapping)}"><div class="substrate-law"><span>ANGLE = FIELD FOLD action class</span><span>RADIUS = parent-edge hops</span><span>LINE = declared parent edge</span><button type="button" id="substrateDepth">DEPTH ${model.maxHops} / 3</button></div><div class="substrate-stage" tabindex="0" aria-label="Semantic substrate. Angle uses the explicit FIELD FOLD action class. Radius encodes exact parent-edge hops from the held route. Parent lines only appear when declared in the manifest. Sector adjacency is mnemonic, not similarity.">${guide(model)}<div class="substrate-focus" style="left:50%;top:50%;--node-size:88px"><span class="substrate-glyph">${glyphFor(focus,0)}</span><span class="substrate-node-mark">⊙</span></div>${nodes}</div><div class="substrate-readout" aria-live="polite">${readout}</div>${unplaced}<div class="instrument-caption">GLYPHFIELD · 71 raw operation verbs → explicit 6-class read-only fold · sector order is mnemonic, never similarity · collisions aggregate · fold ${esc(generated)}</div></section>`;
+    body.innerHTML=`<section class="substrate-shell" data-hops="${model.maxHops}" data-mapping="${esc(model.mapping)}"><div class="substrate-law"><span>ANGLE = FIELD FOLD action class</span><span>RADIUS = parent-edge hops</span><span>LINE = declared parent edge</span><button type="button" id="substrateDepth">DEPTH ${model.maxHops} / 3</button></div><div class="substrate-stage" tabindex="0" aria-label="Semantic substrate. Angle uses the explicit FIELD FOLD action class. Radius encodes exact parent-edge hops from the held route. Parent lines only appear when declared in the manifest. Sector adjacency is mnemonic, not similarity.">${guide(model)}<div class="substrate-focus" style="left:50%;top:50%;--node-size:88px"><span class="substrate-glyph">${glyphFor(focus,0)}</span><span class="substrate-node-mark">⊙</span></div>${nodes}</div><div class="substrate-readout" aria-live="polite">${readout}</div>${unplaced}<div class="instrument-caption">GLYPHFIELD · ${Number(fold?.routes?.operation_distinct)||0} raw operation verbs → explicit 6-class read-only fold · sector order is mnemonic, never similarity · collisions aggregate · fold ${esc(generated)}</div></section>`;
     body.querySelectorAll('[data-substrate-group]').forEach(b=>b.onclick=()=>{
       const key=b.dataset.substrateGroup,g=model.groups.find(x=>x.key===key);if(!g)return;
       if(selectedKey===key&&g.items.length>1)memberAt.set(key,((memberAt.get(key)||0)+1)%g.items.length);selectedKey=key;renderModel(model,record,fold);
@@ -70,7 +64,7 @@ if(body&&modes){
     body.innerHTML='<div class="empty">Resolving declared FIELD relations + action fold…</div>';
     try{
       const {manifest,fold}=await load();if(document.body.dataset.interphaseMode!=='SUBSTRATE')return;
-      const routes=Array.isArray(manifest.routes)?manifest.routes:[],record=currentRoute(routes),operationClassMap=exactFold(fold,routes);
+      const routes=Array.isArray(manifest.routes)?manifest.routes:[],record=currentRoute(routes),operationClassMap=validatedOperationFold(fold,routes);
       if(!record){body.innerHTML='<div class="empty">This source has no manifest route. GLYPHFIELD refuses to invent coordinates. Use SOURCE / HISTORY or open its native owner.</div>';return}
       if(!operationClassMap){body.innerHTML='<div class="empty">FIELD operation fold is stale or incomplete for this manifest. GLYPHFIELD refuses geometry until the explicit mapping is regenerated.</div>';return}
       const model=substrateModel(routes,record.href,{kernel:ACTION_KERNEL,maxHops:hops,operationClassMap});
@@ -78,7 +72,7 @@ if(body&&modes){
       renderModel(model,record,fold);
     }catch(e){body.innerHTML=`<div class="empty">GLYPHFIELD HELD · ${esc(e.message)}</div>`}
   }
-  function setHops(next){hops=Math.max(1,Math.min(3,Number(next)||1));localStorage.setItem('interphase.substrate.hops',String(hops));selectedKey=null;render()}
+  function setHops(next){hops=Math.max(1,Math.min(3,Number(next)||1));try{localStorage.setItem('interphase.substrate.hops',String(hops))}catch{}selectedKey=null;render()}
   new MutationObserver(()=>render()).observe(document.body,{attributes:true,attributeFilter:['data-interphase-mode']});
   const rail=document.querySelector('#railId');if(rail)new MutationObserver(()=>{if(document.body.dataset.interphaseMode==='SUBSTRATE')render()}).observe(rail,{childList:true,characterData:true,subtree:true});
   if(location.hash==='#substrate'){

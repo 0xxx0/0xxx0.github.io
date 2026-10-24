@@ -56,6 +56,9 @@ jobs:
           node --check lib/interphase-history.js
           node --check interphase/continuum.mjs
           node --check interphase/entry.mjs
+          node --check interphase/substrate.mjs
+          node --check interphase/substrate-kernel.mjs
+          node --check tools/interphase-substrate-smoke.mjs
           node --check interphase/navigation.mjs
           node --check field-work.mjs
           node --check rsvp/reader.js
@@ -68,6 +71,7 @@ jobs:
           node tools/interphase-workflow-selftest.mjs
           node tools/interphase-extensions-selftest.mjs
           node tools/interphase-compositor-selftest.mjs
+          node tools/interphase-substrate-selftest.mjs
           PYTHONPATH=recovery/omega python3 -m unittest discover -s recovery/omega/tests -q
       - name: Optional package transport
         run: |
@@ -83,11 +87,13 @@ jobs:
       - name: Durable workbench / mobile / protected import
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
         run: |
           python3 -m http.server 8765 >/tmp/interphase-server.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
+          node tools/interphase-substrate-smoke.mjs
       - name: One-source continuum / native clock / exact reader RETURN
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
