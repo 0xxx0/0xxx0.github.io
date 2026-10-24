@@ -1,0 +1,64 @@
+{
+  "schema": "field-return/v1",
+  "id": "FIELD_CREW_SOURCE_WITNESS_2026-10-24",
+  "date": "2026-10-24",
+  "state": "MERGED / OPERATIONAL",
+  "object": "FIELD crew handoff source freshness",
+  "source": {
+    "user_intent": "Reduce the gap between crew mates and turn convergence into a system that survives handoff without repeated briefing or silent authority drift.",
+    "existing_host": "/scripts/emit-agent-transcript.mjs --handoff + /control/SUBMISSION_CONTRACT.json",
+    "research_correspondence": [
+      "A2A 1.0: client-side artifact version linkage is the client's responsibility; context continuity is not artifact freshness.",
+      "MCP 2026 filesystem work: optimistic concurrency is an explicit interoperability concern; FIELD does not claim MCP conformance."
+    ]
+  },
+  "before": "Crew handoff preserved object/intent/moves/evidence/RETURN, but another worker could receive a semantically correct packet after the underlying repo bytes had changed and still see TURN_READY.",
+  "delta": [
+    "Add optional execution.source_witness with GIT_BLOB path + exact Git blob revision.",
+    "Add --witness <repo-path> --json to the existing machine entrypoint.",
+    "Automatically preflight supplied witnesses during --handoff.",
+    "FRESH resumes the pre-existing coordination state.",
+    "STALE or MISSING fails closed to SOURCE_REQUIRED and requires fresh SOURCE/HOLD.",
+    "The opaque crew context handle does not change with revision because freshness is not object identity.",
+    "No task store, crew dashboard, auto-router, queue, memory service or new authority source was added."
+  ],
+  "evidence": {
+    "pull_request": "https://github.com/0xxx0/0xxx0.github.io/pull/992",
+    "merge_commit": "b24b61cb22a10848a6fd76eea74a5444693cef8e",
+    "merged_blobs": {
+      "control/SUBMISSION_CONTRACT.json": "04595fd04270dab3f788e906340f2550ba123ffb",
+      "lib/field-crew-handoff.mjs": "3800019d9e43e5cdc0c45fe38392c93e56bfd233",
+      "scripts/emit-agent-transcript.mjs": "ebd783f2d2ce2b1d77ba0b9581e51fb655bd37bd",
+      "tools/field-machine-reducer-selftest.mjs": "cc0f23d0f2e1bb0f76976a6dc3a00d058adce97f",
+      "llms.txt": "d642ffee92fb87a10e784a43d04e80ec5bec9ff5"
+    },
+    "workflows": [
+      {
+        "name": "field-stage-handoff",
+        "run_id": 40096699001,
+        "result": "PASS"
+      },
+      {
+        "name": "gitleaks",
+        "run_id": 40096699047,
+        "result": "PASS"
+      },
+      {
+        "name": "public-surface-check",
+        "run_id": 40096699017,
+        "result": "FAIL / INHERITED CURRENT↔manifest drift"
+      }
+    ],
+    "inherited_failure_proof": {
+      "control/CURRENT.json": "master and PR branch identical blob 1503764e0d9c59d993184512ef2d7d863e93e3b2",
+      "showcase-manifest.json": "master and PR branch identical blob b044e5cea9718e8e5695a02a7270d682d4d31647"
+    }
+  },
+  "residue": {
+    "operator_burden": "Ordinary human language remains sufficient. Coding workers only add a source witness when a handoff may outlive the current worker/turn.",
+    "next_experiment": "Use source_witness on one real cross-thread/cross-agent edit and measure whether it prevents repeated briefing or stale-context repair.",
+    "stop": "Do not add leases, distributed locks, shared task state or agent registry unless a real handoff failure survives this witness guard."
+  },
+  "return_address": "/llms.txt",
+  "next_authority": "NONE"
+}
