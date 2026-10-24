@@ -5,7 +5,12 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
+ const stale=['/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
+  if(prime&&stale.includes(req.url)){
+   res.setHeader('Cache-Control','public,max-age=86400');res.setHeader('Content-Type',req.url.includes('.css')?'text/css':'application/javascript');
+   res.end(req.url.includes('.css')?'/* prior-continuum */ html{--prior-continuum:1}':'/* prior-continuum */ throw Error("Cached prior continuum loaded");');return;
+  }
   const name=decodeURIComponent(new URL(req.url,'http://local').pathname),file=path.join(root,name,name.endsWith('/')?'index.html':'');
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.writeHead(404);res.end();return}
   res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.mjs':'application/javascript','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain');fs.createReadStream(file).pipe(res);
@@ -14,8 +19,26 @@ async function continuumBrowserProof(){
  const browser=await chromium.launch({headless:true,args:JSON.parse(process.env.SMOKE_ARGS||'[]'),executablePath:process.env.SMOKE_BROWSER||undefined});
  const raw='# Water and gates\n\nWater flows downhill. A gate changes its route.\n\nThe gate is closed. Water collects upstream.\n\nAn observation can question an explanation. A path records attention, not proof of understanding.';
  try{
+  // Real HTTP cache: route interception would disable it. Prime the addresses
+  // used by the previous release, prove those responses remain warm, then load
+  // both native entrances. Changed adapter/core/style must share one new key.
+  const cached=await browser.newContext(),cachedPage=await cached.newPage(),cacheErrors=[],cacheRequests=[];
+  cachedPage.on('pageerror',e=>cacheErrors.push(e.message));cachedPage.on('request',r=>cacheRequests.push(new URL(r.url()).pathname+new URL(r.url()).search));
+  await cachedPage.goto(base+'/interphase/SPEC.md');prime=true;
+  await cachedPage.evaluate(async urls=>Promise.all(urls.map(u=>fetch(u).then(r=>r.text()))),stale);prime=false;
+  const warm=await cachedPage.evaluate(async urls=>Promise.all(urls.map(u=>fetch(u).then(r=>r.text()))),stale);
+  assert.ok(warm.every(s=>s.includes('prior-continuum')),'the stale responses must really remain in HTTP cache');
+  const firstFresh=cacheRequests.length;
+  await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
+  assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
+  for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
+   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.6-dial2'),'release key missing: '+file);
+  }
+  await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
+  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.6-dial2'));assert.deepEqual(cacheErrors,[]);
+  await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
   for(const width of [390,320,1280]){
-   const context=await browser.newContext({viewport:{width,height:width===320?640:900},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[];
+   const context=await browser.newContext({viewport:{width,height:width===320?568:900},hasTouch:width<700,reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[];
    page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(new URL(r.url()).pathname));
    const ip=id=>page.locator('[data-ip="'+id+'"]'),snap=()=>page.evaluate(()=>InterphaseInstrument.snapshot());
    const wait=()=>page.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.raw);
@@ -63,6 +86,11 @@ async function continuumBrowserProof(){
    const observations=requests.filter(p=>p==='/showcase-manifest.json').length;await page.evaluate(()=>InterphaseInstrument.importPacket(InterphaseInstrument.packet()));assert.ok(requests.filter(p=>p==='/showcase-manifest.json').length>observations,'RETURN resolves native ports from a fresh host source');
    await page.evaluate(()=>Promise.all([InterphaseInstrument.load('older source','old'),InterphaseInstrument.load('latest source wins','new')]));assert.equal((await snap()).source.raw,'latest source wins');
    await load(raw);const hash=(await snap()).source.hash,c=raw.indexOf('gate changes')+3;
+   const firstPosition=(await snap()).attention.char,firstScope=(await snap()).attention.scope;
+   assert.ok(firstPosition>=Number(await ip('local-slider').getAttribute('aria-valuemin'))&&firstPosition<=Number(await ip('local-slider').getAttribute('aria-valuemax')),'fresh source opens inside its actual held range');
+   await ip('narrow').click();assert.notEqual((await snap()).attention.scope,firstScope,'the first + must narrow the source');assert.equal((await snap()).attention.char,firstPosition);
+   await page.evaluate(()=>{InterphaseInstrument.setScope('PARA');InterphaseInstrument.seek(0)});
+   assert.match(await ip('local-slider').getAttribute('aria-valuetext'),/outside this range/,'a caret in the heading is not a position inside the nearest paragraph');
    await page.evaluate(c=>{InterphaseInstrument.seek(c);InterphaseInstrument.setScope('SENT')},c);
    await page.reload();await wait();assert.equal((await snap()).source.raw,raw,'reload retains a newly opened source');assert.equal((await snap()).attention.char,c);assert.equal((await snap()).attention.scope,'SENT');
    await ip('held').evaluate(x=>x.dataset.identity='same');await ip('view-walk').click();
@@ -75,17 +103,46 @@ async function continuumBrowserProof(){
    const dialBox=await ip('ring').boundingBox();assert.ok(dialBox?.width>100,'dial visible at phone width');
    await page.mouse.click(dialBox.x+dialBox.width*(159/180),dialBox.y+dialBox.height*.5);
    const outerChar=(await snap()).attention.char;
-   assert.ok(Math.abs(outerChar-Math.round((raw.length-1)/4))<=2,'outer ring selects absolute source fraction');
+   assert.ok(Math.abs(outerChar-Math.round((raw.length-1)/6))<=2,'outer arc selects absolute source fraction');
    await page.mouse.click(dialBox.x+dialBox.width*(135/180),dialBox.y+dialBox.height*.5);
    const innerChar=(await snap()).attention.char;
    assert.notEqual(innerChar,outerChar,'inner ring selects native range-local fraction');
    assert.equal((await snap()).source.hash,hash);
+   assert.ok(dialBox.width*36/180>=44-0.01,'DIAL bands have 44px radial separation on a phone');
+   const current=await page.evaluate(()=>InterphaseInstrument.packet());
+   const local=ip('local-slider'),absolute=ip('absolute-slider'),lo=Number(await local.getAttribute('aria-valuemin')),hi=Number(await local.getAttribute('aria-valuemax'));
+   await local.focus();await local.press('End');assert.equal((await snap()).attention.char,hi,'local End stays in the held native range');
+   await local.press('ArrowRight');assert.equal((await snap()).attention.char,hi,'local keyboard control clamps at the range end');
+   await local.press('Home');assert.equal((await snap()).attention.char,lo);
+   const departureChar=(await snap()).attention.char;
+   await absolute.focus();await absolute.press('End');assert.equal((await snap()).attention.char,raw.length-1,'whole source End reaches the last character');
+   await page.locator('#fiReturn').click();assert.equal((await snap()).attention.char,departureChar,'dial RETURN restores exact departure');
+   // Actual pointer input at the last endpoint, then in the empty seam. A
+   // finite source must not wrap to its beginning when touching that seam.
+   const p={x:dialBox.x+dialBox.width*(90-69/Math.sqrt(2))/180,y:dialBox.y+dialBox.height*(90-69/Math.sqrt(2))/180};
+   if(width<700)await page.touchscreen.tap(p.x,p.y);else await page.mouse.click(p.x,p.y);
+   assert.equal((await snap()).attention.char,raw.length-1);
+   const last=await snap();
+   const seam={x:dialBox.x+dialBox.width/2,y:dialBox.y+dialBox.height*21/180};
+   if(width<700)await page.touchscreen.tap(seam.x,seam.y);else await page.mouse.click(seam.x,seam.y);
+   assert.deepEqual((await snap()).attention,last.attention);assert.deepEqual((await snap()).frames,last.frames,'empty seam cannot create a RETURN frame');
+   assert.equal(await absolute.getAttribute('aria-valuenow'),String(raw.length-1));
+   assert.equal(await ip('body').textContent(),'A path records attention, not proof of understanding.','DIAL previews the held native range; READ retains surrounding context');
+   const bodyFits=await ip('body').evaluate(n=>{const body=n.getBoundingClientRect(),held=n.closest('.ip-held').getBoundingClientRect();return body.top>=held.top&&body.bottom<=held.bottom+1});
+   assert.equal(bodyFits,true,'the selected sentence must actually be readable inside the aperture');
+   const dialTransport=await ip('play').boundingBox();assert.ok(dialTransport.y+dialTransport.height<=page.viewportSize().height,'DIAL transport stays reachable');
+   if(process.env.SCREENSHOT_DIR)await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`dial-${width}.png`)});
+   await page.evaluate(p=>InterphaseInstrument.importPacket(p),current);
    await ip('view-plain').click();assert.equal((await snap()).attention.char,innerChar,'view changes must not move held source');
    await bar(':dial');assert.equal((await snap()).attention.view,'dial');
    const savedDial=await page.evaluate(()=>InterphaseInstrument.packet());
    await page.evaluate(p=>InterphaseInstrument.importPacket(p),savedDial);
    assert.equal((await snap()).attention.view,'dial','dial view survives strict RETURN');
    assert.equal((await snap()).attention.char,innerChar,'dial source position survives RETURN');
+   await load('{"title":"Gate","role":"holds","proof":false}','gate-fields.json');await page.evaluate(()=>InterphaseInstrument.setScope('ROOT'));
+   assert.equal(await ip('residue').isVisible(),true);assert.match(await ip('residue').textContent(),/1 other fields/,'DIAL must retain hidden-field counts');
+   assert.equal(await ip('title').isVisible(),true);assert.equal(await ip('title').textContent(),'Gate','a JSON object title is identity, not repeated prose context');
+   await page.evaluate(p=>InterphaseInstrument.importPacket(p),savedDial);
    await ip('view-walk').click();
 
    const before=(await snap()).attention.char;await bar(':unsupported');assert.equal((await snap()).attention.char,before);assert.match(await ip('status').textContent(),/not supported/);

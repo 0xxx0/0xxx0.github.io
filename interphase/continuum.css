@@ -55,15 +55,20 @@
 .ip-dot-local{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:2.5}
 .ip-axis [data-ip="marks-ring"]{fill:none;stroke:var(--ip-hot);stroke-width:1.4;opacity:.8;pointer-events:none}
 .ip-continuum[data-view="dial"] .ip-axis{padding:4px 0 10px}
-.ip-continuum[data-view="dial"] .ip-axis svg{width:min(62vw,34svh,268px);height:auto;max-height:268px}
+.ip-continuum[data-view="dial"] .ip-axis{gap:4px}
+.ip-continuum[data-view="dial"] .ip-axis svg{width:min(220px,calc(100vw - 96px));height:auto;max-height:220px}
+.ip-axis [role="slider"]:focus-visible{outline:none}
+.ip-axis [role="slider"]:focus-visible path{stroke:var(--ip-hot);stroke-width:3}
 .ip-continuum[data-view="dial"] .ip-scene{display:flex;flex-direction:column;max-width:720px;height:100%;gap:5px}
 .ip-continuum[data-view="dial"] .ip-passage{width:100%;transform:none;position:relative;inset:auto;pointer-events:auto}
 .ip-continuum[data-view="dial"] .ip-held{flex:1;min-height:70px;max-height:100%}
+.ip-continuum[data-view="dial"] .ip-before,.ip-continuum[data-view="dial"] .ip-after{display:none}
+.ip-continuum[data-view="dial"] .ip-held h1{font-size:17px;margin:6px 0}
+.ip-residue:empty{display:none}
+.ip-continuum[data-view="dial"] .ip-body{font-size:16px;line-height:1.55}
 .ip-continuum[data-view="dial"] .ip-before button,.ip-continuum[data-view="dial"] .ip-after button{min-height:0;max-height:29px;overflow:hidden;border:0;padding:2px 12px;font-size:10px}
 @media(max-width:700px){
  .ip-source{gap:4px;min-width:0}.ip-source span{font-size:10px}
  .ip-heading{gap:4px}.ip-views button{min-width:55px;padding:4px 5px;font-size:10px}
- .ip-continuum[data-view="dial"] .ip-axis{gap:6px}
- .ip-continuum[data-view="dial"] .ip-axis svg{width:min(59vw,30svh,220px);height:auto}
  .ip-continuum[data-view="dial"] .ip-held{min-height:60px;padding:10px}
 }

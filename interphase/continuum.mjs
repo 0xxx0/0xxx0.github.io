@@ -1,6 +1,7 @@
 import {hashText} from '../lib/id.js';
 import {esc,download} from '../lib/dom.js';
-import {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS,dialReading,dialChar,dialFraction,dialXY} from './navigation.mjs';
+const release=new URL(import.meta.url).search;
+const {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS,dialReading,dialChar,dialFraction,dialXY,dialArc}=await import('./navigation.mjs'+release);
 const scriptLoads=new Map();let catalogPromise;
 function sourceScript(path,key){
  if(globalThis[key])return Promise.resolve();
@@ -11,7 +12,7 @@ async function dependencies(){
  await sourceScript('/lib/document-structure.js','FieldDocumentStructure');
  await sourceScript('/lib/read-trail.js','FieldSourceTrail');
  await sourceScript('/field-aperture.js?v=0.8.7','FieldAperture');
- if(!document.querySelector('[data-interphase-continuum]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/interphase/continuum.css?v=0.10.0';l.dataset.interphaseContinuum='';document.head.append(l)}
+ if(!document.querySelector('[data-interphase-continuum]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/interphase/continuum.css'+release;l.dataset.interphaseContinuum='';document.head.append(l)}
 }
 function safePath(value){if(!value)return '';try{const u=new URL(value,location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch{return ''}}
 async function manifest(refresh=false){
@@ -38,7 +39,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <article class="ip-passage ip-held" data-ip="held"><div class="ip-range"><span data-ip="range"></span><button data-ip="back" hidden>↶ RETURN</button></div><h1 data-ip="title"></h1><div class="ip-word" aria-hidden="true"><span data-ip="word-before"></span><b data-ip="word-mark"></b><span data-ip="word-after"></span></div><div class="ip-body" data-ip="body"></div><p class="ip-residue" data-ip="residue"></p><div class="ip-doors" data-ip="doors"></div></article>
  <article class="ip-passage ip-after"><button data-ip="after" aria-label="Next source range"></button></article>
  </div></div>
- <div class="ip-axis"><button data-ip="widen" aria-label="Widen scope">−</button><svg data-ip="ring" viewBox="0 0 180 180" role="group" tabindex="0" aria-label="Source dial: outer circle moves through the entire source; inner circle moves inside this range; minus and plus change scope."><circle class="ip-track" cx="90" cy="90" r="69"/><circle class="ip-scope-track" cx="90" cy="90" r="45"/><path class="ip-window" data-ip="window"/><g data-ip="marks-ring" aria-hidden="true"></g><circle class="ip-dot ip-dot-absolute" data-ip="absolute-dot" r="6"/><circle class="ip-dot ip-dot-local" data-ip="local-dot" r="4"/><text x="90" y="82" text-anchor="middle" data-ip="scope-label"></text><text x="90" y="102" text-anchor="middle" data-ip="position-label"></text></svg><button data-ip="narrow" aria-label="Narrow scope">+</button></div>
+ <div class="ip-axis"><button data-ip="widen" aria-label="Widen scope">−</button><svg data-ip="ring" viewBox="0 0 180 180" role="group" aria-label="Source dial: outside is the whole source, inside is the held range. The gap separates beginning and end."><g data-ip="absolute-slider" role="slider" tabindex="0" aria-label="Whole source position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><path class="ip-track" d="${dialArc(0,1)}"/><circle class="ip-dot ip-dot-absolute" data-ip="absolute-dot" r="6"/></g><g data-ip="local-slider" role="slider" tabindex="0" aria-label="Position inside held range" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><path class="ip-scope-track" d="${dialArc(0,1,33)}"/><circle class="ip-dot ip-dot-local" data-ip="local-dot" r="4"/></g><path class="ip-window" data-ip="window"/><g data-ip="marks-ring" aria-hidden="true"></g><text x="90" y="82" text-anchor="middle" data-ip="scope-label"></text><text x="90" y="102" text-anchor="middle" data-ip="position-label"></text></svg><button data-ip="narrow" aria-label="Narrow scope">+</button></div>
  <nav class="ip-transport" aria-label="Traversal"><button data-ip="previous" aria-label="Previous">←</button><button data-ip="play">▶ READ</button><button data-ip="next" aria-label="Next">→</button></nav>
  <section class="ip-editor" data-ip="editor" hidden role="dialog" aria-modal="true" aria-label="Local source edit"><b data-ip="edit-range"></b><textarea data-ip="replacement" aria-label="Replacement source text" maxlength="100000"></textarea><div class="ip-row"><button data-ip="commit">COMMIT LOCAL EDIT</button><button data-ip="cancel">CANCEL</button></div><p>Only this exact range changes. Native source ownership stays unchanged.</p></section>`;
  target.append(root);
@@ -105,13 +106,13 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   el('wpm').value=s.wpm;el('play').textContent=s.playing?'Ⅱ PAUSE':'▶ READ';el('back').hidden=!frames.length&&!source.returnTo;
   el('previous').disabled=!n.before;el('next').disabled=!n.after;
   for(const [id,node] of [['before',n.before],['after',n.after]]){const a=describe(model,node);el(id).disabled=!node;el(id).textContent=node?(a.title||a.body).slice(0,180):(id==='before'?'BEGINNING':'END')}
-  const key=[source.hash,u?.path,u?.start,scope,query].join('|');
+  const key=[source.hash,u?.path,u?.start,scope,query,view].join('|');
   if(bodyKey!==key){
-   bodyKey=key;el('title').textContent=d.title||(model.kind==='TEXT'?containing(model.sections,anchor)?.key:'')||'';el('title').hidden=!el('title').textContent;
-   const detailScope=model.kind==='TEXT'&&['WORD','PHRASE','SENT'].includes(scope)?at(model,anchor,'PARA'):u;
+   bodyKey=key;el('title').textContent=d.title||(model.kind==='TEXT'?containing(model.sections,anchor)?.key:'')||'';el('title').hidden=!el('title').textContent||(view==='dial'&&model.kind==='TEXT');
+   const detailScope=model.kind==='TEXT'&&view!=='dial'&&['WORD','PHRASE','SENT'].includes(scope)?at(model,anchor,'PARA'):u;
    const detail=describe(model,detailScope),text=detail.body.slice(0,5000);
    el('body').dataset.start=String(detailScope?.start||0);el('body').dataset.exactText=model.kind==='TEXT'?'1':'0';el('body').dataset.bodyText=text;el('body').textContent=text;
-   el('residue').dataset.base=[d.hidden?`${d.hidden} other fields · exact range in SOURCE`:'',detail.body.length>5000?`${detail.body.length-5000} characters beyond this aperture`:'',u&&!(u.start<=anchor&&anchor<u.end)?'Caret is outside this scope; the nearest range is shown. Widen to inspect.':'',query?`${n.units.length} / ${n.total} units match “${query}” · lexical order`:n.total>1?`${n.total-1} other ranges remain in the source`:''].filter(Boolean).join(' · ');
+   el('residue').dataset.base=[d.hidden?`${d.hidden} other fields · exact range in SOURCE`:'',detail.body.length>5000?`${detail.body.length-5000} characters beyond this aperture`:'',u&&!(u.start<=anchor&&anchor<u.end)?'Caret is outside this scope; the nearest range is shown. Widen to inspect.':'',query?`${n.units.length} / ${n.total} units match “${query}” · lexical order`:view!=='dial'&&n.total>1?`${n.total-1} other ranges remain in the source`:''].filter(Boolean).join(' · ');
    el('raw').hidden=true;
   }
   if(el('body').dataset.exactText==='1')highlight(el('body'),Number(el('body').dataset.start),el('body').dataset.bodyText,anchor);
@@ -121,12 +122,16 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   // outer dot = absolute source position, outer arc = absolute range;
   // inner dot = offset within the currently selected native range.
   const dial=dialReading(model,scope,anchor);
-  for(const [id,point] of [['absolute-dot',dialXY(dial.absolute,69)],['local-dot',dialXY(dial.local,45)]]){
+  for(const [id,point] of [['absolute-dot',dialXY(dial.absolute,69)],['local-dot',dialXY(dial.local,33)]]){
    el(id).setAttribute('cx',String(point.x));el(id).setAttribute('cy',String(point.y));
   }
-  el('ring').setAttribute('aria-label',`Whole source character ${anchor+1} of ${source.raw.length}; ${level(model,scope).label} character ${anchor-dial.span.start+1} of ${dial.span.end-dial.span.start}. Outer ring = whole source; inner ring = held range.`);
-  const a0=-Math.PI/2+2*Math.PI*dial.window[0],a1=-Math.PI/2+2*Math.PI*dial.window[1];
-  el('window').setAttribute('d',`M ${90+78*Math.cos(a0)} ${90+78*Math.sin(a0)} A 78 78 0 ${a1-a0>Math.PI?1:0} 1 ${90+78*Math.cos(a1-.0001)} ${90+78*Math.sin(a1-.0001)}`);
+  for(const [id,start,end] of [['absolute-slider',0,source.raw.length],['local-slider',dial.span.start,dial.span.end]]){
+   const slider=el(id),value=clamp(anchor,start,end-1);
+   slider.setAttribute('aria-valuemin',String(start));slider.setAttribute('aria-valuemax',String(end-1));slider.setAttribute('aria-valuenow',String(value));
+   slider.setAttribute('aria-valuetext',anchor<start||anchor>=end?`Caret character ${anchor+1} is outside this range. Home enters at character ${start+1}.`:`Character ${value-start+1} of ${end-start}${id==='local-slider'?' in '+level(model,scope).label:''}`);
+  }
+  el('local-dot').setAttribute('opacity',dial.span.start<=anchor&&anchor<dial.span.end?'1':'.3');
+  el('window').setAttribute('d',dialArc(...dial.window,78));
   // Exact marks appear at source coordinates, never at ordinal ring slots.
   el('marks-ring').innerHTML=marks.map(c=>{
    const a=dialXY(c/Math.max(1,source.raw.length-1),82),b=dialXY(c/Math.max(1,source.raw.length-1),87);
@@ -157,7 +162,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   try{
    candidate.load(raw,{label,format:json?'TXT':'AUTO',scale:'WORD',wpm:opt.attention?.wpm||260,charIndex:opt.attention?.char??0});
    const next=compile(raw,candidate.A,json,spans),defaultScope=next.kind==='JSON'?(Array.isArray(json.data)?'COLLECTION:$':'ROOT'):(next.levels.some(l=>l.id==='PARA')?'PARA':next.levels[0].id);
-   const desired={char:0,scope:defaultScope,view,query:'',wpm:260,...opt.attention};
+   const desired={char:focusChar(next,level(next,defaultScope).units[0]),scope:defaultScope,view,query:'',wpm:260,...opt.attention};
    if(opt.rebase&&!next.levels.some(l=>l.id===desired.scope))desired.scope=defaultScope;
    const a=validateAttention(next,desired),nextLinks=opt.links||[],nextMarks=opt.marks||[];
    if(!Array.isArray(nextLinks)||nextLinks.length>128||nextLinks.some(l=>!validRelation(next,hash,l)))throw Error('RETURN relation quotes or revision do not match.');
@@ -272,17 +277,28 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  const ringPoint=e=>{const r=el('ring').getBoundingClientRect(),x=(e.clientX-r.left)*180/r.width-90,y=(e.clientY-r.top)*180/r.height-90;return{x,y,r:Math.hypot(x,y)}};
  function ringMove(e){
   if(!drag||e.pointerId!==drag.id)return;
-  const p=ringPoint(e),fraction=dialFraction(p.x,p.y);
+  const p=ringPoint(e),fraction=dialFraction(p.x,p.y,18);
+  if(fraction===null)return;
   ap.selectChar(dialChar(model,drag.scope,drag.origin,drag.band,fraction));
   paint();persist();
  }
  el('ring').onpointerdown=e=>{
-  if(!model)return;const p=ringPoint(e),band=p.r>=58?'absolute':p.r>=26?'local':null;
-  if(!band)return;ap.stop();frames.push(frame());if(frames.length>64)frames.shift();
+  if(!e.isPrimary||e.button!==0)return;
+  if(!model)return;const p=ringPoint(e),band=p.r>=51&&p.r<=87?'absolute':p.r>=15&&p.r<51?'local':null;
+  if(!band||dialFraction(p.x,p.y,18)===null)return;ap.stop();frames.push(frame());if(frames.length>64)frames.shift();
+  el(band+'-slider').focus({preventScroll:true});
   drag={id:e.pointerId,scope,origin:char(),band};
   el('ring').setPointerCapture(e.pointerId);ringMove(e);
  };
  el('ring').onpointermove=ringMove;el('ring').onpointerup=e=>{drag=null;try{el('ring').releasePointerCapture(e.pointerId)}catch{}};el('ring').onpointercancel=()=>{drag=null};
+ for(const band of ['absolute','local'])el(band+'-slider').onkeydown=e=>{
+  if(!model||!['ArrowLeft','ArrowRight','ArrowDown','ArrowUp','Home','End','PageDown','PageUp'].includes(e.key))return;
+  e.preventDefault();e.stopPropagation();
+  const span=band==='absolute'?{start:0,end:source.raw.length}:at(model,char(),scope),step=Math.max(1,Math.round((span.end-span.start)/10));
+  const delta={ArrowLeft:-1,ArrowDown:-1,ArrowRight:1,ArrowUp:1,PageDown:-step,PageUp:step}[e.key]||0;
+  const next=e.key==='Home'?span.start:e.key==='End'?span.end-1:clamp(char()+delta,span.start,span.end-1);
+  if(next!==char())seek(next,{remember:true});
+ };
  root.addEventListener('keydown',e=>{
   e.stopPropagation();
   if(e.key==='Escape'){e.preventDefault();if(!el('editor').hidden)el('cancel').click();else{ap?.stop();drawer(false)}return}

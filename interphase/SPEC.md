@@ -186,6 +186,63 @@ original visual vocabulary and source. Only after that comparison should a fragm
 enter FIELD. Do not substitute a source-reader rewrite, metadata editor or generic
 six-room metaphor and call it recovery.
 
+## Review correction: finite source, usable aperture
+
+The READ / WALK / DIAL continuation was reviewed against the original demand for
+meaningful transforms. These are still source-reading optics, not the recovered
+ROOM DOM program and not a universal work surface. PR #981's extra six-face
+presentation is parked; its proven DOM FOLD/DISSOLVE identity restoration remains
+a bounded donor. Do not revive that presentation as the default or merge its whole
+historical branch. Native HOUSE, Dayline and the other tools retain their effects.
+
+Four concrete defects were exposed in this review:
+
+- A closed dial put the first and last source characters at the same screen point.
+  The old code fails the new endpoint-separation assertion. The replacement is a
+  finite 270-degree arc: the empty quarter separates the endpoints and accepts no
+  position. Round endpoint hit areas accept ordinary touch-coordinate rounding.
+- Live first-use testing opened a Markdown source at character zero, outside its
+  held paragraph. The first **+** did nothing. Fresh sources now start inside the
+  first native range, so narrowing preserves the character and actually enters a
+  smaller range. Explicit incoming, saved and RETURN positions retain their exact
+  coordinates, including an outside caret; its local mark fades and its control
+  names that state instead of pretending it is inside the nearest range.
+- The two coordinates had no independently operable keyboard controls. Each now
+  exposes its real source bounds and current character as a slider. Arrow keys
+  move one character; Home/End reach that slider's bounds; Page keys move one tenth
+  of its range. The inner slider stays in the held native range. RETURN restores
+  the exact departure; keyboard events do not become native FIELD navigation.
+- A 320px capture showed the dial consuming the available reading space: only the
+  repeated document title was visible. DIAL now previews the exact native range,
+  while READ/WALK keep paragraph context at small text scopes. The same held DOM,
+  source hash, cursor, scope and native ports survive the change. Repeated headings
+  and neighboring previews fold away in DIAL; hidden-field, truncation, filtered
+  count and extra-operation residue remain explicit. The 220px DIAL separates its
+  two radial bands by 44px. Smaller READ/WALK rings are not claimed to meet that
+  touch target size; choose DIAL for the larger direct manipulator.
+
+The HTML entry supplies one cache key through adapter, navigation core and styles
+for both native entrances. A real HTTP-cache fixture first retains obsolete module
+and CSS responses, then opens root WORK and standalone INTERPHASE. No request
+interception is used: it would disable the cache being tested. The `dial2` suffix is
+a resource cache key, not a new canonical FIELD release/version authority.
+
+Verification: `tools/interphase-navigation-selftest.mjs` covers the finite transform
+including rounded endpoints. `tools/interphase-plus-smoke.mjs` exercises actual
+Chromium pointer input, emulated phone touch, keyboard bounds, inert seam, readable
+selected sentence, hidden-field counts, unchanged source, view/import/RETURN and
+native reader/wrist handoff at 320×568, 390×900 and 1280×900. Phone emulation and
+captures are mechanical/layout evidence; actual-device comfort, discoverability,
+comparative reading benefit and the operator's daily work remain unmeasured.
+
+Successor: continue from current master, preserve the parked ROOM disposition and
+the original Code-folder evidence above. First compare one real resume → exact
+range → useful native action → RETURN task against plain reading. Measure wrong
+choices, lost context and actions required. If the optic adds work, remove or
+demote it. Do not call radial address arithmetic semantic understanding, claim the
+40k archive is connected, or substitute this reader for original-room recovery.
+The source interval is what the geometry represents; geometry owns no effects.
+
 ## Validation and practical limits
 
 Local checks cover syntax, FIELD operations/reversibility, document integrity,
@@ -212,6 +269,13 @@ and supplies an evidence-grounded path to that instrument.
 - Beaudouin-Lafon, [Instrumental Interaction](https://www.lri.fr/~mbl/papers/CHI2000/):
   a relevant primary research direction for reusable instruments acting on domain
   objects. The indexed abstract was retrieved; the full paper timed out in this run.
+- W3C, [Slider pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slider/): separate
+  focusable controls expose their bounds and implement Arrow, Home and End operations.
+  This is keyboard behavior guidance, not evidence of touch usability.
+- Furnas/Bederson, [Space-scale diagrams](https://www.cs.umd.edu/projects/hcil/pad%2B%2B/papers/jvlc-96-pad/zoom-6.html):
+  position and scale can be analyzed together. Here position means an exact source
+  character and scale means a native source range; no arbitrary spatial ontology
+  is inferred from the diagram.
 
 The practical consequence is a task comparison and an action on the actual domain
 object. More diagrams, theories or successful transport checks cannot substitute.

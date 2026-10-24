@@ -1,4 +1,5 @@
 async function enterInterphase(){
+ const release=new URL(import.meta.url).search;
  const q=new URLSearchParams(location.search),template=document.getElementById('legacyWorkbench');
  if(q.get('legacy')==='1'){
   document.body.replaceChildren(template.content.cloneNode(true));
@@ -7,7 +8,7 @@ async function enterInterphase(){
   await import('./app.mjs?v=0.10.0');await import('./substrate.mjs');await import('./compositor.mjs');return;
  }
  template.remove();
- const {mountContinuum}=await import('./continuum.mjs?v=0.10.0'),api=await mountContinuum(document.getElementById('interphaseContinuum'));
+ const {mountContinuum}=await import('./continuum.mjs'+release),api=await mountContinuum(document.getElementById('interphaseContinuum'));
  window.InterphaseInstrument=api;
  if(q.has('src'))return api.openPath(q.get('src'));
  if(q.has('handoff')){
