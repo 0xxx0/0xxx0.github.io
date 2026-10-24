@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-field-words="folded">
 <head>
 <script>/* TG Mini App deep link. A link like t.me/<bot>/<app>?startapp=fold-bloom is
    passed to the webview as the GET parameter tgWebAppStartParam. Redirect
@@ -350,6 +350,47 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
 .fieldGesture{flex-wrap:wrap}#syncCurrent,#syncRepo,#syncFocus{white-space:normal;overflow-wrap:anywhere;max-width:none;text-overflow:clip}
 .survLabel,.survState{white-space:normal;overflow-wrap:anywhere}
 .fold>summary{flex-wrap:wrap}.sRail{white-space:normal}.sRail u{white-space:normal;overflow-wrap:anywhere}}
+
+/* FOLDED WORDS: the existing page, with detail explicitly revealed. */
+html[data-field-words="folded"]:not([data-instrument="1"]) main{max-width:800px;margin:10vh auto 0;padding:16px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) header, html[data-field-words="folded"]:not([data-instrument="1"]) #workedOn, html[data-field-words="folded"]:not([data-instrument="1"]) .reentryFold, html[data-field-words="folded"]:not([data-instrument="1"]) .syncLine, html[data-field-words="folded"]:not([data-instrument="1"]) #workDepth, html[data-field-words="folded"]:not([data-instrument="1"]) #refineFold, html[data-field-words="folded"]:not([data-instrument="1"]) #statusFold, html[data-field-words="folded"]:not([data-instrument="1"]) .fieldGesture, html[data-field-words="folded"]:not([data-instrument="1"]) #axialLatest>.sectionHead{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar{margin:0 0 22px;background:var(--bg);backdrop-filter:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{height:52px;grid-template-columns:auto 36px minmax(0,1fr);box-shadow:none;background:transparent;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame>:not(.fieldUrlProto):not(.fieldUrlGlyph):not(.fieldUrlInput){display:none!important;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlProto{font-size:10px;letter-spacing:.06em;padding:0 12px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlInput{height:50px;font-weight:500;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #axialLatest{margin:0;border:0;background:transparent;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #focusHead{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .aperture{padding:4px 0 16px;border:0;background:transparent;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apMeta, html[data-field-words="folded"]:not([data-instrument="1"]) .apPath, html[data-field-words="folded"]:not([data-instrument="1"]) .apReading, html[data-field-words="folded"]:not([data-instrument="1"]) #apRole, html[data-field-words="folded"]:not([data-instrument="1"]) .apOutcome, html[data-field-words="folded"]:not([data-instrument="1"]) .apForecast, html[data-field-words="folded"]:not([data-instrument="1"]) .apFlowK{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apBody strong{font:600 22px/1.2 system-ui,sans-serif;letter-spacing:-.025em;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apGlyph, html[data-field-words="folded"]:not([data-instrument="1"]) .apGlyph[data-project-head="1"]{width:44px;grid-row:auto;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apGlyph svg, html[data-field-words="folded"]:not([data-instrument="1"]) .apGlyph[data-project-head="1"] svg{width:44px;height:44px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apActions{grid-column:auto;justify-content:flex-end;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apActions button, html[data-field-words="folded"]:not([data-instrument="1"]) #apOpen:not([href]){display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apActions a{font-size:12px;min-height:44px;padding:10px 14px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apFlow{margin:6px 0 0;padding:0;border:0;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .capMove[data-cap-dayline], html[data-field-words="folded"]:not([data-instrument="1"]) .capMove[data-cap-copy]{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(auto-fit,minmax(52px,1fr));gap:6px;padding:12px 0;border-top:1px solid var(--line);}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip{position:relative;min-height:60px;height:60px;padding:7px;grid-template-columns:1fr;grid-template-rows:1fr;gap:0;border:1px solid transparent;background:transparent;box-shadow:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip::before, html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip::after{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:hover, html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible{border-color:var(--mut);background:var(--p2);}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip.on{border-color:var(--hot);background:var(--p2);}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedName, html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip tt{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip svg{width:36px!important;height:36px!important;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #runDock{display:none!important;}
+html[data-field-words="folded"]:not([data-instrument="1"]) body.runDockOn{padding-bottom:0;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .foot{margin-top:10px;padding-top:10px;border:0;gap:8px;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .foot button, html[data-field-words="folded"]:not([data-instrument="1"]) .footMenu>summary{min-height:36px;min-width:36px;padding:7px;font-size:10px;border:1px solid var(--line);border-radius:0;background:transparent;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .footLaw{display:none;}
+@media(max-width:520px){html[data-field-words="folded"]:not([data-instrument="1"]) main{margin-top:5vh;padding:12px;}html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail{grid-template-columns:repeat(5,minmax(0,1fr));}html[data-field-words="folded"]:not([data-instrument="1"]) .aperture{grid-template-columns:40px minmax(0,1fr) auto;}html[data-field-words="folded"]:not([data-instrument="1"]) .apBody strong{font-size:18px;}html[data-field-words="folded"]:not([data-instrument="1"]) .apActions a{padding:9px;font-size:11px;}}
+
+html[data-field-words="folded"]:not([data-instrument="1"]) .apGlyph:empty{display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .aperture:has(.apGlyph:empty){grid-template-columns:minmax(0,1fr) auto;}
+html[data-field-words="folded"]:not([data-instrument="1"]) .apFlow:not(:has(.capMove[href])){display:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedName{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:max-content;max-width:180px;padding:6px 8px;border:1px solid var(--line);background:var(--p);color:var(--ink);font:12px/1.3 system-ui,sans-serif;z-index:5;pointer-events:none;}
+html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible .feedName{display:block;}
+@media(hover:hover){html[data-field-words="folded"]:not([data-instrument="1"]) #feedRail .feedChip:hover .feedName{display:block;}}
 </style>
 </head>
 <body><main>
@@ -522,7 +563,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
   </div>
   <details class="workDepth" id="workDepth">
     <summary><b>DEPTH / WORK</b><span id="workDepthMeta">hold one CURRENT head</span></summary>
-    <div class="workDepthBody" id="workDepthBody"><div class="workEmpty">Choose one CURRENT head to recover its accumulated work without changing authority.</div></div>
+    <div class="workDepthBody" id="workDepthBody"><div class="workEmpty">Choose a tool to recover its accumulated work without changing authority.</div></div>
   </details>
   <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span id="feedInstruction">CURRENT HEADS · choose one to hold; held head opens on second tap</span><div class="fieldGestureActions"><button id="feedScope" title="Show recently touched routes; recency is not priority">RECENT</button><button id="moreLatest">ALL</button></div></div>
@@ -612,8 +653,15 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
   <div class="runDockRead"><span id="runDockWitness"><b>WITNESS</b> —</span><span class="forecast" id="runDockForecast"><b>FORECAST</b> —</span></div>
 </div>
 
-<div class="foot"><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./desk/">WORK DESK →</a><a href="?instrument=1">FIELD MAP →</a><a href="?work=1">SOURCE READER / EXPERIMENT →</a><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span class="footLaw">CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span></details><button id="fiTheme" title="toggle light / dark — persists as fi-theme">◐ DARK</button><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./desk/">WORK DESK →</a><a href="?instrument=1">FIELD MAP →</a><a href="?work=1">SOURCE READER / EXPERIMENT →</a><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span class="footLaw">CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span></details><button id="fieldWords" type="button" aria-label="Show words and details" aria-pressed="false" title="Unfold words and details">Aa</button><button id="fiTheme" title="toggle light / dark — persists as fi-theme">◐ DARK</button><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
+<script>
+(()=>{const root=document.documentElement,button=document.getElementById('fieldWords');
+function words(open){root.dataset.fieldWords=open?'open':'folded';button.setAttribute('aria-pressed',String(open));button.setAttribute('aria-label',open?'Fold words and details':'Show words and details');button.title=open?'Fold words and details':'Unfold words and details';}
+words(new URLSearchParams(location.search).get('words')==='1');
+button.onclick=()=>{const open=root.dataset.fieldWords!=='open';words(open);const u=new URL(location.href);if(open)u.searchParams.set('words','1');else u.searchParams.delete('words');history.replaceState(history.state,'',u);};
+})();
+</script>
 <script src="./field-presentation.js?v=0.10.4"></script>
 <script src="./field-glyph.js"></script>
 <script src="./field-aperture.js?v=0.8.7"></script>
@@ -963,7 +1011,7 @@ function renderWorkDepth(){
  const meta=$('workDepthMeta'),body=$('workDepthBody');if(!meta||!body)return;
  if(!focus){
   meta.textContent='hold one CURRENT head';
-  body.innerHTML='<div class="workEmpty">Choose one CURRENT head. DEPTH / WORK is a read-only projection of manifest + CURRENT; it creates no priority, state, or authority.</div>';
+  body.innerHTML='<div class="workEmpty">Choose a tool. DEPTH / WORK is a read-only projection of manifest + CURRENT; it creates no priority, state, or authority.</div>';
   return
  }
  const h=headForFocus(),desc=workDescendants(focus),proof=workProofRefs(focus,h),transfers=Array.isArray(focus.transfer)?focus.transfer:[],versions=Array.isArray(focus.versions)?focus.versions:[],exits=manifestExitPaths(focus),future=workFutureItems(focus,h),rels=workRelations(focus),shownRels=rels.slice(0,42),triad=triadProjection(focus,h,desc,proof,future);
@@ -1214,7 +1262,7 @@ function renderAperture(){
   const impossible=currentMatches().length===0;
   $('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);
   $('apMeta').textContent=impossible?'NO EXACT INTERSECTION':'CURRENT / SELECT ONE';$('apMeta').className=impossible?'apMeta noMatch':'apMeta';
-  $('apTitle').textContent=impossible?'No route matches this tuple':'Choose one CURRENT head';
+  $('apTitle').textContent=impossible?'No route matches this tuple':'Choose a tool';
   $('apPath').textContent=impossible?[axisState.state,axisState.operation,axisState.mode].join(' × '):(current?.current_heads||[]).length+' retained · choose an address below · order is not rank';
   $('apProjection').textContent=impossible?'ADJUST ONE AXIS OR RESET':'SOURCE → HOLD → TURN → TRACE → RETURN';
   $('apRole').textContent=impossible?'Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.':'Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.';
@@ -1706,6 +1754,6 @@ window.FieldIndexReadModel=Object.freeze({
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
-<script type="module" src="./field-instrument.mjs?v=0.10.5"></script>
-<script type="module" src="./field-work.mjs?v=0.10.5"></script>
+<script type="module" src="./field-instrument.mjs?v=0.10.6"></script>
+<script type="module" src="./field-work.mjs?v=0.10.6"></script>
 </main></body></html>
