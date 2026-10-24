@@ -1,0 +1,23 @@
+name: axial-binding-proof
+on:
+  pull_request:
+    paths:
+      - 'foundry/axial/**'
+      - 'tools/axial-binding-smoke.mjs'
+      - '.github/workflows/axial-binding-proof.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  binding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Stable AXIAL identity and syntax
+        run: node foundry/axial/binding-selftest.mjs
+      - name: Native 390px bind turn projection RETURN reload
+        run: node tools/axial-binding-smoke.mjs
