@@ -64,7 +64,15 @@ const load=url=>new Promise((ok,bad)=>{f.onload=ok;f.onerror=bad;f.src=url});
  d=f.contentDocument;
  assert(d.querySelector('#sourceApertureStatus').textContent.includes('SOURCE HANDOFF REJECTED'),'malformed handoff accepted');
  assert(d.querySelector('#enter')&&!d.querySelector('#enter').disabled,'rejected handoff broke native boot');
- out.textContent='PASS EXACT SOURCE → CITY · 320/390/1280 · EARLY EXACT RETURN · NO GATE MUTATION · NO URL/LOCAL LAST LEAK · FAIL CLOSED';
+ // A real recovered source opens directly; no synthetic excerpt or copy ritual.
+ await load('/sleeper/axis-score.html?src=%2Frecovery%2Fsleeper%2Fsite-source-2026-09-18%2Fdocs%2FONE_RETURN_V2.md');
+ d=f.contentDocument;w=f.contentWindow;
+ await wait(()=>!d.querySelector('#work').classList.contains('hidden'),'actual recovered source read');
+ assert(d.querySelector('#textInput').value.startsWith('# ONE RETURN City Engine'),'wrong original document loaded');
+ assert(d.querySelector('#sourceUrl').value.endsWith('/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md'),'canonical repository source lost');
+ assert(d.querySelector('#readView')&&!d.querySelector('#readView').classList.contains('hidden'),'real source did not start in readable aperture');
+ assert(d.querySelector('#evidenceOptions button'),'no source-exact citation in recovered document');
+ out.textContent='PASS EXACT SOURCE → CITY · 320/390/1280 · EARLY EXACT RETURN · REAL REPO SOURCE · NO GATE MUTATION · NO URL/LOCAL LAST LEAK · FAIL CLOSED';
 }catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
 <\/script>`;
 const server=http.createServer((req,res)=>{
