@@ -477,7 +477,7 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
             $('#cityReturn').classList.remove('hidden');
             $('#cityReturn').textContent='NATIVE RETURN · '+r.worldKey+' · '+r.nativeGateCount+'/8 Gates · '+r.operator.toUpperCase()+' · '+r.transferInstruction+' / SOURCE '+r.span.start+'–'+r.span.end+'. The native proofs do not establish the meaning or truth of this sentence.';
             status='EXACT SOURCE REOPENED · native return receipt validated · previous AXIS route not restored';
-          }catch(e){status='SOURCE REOPENED / RETURN UNVERIFIED · '+e.message;}
+          }catch(e){status=new URLSearchParams(location.search).get('mode')==='observe'?'EARLY SOURCE RETURN · EXACT WITNESS REOPENED · NO NATIVE RETURN OR GATE CLAIMED':'SOURCE REOPENED / RETURN UNVERIFIED · '+e.message;}
           finally{sessionStorage.removeItem(SleeperSourceAperture.RETURN_KEY);}
           error(status);
         }else error('SOURCE REOPENED · exact witness selection unavailable');
