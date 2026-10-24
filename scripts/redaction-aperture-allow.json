@@ -268,6 +268,12 @@
       "kind": "email",
       "value_sha256": "785a16a1e5e89b92020cf20636ca2ce3d4a3b905fd479a37270f72f4013a2637",
       "why": "GitHub Actions no-reply infrastructure address used by the workflow's own commit step (`git config user.email`); not a personal address"
+    },
+    {
+      "path": "sleeper/conformance/conformance.mjs",
+      "kind": "secret",
+      "value_sha256": "da7f4d803cbcf3160ad4791b4632f1fca37937c9f4aea514bc59341e92b4089c",
+      "why": "Verified literal JavaScript expression law1.cellTokens[i] in a deterministic conformance fixture; token denotes an enacted game-gate witness, not a credential. Exact path/kind/value only."
     }
   ]
 }
