@@ -27,6 +27,7 @@ const expected=manifest.routes.filter(r=>r.href!=='/').length,version=manifest.r
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,executablePath:browserBin(),args:['--no-sandbox','--disable-dev-shm-usage']});
+// Native FIELD projection fixture; default WORK composition is proved by interphase-plus-smoke.
 const results=[];
 try{
   // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
@@ -35,7 +36,7 @@ try{
   await cachePage.goto(base+'/__field_cache_probe__');
   await cachePage.waitForFunction(()=>document.body.dataset.primed==='1');
   assert.equal(warmed.size,3);warmLegacy=false;
-  await cachePage.goto(base+'/');await cachePage.waitForSelector('html[data-instrument="1"]');
+  await cachePage.goto(base+'/?work=0');await cachePage.waitForSelector('html[data-instrument="1"]');
   await cachePage.waitForFunction(()=>[...document.styleSheets].some(s=>s.href?.includes('field-instrument.css')));
   const releaseURLs=await cachePage.evaluate(()=>[...document.scripts].map(s=>s.src).concat([...document.styleSheets].map(s=>s.href)),null);
   for(const file of ['field-instrument.mjs','field-instrument.css'])assert.ok(releaseURLs.some(u=>u&&new URL(u).pathname==='/'+file&&new URL(u).searchParams.get('v')===version),'release address missing: '+file);
@@ -62,7 +63,7 @@ try{
     const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce',acceptDownloads:true});
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.route('**/*',r=>r.request().url().startsWith(base)?r.continue():r.abort());
-    await page.goto(base+'/');
+    await page.goto(base+'/?work=0');
     await page.waitForSelector('html[data-instrument="1"]');
     const nativeBefore=await page.evaluate(()=>JSON.stringify(FieldIndexReadModel.snapshot().routes));
     const initial=await page.evaluate(()=>FieldInstrument.snapshot());

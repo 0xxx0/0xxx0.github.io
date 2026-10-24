@@ -1,40 +1,12 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-10-24T13:10:11+08:00",
-  "max_live": 5,
+  "updated": "2026-10-24T17:06:34+08:00",
+  "max_live": 2,
   "live": [
     {
       "id": "air-instrument",
       "front_id": "air-instrument",
       "goal": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
-      "horizon": "ACTIVE_NOW",
-      "source": "/control/CURRENT.json#active_fronts"
-    },
-    {
-      "id": "loadout-model",
-      "front_id": "loadout-model",
-      "goal": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
-      "horizon": "ACTIVE_NOW",
-      "source": "/control/CURRENT.json#active_fronts"
-    },
-    {
-      "id": "house-os-fold",
-      "front_id": "house-os-fold",
-      "goal": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
-      "horizon": "ACTIVE_NOW",
-      "source": "/control/CURRENT.json#active_fronts"
-    },
-    {
-      "id": "project-fold",
-      "front_id": "project-fold",
-      "goal": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
-      "horizon": "ACTIVE_NOW",
-      "source": "/control/CURRENT.json#active_fronts"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "front_id": "catchup-nonverbal",
-      "goal": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
       "horizon": "ACTIVE_NOW",
       "source": "/control/CURRENT.json#active_fronts"
     }

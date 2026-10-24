@@ -1,0 +1,14 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"omega.representation.unit.v1",
+  "type":"object",
+  "required":["unit_id","representation","text","source_turn_ids"],
+  "properties":{
+    "unit_id":{"type":"string","minLength":1},
+    "representation":{"type":"string","minLength":1},
+    "text":{"type":"string"},
+    "source_turn_ids":{"type":"array","items":{"type":"string"}},
+    "source_root_ids":{"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties":true
+}

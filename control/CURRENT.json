@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-20T10:39:09+08:00",
+  "updated": "2026-10-24T17:06:34+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -31,40 +31,17 @@
       "state": "ACTIVE_NOW",
       "center": "haze PM2.5 139 (NEA 10-14) -> indoor target <15: purifier + PMS5003/SCD41 loop + ceiling-fan mixing (Ovlaim tuya) -> the house whispers its own air",
       "evidence": "/20261017-loadout/ · exports/PREP-PACKET-2026-10-07.tar.gz"
-    },
-    {
-      "id": "loadout-model",
-      "state": "ACTIVE_NOW",
-      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
-      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/"
-    },
-    {
-      "id": "house-os-fold",
-      "state": "ACTIVE_NOW",
-      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
-      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "project-fold",
-      "state": "ACTIVE_NOW",
-      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
-      "evidence": "exports/PROJECT-FOLD-2026-10-18.md"
-    },
-    {
-      "id": "catchup-nonverbal",
-      "state": "ACTIVE_NOW",
-      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
-      "evidence": "cron catchup-audio · /dayline/"
     }
   ],
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.37 / ENTERABLE APERTURES + MATERIAL KINDS",
+      "head": "FIELD INDEX / INTERPHASE+ 0.9.0 · SOURCE → COMPOSE → RESULT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Tap a counted region to enter its aperture through a selected-origin scale/depth transition; UP reverses that transition. Selecting a tool brings its exact addressed aperture forward at full size; OPEN enters the native host. The fixed bar retains every manifest destination and the pinned RETURN frame. Six coarse native-kind materials replace fine arrow angles; bands show kind-family presence and lower rules show membership fractions. Content-derived hash interference remains inspection-only. One HTML release address versions the adapter, core and stylesheet together, with a real warmed-cache regression. Native focus/SEEN/effect owners and six executable exit URLs remain authoritative. Automated count, motion, cache and return proof do not establish human comprehension or wordless recognition. This remains a manifest navigation slice; real corpus and in-place native work are not integrated.",
+      "retained_function": "Root opens the existing INTERPHASE host on real CURRENT data. One source flows through explicit ordered data steps, original source addresses, intermediate/result views, shared READ cursor, six-face cube/net, and checked source/workflow RETURN. FIELD strip/plan remain native projections behind the same control; native owners retain effects, stable focus and exact FIELD RETURN. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story. Recovered Ω 0.4, Dayline/Fan, AXIS and protected local history remain complementary views; no new route or universal authority.",
       "evidence": [
+        "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
         "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
         "/returns/FIELD_INDEX_OVERVIEW_0836_2026-10-20.json",
         "/returns/FIELD_INDEX_POSITION_0835_2026-10-20.json",
@@ -128,23 +105,33 @@
         "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
         "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
       ],
-      "version": "0.8.37",
-      "latest_return": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
+      "version": "0.9.0",
+      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
       "repo_verification": {
-        "status": "COMPONENT_PASS / EXISTING_COORDINATION_DRIFT",
+        "status": "COMPONENT_PASS / CI_UNCLAIMED",
         "local": {
-          "core": "PASS · family reachability, stable complete overview, disjoint neighbours, count conservation, exact frames, unknown deltas, lossless text",
-          "browser": "PASS · real stale HTTP-cache priming, non-reduced aperture expansion/reverse/cancel, five viewport native pointer/OPEN/BACK/RETURN journeys",
-          "ci": "UNCLAIMED · inspect exact candidate head; broad baseline coordination failures remain"
+          "core": "PASS · ordered workflow, original source/field references, exact source bytes, bounds and protected import",
+          "browser": "PASS · 320/390/1280px work composition/views/RETURN; native FIELD five viewports; recovered protected history, Ω, Dayline/Fan and AXIS",
+          "ci": "UNCLAIMED here · inspect exact PR head checks at https://github.com/0xxx0/0xxx0.github.io/pull/986"
         },
-        "base": "b95b7bcaf2b0d6ecf70c38e705344fa01dbcb087",
-        "evidence": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
-        "note": "Operator disconfirmed intuitive use and fine-angle recognition. This revision tests concrete depth traversal and cache delivery; human task comprehension remains unresolved.",
-        "previous": {
-          "class": "HISTORICAL_PROOF",
-          "source": "https://github.com/0xxx0/0xxx0.github.io/blob/8b2351199ce60f99b4d2b273677b797a24b5ea0e/control/CURRENT.json",
-          "selector": "current_heads[lineage=field-index].repo_verification",
-          "canonical_json_sha256": "dc6e42727ee5ca19146c68c766276fa3c30ccea8a6980ca58ce14ecde3a5fc18"
+        "base": "d87a49a1bbd2756579204856d3ea9595af8a33dd",
+        "evidence": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
+        "previous_release": {
+          "status": "COMPONENT_PASS / EXISTING_COORDINATION_DRIFT",
+          "local": {
+            "core": "PASS · family reachability, stable complete overview, disjoint neighbours, count conservation, exact frames, unknown deltas, lossless text",
+            "browser": "PASS · real stale HTTP-cache priming, non-reduced aperture expansion/reverse/cancel, five viewport native pointer/OPEN/BACK/RETURN journeys",
+            "ci": "UNCLAIMED · inspect exact candidate head; broad baseline coordination failures remain"
+          },
+          "base": "b95b7bcaf2b0d6ecf70c38e705344fa01dbcb087",
+          "evidence": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
+          "note": "Operator disconfirmed intuitive use and fine-angle recognition. This revision tests concrete depth traversal and cache delivery; human task comprehension remains unresolved.",
+          "previous": {
+            "class": "HISTORICAL_PROOF",
+            "source": "https://github.com/0xxx0/0xxx0.github.io/blob/8b2351199ce60f99b4d2b273677b797a24b5ea0e/control/CURRENT.json",
+            "selector": "current_heads[lineage=field-index].repo_verification",
+            "canonical_json_sha256": "dc6e42727ee5ca19146c68c766276fa3c30ccea8a6980ca58ce14ecde3a5fc18"
+          }
         }
       }
     },
@@ -1007,6 +994,34 @@
       "state": "HOLD_CURRENT_HEAD",
       "center": "AXIAL / FOCUS STACK 0.7.3",
       "reason": "Overview/minimap and engineering witness are now implemented from recovered donors. Hold feature expansion; ordinary use and exported witnesses should determine RETAIN/REVISE/REVERT under the mechanism-transfer loop."
+    },
+    {
+      "id": "loadout-model",
+      "state": "RETAINED_SUPPORT",
+      "center": "operator GDC loadout donor work applied: skills as weighted slots with triggers+cooldowns, wired fleet-wide",
+      "evidence": "skills/devops/loadout/SKILL.md · /20261017-loadout/",
+      "reason": "Reusable operator substrate; retained as support rather than a separate execution front."
+    },
+    {
+      "id": "house-os-fold",
+      "state": "RETAINED_SUPPORT",
+      "center": "HOUSEBUS capabilities extracted, dependencies dropped, portable + one implementation commit",
+      "evidence": "exports/HOUSEOS-FOLD-2026-10-18.md",
+      "reason": "AIR/HOUSE substrate; native private/device execution retains its owner."
+    },
+    {
+      "id": "project-fold",
+      "state": "RETAINED_SUPPORT",
+      "center": "duplicate project trees folded by utility class; manifests + revert; zero deletion",
+      "evidence": "exports/PROJECT-FOLD-2026-10-18.md",
+      "reason": "Maintenance reducer; no independently selected execution move."
+    },
+    {
+      "id": "catchup-nonverbal",
+      "state": "RETAINED_SUPPORT",
+      "center": "daily non-verbal catch-up: catchup-audio 21:00 voice + this dayline as the visual surface",
+      "evidence": "cron catchup-audio · /dayline/",
+      "reason": "Recurring orientation surface; not a second execution front."
     }
   ],
   "orientation": "/control/ORIENTATION.json",

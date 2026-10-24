@@ -700,6 +700,7 @@ function render(){
   if(planView)renderPlan();
   if(priorMark){const same=[...root.querySelectorAll('[data-fold]')].find(b=>b.dataset.fold===priorMark&&b.offsetParent!==null);(same||$('#fiField')).focus({preventScroll:true})}
   renderReading();renderBearing();
+  window.dispatchEvent(new CustomEvent('field-instrument:frame',{detail:{focus:state.focus}}));
 }
 function address(q){
   if(!enabled)return;
@@ -771,6 +772,8 @@ function boot(){
   if(location.pathname!=='/')return;
   window.FieldInstrument=Object.freeze({enter,exit,edit,active:()=>enabled,address,key,
     turn:()=>{if(!enabled)return false;command('turn');return true},
+    heldAddress:()=>held()?.address||null,
+    hold:address=>{const r=rows.find(r=>r.address===address);if(!r)return false;commit(C.locate(state,r),{native:true});return true},
     snapshot:()=>({frame:C.frame(state),anchor:C.frame(anchor),view:view&&{total:view.total,inside:view.inside,outside:view.outside,counts:view.folds.map(g=>g.count),
       axis:C.axis(state),dim:view.dim,witness:view.witness,folds:view.folds.length},
       // The room is a view of one held object: its id, the mark's screen anchor and

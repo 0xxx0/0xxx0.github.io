@@ -515,3 +515,66 @@ The native HANDOFF validator matched the old inline click spelling and failed
 after b95b7bc introduced its fail-closed shared tap helper. Its browser proof now
 spies on the native packet owner: one call when present, no success event when
 absent. The stale spelling assertion was removed in favor of that behavior check.
+
+## 2026-10-24 — working landing / INTERPHASE+
+
+**Objective:** root should do useful work on a held source. Navigation remains a
+projection, and native effect authority stays with each owner. The current
+continuation replaces the three-field landing demo with the recovered workbench
+and an executable data-composition aperture. No source archive is reorganized.
+
+| Lineage / evidence | Disposition / confidence | Surviving capability |
+|---|---|---|
+| Existing FIELD root, `field-instrument.mjs` | Survivor / HIGH | Native frame, focused route, strip/plan, owner actions, pin/RETURN. Work is another aperture onto the existing `/interphase/` host. |
+| PR #966, exact head `253ba0b5…` | Recovered donor / HIGH | Ω audit, history disc, Dayline/Fan, AXIS, optional semantic substrate, extension API and optional package transport. Its browser-runner repairs remain donor material on the original branch; this continuation does not silently replay them. |
+| `recovery/omega/provenance.json` | Frozen fixture / HIGH | 20 exact recovered files; hashes match, five native Python tests pass. Private seed/raw corpus remains excluded. |
+| `lib/path.js`, `interphase-composition.js` | Survivor / HIGH | Existing path optics and DERIVED / update NONE projection contract. No replacement provenance or effect kernel. |
+| `field-aperture.js`, `interphase-cube.js` | Survivor / HIGH | Existing reader/ORP/cursor and exact cube/net matrices. Views preserve the same source and recipe. |
+| PR #981 / MATERIAL DOM | Distinct variant / HIGH | Native DOM-as-program owner remains separate. The data workflow is not a claim that its structural operations have been unified. |
+| Old three-field workbench | Historical variant | Exact old bytes remain in Git; local draft/history lenses remain available behind OTHER READINGS. |
+
+### Minimal organism
+
+`hold source → compose ordered steps → inspect result/prefix/source address →
+TABLE | READ | ROOM → export/import checked RETURN`.
+
+AT, WHERE, PICK, SORT, TAKE and UNIQUE are bounded, pure data projections. Their
+order changes results. Array filtering/sorting preserves original record paths;
+PICK preserves original field paths. Missing fields stay distinct from null.
+Every reduction remains in TRACE, and every row can reveal its full source
+witness. Source bytes never change. No workflow calls a native effect.
+
+The native host supplies local/repository input and an explicit OPEN OWNER.
+Local input is held in the tab; exported RETURN includes exact source bytes,
+SHA-256, steps, result evidence and reading/focus state. Import recomputes source
+and result identity before replacing the held source. Tampering, repeated JSON
+member addresses, unsupported operations and bounded-size violations fail closed.
+
+FIELD and INTERPHASE id formats remain distinct; their existing route address is
+the explicit correspondence. Same-origin messages select sources only. FIELD's
+frame and RETURN remain native and survive WORK → STRIP → PLAN → WORK.
+
+### Acceptance / falsifier
+
+- `node tools/interphase-workflow-selftest.mjs`: order, identity, raw-byte hash,
+  source/field addresses, missing/null, no-eval/bounds controls, 64 row fixtures.
+- `node tools/interphase-plus-smoke.mjs`: real Chromium 320/390/1280; default
+  CURRENT data, composition/prefix/undo, cube/net, reader cursor, checked export /
+  import / tamper rejection, native route correspondence and view-cycle frame.
+- Native history/lens/composition/extension checks; optional package installation
+  and consumer proof (`tools/package-interphase.mjs`); all 20 Ω hashes.
+- Existing native FIELD browser fixture uses `?work=0`; the new default is tested
+  separately. Visible and folded held rooms are both tested without relocation.
+
+Stop on changed source bytes, lost original addresses, stale/tampered admission,
+a view changing the native frame, or any derived result gaining effect authority.
+Physical touch comfort, comparative cognitive burden and private corpus use are
+unmeasured. No wordless-recognition or universal-operation claim is made.
+
+Four CURRENT support/orientation records are retained outside NOW; the existing
+world front remains selected and QUEUE mirrors it. This contracts coordination
+without deleting their evidence or assigning new ongoing architecture work.
+
+**Re-entry:** open `/`; SOURCE chooses material, + STEP composes, TABLE changes
+reading, each row reveals its full witness. Ω audit / history / Dayline / AXIS
+remain under OTHER READINGS. Export RETURN before leaving local-file work.
