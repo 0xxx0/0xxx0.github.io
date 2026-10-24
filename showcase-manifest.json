@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-23T11:07:08+08:00",
+        "updated_at": "2026-10-24T13:15:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "OPERATE",
@@ -1723,20 +1723,17 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.8.5",
+      "title": "READFIELD / RSVP 0.8.6",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical phone-first high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six one-tap jobs: FAST, REVIEW, PULSE, VOICE, LOCI and REPO. 0.8.5 keeps the compact always-visible phone work rail, adds direct session-local downloaded-file intake for text/Markdown/JSON/CSV/log/YAML/source/SVG material, and makes practical chains explicit: SKIM → REVIEW, LISTEN → PULSE → VOICE, READ → LOCI → RETURN. Ephemeral local/pasted bytes never pretend to have a durable addressed URL; COPY FOCUS replaces COPY VIEW for those sources. FIELD PULSE remains optional tempo context only; source/cursor authority remains READFIELD. 2026-09-27 adds explicit RIDE LIVE handoff carrying the current exact source + cursor into LIVE READ/RIDE without creating another text authority.",
+      "role": "Read exact source text through scale, pace, voice, JSON structure and a compact wrist layout. READ, STRUCT and WRIST preserve the same source bytes and addressed character; tree selection changes the reading position. Local bytes remain session-only; LISTEN retains its own audio clock and native hosts retain effects.",
       "index": {
-        "updated_at": "2026-10-09T12:12:36+08:00",
+        "updated_at": "2026-10-24T13:15:00+08:00",
         "work_modes": [
-          "READ",
-          "INSPECT",
-          "VERIFY",
           "IMPLEMENT",
-          "OPERATE"
+          "VERIFY"
         ]
       },
       "transfer": [
@@ -1760,7 +1757,8 @@
         "task chains preserve the same cursor across SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN",
         "local-file epoch repair: explicit phone/file selection preempts stale repository source completion",
         "device-local field-source-trail/v0.1 keeps bounded VISITED/MARKED continuity without storing source bytes or inferring completion",
-        "RIDE LIVE return is EVIDENCE_ONLY; READFIELD re-hashes current bytes and requires exact native [start,end] before one cursor restore; stale/malformed return is zero-mutation"
+        "RIDE LIVE return is EVIDENCE_ONLY; READFIELD re-hashes current bytes and requires exact native [start,end] before one cursor restore; stale/malformed return is zero-mutation",
+        "0.8.6: exact JSON key/value spans, READ↔STRUCT selected-node continuity, shared WRIST engine/trail, SHA-256 checked handoff and exact cursor RETURN; no JSON source reserialization"
       ],
       "operation": "READ",
       "receipt": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
@@ -1826,9 +1824,9 @@
           "return_path": "/docs/"
         }
       },
-      "version": "0.8.5",
+      "version": "0.8.6",
       "tier": "FIELD",
-      "latest_return": "/returns/READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
+      "latest_return": "/returns/READFIELD_SHARED_CURSOR_2026-10-24.json",
       "field": {
         "owner": "READFIELD"
       }
@@ -10241,27 +10239,30 @@
     },
     {
       "href": "/rsvp/",
-      "title": "PIN / RSVP — the bounded repair",
-      "kind": "experiment",
-      "parent": "/",
+      "title": "READFIELD / WRIST",
+      "kind": "utility",
+      "parent": "/docs/",
       "operation": "READ",
-      "state": "ACTIVE",
+      "state": "UTILITY",
       "family": "FIELD / READ",
-      "role": "PIN / RSVP — a watch-sized rapid-reading surface (180px, ORP-pinned word axis, progress ring = position, 100-900 WPM, punctuation/length dwell). Reads TXT/MD/JSON/CSV; JSON gets a text/WORD projection with explicit STRUCT return. Three clocks stay distinct (PIN visual / READFIELD cursor / LISTEN track). Responsive web proof, not a Wear OS APK.",
+      "role": "Compact layout over the existing READFIELD engine and source trail. Fixed ORP, progress ring, local text/JSON, shared source/cursor/pace and explicit RETURN to READFIELD. No independent tokenizer, playback timer or position store. Browser-tested at 180px; physical watch usability remains unmeasured.",
       "index": {
-        "updated_at": "2026-10-22T20:00:38+08:00",
+        "updated_at": "2026-10-24T13:15:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
         ]
       },
       "evidence": {
+        "receipt": "/returns/READFIELD_SHARED_CURSOR_2026-10-24.json",
         "checks": [
-          "JS syntax checks on rsvp/index.html + field-aperture.js + docs/index.html + lib/readfield-controls.js",
-          "pure-unit checks: valid JSON -> path-addressed word stream, ORP split, invalid .json -> visible error, explicit TXT -> WORD scale, AUTO -> JSON TREE scale (landed 2026-10-20, e727bbdc; not claimed: no watch hardware / DOM E2E)"
+          "node tools/reading-source-selftest.cjs",
+          "node tools/reading-continuity-smoke.mjs"
         ],
-        "return_path": "/"
-      }
+        "return_path": "/docs/"
+      },
+      "version": "0.8.6",
+      "receipt": "/returns/READFIELD_SHARED_CURSOR_2026-10-24.json"
     },
     {
       "href": "/20261019-epic10/oracle/",
@@ -10537,6 +10538,18 @@
           "headless playtest L1: tap MAP Y→R + RUN → SOLVED · TAG a76f80bb (12/12 cubes bloom)"
         ],
         "return_path": "/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does composing the existing transforms make the state change and target legible through this view?",
+        "baseline": "Existing core.js algebra and documented solvable levels.",
+        "mutation": "First playable surface of the named cube-composer mechanic (David Peter / sharkdp, MIT): wall = state, composed visual functions (f >>> g >>> h) map START to TARGET; five levels teach map / filter / reverse / order. Quiet character-grid register, colour only on approach.",
+        "evidence_gate": "Existing route selftests and recorded browser checks; physical and subjective usability remain unmeasured.",
+        "next_if_pass": "Retain the existing view only for a concrete composition task.",
+        "next_if_fail": "Use the plain composer and preserve this variant as a donor."
       }
     },
     {
@@ -10564,6 +10577,18 @@
           "stroke instrument (Paint With Music mapping absorbed from borrowed-hand f9033a8b): node selftest 36/36 + browser proof — floor stroke -> 238 ink px, gesture.trace record (13 pts), trusted click -> AudioContext state=running, quiet by default (parent-rerun 2026-10-22)"
         ],
         "return_path": "/cube-composer/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/cube-composer/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does composing the existing transforms make the state change and target legible through this view?",
+        "baseline": "Existing core.js algebra and documented solvable levels.",
+        "mutation": "POV MOD v0 — the inside view of the cube composer: a camera at the room's centre, drag to look. The walls ARE the state (north = the wall you compose live, east = target, west = the net map you hold, ceiling = the room's record, the door is behind you). Five rooms on one plus-net; a cube is lit only where the chain changed it; solving opens the door and lights one net square. Absorbs ../core.js algebra (P6 absorb law). The floor is the instrument: drag to paint with sound (velocity->pitch, width->loudness, height->tone, x->pan; the borrowed hand, Magenta Paint With Music via /20261018-borrowed-hand/).",
+        "evidence_gate": "Existing route selftests and recorded browser checks; physical and subjective usability remain unmeasured.",
+        "next_if_pass": "Retain the existing view only for a concrete composition task.",
+        "next_if_fail": "Use the plain composer and preserve this variant as a donor."
       }
     },
     {
