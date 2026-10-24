@@ -48,24 +48,41 @@ async function continuumBrowserProof(){
    const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
    // First prove the ordinary job: identify a named tool, open its owner, return.
    // Reader round trips below must not silently replace this entry again.
-   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip');
+   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&document.documentElement.dataset.fieldBarPane==='none');
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
    assert.equal(await page.locator('#interphaseWorkspace').count(),0);
    assert.equal(requests.includes('/interphase/continuum.mjs'),false,'ordinary entry must not load the experimental reader');
    assert.equal(await page.locator('#workedOn').isVisible(),false,'word-heavy detail starts folded');
+   // BAR ONLY on first paint: all other existing controls remain native but
+   // folded away, with no launch grid, second dock, reader or duplicate command bar.
+   assert.equal(await page.locator('#fieldUrlBar').isVisible(),true);
+   assert.equal(await page.locator('#aperture').isVisible(),false,'no held card below the bar at rest');
+   assert.equal(await page.locator('#feedRail').isVisible(),false,'no landing tile grid at rest');
+   assert.equal(await page.locator('#runDock').isVisible(),false,'no duplicate dock');
+   assert.equal(await page.locator('#fieldOmnibar').count(),0,'one keyboard/command line only');
    const foldedText=(await page.locator('body').innerText()).length;
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),true);
-   assert.ok((await page.locator('body').innerText()).length>foldedText*2,'one reveal unfolds the existing detail');
-   await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
+   assert.ok((await page.locator('body').innerText()).length>foldedText*2,'Aa restores the original detailed FIELD');
    const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
-   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'addressed tool targets must remain named and reachable');
+   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'all original named targets remain reachable through Aa');
+   await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
+   assert.equal(await page.locator('#feedRail').isVisible(),false,'Aa folds back to one bar');
    await page.waitForFunction(()=>window.FieldOmnibar);
-   await page.locator('#feedRail [data-href="/house/"]').click();
-   assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open the AWAKE introduction');
-   assert.equal(await page.locator('#fieldAwakeVisor').count(),0);
+   await page.locator('#fieldUrlInput').fill(':work');
+   await page.locator('#fieldUrlInput').press('Enter');
+   await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='work');
+   assert.equal(await page.locator('#workDepth').isVisible(),true,'work command reveals existing native depth');
+   await page.locator('#fieldUrlInput').fill(':prove');
+   await page.locator('#fieldUrlInput').press('Enter');
+   await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='prove');
+   assert.equal(await page.locator('#refineFold').isVisible(),true,'prove command reveals existing evidence');
+   await page.locator('#fieldUrlInput').fill('house');
+   await page.locator('#fieldUrlPanel [data-href="/house/"]').first().click();
    await page.waitForFunction(()=>document.getElementById('apTitle').textContent==='HOUSE / FIELD');
-   await page.locator('#fieldWords').click();assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD');
-   await page.locator('#fieldWords').click();
+   assert.equal(await page.locator('#aperture').isVisible(),true,'address selection reveals canonical held action');
+   assert.equal(await page.locator('#feedRail').isVisible(),false,'holding one route does not expand inventory');
+   assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open AWAKE');
+   assert.equal(await page.locator('#fieldAwakeVisor').count(),0);
    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
    await page.goBack();await page.waitForSelector('#feedRail .feedChip');
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
@@ -76,6 +93,17 @@ async function continuumBrowserProof(){
    await page.waitForTimeout(250);
    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','layout/history scroll must never select a different object');
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`field-entry-${width}.png`)})}
+   // Root source/WALK/DIAL commands address the existing native continuum.
+   // No new source owner. Query selects a lens; SOURCE opens its retained drawer.
+   const sourceTab=await context.newPage();
+   await sourceTab.goto(base+'/?work=1&view=dial');
+   await sourceTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.raw&&document.querySelector('.ip-continuum')?.dataset.view==='dial');
+   assert.equal(await sourceTab.locator('[data-ip=view-dial]').getAttribute('aria-selected'),'true');
+   await sourceTab.goto(base+'/?work=1&view=walk');
+   await sourceTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.raw&&document.querySelector('.ip-continuum')?.dataset.view==='walk');
+   await sourceTab.goto(base+'/?work=1&source=1');
+   await sourceTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.raw&&document.querySelector('[data-ip=drawer]')?.hidden===false);
+   await sourceTab.close();
    await page.goto(base+'/?work=1');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
    let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);
