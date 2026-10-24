@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210">
+  <title>PHYSICAL / MEDIA TEST PLATE v0.1</title>
+  <desc>A4 landscape shared diagnostic plate for inkjet, laser, transfer, mask and resist experiments. Print at 100 percent actual size.</desc>
+  <defs>
+    <pattern id="grid1" width="2" height="2" patternUnits="userSpaceOnUse">
+      <path d="M2 0H0V2" fill="none" stroke="#000" stroke-width="0.12"/>
+    </pattern>
+    <pattern id="dots25" width="2" height="2" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.38" fill="#000"/>
+    </pattern>
+    <pattern id="dots50" width="2" height="2" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.56" fill="#000"/>
+    </pattern>
+    <pattern id="dots75" width="2" height="2" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.74" fill="#000"/>
+    </pattern>
+    <style>
+      .k{font:4.1px monospace;fill:#000}
+      .ks{font:3.2px monospace;fill:#000}
+      .h{font:bold 7px monospace;fill:#000}
+      .box{fill:none;stroke:#000;stroke-width:.35}
+      .hair{stroke:#000;fill:none}
+    </style>
+  </defs>
+
+  <rect x="4" y="4" width="289" height="202" fill="#fff" stroke="#000" stroke-width=".5"/>
+  <text x="10" y="14" class="h">PHYSICAL / MEDIA TEST PLATE · v0.1</text>
+  <text x="10" y="20" class="ks">A4 LANDSCAPE · PRINT 100% / ACTUAL SIZE · NO FIT · SOURCE: /physical/media-lab/media-test-plate-v0.1.svg</text>
+  <text x="287" y="14" text-anchor="end" class="k">TEST ID __________________</text>
+  <text x="287" y="20" text-anchor="end" class="ks">printer/media/settings handwritten on specimen</text>
+
+  <!-- 100 mm scale -->
+  <g transform="translate(10 28)">
+    <text x="0" y="0" class="k">SCALE GATE · 100 mm must measure 99–101 mm</text>
+    <line x1="0" y1="7" x2="100" y2="7" stroke="#000" stroke-width=".5"/>
+    <line x1="0" y1="3" x2="0" y2="11" stroke="#000" stroke-width=".5"/>
+    <line x1="10" y1="4" x2="10" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="20" y1="4" x2="20" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="30" y1="4" x2="30" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="40" y1="4" x2="40" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="50" y1="3" x2="50" y2="11" stroke="#000" stroke-width=".5"/>
+    <line x1="60" y1="4" x2="60" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="70" y1="4" x2="70" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="80" y1="4" x2="80" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="90" y1="4" x2="90" y2="10" stroke="#000" stroke-width=".25"/>
+    <line x1="100" y1="3" x2="100" y2="11" stroke="#000" stroke-width=".5"/>
+    <text x="0" y="16" class="ks">0</text><text x="48" y="16" class="ks">50</text><text x="95" y="16" class="ks">100 mm</text>
+  </g>
+
+  <!-- registration targets -->
+  <g stroke="#000" fill="none" stroke-width=".35">
+    <circle cx="128" cy="34" r="6"/><circle cx="128" cy="34" r="2"/><path d="M119 34h18M128 25v18"/>
+    <circle cx="146" cy="34" r="6"/><circle cx="146" cy="34" r="2"/><path d="M137 34h18M146 25v18"/>
+    <circle cx="164" cy="34" r="6"/><circle cx="164" cy="34" r="2"/><path d="M155 34h18M164 25v18"/>
+  </g>
+  <text x="119" y="45" class="ks">REGISTER / OVERPRINT / TRANSFER</text>
+
+  <!-- orientation -->
+  <g transform="translate(198 27)">
+    <rect width="89" height="20" class="box"/>
+    <text x="4" y="7" class="k">ORIENTATION</text>
+    <text x="4" y="14" class="k">FIELD → 123 ABC</text>
+    <g transform="translate(84 14) scale(-1 1)"><text class="k">FIELD → 123 ABC</text></g>
+  </g>
+
+  <!-- line width ladder -->
+  <g transform="translate(10 54)">
+    <rect width="88" height="52" class="box"/>
+    <text x="4" y="8" class="k">POSITIVE LINE LADDER · nominal mm</text>
+    <text x="4" y="15" class="ks">0.10</text><line x1="18" y1="14" x2="82" y2="14" class="hair" stroke-width="0.10"/>
+    <text x="4" y="21" class="ks">0.20</text><line x1="18" y1="20" x2="82" y2="20" class="hair" stroke-width="0.20"/>
+    <text x="4" y="27" class="ks">0.30</text><line x1="18" y1="26" x2="82" y2="26" class="hair" stroke-width="0.30"/>
+    <text x="4" y="33" class="ks">0.50</text><line x1="18" y1="32" x2="82" y2="32" class="hair" stroke-width="0.50"/>
+    <text x="4" y="39" class="ks">0.75</text><line x1="18" y1="38" x2="82" y2="38" class="hair" stroke-width="0.75"/>
+    <text x="4" y="45" class="ks">1.00</text><line x1="18" y1="44" x2="82" y2="44" class="hair" stroke-width="1.00"/>
+  </g>
+
+  <!-- negative gap ladder -->
+  <g transform="translate(103 54)">
+    <rect width="88" height="52" class="box"/>
+    <text x="4" y="8" class="k">NEGATIVE GAP LADDER · nominal mm</text>
+    <rect x="4" y="12" width="78" height="6" fill="#000"/><rect x="18" y="12" width=".10" height="6" fill="#fff"/><text x="4" y="17" class="ks" fill="#fff">.10</text>
+    <rect x="4" y="20" width="78" height="6" fill="#000"/><rect x="18" y="20" width=".20" height="6" fill="#fff"/><text x="4" y="25" class="ks" fill="#fff">.20</text>
+    <rect x="4" y="28" width="78" height="6" fill="#000"/><rect x="18" y="28" width=".30" height="6" fill="#fff"/><text x="4" y="33" class="ks" fill="#fff">.30</text>
+    <rect x="4" y="36" width="78" height="6" fill="#000"/><rect x="18" y="36" width=".50" height="6" fill="#fff"/><text x="4" y="41" class="ks" fill="#fff">.50</text>
+    <rect x="4" y="44" width="78" height="5" fill="#000"/><rect x="18" y="44" width="1" height="5" fill="#fff"/><text x="4" y="48" class="ks" fill="#fff">1.0</text>
+  </g>
+
+  <!-- density and color -->
+  <g transform="translate(196 54)">
+    <rect width="91" height="52" class="box"/>
+    <text x="4" y="8" class="k">DENSITY / DEPOSITION</text>
+    <g transform="translate(4 12)">
+      <rect x="0" y="0" width="8" height="10" fill="#e6e6e6"/><rect x="8" y="0" width="8" height="10" fill="#ccc"/>
+      <rect x="16" y="0" width="8" height="10" fill="#b3b3b3"/><rect x="24" y="0" width="8" height="10" fill="#999"/>
+      <rect x="32" y="0" width="8" height="10" fill="#808080"/><rect x="40" y="0" width="8" height="10" fill="#666"/>
+      <rect x="48" y="0" width="8" height="10" fill="#4d4d4d"/><rect x="56" y="0" width="8" height="10" fill="#333"/>
+      <rect x="64" y="0" width="8" height="10" fill="#1a1a1a"/><rect x="72" y="0" width="8" height="10" fill="#000"/>
+      <text x="0" y="15" class="ks">10 20 30 40 50 60 70 80 90 100%</text>
+    </g>
+    <g transform="translate(4 33)">
+      <rect x="0" y="0" width="12" height="10" fill="#00ffff"/><rect x="14" y="0" width="12" height="10" fill="#ff00ff"/>
+      <rect x="28" y="0" width="12" height="10" fill="#ffff00"/><rect x="42" y="0" width="12" height="10" fill="#ff0000"/>
+      <rect x="56" y="0" width="12" height="10" fill="#00ff00"/><rect x="70" y="0" width="12" height="10" fill="#0000ff"/>
+      <text x="0" y="15" class="ks">C · M · Y · R · G · B</text>
+    </g>
+  </g>
+
+  <!-- halftones -->
+  <g transform="translate(10 112)">
+    <rect width="88" height="39" class="box"/>
+    <text x="4" y="8" class="k">HALFTONE / RESIST CONTINUITY</text>
+    <rect x="4" y="13" width="23" height="19" fill="url(#dots25)"/><rect x="32" y="13" width="23" height="19" fill="url(#dots50)"/><rect x="60" y="13" width="23" height="19" fill="url(#dots75)"/>
+    <text x="9" y="37" class="ks">25%</text><text x="37" y="37" class="ks">50%</text><text x="65" y="37" class="ks">75%</text>
+  </g>
+
+  <!-- fine structures -->
+  <g transform="translate(103 112)">
+    <rect width="88" height="39" class="box"/>
+    <text x="4" y="8" class="k">FINE STRUCTURE / EDGE SPREAD</text>
+    <rect x="4" y="13" width="28" height="19" fill="url(#grid1)"/>
+    <g transform="translate(38 13)" fill="#000">
+      <rect x="0" y="0" width="2" height="19"/><rect x="4" y="0" width="1.5" height="19"/><rect x="7.5" y="0" width="1" height="19"/><rect x="10.5" y="0" width=".75" height="19"/><rect x="13" y="0" width=".5" height="19"/><rect x="15" y="0" width=".3" height="19"/><rect x="16.5" y="0" width=".2" height="19"/><rect x="18" y="0" width=".1" height="19"/>
+    </g>
+    <g transform="translate(62 13)" fill="#000">
+      <circle cx="3" cy="3" r="3"/><circle cx="10" cy="3" r="2"/><circle cx="16" cy="3" r="1"/><circle cx="21" cy="3" r=".5"/>
+      <path d="M0 10h23v1H0zM0 14h23v.5H0zM0 17h23v.2H0z"/>
+    </g>
+    <text x="4" y="37" class="ks">inspect feathering / pinholes / merge / dropout</text>
+  </g>
+
+  <!-- text and vector -->
+  <g transform="translate(196 112)">
+    <rect width="91" height="39" class="box"/>
+    <text x="4" y="8" class="k">TEXT / CURVE / CORNER</text>
+    <text x="4" y="15" style="font:2.5px monospace">6 pt-ish · FIELD φ Φ 墨 123</text>
+    <text x="4" y="22" style="font:3.2px monospace">8 pt-ish · FIELD φ Φ 墨 123</text>
+    <text x="4" y="30" style="font:bold 4.2px monospace">11 pt-ish · FIELD 123</text>
+    <path d="M68 12 C83 10 83 32 68 30 M68 12 H86 V30 H68" fill="none" stroke="#000" stroke-width=".35"/>
+  </g>
+
+  <!-- wet / transfer target -->
+  <g transform="translate(10 157)">
+    <rect width="181" height="37" class="box"/>
+    <text x="4" y="8" class="k">SACRIFICIAL TRANSFER / BLEED ZONE</text>
+    <text x="4" y="14" class="ks">Use this strip for water brush / mist / transfer pressure / etch resist inspection. Leave upper diagnostics untouched.</text>
+    <g transform="translate(4 18)">
+      <rect x="0" y="0" width="20" height="13" fill="#000"/>
+      <rect x="24" y="0" width="20" height="13" fill="#808080"/>
+      <rect x="48" y="0" width="20" height="13" fill="url(#dots50)"/>
+      <path d="M74 1 C80 12 88 0 94 12 S108 1 114 12" fill="none" stroke="#000" stroke-width="1"/>
+      <path d="M120 1 L136 12 M120 12 L136 1" stroke="#000" stroke-width=".3"/>
+      <text x="142" y="5" class="ks">MIRROR</text><text x="142" y="11" class="ks" transform="translate(31 0) scale(-1 1)">MIRROR</text>
+    </g>
+  </g>
+
+  <!-- handwritten return -->
+  <g transform="translate(196 157)">
+    <rect width="91" height="37" class="box"/>
+    <text x="4" y="8" class="k">RETURN / HAND NOTE</text>
+    <text x="4" y="15" class="ks">media __________________________</text>
+    <text x="4" y="21" class="ks">setting ________________________</text>
+    <text x="4" y="27" class="ks">scale ______ mm · verdict ______</text>
+    <text x="4" y="33" class="ks">defect/value ___________________</text>
+  </g>
+
+  <!-- corner registration -->
+  <g stroke="#000" stroke-width=".35">
+    <path d="M7 12h8M11 8v8M282 12h8M286 8v8M7 198h8M11 194v8M282 198h8M286 194v8"/>
+  </g>
+  <text x="10" y="202" class="ks">Digital geometry ≠ physical proof. Measure, photograph, record one variable change, RETURN.</text>
+  <text x="287" y="202" text-anchor="end" class="ks">REV 0.1 · 2026-10-08</text>
+</svg>
