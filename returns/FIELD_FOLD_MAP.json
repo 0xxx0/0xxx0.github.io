@@ -1,14 +1,14 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T13:03:05.845Z",
- "returns_total": 298,
- "raw_distinct_states": 113,
+ "generated": "2026-10-24T13:04:16.376Z",
+ "returns_total": 299,
+ "raw_distinct_states": 114,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
  "phase_distribution": {
   "SOURCE": 0,
   "HOLD": 97,
-  "RETURN": 146,
+  "RETURN": 147,
   "RESIDUE": 55
  },
  "residue_count": 55,
@@ -491,6 +491,10 @@
   },
   {
    "state": "CANDIDATE_EVIDENCE_PASS",
+   "count": 1
+  },
+  {
+   "state": "MERGED_RUNTIME / AUTHORITY_ALIGNED / EXACT_HEAD_CI_UNCLAIMED",
    "count": 1
   },
   {
@@ -1008,6 +1012,13 @@
    "phase": "HOLD",
    "verified": false,
    "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "COMMS_EXACT_TRANSPORT_RELEASE_2026-10-03.json",
+   "raw": "MERGED_RUNTIME / AUTHORITY_ALIGNED / EXACT_HEAD_CI_UNCLAIMED",
+   "phase": "RETURN",
+   "verified": false,
+   "why": "landed (settled/complete/aligned end-state)"
   },
   {
    "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
@@ -2962,8 +2973,8 @@
    "RESIDUE": 0
   },
   "route_state_residue": [],
-  "operation_distinct": 73,
-  "operation_compound_count": 21,
+  "operation_distinct": 74,
+  "operation_compound_count": 22,
   "operation_debt_sample": [
    "ENTER / ROUTE",
    "REMEMBER / PATH",
@@ -2974,7 +2985,7 @@
   ],
   "operation_class_proposed": 6,
   "operation_class_dist": {
-   "RECOVER": 10,
+   "RECOVER": 11,
    "OPERATE": 5,
    "SEE": 16,
    "MAKE": 21,
@@ -3033,6 +3044,7 @@
    "MODULATE": "PLAY",
    "RERENDER": "MAKE",
    "EXPERIMENT": "PLAY",
+   "ADDRESS / RELEASE": "RECOVER",
    "READ / RIDE / SOURCE": "SEE",
    "PRINT": "MAKE",
    "TRANSACT": "OPERATE",
@@ -3077,7 +3089,7 @@
     "mismatches": [
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 97",
-     "phase_distribution.RETURN: receipt 135 vs map 146",
+     "phase_distribution.RETURN: receipt 135 vs map 147",
      "phase_distribution.RESIDUE: receipt 7 vs map 55",
      "verified_flagged: receipt 95 vs map 73"
     ],
