@@ -6,7 +6,7 @@ function navSelftest(){
  const context={console,Intl,TextEncoder,TextDecoder,setTimeout,clearTimeout,HTMLElement:class{},customElements:{define(){}},navigator:{language:'en'},document:{documentElement:{lang:'en'}}};context.window=context;context.globalThis=context;
  vm.createContext(context);for(const p of ['lib/document-structure.js','field-aperture.js'])vm.runInContext(readFileSync(p,'utf8'),context,{filename:p});
  const A=context.FieldAperture;
- const model=raw=>{let json;try{JSON.parse(raw);json=A.analyze(raw,'fixture','en','AUTO')}catch{}return N.compile(raw,A.analyze(raw,'fixture','en','TXT',true),json,json?A.jsonSpans(raw):[])};
+ const model=raw=>{let json;try{JSON.parse(raw);json=A.analyze(raw,'fixture','en','AUTO')}catch{}return N.compile(raw,A.analyze(raw,'fixture','en',json?'TXT':'AUTO',true),json,json?A.jsonSpans(raw):[])};
  const raw='# Water\n\nWater flows downhill. A gate changes its route.\n\nThe gate is closed. Water collects upstream.\n\nAn observation can question an explanation. 🧭 é';
  const m=model(raw),paras=N.level(m,'PARA').units;
  assert.equal(m.raw,raw);assert.ok(m.words.length>10);
