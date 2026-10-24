@@ -12,7 +12,7 @@ async function nativeEchoProof(){
   assert.ok(start>=0&&end>start);fixtures.set(key,vm.runInNewContext('('+source.slice(start,end).trim()+')()'));
  }
  const root=process.cwd(),server=http.createServer((req,res)=>{
-  const u=new URL(req.url,'http://local');if(u.pathname==='/__echo-probe'){res.setHeader('Content-Type','text/html');res.end(fixtures.get(u.searchParams.get('case')));return}
+  const u=new URL(req.url,'http://local');if(u.pathname==='/__echo-probe'){res.setHeader('Content-Type','text/html; charset=utf-8');res.end(fixtures.get(u.searchParams.get('case')));return}
   const file=path.join(root,decodeURIComponent(u.pathname),u.pathname.endsWith('/')?'index.html':'');
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.writeHead(404);res.end();return}
   res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.mjs':'application/javascript','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain');fs.createReadStream(file).pipe(res);
