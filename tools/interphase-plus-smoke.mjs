@@ -5,7 +5,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
- const stale=['/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ const stale=['/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
   if(prime&&stale.includes(req.url)){
    res.setHeader('Cache-Control','public,max-age=86400');res.setHeader('Content-Type',req.url.includes('.css')?'text/css':'application/javascript');
@@ -32,10 +32,10 @@ async function continuumBrowserProof(){
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
-   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.5-dial2'),'release key missing: '+file);
+   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.6-dial2'),'release key missing: '+file);
   }
   await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
-  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.5-dial2'));assert.deepEqual(cacheErrors,[]);
+  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.6-dial2'));assert.deepEqual(cacheErrors,[]);
   await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
   for(const width of [390,320,1280]){
    const context=await browser.newContext({viewport:{width,height:width===320?568:900},hasTouch:width<700,reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[];
@@ -52,14 +52,20 @@ async function continuumBrowserProof(){
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
    assert.equal(await page.locator('#interphaseWorkspace').count(),0);
    assert.equal(requests.includes('/interphase/continuum.mjs'),false,'ordinary entry must not load the experimental reader');
-   assert.equal(await page.locator('#workedOn').isVisible(),true);
-   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:label&&label.scrollWidth>label.clientWidth+1}}));
-   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'named choices must remain readable and reachable');
+   assert.equal(await page.locator('#workedOn').isVisible(),false,'word-heavy detail starts folded');
+   const foldedText=(await page.locator('body').innerText()).length;
+   await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),true);
+   assert.ok((await page.locator('body').innerText()).length>foldedText*2,'one reveal unfolds the existing detail');
+   await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
+   const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
+   assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44&&!x.clipped),'addressed tool targets must remain named and reachable');
    await page.waitForFunction(()=>window.FieldOmnibar);
    await page.locator('#feedRail [data-href="/house/"]').click();
    assert.equal(requests.some(p=>p==='/field-awake-visor.js'),false,'first visit must not load or open the AWAKE introduction');
    assert.equal(await page.locator('#fieldAwakeVisor').count(),0);
    await page.waitForFunction(()=>document.getElementById('apTitle').textContent==='HOUSE / FIELD');
+   await page.locator('#fieldWords').click();assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD');
+   await page.locator('#fieldWords').click();
    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
    await page.goBack();await page.waitForSelector('#feedRail .feedChip');
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);

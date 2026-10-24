@@ -41,10 +41,13 @@ that finding. The repair starts by restoring access, not by adding a fourth fram
 
 ## What changes now
 
-One ordinary entry remains at `/`: the existing readable FIELD host. The AWAKE
+One ordinary entry remains at `/`: the existing FIELD host with words folded.
+The resting surface is its address bar, one held title/native action and compact
+addressed tool targets. Aa unfolds the original descriptions, history and status
+in place. The duplicate command dock and passive explanation/status chrome are
+folded away. Tool names stay accessible and the held name remains visible. The AWAKE
 introduction is neither loaded nor opened on first visit/HOLD; `?visor=1` retains
-explicit access. Full route names
-supplement the glyphs. Selecting a route holds it; OPEN reaches its actual native
+explicit access. Full route names remain available through selection and the explicit word reveal. Selecting a route holds it; OPEN reaches its actual native
 owner. Existing context and re-entry mechanisms remain in that host. Axis-scroll selection
 requires a gesture on the live strip; hidden strips and layout/history scrolls do
 not own focus. This repairs a live-observed HOUSE→back→CALLS drift. The restored
