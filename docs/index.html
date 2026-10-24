@@ -65,22 +65,12 @@ function asJson(s){try{const v=JSON.parse(s);return v&&typeof v==='object'?v:nul
 function loadProjection(value,opt){
  activeJson=asJson(activeRaw);jsonTree=false;readFocus=null;treeEntryPath='';
  jsonMap=activeJson?FieldAperture.jsonSpans(activeRaw):[];
- JP.hidden=!activeJson;JP.textContent='STRUCT';JP.title='Inspect the JSON node at this reading position';
+ JP.hidden=!activeJson;JP.textContent='JSON PATHS';JP.title='Navigate exact JSON paths without rewriting source text';
  if(activeJson){
+   const fmt={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
    const node=jsonMap.find(n=>!n.ambiguous&&n.path===opt.address);
-   const textFocus={...opt,format:'TXT',scale:['WORD','SENT','PHRASE','PARA','DOC','GRAPHEME'].includes(String(opt.scale||'').toUpperCase())?opt.scale:'WORD'};
-   if(node)textFocus.charIndex=node.contentStart;
-   delete textFocus.address;
-   // Named JSON is a traversable structure first; the exact source remains
-   // untouched and a single READ TEXT action projects the same byte sequence.
-   // Unnamed pasted JSON stays text-first for ordinary reading.
-   const namedJson=/\.json$/i.test(activeUrl?.pathname||activeLabel||'');
-   if(namedJson){
-     jsonTree=true;treeEntryPath=node?.path||'$';
-     readFocus={scale:textFocus.scale,char_index:textFocus.charIndex??0,wpm:textFocus.wpm};
-     JP.textContent='READ TEXT';JP.title='Read exact JSON bytes as text';
-     A.load(activeRaw,{label:activeLabel,format:'JSON',scale:'ROOT',address:treeEntryPath,wpm:opt.wpm});
-   }else A.load(activeRaw,textFocus);
+   if(node)fmt.charIndex=node.contentStart;
+   delete fmt.address;A.load(activeRaw,fmt);
  }else A.load(value,opt)
 }
 function readingFocus(){
@@ -98,10 +88,10 @@ JP.onclick=()=>{
   if(!jsonTree){
    const node=FieldAperture.jsonNodeAt(jsonMap,snap.char_index);
    if(!node)throw Error('This JSON position has repeated keys; keep reading the exact source.');
-   readFocus=snap;treeEntryPath=node.path;jsonTree=true;JP.textContent='READ JSON';
+   readFocus=snap;treeEntryPath=node.path;jsonTree=true;JP.textContent='READ TEXT';
    A.load(activeRaw,{label:activeLabel,scale:'ROOT',address:node.path,wpm:snap.wpm});
   }else{
-   const focus=readingFocus();jsonTree=false;JP.textContent='STRUCT';
+   const focus=readingFocus();jsonTree=false;JP.textContent='JSON PATHS';
    A.load(activeRaw,{label:activeLabel,format:'TXT',scale:focus.scale||'WORD',charIndex:focus.char_index??0,wpm:snap.wpm});
   }
   JP.title='Inspect the JSON node at this reading position';document.documentElement.dataset.readfieldProjection='mapped';
