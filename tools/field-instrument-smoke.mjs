@@ -39,6 +39,15 @@ try{
     await page.waitForFunction(()=>document.querySelectorAll('#feedRail .feedChip').length>=3
       &&document.querySelector('#fieldWords')?.parentElement?.classList.contains('fieldUrlFrame'));
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
+    assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'resting FIELD is the one bar');
+    assert.equal(await page.locator('#feedRail').isVisible(),false,'no source grid at rest');
+    assert.equal(await page.locator('#aperture').isVisible(),false,'no held card at rest');
+    // The original strip is still available through its canonical command,
+    // not a parallel default launcher or second surface.
+    await page.locator('#fieldUrlInput').fill(':glyphs');
+    await page.locator('#fieldUrlInput').press('Enter');
+    await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'GLYPHS reveals native strip');
     const initial=await page.evaluate(()=>{
       const rail=document.getElementById('feedRail'),tiles=[...rail.querySelectorAll('.feedChip')];
       const y=tiles.map(n=>n.getBoundingClientRect().top),label=tiles[0].querySelector('.feedName'),r=tiles[0].getBoundingClientRect();
@@ -56,6 +65,10 @@ try{
     assert.ok(initial.width>=44&&initial.height>=44&&initial.height<=64,'compact finger-size glyphs '+width);
     assert.ok(initial.pageWidth<=initial.viewport+2,'no document horizontal overflow '+width);
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    const heldProbe=await page.evaluate(()=>({href:location.href,pane:document.documentElement.dataset.fieldBarPane,words:document.documentElement.dataset.fieldWords,focus:window.__fieldAct?.focusHref?.(),title:document.getElementById('apTitle')?.textContent,bar:!!window.FieldBarLanding}));
+    console.log('FIELD BAR GLYPH PROBE '+width+' '+JSON.stringify(heldProbe));
+    await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='hold');
+    assert.equal(await page.locator('#feedRail').isVisible(),false,'selecting one glyph folds browse into HOLD');
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
     assert.ok(await page.locator('#apOpen').getAttribute('href'),'held tool has explicit OPEN '+width);
     const held=await page.locator('#apTitle').textContent();
