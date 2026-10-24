@@ -158,6 +158,13 @@ async function execute(command,href,reason='operator'){
   case'plain':
    if(window.FieldInstrument?.active?.())window.FieldInstrument.exit();
    status('PLAIN · native FIELD','ok');break;
+  case'list':{
+   const fi=window.FieldInstrument;
+   if(!fi?.enter||!fi?.view){status('LIST unavailable','bad');return}
+   if(!fi.active())await fi.enter();
+   if(!fi.view('list')){status('LIST unavailable','bad');return}
+   status('LIST · native addresses','ok');break
+  }
   case'axis':{
    // Native axial filters; perspective never masquerades as additional data.
    if(window.FieldInstrument?.active?.())window.FieldInstrument.exit();

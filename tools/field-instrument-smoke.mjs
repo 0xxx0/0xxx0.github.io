@@ -88,6 +88,33 @@ try{
         overlaps:rects.some((a,i)=>rects.some((b,j)=>j>i&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top))};
     });
     assert.equal(geometry.scroll<=width,true,'horizontal clipping '+width);assert.equal(geometry.bad,0,'unreachable marks '+width);assert.equal(geometry.overlaps,false);
+    // ONE source / three lawful readings: tab switch may not touch the FIELD frame.
+    await page.locator('#fiView').click();
+    assert.equal(await page.locator('#fiViewTabs:not([hidden]) [role="tab"]').count(),3,'one view picker has three accessible readings');
+    await page.locator('#fiViewTabs [data-view="list"]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'list');
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'LIST must not change held source/position');
+    assert.equal(await page.locator('[data-map-id]').count(),expected,'list retains the exact whole-field axis');
+    assert.ok(await page.locator('#fiList .fiListRow:visible').count()>=1,'source list must expose readable, actionable addresses');
+    const listState=await page.locator('#fiList').evaluate(n=>({scroll:n.scrollWidth,width:n.clientWidth,head:n.querySelector('.fiListHead').textContent}));
+    assert.ok(listState.scroll<=listState.width+1&&listState.head.includes('IN SCOPE'),'LIST must be readable without horizontal clipping');
+    const firstListId=await page.locator('#fiList [data-list-id]').first().getAttribute('data-list-id');
+    await page.locator('#fiList [data-list-page="next"]').click();
+    assert.notEqual(await page.locator('#fiList [data-list-id]').first().getAttribute('data-list-id'),firstListId,'LIST pages through the counted tail');
+    await page.locator('#fiList [data-list-page="prev"]').click();
+    await page.locator('#fiList [data-list-id]').first().click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,firstListId,'list click holds canonical source identity');
+    await page.locator('#fiReturn').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'LIST selection preserves exact pinned RETURN');
+    await page.locator('#fiView').click();
+    await page.locator('#fiViewTabs [data-view="plan"]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'plan');
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'PLAN is a coordinate projection not a state mutation');
+    await page.locator('#fiView').click();
+    await page.locator('#fiViewTabs [data-view="strip"]').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'STRIP recovers same frame');
+    assert.deepEqual(await page.locator('[data-map-id]').evaluateAll(ns=>ns.map(n=>n.dataset.mapId)),overviewIds,'every observer projects the same axis order');
+
     if(width<760){
       const cdp=await context.newCDPSession(page),boxes=await page.locator('.fiMark').evaluateAll(ns=>ns.slice(0,2).map(n=>{const r=n.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2}}));
       await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[boxes[0]]});
@@ -235,6 +262,11 @@ try{
     await issue(':help');
     assert.equal(await page.locator('#fieldUrlPanel:not([hidden])').count(),1,'plain HELP must open command registry');
     if(width<760)assert.equal(await page.locator('#fieldOmnibarKeys [data-command="help"]').isVisible(),true,'one discoverable mobile help affordance');
+    await issue(':list');
+    await page.waitForSelector('html[data-instrument="1"]');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'list','plain :list opens the existing source observer, not another application');
+    await cmd(':plain');
+    await page.waitForSelector('html:not([data-instrument="1"])');
     await issue(':turn');
     await page.waitForSelector('html[data-instrument="1"]');
     const angle=await page.evaluate(()=>FieldInstrument.snapshot().frame.turn);
