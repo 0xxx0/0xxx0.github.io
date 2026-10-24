@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-24T06:35:37.913Z",
+  "generated": "2026-10-24T07:06:35.610Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-24",
-  "commits_in_window": 22,
-  "git_commits_in_window": 67,
-  "telemetry_commits_in_window": 45,
-  "commits_total": 6588,
-  "branch_count": 1049,
+  "commits_in_window": 25,
+  "git_commits_in_window": 73,
+  "telemetry_commits_in_window": 48,
+  "commits_total": 6594,
+  "branch_count": 1050,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /recovery/timeline/ + /recovery/ (IMPLEMENT,VERIFY",
-    "ARCHIVE SPINE — /recovery/timeline/: work done over time, one tap each"
+    "field-index: stamp /sleeper/archive/ for the Sleeper archive publish (IMPLEMEN",
+    "sleeper: publish deduped Sleeper archive at /sleeper/archive/ (operator: 'u ca"
   ],
   "active_fronts": [
     {
