@@ -92,6 +92,13 @@ header{display:flex;align-items:end;justify-content:space-between;gap:16px;paddi
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:10px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:9.5px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:9.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:9.5px;color:var(--mut)}.feedState{color:var(--green)}
+/* Keep addressed choices readable; the glyph supplements the name. */
+#feedRail{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:3px}
+#feedRail .feedChip{width:100%;min-height:44px;height:auto;padding:8px;grid-template-columns:24px minmax(0,1fr);grid-template-rows:auto;gap:8px;text-align:left}
+#feedRail .feedChip tt{display:none}
+.feedName{font:600 13px/1.35 system-ui,sans-serif;overflow-wrap:anywhere;justify-self:start}
+#feedRail .feedDay,#feedRail .feedEmpty{grid-column:1/-1}
+
 .feedMore{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:4px 3px;color:var(--mut);font-size:9.5px}.routeSurface{margin-top:10px}.feedMore button{padding:5px 7px;font-size:10px}
 
 /* PERSISTENT RUN DOCK — the held object's existing action surface, kept reachable while scrolling.
@@ -605,7 +612,7 @@ summary span,.workDepth>summary span,.focusDepth>summary span{text-align:left;di
   <div class="runDockRead"><span id="runDockWitness"><b>WITNESS</b> —</span><span class="forecast" id="runDockForecast"><b>FORECAST</b> —</span></div>
 </div>
 
-<div class="foot"><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./desk/">WORK DESK →</a><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span class="footLaw">CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span></details><button id="fiTheme" title="toggle light / dark — persists as fi-theme">◐ DARK</button><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><details class="footMenu" aria-label="More field routes"><summary>MORE</summary><a href="./desk/">WORK DESK →</a><a href="?instrument=1">FIELD MAP →</a><a href="?work=1">SOURCE READER / EXPERIMENT →</a><a href="./control/source-hold-turn-trace-return.html">RUN PROTOCOL →</a><a href="./nexus/map.html">SYSTEM MAP →</a><a href="./field-play.html">PLAY THE FIELD →</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span class="footLaw">CURRENT → φ held object → FIELD · refinement / proof / chronology recover on demand</span></details><button id="fiTheme" title="toggle light / dark — persists as fi-theme">◐ DARK</button><button id="foveaToggle" title="LOCAL DETAIL. Pointer: sweep to read; click holds; click held mark again or shift-click opens. Touch: tap/drag across marks to read; tap holds; tap held mark again opens. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -1412,7 +1419,7 @@ function renderFeed(){
    const d=shortDay(r.index?.updated_at||'');
    if(feedScope==='RECENT'&&d&&d!==lastDay){const age=dayAge(r.index?.updated_at||'');parts.push('<span class="feedDay"'+(age!=null?' data-age="'+Math.min(Math.max(age,0),3)+'"':'')+' title="manifest index day '+esc(d)+(age!=null?' · '+age+'d ago':'')+'">'+esc(d)+'</span>');lastDay=d}
    const signal=routeSignal(r),lab=[feedScope==='HEADS'?'CURRENT HEAD':null,r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/'),signal!=='CLEAR'?signal:null].filter(Boolean).join(' · ');
-   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt></button>');
+   parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt><span class="feedName">'+esc(r.title||r.href)+'</span></button>');
  }
  rail.innerHTML=parts.join('');
  rail.querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,feedScope==='HEADS'?'HEADS':'LATEST')});
@@ -1695,6 +1702,6 @@ window.FieldIndexReadModel=Object.freeze({
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
-<script type="module" src="./field-instrument.mjs?v=0.10.0"></script>
-<script type="module" src="./field-work.mjs?v=0.10.0"></script>
+<script type="module" src="./field-instrument.mjs?v=0.10.1"></script>
+<script type="module" src="./field-work.mjs?v=0.10.1"></script>
 </main></body></html>

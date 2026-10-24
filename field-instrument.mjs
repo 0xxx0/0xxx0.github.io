@@ -788,8 +788,10 @@ function boot(){
   const start=async()=>{
     if(!window.FieldURLBar||!owner()?.snapshot()?.routes?.length){if(++attempts<120)setTimeout(start,100);return}
     wire();await load();
-    const mode=new URLSearchParams(location.search).get('instrument');
-    if(mode==='1'||(mode!=='0'&&!owner().entry().native))await enter();
+    const query=new URLSearchParams(location.search),mode=query.get('instrument');
+    // The readable host is the entry. Saved experiments never replace it on reload.
+    // work=0 retains the published native-projection address; work=1 opts into the reader.
+    if(mode==='1'||(mode!=='0'&&['0','1'].includes(query.get('work'))))await enter();
   };start();
 }
 boot();
