@@ -633,7 +633,7 @@ const fieldEgressReady=import('./lib/field-egress-reducer.mjs').then(m=>{
  queueMicrotask(()=>{try{renderAperture();renderOrientation();renderFeed()}catch(_){}});
  return m;
 }).catch(()=>null);
-const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
+const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={},axisScrollOwners=new WeakSet();let axisScrollMuteUntil=0;
 const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02',DAYLINE_SOURCE_RETURN_KEY='atlas.dayline.source-return.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
@@ -795,7 +795,10 @@ function tokenHTML(a,v,maxSup){
 function renderAxes(){
  const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports),sv=selectedValue(a),pi=Math.max(0,a.values.indexOf(sv)),pos=axisPosition(a.values,pi);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+pos.label+' · '+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
  $('axialRows').querySelectorAll('.axisToken').forEach(b=>{b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)};b.onkeydown=e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const row=[...b.parentElement.querySelectorAll('.axisToken')],i=row.indexOf(b),n=Math.max(0,Math.min(row.length-1,i+(e.key==='ArrowRight'?1:-1))),next=row[n];if(next){next.focus();chooseAxis(next.dataset.axis,next.dataset.value,true)}}});
- $('axialRows').querySelectorAll('.axisViewport').forEach(v=>v.addEventListener('scroll',()=>{if(performance.now()<axisScrollMuteUntil)return;clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>{if(performance.now()>=axisScrollMuteUntil)nearestFromScroll(v)},130)},{passive:true}));
+ $('axialRows').querySelectorAll('.axisViewport').forEach(v=>{
+  for(const type of ['pointerdown','touchstart','wheel'])v.addEventListener(type,()=>axisScrollOwners.add(v),{passive:true});
+  v.addEventListener('scroll',()=>{if(!axisScrollOwners.has(v)||performance.now()<axisScrollMuteUntil)return;clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>{if(axisScrollOwners.has(v)&&performance.now()>=axisScrollMuteUntil){axisScrollOwners.delete(v);nearestFromScroll(v)}},130)},{passive:true});
+ });
  requestAnimationFrame(centerAxes);
 }
 function renderSurvivors(){
@@ -810,6 +813,7 @@ function centerAxes(){
  $('axialRows').querySelectorAll('.axisViewport').forEach(v=>{const on=v.querySelector('.axisToken.on');if(on)on.scrollIntoView({block:'nearest',inline:'center',behavior:'auto'})});
 }
 function nearestFromScroll(v){
+ if(!v.isConnected||v.clientWidth===0||v.getClientRects().length===0)return;
  const buttons=[...v.querySelectorAll('.axisToken')];if(!buttons.length)return;
  const box=v.getBoundingClientRect(),cx=box.left+box.width/2;
  let best=buttons[0],dist=Infinity;for(const b of buttons){const r=b.getBoundingClientRect(),d=Math.abs((r.left+r.width/2)-cx);if(d<dist){best=b;dist=d}}
@@ -1702,6 +1706,6 @@ window.FieldIndexReadModel=Object.freeze({
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
-<script type="module" src="./field-instrument.mjs?v=0.10.4"></script>
-<script type="module" src="./field-work.mjs?v=0.10.4"></script>
+<script type="module" src="./field-instrument.mjs?v=0.10.5"></script>
+<script type="module" src="./field-work.mjs?v=0.10.5"></script>
 </main></body></html>

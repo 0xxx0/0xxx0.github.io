@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T17:27:04+00:00",
+        "updated_at": "2026-10-24T17:35:01+00:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -71,8 +71,9 @@
       "state": "ACTIVE",
       "receipt": "/interphase/SPEC.md",
       "machine_view": "FIELD",
-      "version": "0.10.4",
+      "version": "0.10.5",
       "transfer": [
+        "0.10.5 exact re-entry: axis scroll changes selection only after a pointer/touch/wheel gesture on that live strip; layout/history restoration and hidden strips cannot reselect a different route. Keyboard and direct selection remain native.",
         "0.10.4 quiet entry: the retained AWAKE introduction is loaded only by explicit ?visor=1; ordinary first visit and first HOLD neither load it nor open it. Native map, source reader and original-code continuation remain unchanged.",
         "0.10.3 restores the readable FIELD host after the operator disconfirmed 0.10.0. Full names replace glyph-only route choices. Native map is opt-in (?instrument=1; compatibility ?work=0); experimental source reader is opt-in (?work=1), loaded lazily. Earlier reader/state proofs do not establish daily usefulness or convergence.",
         "0.10.2 HELD WALK retained: LIST pins the current source across pagination, WALK follows declared parent/child/peer edges, STEP restores previous position and exact RETURN remains; no inferred relationship or second authority.",

@@ -45,7 +45,9 @@ One ordinary entry remains at `/`: the existing readable FIELD host. The AWAKE
 introduction is neither loaded nor opened on first visit/HOLD; `?visor=1` retains
 explicit access. Full route names
 supplement the glyphs. Selecting a route holds it; OPEN reaches its actual native
-owner. Existing context and re-entry mechanisms remain in that host. The restored
+owner. Existing context and re-entry mechanisms remain in that host. Axis-scroll selection
+requires a gesture on the live strip; hidden strips and layout/history scrolls do
+not own focus. This repairs a live-observed HOUSE→back→CALLS drift. The restored
 page still has accumulated depth; this is a bounded recovery, not a claim that all
 of its information design is solved.
 
