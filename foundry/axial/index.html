@@ -244,7 +244,7 @@ async function restoreReturn(r,remember){
  if(!r)return false;const before=remember===false?null:snapState(),st=stateFromReturn(r);initialApplied=true;
  if(st.source!==S.source){const ok=await loadSource(st.source,null,{keepHistory:true});if(!ok)return false}
  S.projection=st.projection==='STRIP'?'STRIP':'RING';
- S.rings.forEach(function(ring){const want=st.rings.find(function(x){return x.key===ring.key})?.value;if(want==null)return;const i=ring.values.findIndex(function(v){return String(v).toUpperCase()===String(want).toUpperCase()});ring.index=AxialFocusCore.resolveIndex(ring.values,{value:want});ring.rot=-ring.index*TAU/ring.values.length});
+ S.rings.forEach(function(ring){const want=st.rings.find(function(x){return x.key===ring.key})?.value;if(want==null)return;ring.index=AxialFocusCore.resolveIndex(ring.values,{value:want});ring.rot=-ring.index*TAU/ring.values.length});
  S.activeRing=st.active_ring?AxialFocusCore.resolveBinding(S.rings,st.active_ring):S.activeRing;
  S.search=st.search||'';$('#search').value=S.search;S.focus=st.focus?S.records.find(function(x){return x.id===st.focus||x.href===st.focus})||null:null;
  if(before)pushHistory(before);recompute();trace('REPLAY_RETURN',{focus:r.focus_id||null,source:r.source||null});return true
