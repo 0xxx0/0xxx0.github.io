@@ -162,7 +162,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   try{
    candidate.load(raw,{label,format:json?'TXT':'AUTO',scale:'WORD',wpm:opt.attention?.wpm||260,charIndex:opt.attention?.char??0});
    const next=compile(raw,candidate.A,json,spans),defaultScope=next.kind==='JSON'?(Array.isArray(json.data)?'COLLECTION:$':'ROOT'):(next.levels.some(l=>l.id==='PARA')?'PARA':next.levels[0].id);
-   const desired={char:0,scope:defaultScope,view,query:'',wpm:260,...opt.attention};
+   const desired={char:focusChar(next,level(next,defaultScope).units[0]),scope:defaultScope,view,query:'',wpm:260,...opt.attention};
    if(opt.rebase&&!next.levels.some(l=>l.id===desired.scope))desired.scope=defaultScope;
    const a=validateAttention(next,desired),nextLinks=opt.links||[],nextMarks=opt.marks||[];
    if(!Array.isArray(nextLinks)||nextLinks.length>128||nextLinks.some(l=>!validRelation(next,hash,l)))throw Error('RETURN relation quotes or revision do not match.');

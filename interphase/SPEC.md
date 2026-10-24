@@ -195,12 +195,18 @@ presentation is parked; its proven DOM FOLD/DISSOLVE identity restoration remain
 a bounded donor. Do not revive that presentation as the default or merge its whole
 historical branch. Native HOUSE, Dayline and the other tools retain their effects.
 
-Three concrete defects were exposed in this review:
+Four concrete defects were exposed in this review:
 
 - A closed dial put the first and last source characters at the same screen point.
   The old code fails the new endpoint-separation assertion. The replacement is a
   finite 270-degree arc: the empty quarter separates the endpoints and accepts no
   position. Round endpoint hit areas accept ordinary touch-coordinate rounding.
+- Live first-use testing opened a Markdown source at character zero, outside its
+  held paragraph. The first **+** did nothing. Fresh sources now start inside the
+  first native range, so narrowing preserves the character and actually enters a
+  smaller range. Explicit incoming, saved and RETURN positions retain their exact
+  coordinates, including an outside caret; its local mark fades and its control
+  names that state instead of pretending it is inside the nearest range.
 - The two coordinates had no independently operable keyboard controls. Each now
   exposes its real source bounds and current character as a slider. Arrow keys
   move one character; Home/End reach that slider's bounds; Page keys move one tenth
