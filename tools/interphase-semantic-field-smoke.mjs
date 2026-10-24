@@ -19,7 +19,12 @@ try{
   const context=await browser.newContext({viewport:{width,height:width===320?700:900},reducedMotion:'reduce'});
   const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/interphase/?route=%2F#glyphfield');
-  await page.waitForFunction(()=>window.InterphaseSemanticField?.snapshot().active&&document.querySelector('.ip-field-stage .ip-field-node'));
+  try{await page.waitForFunction(()=>window.InterphaseSemanticField?.snapshot().active&&document.querySelector('.ip-field-stage .ip-field-node'),{timeout:12000})}
+  catch(error){
+   const diagnostic=await page.evaluate(()=>({url:location.href,source:window.InterphaseInstrument?.snapshot()?.source?.label,route:window.InterphaseInstrument?.snapshot()?.nativeRoute,semantic:window.InterphaseSemanticField?.snapshot(),fieldText:document.querySelector('#ip-semantic-field')?.innerText?.slice(0,600),pageText:document.body.innerText.slice(0,700)}));
+   console.error('SEMANTIC_BOOT_DIAGNOSTIC',JSON.stringify({diagnostic,errors}));
+   throw error;
+  }
   const snap=()=>page.evaluate(()=>InterphaseInstrument.snapshot()),s=await snap();
   assert.equal(s.nativeRoute,'/','held native route remains source of FIELD focus');
   assert.equal(await page.locator('.ip-continuum').getAttribute('data-semantic-field'),'1');
