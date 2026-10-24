@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T14:11:42+08:00",
+  "updated": "2026-10-24T15:02:59+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -8773,6 +8773,27 @@
       "tier": "FIELD",
       "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; enacted Gates and ordered route evidence return to origin as Return Artifact v2. Current convergence treats Sleeper as a path/witness host for same-world route comparison, ghosts and optional transportation readings; FIELD/STEP donors may compose at the aperture boundary without taking City Engine authority.",
       "latest_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json"
+    },
+    {
+      "href": "/sleeper/archive/",
+      "title": "SLEEPER / ARCHIVE",
+      "kind": "gallery",
+      "parent": "/sleeper/",
+      "family": "MEDIA / SLEEPER",
+      "operation": "PUBLISH / RETRIEVE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "role": "Public Sleeper media archive (operator 2026-10-24: deduped sleeper published too): 24 media derivatives of the 201-unique-sha consolidated Sleeper set (1,138 inventoried copies, 88.8% duplicate across ~45 worktrees) - the ten field paintings in FIELD_DEFINITIONS order with exact source catalog words, site covers, painting->river lineage, the 2026-09-18 ChatGPT export images (ordered by export message index), and the 2026-10-05/06 worldcrafter + walk recordings. Derivatives: webp longest edge 1024 (videos: faststart remux, no re-encode); 1.75 MB total. Document/story corpus (5 PDFs, 64 drafts) and 3 refinery overlays stay local; 3 workfield-v1.2 validation screenshots are named dangling (bytes never consolidated). Hash traceability: catalog.json -> ai-media/consolidated/MANIFEST.tsv (sha256 61ca15314f6c).",
+      "receipt": "/sleeper/archive/catalog.json",
+      "index": {
+        "updated_at": "2026-10-24T15:02:59+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/",
