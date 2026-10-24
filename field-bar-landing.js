@@ -4,8 +4,9 @@
  'use strict';
  if(location.pathname!=='/'||new URLSearchParams(location.search).get('work')==='1')return;
  const doc=document,html=doc.documentElement;
+ function bind(){
  const bar=doc.getElementById('fieldUrlBar'),input=doc.getElementById('fieldUrlInput');
- if(!bar||!input)return;
+ if(!bar||!input)return false;
  const panes=new Set(['none','hold','work','prove','browse','trace','map']);
  const $=id=>doc.getElementById(id);
  function reveal(kind='none'){
@@ -57,4 +58,13 @@
  });
  window.FieldBarLanding=Object.freeze({reveal,view:()=>html.dataset.fieldBarPane});
  reveal('none');
+ return true;
+ }
+ // FIELD lens imports its URLbar asynchronously; bind to the real line as soon
+ // as it arrives instead of silently losing native reveal handlers on cold load.
+ if(!bind()){
+  const observer=new MutationObserver(()=>{if(bind())observer.disconnect()});
+  observer.observe(doc.querySelector('main')||doc.body,{childList:true,subtree:true});
+  setTimeout(()=>observer.disconnect(),15000);
+ }
 })();
