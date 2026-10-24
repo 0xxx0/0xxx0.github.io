@@ -32,7 +32,7 @@ const done=(ok,x)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);
  rec.restore={bind:restored.active_ring,value:restored.rings.find(r=>r.key==='kind').value};
  const link=w().location.href;rec.url=link;
  f.src=link;
- await wait(()=>w().AxialFocusAPI?.snapshot()?.rings?.length>=4 && w().AxialFocusAPI?.snapshot()?.active_ring==='kind','reentry');
+ await wait(()=>w().AxialFocusAPI && w().AxialFocusAPI!==api && w().AxialFocusAPI.snapshot()?.rings?.length>=4 && w().AxialFocusAPI.snapshot()?.active_ring==='kind','new document reentry');
  const reloaded=w().AxialFocusAPI.snapshot();
  rec.reentry={bind:reloaded.active_ring,value:reloaded.rings.find(r=>r.key==='kind').value};
  rec.width=d().documentElement.scrollWidth-d().documentElement.clientWidth;
