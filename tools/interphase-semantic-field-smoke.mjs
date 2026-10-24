@@ -64,7 +64,8 @@ try{
   assert.match(await page.locator('.ip-field-held').textContent(),/no declared FIELD route/,'unmapped source refuses invented geography');
   if(process.env.SCREENSHOT_DIR){
    fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
-   await page.goto(base+'/interphase/?route=%2F#glyphfield');
+   // The URL has not changed during native in-place source edits; force a real reload.
+   await page.reload();
    await page.waitForSelector('.ip-field-node');
    await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'semantic-field-'+width+'.png'),fullPage:true});
   }
