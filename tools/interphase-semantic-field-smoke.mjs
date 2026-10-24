@@ -41,6 +41,19 @@ try{
     return p&&Math.abs(c.x-p.x*100)<.0011&&Math.abs(c.y-p.y*100)<.0011});
   },coordinates);
   assert.equal(lawful,true,'node coordinates exactly decode from action class and declared parent hops');
+  const denseKey=await page.locator('.ip-field-node').evaluateAll(nodes=>
+    nodes.map(n=>({key:n.dataset.semCell,count:Number(n.getAttribute('aria-label')?.match(/(\\d+) routes/)?.[1]||0)}))
+      .find(x=>x.count>7)?.key||null);
+  if(denseKey){
+   await page.locator('.ip-field-node[data-sem-cell="'+denseKey+'"]').click();
+   const input=page.locator('[data-sem-find]');
+   assert.equal(await input.count(),1,'crowded semantic coordinate must provide lexical addressability');
+   await input.fill('no-match-5841-unwarranted');
+   assert.equal(await page.locator('.ip-field-inspect b').textContent(),'NO ROUTE MATCHES');
+   assert.equal(await page.locator('[data-sem-open]').isDisabled(),true,'unknown title cannot open a fabricated route');
+   await input.fill('');
+   assert.equal(await page.locator('[data-sem-open]').isEnabled(),true,'source route restored by reversible filter');
+  }
   await page.locator('.ip-field-node').first().click();
   assert.ok(await page.locator('[data-sem-open]').count(),'tap yields concrete source HOLD action');
   assert.ok(await page.locator('.ip-field-edge').count()>0,'only selected declared edges appear');
