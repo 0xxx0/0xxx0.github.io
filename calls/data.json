@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-25T20:09:25+08:00",
+ "generated_at": "2026-10-25T20:12:25+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -23,27 +23,6 @@
      "k": "C",
      "t": "Stay free-only",
      "eff": "$0 spend; I optimize for free models"
-    }
-   ]
-  },
-  {
-   "id": "sleeper-substrate",
-   "title": "What text becomes the city's matter?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Your own archive",
-     "eff": "returns + timeline entries become districts"
-    },
-    {
-     "k": "B",
-     "t": "The sleeper canon",
-     "eff": "brainstorm + ONE RETURN text"
-    },
-    {
-     "k": "C",
-     "t": "Your chat corpus",
-     "eff": "past conversations as geology"
     }
    ]
   }
@@ -209,6 +188,13 @@
    "pick_label": "Build compat layer",
    "note": "",
    "ts": "2026-10-25T20:07:15"
+  },
+  "sleeper-substrate": {
+   "id": "sleeper-substrate",
+   "pick": "D",
+   "pick_label": "Buddhadhamma text (operator's own answer)",
+   "note": "'can we use buddhadhamma as text' — the city's matter = buddhadhamma",
+   "ts": "2026-10-25T20:09:29+08:00"
   }
  },
  "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."
