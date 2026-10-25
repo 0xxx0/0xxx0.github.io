@@ -5,6 +5,7 @@ on:
       - 'sleeper/reading-play.js'
       - 'sleeper/axis-score.html'
       - 'tools/sleeper-read-play-dom-smoke.mjs'
+      - 'tools/sleeper-reading-smoke.mjs'
       - '.github/workflows/sleeper-reading-proof.yml'
   push:
     branches: [master]
@@ -27,3 +28,5 @@ jobs:
         run: node tools/sleeper-source-aperture-selftest.cjs
       - name: Playwright-free Chromium reading-first integration
         run: node tools/sleeper-read-play-dom-smoke.mjs
+      - name: Mobile reader, RSVP, remote browse and source-change regression
+        run: node tools/sleeper-reading-smoke.mjs
