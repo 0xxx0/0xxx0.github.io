@@ -1,7 +1,7 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T20:21:43.714Z",
- "returns_total": 300,
+ "generated": "2026-10-25T06:35:49.303Z",
+ "returns_total": 301,
  "raw_distinct_states": 115,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
@@ -9,10 +9,10 @@
   "SOURCE": 0,
   "HOLD": 97,
   "RETURN": 148,
-  "RESIDUE": 55
+  "RESIDUE": 56
  },
- "residue_count": 55,
- "unrecorded_count": 52,
+ "residue_count": 56,
+ "unrecorded_count": 53,
  "fraying_count": 3,
  "residue_files": [
   {
@@ -53,6 +53,12 @@
   },
   {
    "file": "CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "CREW_TURN_PIPE_EFFECT_GATE_2026-10-25.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
@@ -355,7 +361,7 @@
  "raw_state_histogram": [
   {
    "state": "(none)",
-   "count": 52
+   "count": 53
   },
   {
    "state": "CANDIDATE",
@@ -1045,6 +1051,14 @@
    "phase": "HOLD",
    "verified": false,
    "why": "candidate / in flight, not landed"
+  },
+  {
+   "file": "CREW_TURN_PIPE_EFFECT_GATE_2026-10-25.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
   },
   {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
@@ -3102,7 +3116,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 97",
      "phase_distribution.RETURN: receipt 135 vs map 148",
-     "phase_distribution.RESIDUE: receipt 7 vs map 55",
+     "phase_distribution.RESIDUE: receipt 7 vs map 56",
      "verified_flagged: receipt 95 vs map 73"
     ],
     "needs_counts_as_of": false,
