@@ -52,11 +52,19 @@ This projects contribution class plus `MERGE | REPAIR | HOLD | DROP`. MERGE requ
 
 Human ↔ agent / agent ↔ agent crew handoff:
 
-`node scripts/emit-agent-transcript.mjs --handoff <submission.json>`
+`node scripts/emit-agent-transcript.mjs --handoff <submission.json|->`
 
 Structured form:
 
-`node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json`
+`node scripts/emit-agent-transcript.mjs --handoff <submission.json|-> --json`
+
+Use `-` to read one submission JSON object from stdin; no transient packet file is required.
+
+Direct minimum execution projection for the next crew mate:
+
+`node scripts/emit-agent-transcript.mjs --turn <submission.json|-> --json`
+
+`--turn` performs the same handoff/source-witness preflight, resolves the native owner from FIELD, and emits `field-crew-turn/v0.1` only when state is `TURN_READY`. Otherwise it fails closed. A selected `EFFECT` with human gate `UNSPECIFIED` is `HUMAN_REQUIRED`; declare explicit `NONE` or satisfy an explicit gate before EFFECT can reach TURN_READY.
 
 Source freshness for a handoff that may outlive the current worker/turn:
 
