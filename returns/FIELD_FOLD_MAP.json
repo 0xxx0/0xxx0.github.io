@@ -1,7 +1,7 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-25T06:36:48.136Z",
- "returns_total": 302,
+ "generated": "2026-10-25T06:52:15.029Z",
+ "returns_total": 303,
  "raw_distinct_states": 115,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
@@ -9,10 +9,10 @@
   "SOURCE": 0,
   "HOLD": 97,
   "RETURN": 148,
-  "RESIDUE": 57
+  "RESIDUE": 58
  },
- "residue_count": 57,
- "unrecorded_count": 54,
+ "residue_count": 58,
+ "unrecorded_count": 55,
  "fraying_count": 3,
  "residue_files": [
   {
@@ -77,6 +77,12 @@
   },
   {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_CREW_RESPONSE_CLOSED_LOOP_2026-10-25.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
@@ -367,7 +373,7 @@
  "raw_state_histogram": [
   {
    "state": "(none)",
-   "count": 54
+   "count": 55
   },
   {
    "state": "CANDIDATE",
@@ -1189,6 +1195,14 @@
   },
   {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_CREW_RESPONSE_CLOSED_LOOP_2026-10-25.json",
    "raw": "",
    "phase": "RESIDUE",
    "verified": false,
@@ -3130,7 +3144,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 97",
      "phase_distribution.RETURN: receipt 135 vs map 148",
-     "phase_distribution.RESIDUE: receipt 7 vs map 57",
+     "phase_distribution.RESIDUE: receipt 7 vs map 58",
      "verified_flagged: receipt 95 vs map 73"
     ],
     "needs_counts_as_of": false,
