@@ -73,6 +73,8 @@
  if(!bind()){
   const observer=new MutationObserver(()=>{if(bind())observer.disconnect()});
   observer.observe(doc.querySelector('main')||doc.body,{childList:true,subtree:true});
-  setTimeout(()=>observer.disconnect(),15000);
+  // A slow module import is still a valid first visit. Observe until the
+  // native line arrives; disconnecting on a timer leaves CSS folding active
+  // without the handlers that reveal WORK, PROVE or the held action.
  }
 })();

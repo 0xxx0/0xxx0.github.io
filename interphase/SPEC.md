@@ -39,35 +39,40 @@ architecture exposed as navigation, ordinary tasks requiring RUN ceremony, dupli
 centers, useful LIST demoted, FIELD becoming another destination. We failed to apply
 that finding. The repair starts by restoring access, not by adding a fourth framework.
 
-## What changes now
+## Current surface contract and self-audit
 
-One ordinary entry remains at `/`: the existing FIELD host with words folded.
-The resting surface is its address bar, one held title/native action and compact
-addressed tool targets. Aa unfolds the original descriptions, history and status
-in place. The duplicate command dock and passive explanation/status chrome are
-folded away. Tool names stay accessible and the held name remains visible. The AWAKE
-introduction is neither loaded nor opened on first visit/HOLD; `?visor=1` retains
-explicit access. Full route names remain available through selection and the explicit word reveal. Selecting a route holds it; OPEN reaches its actual native
-owner. Existing context and re-entry mechanisms remain in that host. Axis-scroll selection
-requires a gesture on the live strip; hidden strips and layout/history scrolls do
-not own focus. This repairs a live-observed HOUSE→back→CALLS drift. The restored
-page still has accumulated depth; this is a bounded recovery, not a claim that all
-of its information design is solved.
+The winning landing is current master's one-bar FIELD (`1e7a75a`), with native
+glyph navigation available on demand. It replaces the earlier resting title/strip
+layout described in this document. The operator's latest requirements are explicit:
+one screen, glyphs, one bar, words folded, no “Choose a tool”, no card grid.
 
-| Address | Purpose and disposition |
+The named two/three-column tile candidate #1011 is withdrawn, not merged. Its
+active-typing and initial-query checks remain recoverable donor code. Passing its
+browser tests never established that its layout met the request. Do not restore it
+because its names are easier to test automatically.
+
+| State / action | Required behavior |
 |---|---|
-| `/` | Default readable entry; named choices, held context, native actions |
-| `/?instrument=1` | Explicit existing map experiment; compatibility `?work=0` retained |
-| `/?work=1` | Explicit 0.10 source reader experiment, lazy loaded; no automatic takeover |
-| `/interphase/` | Retained source-space experiment, not the FIELD landing page |
-| `/interphase/?legacy=1` | Retained recovered workbench; not promoted as the daily tool |
-| `/docs/`, `/rsvp/` | Existing reader owners; exact source continuity remains useful here |
-| `/field-index/` | Archive memory-field exploration, not priority or task management |
-| `/godseye/` | Historical source-labelled survey; its figures are not a live inventory |
+| Ordinary `/` | One bar; no empty held card, introduction, passive history or grid |
+| Glyph navigation | Original compact horizontal marks; canonical names accessible on demand; scroll the rail, not the page sideways |
+| Select / HOLD | Same FIELD object and native operations; do not create another task/source store |
+| WORK / PROVE / TRACE | Reveal only the requested existing native region |
+| Aa | Reveal original words in place; fold again without changing held identity |
+| READ / WALK / DIAL | Existing source continuum keeps its exact source/cursor; available from the bar, not a replacement home |
+| Native OPEN → BACK / RETURN | Restore the held object and relevant working context; no late axis-scroll reselection |
+| Slow first load | Native reveal handlers still bind when the URLbar arrives after 15 seconds |
 
-MORE exposes the existing FIELD map and experimental source reader. No new route,
-registry, task store, planner, ontology, or dashboard is created. Archives remain in
-place. Dormant code need not be deleted to stop making it the user's entry.
+Test resting layout at 320×568, 390×844 and desktop. Native detail may scroll when
+explicitly opened. Default words must not reappear to solve discoverability; improve
+the existing bar/glyph decoding instead. No route, archive or source folder is deleted.
+`/?instrument=1` retains the native FIELD map; `/?work=1` and `/interphase/` retain
+the current source instrument. ROOM #981 remains a parked existing candidate.
+
+The bounded repair here removes the reveal observer's 15-second cutoff and versions
+its script. A late native import otherwise leaves the folding CSS active without
+its control handlers. The browser check delays the actual URLbar response by 17
+seconds and then requires native WORK to become visible. This fixes availability;
+it does not establish the broader room/plain instrument's usefulness.
 
 ## Recovered lineage and useful fragments
 
@@ -133,25 +138,36 @@ that direction. This is a hypothesis to test, not a promise that spatial display
 better. Keep the surprising representation when it makes a formerly difficult
 operation easy; keep the list where it wins.
 
-## A continuation that can be falsified
+## One continuation, with an explicit stopping point
 
-These are ordered work packages, not new CURRENT priorities or a scheduled agent loop.
-Weeks indicate a suggested maximum scope; each stage ends when its gate is met or
-fails. Do not spend another week polishing a failed representation.
+The previous multi-week Dayline/HOUSE/reader schedule was an unsolicited detour.
+The selected continuation starts with the actual Drive FU/INTERPHASE lineage.
+The daily-work example is: open one real source, locate a meaningful part, inspect
+its relation to the whole, make one precise local change, then return without
+reconstructing context. A successful view switch alone does not finish that task.
 
-| Stage | Concrete work and existing owner | Acceptance and stop condition |
-|---|---|---|
-| Immediate: regain entry | FIELD restoration in this change | Default shows readable names; no reader auto-load; hold HOUSE → OPEN native owner → browser back retains held HOUSE; 320/390/1280px; explicit experiments still work |
-| First week: one useful daily loop | Existing `/dayline/` and Atlas/Dayline. Resume one actual line, see its next anchor/window, reschedule or finish it through the native operation, inspect the resulting state, return | Compare current native/plain flow with one candidate. Count actions, re-entry/context losses and information hidden. Use a declared fixture before any real schedule mutation. A renamed route or edited description does not count as doing the task. Stop if the candidate adds steps or hides the constraint |
-| Second week: spatial manipulation | Existing HOUSE plus `room/semantic-projection-return-20261020` (PR 981). Compare PLAIN/RAIL/ROOM over the same actual selected object; investigate FU optics here rather than cloning the branch | First prove the branch's advertised selection/UNFOLD/re-entry behavior in browser/mobile. Then one declared geometry/fit or camera-placement task in HOUSE: relevant dimensions visible, one lawful native change, inspectable before/after and return. DOM optics and physical geometry are separate scopes. Static parse tests and an attractive walkthrough are insufficient |
-| Third week, only if reading is the live need | Existing READFIELD/Scale Lens; coordinate with its active work rather than replacing it | Two distant exact source ranges remain pinned; nested focus/Lens excursion returns revision, cursor, scale, pins, view, WPM, surrounding context and keyboard focus; paused on return. Then perform a real comparison or annotation. Source hashes alone do not establish useful reading |
-| After a winning task | Fold its mechanism into the existing owner; demote redundant controls and entry paths | Name what becomes easier and what control is removed. No new universal shell. Preserve unique executable variants by reference; archive only after their useful residue is explicitly accounted for |
+1. **Recover the April reference runtime.** Preserve the exact 28-Apr-2021 bytes.
+   Repair bootstrap/asset assumptions in an isolated adapter, separating unfinished
+   scratch from initialization. Exercise input → original factorization → fovea
+   path → ring/room/plain. Observe each scale against the actual source; a position
+   or visual similarity cannot stand in for a source address.
+2. **Join the existing owner.** Compare the recovered behavior with current source
+   continuum and parked ROOM #981. Reuse the surviving mechanism in the relevant
+   host. One canonical object/model, source revision and selected range remain
+   stable across readings. Keep source editing and effect confirmation with the
+   native owner. Preserve scroll, caret, keyboard focus and paused transport on
+   return. A fresh reader, metadata editor or six-room analogy does not count as
+   recovering the original interaction.
+3. **Rehearse the task against plain.** Use the same real file and target change in
+   both readings. Record wrong selections, actions needed, lost context, exact
+   before/after and undo. Automated rehearsal establishes mechanics only. Keep a
+   spatial optic when it exposes a useful relation or reduces manipulation/re-entry
+   cost; demote it when it adds steps, hides relevant data or changes the object.
 
-The operator clarified that “old code” means the actual Google Drive CODE/project
-folders. The current landing is only the immediate repair. Do not turn the Dayline
-example above into an unsolicited replacement project. Subsequent INTERPHASE work
-starts from the recovered original described below, preserving its room/focus/plain
-relationship before adapting any mechanism to the existing FIELD owner.
+Stop after this one task and integrate its winning mechanism before opening another
+front. The current one-bar landing stays usable throughout. Preserve unique variants
+by reference; archive a redundant entry only after its useful behavior has a working
+owner. Broader daily usefulness and novel representation benefit remain unproved.
 
 ## Drive-original correction and decisive findings
 
@@ -251,7 +267,7 @@ starts with the ordinary entry task at three widths, checks that experimental re
 code is not requested, then runs the explicit reader's existing round trips. Existing
 native map and workbench proofs remain separate. Exact candidate CI is authoritative
 for browser results; an assertion written here is not a passing result. Human daily
-use and the spatial/dayline work packages remain unproved.
+use and the original room/plain continuation remain unproved.
 
 No broad archive has been removed or reorganized. The new behavior is an additive
 correcting commit and can be reversed through Git. Restoration is not presented as
