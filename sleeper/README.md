@@ -118,3 +118,13 @@ The source has not been remapped to a generated geometry and no outside interpre
 **Verification contract:** walk the source-contact path; reject choice before hearing; prove FOLLOW keeps the gate closed and crosses the nonlocal seam; prove NOTICE opens only the conditioned gate and permits actual exit traversal; rewind to an earlier state and branch again; inspect mobile/desktop DOM, ring hit regions, keyboard/touch and accessibility. Browser/device ergonomics not established by pure state tests. Do not call it a complete game or infer psychological/educational benefit until compared against a straightforward reading of the same example.
 
 **Rejected:** retention-basin terminology, sentiment-derived gameplay, rewarded doctrinal agreement, making a semantic connection to unlock a door without experiencing its consequence, copying the full Buddhadhamma text, and replacing the native Sleeper engine with this donor.
+
+## 2026-10-20 candidate: walkable aperture (read-only)
+
+This branch adds **optional navigation**, not another mode or a Gate shortcut. FIELD → SHOW ROUTE displays the shortest traversable-cell path to the nearest actionable Gate; a selector can instead hold one explicit Gate. PLAN draws that path on the exact existing grid. CITY shows the next turn. When all eight proofs are earned, guidance targets the original RETURN coordinate.
+
+The solver reads the current native grid, so actual KERIS openings and RESILIENCE relocation are visible on its next calculation. For MEASURE it routes to a reachable point in the Figure's required distance band rather than into the Gate. TRANSFER is withheld until the world-assigned primary operator has been proved. Route overlays never mutate the player, walls, proofs, operators, or recovered Return Artifact v2. Navigation is off by default and can be disabled in one press.
+
+Mechanical fixture: node tools/sleeper-walkable-aperture-selftest.cjs. Browser/device requirements still open: 320px and 390px touch, 1280px desktop, modal and drawer interaction, cue overlap, route following after a real KERIS cut, and visible recalculation when RESILIENCE moves. Do not claim actual mobile usability without that test.
+
+**Scope boundary:** The August 2026 24-kernel Play as Transfer Engine maps ten Sleeper *fields* (ONE RETURN through MINISTRY RIDGE). Those are historical design fields, not proof of ten recovered playable mini-games. This delta does not claim to implement them, import Prison Age canon, or reproduce Grow Now! Games' ASCII City. The next law worth admitting is source recall materially changes a legal route, tested first against a plain flashcard list. If there is no demonstrable navigation or retrieval gain, remove the mechanic.
