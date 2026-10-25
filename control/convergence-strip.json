@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-25T07:23:38.137Z",
+  "generated": "2026-10-25T12:33:35.916Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-25",
-  "commits_in_window": 75,
-  "git_commits_in_window": 129,
-  "telemetry_commits_in_window": 54,
-  "commits_total": 6839,
-  "branch_count": 1098,
+  "commits_in_window": 98,
+  "git_commits_in_window": 167,
+  "telemetry_commits_in_window": 69,
+  "commits_total": 6877,
+  "branch_count": 1100,
   "recent_commits": [
-    "FIELD: retain one-screen glyphs through slow and cached loading",
-    "Preserve latest crew readback and generated snapshots; landing bytes unchanged",
-    "desk: refresh public field data + root git chronology"
+    "SLEEPER // LADDER: keep the provenance line above the home indicator (env(safe",
+    "desk: refresh public field data + root git chronology",
+    "SLEEPER // LADDER 0.2.0 — the city is made of Buddhadhamma, and the walk asks "
   ],
   "active_fronts": [
     {
