@@ -1,6 +1,6 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-25T04:21:25+08:00",
+ "generated_at": "2026-10-25T20:09:25+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
@@ -23,27 +23,6 @@
      "k": "C",
      "t": "Stay free-only",
      "eff": "$0 spend; I optimize for free models"
-    }
-   ]
-  },
-  {
-   "id": "sleeper-donor",
-   "title": "The old ONE RETURN donor: what happens to it?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Redirect to canonical",
-     "eff": "donor becomes a skin on the v2 engine"
-    },
-    {
-     "k": "B",
-     "t": "Keep as museum",
-     "eff": "frozen, labelled non-conforming"
-    },
-    {
-     "k": "C",
-     "t": "Build compat layer",
-     "eff": "import shim between schemas"
     }
    ]
   },
@@ -223,6 +202,13 @@
    "pick_label": "Publish both (reviewed contact sheets first)",
    "note": "",
    "ts": "2026-10-25T01:39:17"
+  },
+  "sleeper-donor": {
+   "id": "sleeper-donor",
+   "pick": "C",
+   "pick_label": "Build compat layer",
+   "note": "",
+   "ts": "2026-10-25T20:07:15"
   }
  },
  "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."
