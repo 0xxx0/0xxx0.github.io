@@ -83,7 +83,7 @@ try{
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/desk/');
     await page.evaluate(()=>window.__fieldAct.focus('/house/'));
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
-    assert.equal(new URL(location.href).pathname,'/','native HOLD never navigates '+width);
+    assert.equal(new URL(page.url()).pathname,'/','native HOLD never navigates '+width);
     const held=await page.locator('#apTitle').textContent();
     await page.locator('#fieldWords').click();
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'open');
