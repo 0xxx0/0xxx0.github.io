@@ -618,6 +618,14 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(e.key===':'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar(':');return}
  });
  win.addEventListener('field-index:state',e=>{const href=e.detail?.focus||null;if(href!==focusHref)syncHeld(href)});
+ // Only a completed native command can dismiss the keyboard. :help and @
+ // continue editing in the bar; a rejected route command emits no success.
+ win.addEventListener('field-omnibar',e=>{
+  if(doc.activeElement!==input)return;
+  const cmd=e.detail?.command;
+  if(!cmd||['help','heads','reset'].includes(cmd))return;
+  input.blur();
+ });
 
  Promise.all([
   fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('manifest '+r.status);return r.json()}),
