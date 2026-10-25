@@ -25,7 +25,8 @@
   #field:focus-visible { outline: 1px solid rgba(79,87,96,.55); outline-offset: -2px; }
   /* the only persistent text on the page: where the matter came from */
   #prov {
-    flex: 0 0 auto; margin: 0; padding: 5px 10px 6px; border-top: 1px solid var(--hair-2);
+    flex: 0 0 auto; margin: 0; padding: 5px 10px calc(7px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--hair-2);
     font-size: 8.5px; letter-spacing: .02em; color: rgba(79,87,96,.52); line-height: 1.4;
   }
   #prov b { font-weight: 400; color: rgba(79,87,96,.72); }
