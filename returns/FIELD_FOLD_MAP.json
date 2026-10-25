@@ -1,7 +1,7 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-25T06:35:49.303Z",
- "returns_total": 301,
+ "generated": "2026-10-25T06:36:48.136Z",
+ "returns_total": 302,
  "raw_distinct_states": 115,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
@@ -9,10 +9,10 @@
   "SOURCE": 0,
   "HOLD": 97,
   "RETURN": 148,
-  "RESIDUE": 56
+  "RESIDUE": 57
  },
- "residue_count": 56,
- "unrecorded_count": 53,
+ "residue_count": 57,
+ "unrecorded_count": 54,
  "fraying_count": 3,
  "residue_files": [
   {
@@ -65,6 +65,12 @@
   },
   {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "CURRENT_NEXT_ONE_TURN_CONTRACTION_2026-10-25.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
@@ -361,7 +367,7 @@
  "raw_state_histogram": [
   {
    "state": "(none)",
-   "count": 53
+   "count": 54
   },
   {
    "state": "CANDIDATE",
@@ -1062,6 +1068,14 @@
   },
   {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
+  },
+  {
+   "file": "CURRENT_NEXT_ONE_TURN_CONTRACTION_2026-10-25.json",
    "raw": "",
    "phase": "RESIDUE",
    "verified": false,
@@ -3116,7 +3130,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 97",
      "phase_distribution.RETURN: receipt 135 vs map 148",
-     "phase_distribution.RESIDUE: receipt 7 vs map 56",
+     "phase_distribution.RESIDUE: receipt 7 vs map 57",
      "verified_flagged: receipt 95 vs map 73"
     ],
     "needs_counts_as_of": false,
