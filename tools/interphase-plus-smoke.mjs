@@ -5,7 +5,8 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
- const stale=['/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ const stale=['/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ let delayBar=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
   if(prime&&stale.includes(req.url)){
    res.setHeader('Cache-Control','public,max-age=86400');res.setHeader('Content-Type',req.url.includes('.css')?'text/css':'application/javascript');
@@ -13,7 +14,9 @@ async function continuumBrowserProof(){
   }
   const name=decodeURIComponent(new URL(req.url,'http://local').pathname),file=path.join(root,name,name.endsWith('/')?'index.html':'');
   if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.writeHead(404);res.end();return}
-  res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.mjs':'application/javascript','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain');fs.createReadStream(file).pipe(res);
+  res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.mjs':'application/javascript','.json':'application/json','.css':'text/css'})[path.extname(file)]||'text/plain');
+  const send=()=>fs.createReadStream(file).pipe(res);
+  if(delayBar&&name==='/field-urlbar.js')setTimeout(send,17000);else send();
  });
  await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
  const browser=await chromium.launch({headless:true,args:JSON.parse(process.env.SMOKE_ARGS||'[]'),executablePath:process.env.SMOKE_BROWSER||undefined});
@@ -29,6 +32,8 @@ async function continuumBrowserProof(){
   const warm=await cachedPage.evaluate(async urls=>Promise.all(urls.map(u=>fetch(u).then(r=>r.text()))),stale);
   assert.ok(warm.every(s=>s.includes('prior-continuum')),'the stale responses must really remain in HTTP cache');
   const firstFresh=cacheRequests.length;
+  await cachedPage.goto(base+'/');await cachedPage.waitForFunction(()=>window.FieldBarLanding);
+  for(const file of ['/field-bar-landing.js?v=0.3','/field-bar-landing.css?v=0.2'])assert.ok(cacheRequests.slice(firstFresh).includes(file),'fresh one-screen control/style pair missing: '+file);
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
@@ -37,6 +42,15 @@ async function continuumBrowserProof(){
   await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
   assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.7-source'));assert.deepEqual(cacheErrors,[]);
   await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
+  // A real cold import can outlast the former 15-second reveal timeout.
+  // The one-bar CSS must never strand native commands behind hidden regions.
+  const slowContext=await browser.newContext({viewport:{width:390,height:844}}),slowPage=await slowContext.newPage();
+  delayBar=true;await slowPage.goto(base+'/');
+  await slowPage.waitForFunction(()=>window.FieldBarLanding&&window.FieldOmnibar,null,{timeout:30000});delayBar=false;
+  await slowPage.locator('#fieldUrlInput').fill(':work');await slowPage.locator('#fieldUrlInput').press('Enter');
+  await slowPage.locator('#workDepth').waitFor({state:'visible'});
+  assert.equal(await slowPage.locator('#runDock').isVisible(),false,'late boot still has one control owner');
+  await slowContext.close();console.log('FIELD COLD ENTRY PASS · delayed native URLbar still binds WORK reveal');
   for(const width of [390,320,1280]){
    const context=await browser.newContext({viewport:{width,height:width===320?568:900},hasTouch:width<700,reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[];
    page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(new URL(r.url()).pathname));
