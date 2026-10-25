@@ -48,26 +48,26 @@ async function continuumBrowserProof(){
    const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
    // First prove the ordinary job: identify a named tool, open its owner, return.
    // Reader round trips below must not silently replace this entry again.
-   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&window.FieldBarLanding&&document.documentElement.dataset.fieldBarPane==='none');
+   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&window.FieldBarLanding&&document.documentElement.dataset.fieldBarPane==='browse');
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
    assert.equal(await page.locator('#interphaseWorkspace').count(),0);
    assert.equal(requests.includes('/interphase/continuum.mjs'),false,'ordinary entry must not load the experimental reader');
    assert.equal(await page.locator('#workedOn').isVisible(),false,'word-heavy detail starts folded');
    assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'one FIELD address bar');
-   assert.equal(await page.locator('#aperture').isVisible(),false,'no card at rest');
-   assert.equal(await page.locator('#feedRail').isVisible(),false,'no grid at rest');
+   assert.equal(await page.locator('#aperture').isVisible(),true,'one native held source at rest');
+   assert.equal(await page.locator('#feedRail').isVisible(),true,'all CURRENT glyphs visible at rest');
    assert.equal(await page.locator('#runDock').isVisible(),false,'no second dock');
    assert.equal(await page.locator('#fieldOmnibar').count(),0,'one input owner');
    const foldedText=(await page.locator('body').innerText()).length;
-   await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),true);
-   assert.ok((await page.locator('body').innerText()).length>foldedText*2,'Aa restores original detail');
+   await page.locator('#fieldWords').click();assert.equal(await page.locator('#apRole').isVisible(),true);
+   assert.equal(await page.locator('#workedOn').isVisible(),false,'Aa shows held detail without giant text stack');
    const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
    assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44),'addressed glyph targets retain canonical labels and touch size');
    await page.locator('#feedRail .feedChip').last().scrollIntoViewIfNeeded();
    const lastReachable=await page.locator('#feedRail .feedChip').last().evaluate(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1});
    assert.ok(lastReachable,'final CURRENT head reachable by horizontal scroll at '+width);
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
-   assert.equal(await page.locator('#feedRail').isVisible(),false,'Aa restores one-bar state');
+   assert.equal(await page.locator('#feedRail').isVisible(),true,'Aa restores same glyph grid');
    await page.waitForFunction(()=>window.FieldOmnibar);
    await page.locator('#fieldUrlInput').fill(':work');
    await page.locator('#fieldUrlInput').press('Enter');
