@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import path from 'node:path';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
 import {compileCrewHandoff,crewHandoffMarkdown,projectCrewTurn,crewTurnMarkdown} from '../lib/field-crew-handoff.mjs';
+import {compileCrewResponse,crewResponseMarkdown} from '../lib/field-crew-response.mjs';
 
 const INPUTS={
   current:'control/CURRENT.json',
@@ -301,7 +302,8 @@ function cliUsage(){
       {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'},
       {mode:'source-witness',command:'node scripts/emit-agent-transcript.mjs --witness <repo-path> --json',purpose:'emit one exact Git-blob freshness witness for a repo source; witness is concurrency evidence, never authority'},
       {mode:'crew-handoff',command:'node scripts/emit-agent-transcript.mjs --handoff <submission.json|->',purpose:'normalize one human/agent submission into the same SOURCE/HOLD/TURN/TRACE/RETURN object; - reads JSON from stdin; supplied source witness is preflighted automatically; add --json for structured output'},
-      {mode:'crew-turn',command:'node scripts/emit-agent-transcript.mjs --turn <submission.json|->',purpose:'emit minimum field-crew-turn/v0.1 only when preflight is TURN_READY; native owner resolves from FIELD manifest; - reads JSON from stdin; add --json for structured output'}
+      {mode:'crew-turn',command:'node scripts/emit-agent-transcript.mjs --turn <submission.json|->',purpose:'emit minimum field-crew-turn/v0.1 only when preflight is TURN_READY; native owner resolves from FIELD manifest; - reads JSON from stdin; add --json for structured output'},
+      {mode:'crew-response',command:'node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME>',purpose:'close coordination on the same handoff object; coordination-only readback, never effect/NOW/merge approval; add --json for structured output'}
     ],
     converge_attestations:{
       merge_requires:['ci PASS','exact_head true','base_current true','mergeable true'],
@@ -313,6 +315,7 @@ function cliUsage(){
       'THE REDUCER CLASSIFIES; IT DOES NOT PRIORITIZE, EXECUTE, MERGE OR MUTATE.',
       'NOW REQUIRES EXPLICIT CALLER CONTEXT.',
       'CREW HANDOFF PRESERVES THE SAME ADDRESSED OBJECT + BOUNDED MOVES + EVIDENCE + RETURN; IT DOES NOT SERIALIZE HIDDEN INTERNAL STATE.',
+      'CREW RESPONSE IS KEEP / PARK / WRONG_FRAME ONLY; IT CLOSES COORDINATION WITHOUT GRANTING EFFECT, NOW, PRIORITY, MERGE OR NEXT.',
       'MERGE OUTPUT IS ADVISORY; NATIVE HOST/GITHUB AUTHORITY REMAINS NATIVE.'
     ]
   };
@@ -331,13 +334,14 @@ const reduceAt=cliArgs.indexOf('--reduce');
 const convergeAt=cliArgs.indexOf('--converge');
 const handoffAt=cliArgs.indexOf('--handoff');
 const turnAt=cliArgs.indexOf('--turn');
+const respondAt=cliArgs.indexOf('--respond');
 const witnessAt=cliArgs.indexOf('--witness');
 const crystalMode=cliArgs.includes('--crystal');
-const selectedModes=[crystalMode,reduceAt>=0,convergeAt>=0,witnessAt>=0,handoffAt>=0,turnAt>=0].filter(Boolean).length;
+const selectedModes=[crystalMode,reduceAt>=0,convergeAt>=0,witnessAt>=0,handoffAt>=0,turnAt>=0,respondAt>=0].filter(Boolean).length;
 if(cliArgs.includes('--help')){
   const usage=cliUsage();
   process.stdout.write(cliArgs.includes('--json')?JSON.stringify(usage,null,2)+'\n':cliUsageText(usage));
-}else if(selectedModes>1){console.error('choose one: --crystal, --reduce, --converge, --witness, --handoff, or --turn');process.exit(2)}
+}else if(selectedModes>1){console.error('choose one: --crystal, --reduce, --converge, --witness, --handoff, --turn, or --respond');process.exit(2)}
 else if(crystalMode){
   try{
     const c=compileCrystal(load());
@@ -366,6 +370,14 @@ else if(crystalMode){
   try{
     const h=preflightCrewHandoff(readJsonInput(source));
     process.stdout.write(cliArgs.includes('--json')?JSON.stringify(h,null,2)+'\n':crewHandoffMarkdown(h));
+  }catch(e){console.error(String(e?.message||e));process.exit(2)}
+}else if(respondAt>=0){
+  const source=cliArgs[respondAt+1],action=cliArgs[respondAt+2];
+  if(!source||source.startsWith('--')){console.error('FIELD respond requires one handoff JSON path');process.exit(2)}
+  if(!action||action.startsWith('--')){console.error('FIELD respond requires KEEP, PARK, or WRONG_FRAME');process.exit(2)}
+  try{
+    const r=compileCrewResponse(readJsonInput(source),action);
+    process.stdout.write(cliArgs.includes('--json')?JSON.stringify(r,null,2)+'\n':crewResponseMarkdown(r));
   }catch(e){console.error(String(e?.message||e));process.exit(2)}
 }else if(turnAt>=0){
   const source=cliArgs[turnAt+1];

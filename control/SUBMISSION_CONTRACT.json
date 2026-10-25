@@ -250,5 +250,26 @@
     "owner_resolution": "Native owner comes from showcase-manifest route.field.owner; FIELD root resolves to FIELD INDEX. Missing owner fails closed.",
     "stdin": "Use '-' to read one submission JSON object from stdin; no transient handoff file is required.",
     "law": "Transport/compression only; it never grants native RELEASE, NOW, merge or effect authority."
+  },
+  "crew_response_projection": {
+    "compiler": "node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME>",
+    "structured": "node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME> --json",
+    "schema": "field-crew-response/v0.1",
+    "authority": "NONE / COORDINATION ONLY",
+    "purpose": "Minimal receiver read-back over the same field-crew-handoff/v0.1 object so crew can repair framing without replaying a transcript or creating shared task/memory state.",
+    "actions": {
+      "KEEP": "Frame is sufficient for otherwise-lawful continuation on the same object. Not EFFECT/merge/publish/NOW/priority approval.",
+      "PARK": "Retain as residue/later possibility and stop active continuation. Not deletion or rejection of source truth.",
+      "WRONG_FRAME": "Frame is not sufficient for continuation. Re-SOURCE/re-HOLD before any TURN; do not silently repair then continue."
+    },
+    "invariants": [
+      "context_handle and object_ref are preserved exactly from the handoff",
+      "response never mutates the handoff or native host",
+      "next_authority is always NONE",
+      "KEEP cannot grant EFFECT, merge, publish, NOW or priority authority",
+      "PARK creates no queue/backlog obligation",
+      "WRONG_FRAME returns coordination to SOURCE_REQUIRED semantics",
+      "response is transient; do not commit it as a shared memory/task store"
+    ]
   }
 }
