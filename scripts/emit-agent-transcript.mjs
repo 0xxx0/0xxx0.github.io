@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import path from 'node:path';
 import {reducePacket,EGRESS_CLASSES,EGRESS_PRECEDENCE} from '../lib/field-egress-reducer.mjs';
-import {compileCrewHandoff,crewHandoffMarkdown} from '../lib/field-crew-handoff.mjs';
+import {compileCrewHandoff,crewHandoffMarkdown,projectCrewTurn,crewTurnMarkdown} from '../lib/field-crew-handoff.mjs';
 
 const INPUTS={
   current:'control/CURRENT.json',
@@ -12,6 +12,7 @@ const INPUTS={
   contract:'control/FIELD_INDEX_CONTRACT.json'
 };
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+const readJsonInput=source=>source==='-'?JSON.parse(fs.readFileSync(0,'utf8')):read(source);
 const gitBlobSha=bytes=>crypto.createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
 const cleanRepoPath=raw=>{
   const rel=String(raw??'').trim().replace(/^\/+/, '');
@@ -25,6 +26,13 @@ function sourceWitnessForPath(raw){
   if(real!==root&&!real.startsWith(root+path.sep))throw new Error('FIELD_SOURCE_WITNESS_OUTSIDE_REPO');
   const bytes=fs.readFileSync(real);
   return {kind:'GIT_BLOB',path:rel,revision:gitBlobSha(bytes)};
+}
+function nativeOwnerForObject(objectRef,manifest){
+  const route=(manifest.routes||manifest.entries||[]).find(r=>r?.href===objectRef);
+  const owner=one(route?.field?.owner);
+  if(owner)return owner;
+  if(objectRef==='/')return 'FIELD INDEX';
+  throw new Error('FIELD_CREW_TURN_OWNER_REQUIRED '+objectRef);
 }
 function preflightCrewHandoff(submission){
   let h=compileCrewHandoff(submission),w=h.source_witness;
@@ -292,7 +300,8 @@ function cliUsage(){
       {mode:'packet-reduce',command:'node scripts/emit-agent-transcript.mjs --reduce <packet.json|directory>',purpose:'classify packet egress; caller context may be added with repeatable --now-id / --selected-id / --reactivate-id'},
       {mode:'contribution-converge',command:'node scripts/emit-agent-transcript.mjs --converge <candidate.json>',purpose:'advisory DELTA/EVIDENCE/DONOR/RETURN/UNRESOLVED + MERGE/REPAIR/HOLD/DROP projection'},
       {mode:'source-witness',command:'node scripts/emit-agent-transcript.mjs --witness <repo-path> --json',purpose:'emit one exact Git-blob freshness witness for a repo source; witness is concurrency evidence, never authority'},
-      {mode:'crew-handoff',command:'node scripts/emit-agent-transcript.mjs --handoff <submission.json>',purpose:'normalize one human/agent submission into the same SOURCE/HOLD/TURN/TRACE/RETURN object; supplied source witness is preflighted automatically; add --json for structured output'}
+      {mode:'crew-handoff',command:'node scripts/emit-agent-transcript.mjs --handoff <submission.json|->',purpose:'normalize one human/agent submission into the same SOURCE/HOLD/TURN/TRACE/RETURN object; - reads JSON from stdin; supplied source witness is preflighted automatically; add --json for structured output'},
+      {mode:'crew-turn',command:'node scripts/emit-agent-transcript.mjs --turn <submission.json|->',purpose:'emit minimum field-crew-turn/v0.1 only when preflight is TURN_READY; native owner resolves from FIELD manifest; - reads JSON from stdin; add --json for structured output'}
     ],
     converge_attestations:{
       merge_requires:['ci PASS','exact_head true','base_current true','mergeable true'],
@@ -321,13 +330,14 @@ const cliArgs=process.argv.slice(2);
 const reduceAt=cliArgs.indexOf('--reduce');
 const convergeAt=cliArgs.indexOf('--converge');
 const handoffAt=cliArgs.indexOf('--handoff');
+const turnAt=cliArgs.indexOf('--turn');
 const witnessAt=cliArgs.indexOf('--witness');
 const crystalMode=cliArgs.includes('--crystal');
-const selectedModes=[crystalMode,reduceAt>=0,convergeAt>=0,witnessAt>=0,handoffAt>=0].filter(Boolean).length;
+const selectedModes=[crystalMode,reduceAt>=0,convergeAt>=0,witnessAt>=0,handoffAt>=0,turnAt>=0].filter(Boolean).length;
 if(cliArgs.includes('--help')){
   const usage=cliUsage();
   process.stdout.write(cliArgs.includes('--json')?JSON.stringify(usage,null,2)+'\n':cliUsageText(usage));
-}else if(selectedModes>1){console.error('choose one: --crystal, --reduce, --converge, --witness, or --handoff');process.exit(2)}
+}else if(selectedModes>1){console.error('choose one: --crystal, --reduce, --converge, --witness, --handoff, or --turn');process.exit(2)}
 else if(crystalMode){
   try{
     const c=compileCrystal(load());
@@ -354,8 +364,16 @@ else if(crystalMode){
   const source=cliArgs[handoffAt+1];
   if(!source||source.startsWith('--')){console.error('FIELD handoff requires a submission JSON path');process.exit(2)}
   try{
-    const h=preflightCrewHandoff(read(source));
+    const h=preflightCrewHandoff(readJsonInput(source));
     process.stdout.write(cliArgs.includes('--json')?JSON.stringify(h,null,2)+'\n':crewHandoffMarkdown(h));
+  }catch(e){console.error(String(e?.message||e));process.exit(2)}
+}else if(turnAt>=0){
+  const source=cliArgs[turnAt+1];
+  if(!source||source.startsWith('--')){console.error('FIELD turn requires a submission JSON path or - for stdin');process.exit(2)}
+  try{
+    const submission=readJsonInput(source),sources=load(),h=preflightCrewHandoff(submission);
+    const t=projectCrewTurn(h,nativeOwnerForObject(h.source.object_ref,sources.M));
+    process.stdout.write(cliArgs.includes('--json')?JSON.stringify(t,null,2)+'\n':crewTurnMarkdown(t));
   }catch(e){console.error(String(e?.message||e));process.exit(2)}
 }else{
 const sources=load(),packet=compile(sources);

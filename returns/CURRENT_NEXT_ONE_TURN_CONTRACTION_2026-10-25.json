@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "current-next-one-turn-contraction-2026-10-25",
+  "result_status": "CHANGED",
+  "source_object": "/control/CURRENT.json#next_single_action",
+  "host": "FIELD CURRENT",
+  "turn_ref": "8dce8fa1f8b739c4a820eea3e9d23a5f48636527",
+  "before": {
+    "id": "witness-dayline",
+    "instruction": "Rotate the day's lines into /dayline/, witness on phone, then wire the air-instrument sensor loop."
+  },
+  "after": {
+    "id": "witness-dayline",
+    "instruction": "Rotate the day's lines into /dayline/ and witness the result on phone. RETURN the observed fit/friction. STOP before wiring the air-instrument sensor loop; that is a fresh SOURCE/HOLD after RETURN."
+  },
+  "observed_delta": "CURRENT now exposes one bounded next action instead of chaining a Dayline phone witness and a separate physical air-sensor wiring cycle under one inherited authority.",
+  "evidence_refs": [
+    "commit:8dce8fa1f8b739c4a820eea3e9d23a5f48636527",
+    "/control/CURRENT.json"
+  ],
+  "residue": "The air-instrument remains ACTIVE_NOW; only the NEXT boundary changed. Sensor wiring is preserved as the active front's future work but must be re-SOURCEd after the Dayline RETURN.",
+  "unknowns": [
+    "Phone fit/friction remains WORLD_RETURN evidence and has not been observed in this repository turn.",
+    "Air-sensor wiring has not been attempted or authorized by this turn."
+  ],
+  "unresolved_gate": "WORLD_RETURN: witness the Dayline result on the actual phone if/when naturally done; do not infer the observation.",
+  "return_address": "/control/CURRENT.json#next_single_action",
+  "closed_at": "2026-10-25T14:30:00+08:00",
+  "next_authority": "NONE",
+  "trace": {
+    "status": "PASS_STATIC",
+    "checks": [
+      "TURN commit touched only control/CURRENT.json",
+      "air-instrument active front preserved",
+      "chained 'then wire' instruction removed",
+      "explicit RETURN boundary present",
+      "explicit STOP before sensor wiring present"
+    ]
+  }
+}
