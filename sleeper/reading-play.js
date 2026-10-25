@@ -78,7 +78,8 @@ function render(){
   b.title='Hold exact source witness '+e.start+'–'+e.end;p.append(b,' ');
  }
  $('hint').textContent='Tap any sentence to HOLD its exact source span. No automatic semantic verdict.';
- $('stateStatus').textContent=error||(comp?'Read these two original passages. Hold a sentence here, then make a connection below.':!here?'This passage is a preview. You may inspect freely; travel uses source order or your doors.':recent?'Your door is now traversable. Cross it, undo it, or continue reading.':'Read → hold → inspect an echo → make a door. No maze.');
+ const relevantDoor=recent&&(recent.from===node.id||recent.to===node.id);
+ $('stateStatus').textContent=error||(relevantDoor?'Your door is now traversable. Cross it, undo it, or continue reading.':comp?'Read these two original passages. Hold a sentence here, then make a connection below.':!here?'This passage is a preview. You may inspect freely; travel uses source order or your doors.':'Read → hold → inspect an echo → make a door. No maze.');
  const actions=$('actions');
  actions.append(button(w?'◆ SOURCE HELD':'◇ HOLD A SENTENCE',()=>{if(!w)action(()=>B.hold(node.id,0))},w?'gold':'ghost'));
  actions.append(button('▶ RIDE / RSVP',()=>{rsvpVisible=!rsvpVisible;if(!rsvpVisible)stop();$('rsvp').classList.toggle('hidden',!rsvpVisible)},'ghost'));
