@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-25T20:21:30+08:00",
+  "updated": "2026-10-25T20:28:15+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -9048,33 +9048,35 @@
     },
     {
       "href": "/sleeper/ladder/",
-      "title": "SLEEPER // LADDER 0.1.0",
+      "title": "SLEEPER // LADDER 0.2.0",
       "kind": "experiment",
       "parent": "/sleeper/",
       "family": "SLEEPER",
       "operation": "PLAY / PROVE / RETURN",
       "state": "CANDIDATE",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "showcase_card": false,
       "receipt": "/sleeper/ladder/release.json",
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/sleeper/",
-        "generation": 1,
+        "generation": 2,
         "stage": "TEST",
-        "question": "Can painting and city be the same object at different resolutions — FAR the painting, NEAR the character field resolved from its own pixels, ENTERED the walkable matter, EXITED the recomposed painting — without explanatory translation?",
+        "question": "Can the resolution ladder carry a real BOOK as its matter and teach it — game-grade, diagetic, quiet — without adding a single surface?",
         "baseline": "Borrowed River painting (sleeper/borrowed-river/landscape.jpg) plus the ONE RETURN v2 contract; no resolution ladder existed between the two.",
-        "mutation": "A 96x32 field computed from the painting itself (luminance -> cell tone, its own edges -> walls, hue -> district, texture -> weather), a walkable window whose matter is the live ONE RETURN text (paragraph=district, sentence=building, word=room, character=material, punctuation=window/rain/lamp), and a deterministic recomposition from the U/D/L/R witness.",
-        "evidence_gate": "ladder-selftest 34/34 on the real landscape pixels; empty witness recomposes to the original (mad64 = 0, changedPx = 0); same witness twice -> identical sha256, different witness -> visibly different; browser pass at 390x844 dpr2 (tap, dwell decode, swipe, keyboard step, EXIT metrics, return-to-origin).",
-        "next_if_pass": "Treat the ladder as the shared resolution primitive: painting-path and the city consume it instead of re-deriving a grid.",
-        "next_if_fail": "Keep it CANDIDATE and split resolution from matter; do not claim painting = city."
+        "mutation": "Matter replaced: the canonical ONE RETURN contract -> a derived projection of P. A. Payutto's Buddhadhamma (Section 7), with provenance, a selection sha256 and per-cell source coordinates. Added eight understanding gates, one diagetic meter, a clock-free return-prompt ledger and a NEAR loupe. Removed: header, readout, primary button, rail, moiré strip, decode panel, gap panel.",
+        "evidence_gate": "ladder-selftest 65/65 with the derivation reproduced from the local corpus; browser proof of walk + gate + return prompt + exit; determinism on real pixels (same route = same sha256, different route = different); the page carries no button, nav, rail, status or panel.",
+        "next_if_pass": "Treat the ledger as the retention layer for other SLEEPER surfaces; carry lit gates across walks.",
+        "next_if_fail": "Keep it CANDIDATE and split matter-projection from the resolution ladder; do not claim the city is the book."
       },
-      "role": "The four-distance resolution ladder (DESIGN_SPEC: 'make painting and city the same object at different resolutions'): FAR is the Borrowed River painting, NEAR resolves its brushwork into a 96x32 character field computed from the image itself (luminance -> cell tone, the painting's own edges -> walls, hue -> district, texture -> weather density), ENTERED is a walkable window of that field whose matter is the canonical ONE RETURN v2 contract fetched live (paragraph = district, sentence = building, word = room, character = material, punctuation = window/rain/lamp), and EXITED recomposes the painting with the walked U/D/L/R witness baked in. Deterministic: same witness -> byte-identical recomposition, different witness -> visibly different, empty witness -> the original pixels (mad64 = 0, changedPx = 0). Touch-first: tap to resolve, press-and-hold to decode a cell, swipe or arrow keys to step, return to the origin coordinate completes the run, RETURN restores the painting exactly.",
+      "role": "The four-distance resolution ladder, now built out of Buddhadhamma: FAR is the Borrowed River painting, NEAR resolves its brushwork into the whole 96x32 character field computed from the image itself, ENTERED is a walkable window whose matter is P. A. Payutto's Buddhadhamma (Section 7, chapters 16-18; paragraph = district, sentence = building, word = room, character = material, punctuation = rain/window/lamp/beacon), and EXITED recomposes the painting from the walked U/D/L/R witness. Game-grade learning: eight gates ask one word of the district's own cited line, one diagetic meter (eight lamps on the frame) records what was understood, and a clock-free ledger quotes a line you walked before when you come back to a district. No HUD: canvas + one provenance line. The book's text is never republished — the artifact carries a sampled projection, provenance and one cited line per district.",
       "transfer": [
-        "painting sha256 -> one hash32 tag = painting identity = city identity = artifact identity (f0f09635)",
+        "painting sha256 -> one hash32 tag f0f09635 = painting identity = city identity = artifact identity",
+        "selected text sha256 -> one hash32 fingerprint bbbe96ac = source identity (a different selection is a different artifact)",
         "walked U/D/L/R witness -> deterministic recomposition + measured divergence (mad64 / changedPx / sha256)",
         "image statistics -> walkable city field (walls from the edge quantile that opens the largest district)",
-        "canonical source text -> district/building/room/material/weather matter, drawn counts asserted against the source",
+        "book text -> district/building/room/material/weather matter, drawn counts asserted against the source",
+        "district line -> a gate question (cloze + three doors) and a spaced return prompt",
         "return to origin -> route completion (ninth-gate move) and exact reconstruction"
       ],
       "contract": {
@@ -9110,16 +9112,21 @@
         "evidence": {
           "receipt": "/sleeper/ladder/release.json",
           "checks": [
-            "node sleeper/ladder/ladder-selftest.mjs - 34/34 arms (synthetic painting and real 512x171 landscape dump)",
-            "browser: touch tap / dwell decode / touch swipe step / keyboard step / EXIT metrics / RETURN / return-to-origin",
-            "same witness twice -> identical sha256; different witness -> different sha256; empty witness -> mad64 0"
+            "node sleeper/ladder/ladder-selftest.mjs — 65 passed, 0 failed, 0 skipped (derivation re-run against the local corpus: the shipped file is its byte-identical output; window 8 -> different fingerprint)",
+            "browser 390x844 dpr2 — touch tap FAR->NEAR->ENTERED, hold decode, keyboard walk, gate answered (lamp lit), return prompt after 13 districts, origin retrieval -> EXITED, tap to RETURN",
+            "same route twice -> identical sha256; different route -> different sha256; empty witness -> mad64 0, changedPx 0",
+            "surface budget: index.html + ladder.js + ladder-core.js + source-dhamma.json = 122 KB, no frameworks, no build step"
           ],
           "return_path": "/sleeper/ladder/"
-        }
+        },
+        "requires": [
+          "sleeper.borrowed-river/landscape.jpg",
+          "sleeper/ladder/source-dhamma.json (sleeper/source-slice@1)"
+        ]
       },
       "spec": "/sleeper/ladder/SPEC.md",
       "index": {
-        "updated_at": "2026-10-24T21:35:08+08:00",
+        "updated_at": "2026-10-25T20:28:15+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",

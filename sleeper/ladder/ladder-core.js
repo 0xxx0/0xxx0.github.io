@@ -2,17 +2,22 @@
 //
 // One object at four resolutions: the painting (FAR) and its glyph city (NEAR /
 // ENTERED) are the same field; the walked route recomposes the painting (EXITED)
-// and returning reconstructs it exactly. Spec: recovery/sleeper/DESIGN_SPEC.md
-// ("Make painting and city the same object at different resolutions") and the
-// ONE RETURN contract in void-anchor/sleeper/README.md.
+// and returning reconstructs it exactly.
+//
+// THE CITY'S MATTER IS BUDDHADHAMMA. The text is P. A. Payutto's Buddhadhamma
+// (free online edition, buddhadhamma.github.io), Section 7 "Path Factors":
+// chapters 16, 17, 18. The full text stays LOCAL (void-anchor/sleeper/corpus/
+// buddhadhamma/); what ships is a derived projection — a sampled matter stream,
+// per-cell source coordinates, and one cited line per district. parseSource()
+// below is the mapping that made it: paragraph = district, sentence = building,
+// word = room, character = material, punctuation = rain / window / lamp / beacon.
 //
 // Determinism law: no Math.random, no Date, no ambient time anywhere in this
-// file. Painting identity = hash32(sha256 of the painting bytes); route seed =
-// hash32(painting tag + the compressed U/D/L/R witness). One hash, one object.
-// The hash ORIENTS (sign, dash phase, tone sign) inside a band measured from the
-// painting itself; it never INVENTS a coordinate (DESIGN-INTENT "measured, not
-// seeded"). A cell nobody walked is never touched — an empty route recomposes to
-// the original bytes.
+// file. Painting identity = hash32(sha256 of the painting bytes); source
+// identity = hash32(prefix + sha256 of the selected text). One hash, one object.
+// A hash ORIENTS inside a band measured from the data; it never INVENTS a
+// coordinate (DESIGN-INTENT "measured, not seeded"). A cell nobody walked is
+// never touched — an empty route recomposes to the original bytes.
 //
 // Dual-load, same shape as lib/moire-ambient.js: browser global
 // `SleeperLadderCore` + CJS for the node selftest. Zero deps, no build.
@@ -36,7 +41,9 @@
   // Grid: 96 x 32 is the painting's own 2172:724 = 2.999:1 aspect, so the field
   // and the painting share one coordinate frame.
   const COLS = 96, ROWS = 32, CELLS = COLS * ROWS;
-  const SOURCE_PATH = '/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md';
+  const SOURCE_PATH = '/sleeper/ladder/source-dhamma.json';
+  const SOURCE_SCHEMA = 'sleeper/source-slice@1';
+  const FINGERPRINT_PREFIX = 'buddhadhamma@1|';
   const PAINTING_ID = 'sleeper.borrowed-river/landscape.jpg';
   const PAINTING_SHA256 = '7b1e50ff74ffa2dec8d9b0733a6fa2b78364e7881c503f7602e2f043cb4ff428';
 
@@ -56,17 +63,28 @@
     return h * 60;
   }
   // 8 hue bands + 8 = neutral. Colour carries DISTRICT identity only (P8: colour
-  // is never the sole carrier; the district index rides in the decode overlay).
+  // is never the sole carrier; the district index rides in the decode strip).
   const DISTRICTS = 9;
   function districtOf(hue, sat) {
     if (hue < 0 || sat < 0.12) return 8;
     return clamp(Math.floor(hue / 45), 0, 7);
   }
 
-  // ── parseSource — the city's matter is the canonical contract itself ───────
+  // ── parseSource — the mapping that built the city ─────────────────────────
   // paragraph = district, sentence = building, word = room, character =
-  // material, punctuation = rain / window / lamp (DESIGN_SPEC mapping).
+  // material, punctuation = rain / window / lamp / beacon. Unchanged: this is
+  // the SAME function the derivation ran over the book, and the selftest still
+  // runs it over the local text to prove the shipped projection is its output.
   const PUNCT = { '.': 'window', ',': 'rain', ';': 'lamp', ':': 'lamp', '?': 'beacon', '!': 'beacon' };
+  // A sentence ends at a terminator followed by a capital (or a quote and a
+  // capital). The old splitter also broke on ")", which shredded every
+  // parenthetical into its own building; the book is full of them, so the
+  // boundary is the terminator, not the bracket.
+  const SENTENCE_BREAK = /(?<=[.!?…])\s+(?=["'“‘(]?[\p{Lu}])/u;
+  function splitSentences(block) {
+    return String(block).split(SENTENCE_BREAK).map((s) => s.trim()).filter(Boolean);
+  }
+  function firstSentence(block) { const s = splitSentences(block); return s.length ? s[0] : ''; }
   function parseSource(text) {
     const blocks = String(text).replace(/\r/g, '').split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
     const units = [];
@@ -74,7 +92,11 @@
     const counts = { paragraphs: 0, sentences: 0, words: 0, chars: 0 };
     blocks.forEach((block, p) => {
       counts.paragraphs++;
-      const split = block.split(/(?<=[.!?})`])\s+/).filter((s) => s.trim());
+      // A sentence ends at a terminator followed by a capital (or a quote and a
+      // capital). The old splitter also broke on ")", which shredded every
+      // parenthetical into its own building; the book is full of them, so the
+      // boundary is the terminator, not the bracket.
+      const split = splitSentences(block);
       split.forEach((sentence, s) => {
         const si = counts.sentences;
         sentences.push({ text: sentence, p, s, si });
@@ -82,9 +104,16 @@
         const words = sentence.split(/\s+/).filter(Boolean);
         words.forEach((word, w) => {
           counts.words++;
-          // leading / trailing punctuation becomes its own weather unit
-          const lead = word.match(/^[^\w]+/), trail = word.match(/[^\w]+$/);
-          const core = word.slice(lead ? lead[0].length : 0, trail ? word.length - trail[0].length : word.length);
+          // leading / trailing punctuation becomes its own weather unit.
+          // Unicode-aware: \w is ASCII-only, and this text is full of ā ṭ ṇ —
+          // a diacritic letter is matter, never weather.
+          // lead and trail are measured on what is LEFT after the lead: a token
+          // that is entirely punctuation ("—") would otherwise be emitted twice
+          // and the character count would stop being the text's length.
+          const lead = word.match(/^[^\p{L}\p{N}]+/u);
+          const rest = lead ? word.slice(lead[0].length) : word;
+          const trail = rest.match(/[^\p{L}\p{N}]+$/u);
+          const core = trail ? rest.slice(0, rest.length - trail[0].length) : rest;
           if (lead) for (const ch of lead[0]) { units.push({ ch, p, s, si, w, room: word, punct: PUNCT[ch] || null }); counts.chars++; }
           for (const ch of core) { units.push({ ch, p, s, si, w, room: word, punct: null }); counts.chars++; }
           if (trail) for (const ch of trail[0]) { units.push({ ch, p, s, si, w, room: word, punct: PUNCT[ch] || null }); counts.chars++; }
@@ -92,6 +121,59 @@
       });
     });
     return { blocks, sentences, units, counts };
+  }
+
+  // ── the projection: parsed text -> one unit per cell ──────────────────────
+  // Cell n takes the n-th evenly-sampled unit, so the WHOLE selection is spread
+  // across the city in reading order: a grid position is a coordinate into the
+  // book (P5/P8 — position = meaning). This is the ONLY sampling rule; the
+  // derivation and the selftest both call it, so the shipped projection cannot
+  // drift from the mapping that made it.
+  function projectCells(parsed, cells) {
+    const n = cells || CELLS;
+    const out = new Array(n);
+    for (let i = 0; i < n; i++) {
+      out[i] = parsed.units[Math.floor(i * parsed.units.length / n)] || { ch: ' ', p: 0, s: 0, si: 0, w: 0, room: '', punct: null };
+    }
+    return out;
+  }
+
+  // ── the derived source (what the page fetches) ────────────────────────────
+  // Schema sleeper/source-slice@1. Strict: a malformed slice is a GAP in the
+  // world, never a silently thinner city.
+  const B36 = 2;                                                 // 2 base36 digits per index
+  function decodeIndex(series, i) { return parseInt(String(series).slice(i * B36, i * B36 + B36), 36) || 0; }
+  function sourceFingerprint(sliceSha) { return tag8(FINGERPRINT_PREFIX + String(sliceSha)); }
+  function readDerived(derived) {
+    const bad = (m) => { throw new Error('source-slice: ' + m); };
+    if (!derived || typeof derived !== 'object') bad('not an object');
+    if (derived.schema !== SOURCE_SCHEMA) bad('schema ' + derived.schema + ' != ' + SOURCE_SCHEMA);
+    const prov = derived.provenance || {}, sel = derived.selection || {};
+    if (!prov.source_url || !prov.retrieved) bad('provenance needs source_url + retrieved');
+    if (!sel.sha256) bad('selection.sha256 missing');
+    const fp = sourceFingerprint(sel.sha256);
+    if (derived.fingerprint !== fp) bad('fingerprint ' + derived.fingerprint + ' != ' + fp + ' (recomputed)');
+    const matter = String(derived.matter || '');
+    if (matter.length !== CELLS) bad('matter must be ' + CELLS + ' characters, got ' + matter.length);
+    const cp = derived.cells && derived.cells.p, cs = derived.cells && derived.cells.s, cw = derived.cells && derived.cells.w;
+    if (!cp || !cs || !cw || cp.length !== CELLS * B36 || cs.length !== CELLS * B36 || cw.length !== CELLS * B36) {
+      bad('cells.p / cells.s / cells.w must each hold ' + (CELLS * B36) + ' base36 digits');
+    }
+    const districts = Array.isArray(derived.districts) ? derived.districts : bad('districts[] missing');
+    const units = new Array(CELLS);
+    for (let i = 0; i < CELLS; i++) {
+      const ch = matter[i];
+      units[i] = { ch, p: decodeIndex(cp, i), s: decodeIndex(cs, i), w: decodeIndex(cw, i), si: -1, room: '', punct: PUNCT[ch] || null };
+    }
+    // every cell must point at a real district, and every district must be drawn
+    for (const u of units) if (!districts[u.p]) bad('cell points at missing district ' + u.p);
+    const drawn = new Set(units.map((u) => u.p));
+    if (drawn.size !== districts.length) bad('drawn districts ' + drawn.size + ' != districts ' + districts.length);
+    return {
+      schema: SOURCE_SCHEMA, fingerprint: fp, sha256: sel.sha256,
+      provenance: prov, selection: sel, counts: derived.counts || {}, districts,
+      units, matter,
+    };
   }
 
   // ── imageField — luminance -> elevation, edges -> walls, hue -> district,
@@ -138,24 +220,24 @@
   }
 
   // ── buildField — image field + text matter, one grid ──────────────────────
-  // Cell n takes the n-th evenly-sampled unit of the source, so the WHOLE
-  // contract is spread across the city in reading order: position on the grid
-  // is a coordinate into the source (P5/P8 — position = meaning).
+  // `source` is either a parsed projection ({units}) or raw text (the old arm,
+  // kept so the mapping stays testable on its own).
   //
   // Walls are the painting's strongest edges, but the cut is not guessed: the
   // ladder tries a deterministic ladder of quantiles and keeps the one that
   // OPENS THE LARGEST WALKABLE DISTRICT — a wall map that walls the player into
   // a closet is a picture of a city, not a city.
   const CUT_LADDER = [0.62, 0.70, 0.78, 0.86, 0.92];
-  function buildField(rgba, w, h, text) {
-    const parsed = parseSource(text);
+  function buildField(rgba, w, h, source) {
+    const projection = typeof source === 'string' ? { units: parseSource(source).units, counts: parseSource(source).counts, districts: [] } : (source || {});
+    const units = projection.units || [];
     const cells = imageField(rgba, w, h);
     const edges = cells.map((c) => c.edge).sort((a, b) => a - b);
     const decorate = (cut) => {
       let walls = 0;
       for (let i = 0; i < CELLS; i++) {
         const c = cells[i];
-        const unit = parsed.units[Math.floor(i * parsed.units.length / CELLS)] || { ch: ' ', p: 0, s: 0, w: 0, room: '', punct: null };
+        const unit = units[Math.floor(i * units.length / CELLS)] || { ch: ' ', p: 0, s: 0, w: 0, room: '', punct: null };
         c.n = i; c.cx = i % COLS; c.cy = (i / COLS) | 0;
         c.wall = c.edge > cut;
         if (c.wall) walls++;
@@ -213,7 +295,15 @@
       cols: COLS, rows: ROWS, cells, cut: chosen.cut, cutQ: chosen.q, start: chosen.start,
       lum: { min: lmin, max: lmax },
       reach: chosen.reach, reachable: chosen.size,
-      source: { path: SOURCE_PATH, counts: parsed.counts, units: parsed.units.length },
+      source: {
+        path: SOURCE_PATH,
+        fingerprint: projection.fingerprint || null,
+        sha256: projection.sha256 || null,
+        provenance: projection.provenance || null,
+        districts: projection.districts || [],
+        counts: projection.counts || {},
+        units: units.length,
+      },
       drawn: {
         districts: drawn.districts.size, buildings: drawn.buildings.size,
         rooms: drawn.rooms.size, materials: drawn.materials.size, weather: drawn.weather,
@@ -238,6 +328,132 @@
       for (const m of nb) if (!seen[m] && !cells[m].wall) { seen[m] = 1; stack.push(m); }
     }
     return seen;
+  }
+
+  // ── measured distance from the origin (the gate placement field) ──────────
+  // Breadth-first over walkable cells. This is a REAL field of the city (steps
+  // from where you start), so gate positions are measured, never authored.
+  function bfs(field) {
+    const dist = new Int32Array(CELLS).fill(-1);
+    const q = new Int32Array(CELLS);
+    let head = 0, tail = 0;
+    const s = field.start.n;
+    dist[s] = 0; q[tail++] = s;
+    while (head < tail) {
+      const n = q[head++];
+      const cx = n % COLS, cy = (n / COLS) | 0;
+      const nb = [];
+      if (cx > 0) nb.push(n - 1);
+      if (cx < COLS - 1) nb.push(n + 1);
+      if (cy > 0) nb.push(n - COLS);
+      if (cy < ROWS - 1) nb.push(n + COLS);
+      for (const m of nb) {
+        if (dist[m] !== -1 || field.cells[m].wall) continue;
+        dist[m] = dist[n] + 1; q[tail++] = m;
+      }
+    }
+    return dist;
+  }
+
+  // ── the eight gates ───────────────────────────────────────────────────────
+  // The ONE RETURN contract's eight enacted gates, now learning checks. Gates
+  // stand at the quantiles of the walk's own distance field, inside a horizon
+  // a phone can actually walk (the 85th percentile of reachable distance, hard
+  // cap 96 steps). Each gate prefers an unvisited district, so the eight gates
+  // are eight different paragraphs of the book.
+  const GATES = 8;
+  const GATE_HORIZON_CAP = 96;
+  function placeGates(field, count, usable) {
+    const k = count || GATES;
+    const dist = bfs(field);
+    const okDistrict = typeof usable === 'function' ? usable : () => true;
+    const reach = [];
+    let worst = 0;
+    for (let n = 0; n < CELLS; n++) if (dist[n] > 0 && field.reach[n]) { reach.push(n); if (dist[n] > worst) worst = dist[n]; }
+    // horizon: the 85th percentile of reachable distance, capped
+    reach.sort((a, b) => (dist[a] - dist[b]) || (a - b));
+    const p85 = reach.length ? dist[reach[Math.max(0, Math.floor(reach.length * 0.85))]] : 0;
+    const horizon = Math.max(k, Math.min(GATE_HORIZON_CAP, p85 || worst));
+    const band = reach.filter((n) => dist[n] <= horizon);
+    const used = new Set(), usedDistricts = new Set(), out = [];
+    for (let i = 0; i < k && band.length; i++) {
+      const target = Math.floor((i + 0.5) * band.length / k);       // measured quantile
+      let pick = -1, fallback = -1;
+      for (let step = 0; step < band.length; step++) {
+        const n = band[(target + step) % band.length];
+        if (used.has(n)) continue;
+        const p = field.cells[n].unit.p;
+        if (!okDistrict(p)) continue;                 // a gate needs a line it can ask
+        if (fallback < 0) fallback = n;
+        if (!usedDistricts.has(p)) { pick = n; break; }
+      }
+      if (pick < 0) pick = fallback >= 0 ? fallback : band[target];
+      used.add(pick);
+      usedDistricts.add(field.cells[pick].unit.p);
+      out.push({ i, n: pick, cx: pick % COLS, cy: (pick / COLS) | 0, p: field.cells[pick].unit.p, dist: dist[pick] });
+    }
+    return { gates: out, dist, horizon, band: band.length };
+  }
+
+  // A gate's card: the district's own cited line with one word taken out, and
+  // three doors. Distractors are words of the SAME text (other districts), so
+  // the question can only be answered from what the book says.
+  function gateCard(districts, gateIndex, p, seedStr) {
+    const d = districts[p];
+    if (!d || !d.cloze || !d.answer) return null;
+    const pool = [];
+    for (const o of districts) {
+      if (!o || o.p === p || !o.answer) continue;
+      const w = o.answer;
+      if (w.length < 4 || w.length > 18) continue;
+      // same neighbourhood of length: a distractor that cannot be spotted by size
+      if (Math.abs(w.length - d.answer.length) > 3) continue;
+      const wl = w.toLowerCase(), al = d.answer.toLowerCase();
+      if (wl === al) continue;
+      // a distractor that is a form of the answer ("definition" / "definitions")
+      // is not a distractor: it makes the question unanswerable by reading
+      if (wl.indexOf(al) >= 0 || al.indexOf(wl) >= 0) continue;
+      pool.push(w);
+    }
+    const seen = new Set([d.answer.toLowerCase()]);
+    const uniq = pool.filter((w) => { const l = w.toLowerCase(); if (seen.has(l)) return false; seen.add(l); return true; });
+    const seed = String(seedStr || '') + '|g' + gateIndex + '|p' + p;
+    const opts = [d.answer];
+    for (let i = 0; i < 2 && uniq.length; i++) {
+      const idx = hash32(seed + '#' + i) % uniq.length;
+      opts.push(uniq.splice(idx, 1)[0]);
+    }
+    // order the doors by hash (the answer's position is not a pattern)
+    const order = opts.map((w, i) => ({ w, k: hash32(seed + '@' + i) })).sort((a, b) => (a.k - b.k) || 0).map((x) => x.w);
+    return { p, cloze: d.cloze, answer: d.answer, options: order, heading: d.heading, locator: d.locator };
+  }
+
+  // ── the return ledger (retention, clock-free) ─────────────────────────────
+  // Spaced by WALKS, not by wall time: every district you read is stamped with
+  // a monotonic ordinal. Coming back into it after `gap` other district visits
+  // surfaces one line from it again. No Date, no timers: the ledger is a pure
+  // function of the order you walked.
+  const LEDGER_GAP = 5;
+  function emptyLedger() { return { v: 1, seq: 0, seen: {}, order: [] }; }
+  function ledgerMark(ledger, p, heading) {
+    const L = ledger && ledger.seen ? ledger : emptyLedger();
+    const seq = (L.seq || 0) + 1;
+    const prev = L.seen[p];
+    const seen = Object.assign({}, L.seen);
+    seen[p] = { n: (prev ? prev.n : 0) + 1, at: seq, heading: heading || (prev && prev.heading) || '' };
+    const order = (L.order || []).filter((x) => x !== p).concat([p]).slice(-24);
+    return { v: 1, seq, seen, order };
+  }
+  function ledgerRead(ledger, p) { return !!(ledger && ledger.seen && ledger.seen[p]); }
+  function returnPrompt(ledger, p, districts, gap) {
+    const g = gap == null ? LEDGER_GAP : gap;
+    if (!ledger || !ledger.seen || !ledger.seen[p]) return null;
+    const rec = ledger.seen[p];
+    const ago = (ledger.seq || 0) - (rec.at || 0);
+    if (ago < g) return null;                                  // too soon: quiet
+    const d = districts && districts[p];
+    if (!d || !d.line) return null;
+    return { p, ago, line: d.line, locator: d.locator, heading: d.heading, reads: rec.n };
   }
 
   // ── the walk: compressed U/D/L/R witness (the ONE RETURN path signature) ──
@@ -401,11 +617,14 @@
   }
 
   return Object.freeze({
-    version: '0.1.0',
-    COLS, ROWS, CELLS, SOURCE_PATH, PAINTING_ID, PAINTING_SHA256, DISTRICTS,
+    version: '0.2.0',
+    COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
+    PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, GATE_HORIZON_CAP, LEDGER_GAP,
     CUT_LADDER,
-    hash32, tag8, lumOf, hueOf, districtOf, parseSource, imageField, buildField,
-    floodFill, routeString, routeSeed, step, walk, recompose, downscale64, mad64,
+    hash32, tag8, lumOf, hueOf, districtOf, parseSource, splitSentences, firstSentence, projectCells, readDerived,
+    sourceFingerprint, imageField, buildField,
+    floodFill, bfs, placeGates, gateCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
+    routeString, routeSeed, step, walk, recompose, downscale64, mad64,
     changedPx, syntheticPainting, PUNCT,
   });
 });

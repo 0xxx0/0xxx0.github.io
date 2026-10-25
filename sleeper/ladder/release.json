@@ -1,38 +1,41 @@
 {
   "schema": "field.release/v1",
-  "artifact": "SLEEPER // LADDER 0.1.0",
+  "artifact": "SLEEPER // LADDER 0.2.0",
   "route": "/sleeper/ladder/",
   "status": "CANDIDATE",
-  "source": "DESIGN_SPEC.md four-distance table + ONE RETURN contract (void-anchor/sleeper/README.md); painting borrowed from /sleeper/borrowed-river/landscape.jpg (sha256 7b1e50ff…); city matter fetched live from /recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md",
+  "source": "DESIGN_SPEC.md four-distance table + ONE RETURN contract (void-anchor/sleeper/README.md); painting borrowed from /sleeper/borrowed-river/landscape.jpg (sha256 7b1e50ff…); city matter is P. A. Payutto's Buddhadhamma, free online edition (buddhadhamma.github.io), Section 7 'Path Factors' chapters 16-18, retrieved 2026-10-25 and projected into /sleeper/ladder/source-dhamma.json — the raw text stays local in void-anchor/sleeper/corpus/buddhadhamma/",
   "contract": {
-    "identity": "one hash32: painting sha256 -> tag = city tag = artifact tag (f0f09635)",
+    "identity": "two content hashes, both printed: painting tag f0f09635 = hash32(id+sha256(painting bytes)); source fingerprint bbbe96ac = hash32('buddhadhamma@1|'+sha256(selected text))",
     "recomposition": "route -> hash32(tag|U/D/L/R witness) -> visited-tile tone inside a measured band + a hairline trace of the walked path",
     "rest": "empty route recomposes to the original pixels (mad64 = 0, changedPx = 0)",
-    "witness": "compressed U/D/L/R string; blocked steps never enter it; returning to the origin coordinate completes the run"
+    "witness": "compressed U/D/L/R string; blocked steps never enter it; returning to the origin coordinate completes the run",
+    "matter": "paragraph = district, sentence = building, word = room, character = material, punctuation = rain/window/lamp/beacon; 28 districts / 50 buildings / 1,228 drawn rooms of 1,257",
+    "learning": "eight gates ask one word of the district's own cited line (three doors, two wrong answers shut the gate for the walk); a clock-free ledger quotes a line you walked before after five other district visits"
   },
   "changes": [
-    "Four distances over ONE 96x32 grid derived from the painting: luminance -> cell tone, edges -> walls, hue -> district, texture -> weather density",
-    "ENTERED carries text matter from the canonical contract: paragraph = district, sentence = building, word = room, character = material, punctuation = window/rain/lamp/beacon",
-    "Touch-first: tap to resolve, press-and-hold to decode a cell, swipe or arrow keys to step, tap RETURN to restore the painting exactly",
-    "Deterministic recomposition with in-page measurements (mad64 vs original, changedPx, sha256) shown in the readout",
-    "Moiré identity strip from lib/moire-ambient.js identity()/hash32 seeded by painting tag + route seed"
+    "MATTER: the city is now built of Buddhadhamma — the shipped artifact is a derived projection (provenance + selection sha256 + 3,072 characters of matter + per-cell source coordinates + one cited line per district), never the book's text",
+    "DERIVATION: sleeper/ladder/derive-source.mjs re-runs PROVENANCE -> SELECTION -> MAPPING -> PROJECTION from the local corpus; the selftest requires the shipped file to be its output byte for byte and a different selection to change the fingerprint",
+    "MAPPING: parseSource split sentences at terminators (not at ')'), and measures punctuation with Unicode word classes so ā/ṭ/ṇ stay matter — the old ASCII \\w turned the last letter of every Pali word into weather",
+    "GAME: eight gates that verify understanding, one diagetic meter (eight lamps on the frame, 0..8, monotone), return prompts from a clock-free reading ledger, reveal-on-touch loupe",
+    "REDUCED: header, status readout, primary button, four-detent rail, moiré identity strip, decode DOM panel and gap panel are gone — canvas + one provenance line + an sr-only live region",
+    "NEAR now draws the WHOLE 96x32 frame in the painting's own box (a crop lost the composition); legibility is bought with a 9x9 loupe on hold"
   ],
   "validation": {
-    "selftest": "PASS: node sleeper/ladder/ladder-selftest.mjs — 34/34 (synthetic painting) and 34/34 (real landscape pixels, 512x171 dump)",
-    "browser": "PASS: Chromium 390x844 dpr2 — boot, four distances, touch tap, dwell decode, touch swipe step, keyboard step, EXIT metrics, RETURN to origin, return-to-origin gate",
-    "moire_selftest": "PASS: 55/55 (lib untouched)",
-    "determinism": "same witness twice -> identical sha256 (a9e62ac2…); different witness -> different sha256; empty witness -> mad64 0 vs original"
+    "selftest": "PASS: node sleeper/ladder/ladder-selftest.mjs — 65 passed, 0 failed, 0 skipped (synthetic painting; derivation arms re-run against the local corpus)",
+    "browser": "PASS: Chromium 390x844 dpr2 — touch tap FAR->NEAR->ENTERED, touch hold decode, keyboard walk to a gate across 9 steps, gate answered at a door (lamp lit), return prompt after 13 districts, origin retrieval -> EXITED, tap to RETURN",
+    "determinism": "same route twice -> identical sha256 (57fd475d…); different route -> different sha256 (4c137147…); empty witness -> mad64 0 and changedPx 0; source fingerprint bbbe96ac reproduced from the corpus, window 8 gives 81585e34"
   },
   "interop": {
-    "schema": "sleeper.ladder.route/v0.1",
+    "schema": "sleeper.ladder.route/v0.2",
     "witness": "U/D/L/R string",
+    "source_slice": "sleeper/source-slice@1",
     "automatic_other_project_import": false
   },
   "limits": [
-    "NEAR motion runs only during the resolve transition and while a finger is held (P3 forbids ambient auto-play); no continuous drift",
+    "NEAR cannot show 96 columns of legible characters on a phone: the composition is carried by tone and glyph texture, and legibility is bought with the loupe (a named resolution trade, not a hidden filter)",
+    "The book is under reserved distribution rights: only the sampled projection and one cited line per district are public; the source URL is printed as text, never as an anchor",
     "The recomposition bakes visited tiles plus the walked trace; it does not re-paint brushwork, so a long straight route reads as a drawn line",
-    "One fixed matter source (the canonical ONE RETURN v2 contract); no source picker yet",
-    "No Gate circuit and no Return Artifact v2 — this slice is the distance ladder, not the eight-gate world",
+    "The eight lamps reset each walk; only the reading ledger persists (localStorage, keyed by source schema)",
     "Determinism is proven on the natural-size pixel buffer; display resampling at other DPRs is outside the contract"
   ]
 }
