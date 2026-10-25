@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-25T06:52:38.685Z",
+  "generated": "2026-10-25T07:23:38.137Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-25",
-  "commits_in_window": 69,
-  "git_commits_in_window": 120,
-  "telemetry_commits_in_window": 51,
-  "commits_total": 6830,
+  "commits_in_window": 75,
+  "git_commits_in_window": 129,
+  "telemetry_commits_in_window": 54,
+  "commits_total": 6839,
   "branch_count": 1098,
   "recent_commits": [
-    "desk: refresh public field data + root git chronology",
-    "RETURN: close the FIELD crew handoff loop",
-    "CREW: close handoff loop with KEEP / PARK / WRONG_FRAME"
+    "FIELD: retain one-screen glyphs through slow and cached loading",
+    "Preserve latest crew readback and generated snapshots; landing bytes unchanged",
+    "desk: refresh public field data + root git chronology"
   ],
   "active_fronts": [
     {
