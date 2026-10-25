@@ -1,5 +1,6 @@
-/* FIELD / one bar, existing host. Presentation is a controlled reveal of
-   native nodes; no parallel route map, command grammar, source or persistence. */
+/* FIELD / one-screen glyph surface over the original native host.
+   All CURRENT marks stay visible at rest and after selection. One source,
+   one bar, exact native HOLD/OPEN/RETURN; no cloned map or action state. */
 (()=>{
  'use strict';
  if(location.pathname!=='/'||new URLSearchParams(location.search).get('work')==='1')return;
@@ -17,7 +18,7 @@
   if(kind==='trace'){$('statusFold').open=true;$('traceFold').open=true}
   if(kind==='map'){$('statusFold').open=true;$('mapFold').open=true}
  }
- function barIsVisible(){return html.dataset.fieldWords==='folded'&&!html.dataset.instrument}
+ function barIsVisible(){return !!html.dataset.fieldWords&&!html.dataset.instrument}
  function held(){return window.__fieldAct?.focusHref?.()||null}
  // The canonical bar exposes current focus even when the rest of FIELD is folded.
  // CURRENT may contain multiple heads. Never silently choose one as the operator.
@@ -32,12 +33,12 @@
   updateHint();
   // Existing native focus is the authoritative completion signal. A click is
   // only a gesture; cursor/focus RETURN remain owned by FIELD.
-  if(barIsVisible()&&html.dataset.fieldBarPane==='browse'&&e.detail?.focus)reveal('hold');
+  // Browse keeps the whole glyph field visible after HOLD; the native aperture updates.
  });
  doc.addEventListener('click',e=>{
-  if(e.target.closest?.('#fieldWords'))queueMicrotask(()=>{if(html.dataset.fieldWords==='folded')reveal('none')});
+  // Aa adjusts held-object detail without replacing the glyph field.
   if(e.target.closest?.('#feedRail .feedChip')){
-   queueMicrotask(()=>{if(barIsVisible())reveal('hold')});
+   // The canonical glyph grid remains visible after a mark is held.
   }
   const row=e.target.closest?.('#fieldUrlPanel .fieldUrlRow');
   if(row&&['SEARCH','HEADS'].includes(window.FieldURLBar?.parse?.()?.mode||'')){
@@ -65,7 +66,7 @@
   updateHint();
  });
  window.FieldBarLanding=Object.freeze({reveal,view:()=>html.dataset.fieldBarPane});
- reveal('none');
+ reveal('browse');
  return true;
  }
  // FIELD lens imports its URLbar asynchronously; bind to the real line as soon
