@@ -41,9 +41,9 @@ that finding. The repair starts by restoring access, not by adding a fourth fram
 
 ## Current surface contract and self-audit
 
-The winning landing is current master's one-bar FIELD (`1e7a75a`), with native
-glyph navigation available on demand. It replaces the earlier resting title/strip
-layout described in this document. The operator's latest requirements are explicit:
+The winning landing is current master's one-screen FIELD (`1bf103b`): one bar,
+the native held aperture, and every CURRENT glyph visible together. It supersedes
+the intermediate bar-only/scrolling-strip states described in earlier commits. The operator's latest requirements are explicit:
 one screen, glyphs, one bar, words folded, no “Choose a tool”, no card grid.
 
 The named two/three-column tile candidate #1011 is withdrawn, not merged. Its
@@ -53,11 +53,11 @@ because its names are easier to test automatically.
 
 | State / action | Required behavior |
 |---|---|
-| Ordinary `/` | One bar; no empty held card, introduction, passive history or grid |
-| Glyph navigation | Original compact horizontal marks; canonical names accessible on demand; scroll the rail, not the page sideways |
+| Ordinary `/` | One bar, native held aperture and all CURRENT glyphs fit one screen; no introduction, passive history or word tiles |
+| Glyph navigation | Existing marks wrap into the available width; every CURRENT head is visible without scrolling; canonical names remain accessible |
 | Select / HOLD | Same FIELD object and native operations; do not create another task/source store |
 | WORK / PROVE / TRACE | Reveal only the requested existing native region |
-| Aa | Reveal original words in place; fold again without changing held identity |
+| Aa | Reveal the held object's existing detail in place; keep the glyph field and identity intact |
 | READ / WALK / DIAL | Existing source continuum keeps its exact source/cursor; available from the bar, not a replacement home |
 | Native OPEN → BACK / RETURN | Restore the held object and relevant working context; no late axis-scroll reselection |
 | Slow first load | Native reveal handlers still bind when the URLbar arrives after 15 seconds |
@@ -69,7 +69,7 @@ the existing bar/glyph decoding instead. No route, archive or source folder is d
 the current source instrument. ROOM #981 remains a parked existing candidate.
 
 The bounded repair here removes the reveal observer's 15-second cutoff and versions
-its script. A late native import otherwise leaves the folding CSS active without
+the script and stylesheet together so returning visitors receive the current fit. A late native import otherwise leaves the folding CSS active without
 its control handlers. The browser check delays the actual URLbar response by 17
 seconds and then requires native WORK to become visible. This fixes availability;
 it does not establish the broader room/plain instrument's usefulness.

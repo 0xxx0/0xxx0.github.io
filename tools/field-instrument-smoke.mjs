@@ -30,47 +30,45 @@ const browser=await chromium.launch({headless:true,executablePath:browserBin(),a
 // Native FIELD projection fixture; default source continuum is proved by interphase-plus-smoke.
 const results=[];
 try{
-  // Default FIELD landing, not the opt-in spatial instrument.
+  // One-screen native FIELD entry: every CURRENT mark is visible, with no
+  // duplicate named cards or invented source map. No scrolling to find heads.
   for(const [width,height] of [[320,640],[390,844],[1280,800]]){
     const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce'});
-    const page=await context.newPage(),errors=[];
-    page.on('pageerror',e=>errors.push(e.message));
+    const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'/');
-    await page.waitForFunction(()=>document.querySelectorAll('#feedRail .feedChip').length>=3
+    await page.waitForFunction(()=>document.querySelectorAll('#feedRail .feedChip').length>=10
+      &&document.documentElement.dataset.fieldBarPane==='browse'
       &&document.querySelector('#fieldWords')?.parentElement?.classList.contains('fieldUrlFrame'));
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
-    assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'resting FIELD is the one bar');
-    assert.equal(await page.locator('#feedRail').isVisible(),false,'no source grid at rest');
-    assert.equal(await page.locator('#aperture').isVisible(),false,'no held card at rest');
-    // The original strip is still available through its canonical command,
-    // not a parallel default launcher or second surface.
-    await page.locator('#fieldUrlInput').fill(':glyphs');
-    await page.locator('#fieldUrlInput').press('Enter');
-    await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
-    assert.equal(await page.locator('#feedRail').isVisible(),true,'GLYPHS reveals native strip');
-    const initial=await page.evaluate(()=>{
-      const rail=document.getElementById('feedRail'),tiles=[...rail.querySelectorAll('.feedChip')];
-      const y=tiles.map(n=>n.getBoundingClientRect().top),label=tiles[0].querySelector('.feedName'),r=tiles[0].getBoundingClientRect();
-      const out={pageWidth:document.documentElement.scrollWidth,viewport:innerWidth,railScroll:rail.scrollWidth,railWidth:rail.clientWidth,
-        oneRow:y.every(v=>Math.abs(v-y[0])<2),label:getComputedStyle(label).display,
-        labelText:label.textContent,idleHint:getComputedStyle(document.getElementById('apRole')).display,
-        idleOpen:document.getElementById('apOpen').hasAttribute('href'),width:r.width,height:r.height};
-      rail.scrollLeft=rail.scrollWidth;out.reachesEnd=rail.scrollLeft>0;return out;
+    assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'one native address bar '+width);
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'glyph field visible at rest '+width);
+    assert.equal(await page.locator('#aperture').isVisible(),true,'one held source shown '+width);
+    assert.equal(await page.locator('#workedOn').isVisible(),false,'no archival wall '+width);
+    const g=await page.evaluate(()=>{
+      const rail=document.querySelector('#feedRail'),tiles=[...rail.querySelectorAll('.feedChip')];
+      const boxes=tiles.map(n=>n.getBoundingClientRect()),styles=tiles.map(n=>getComputedStyle(n.querySelector('.feedName')).display);
+      const positions=new Set(boxes.map(r=>Math.round(r.top)));
+      return {count:tiles.length,display:getComputedStyle(rail).display,rows:positions.size,
+        widths:boxes.map(r=>r.width),heights:boxes.map(r=>r.height),
+        allVisible:boxes.every(r=>r.width>=44&&r.height>=44&&r.left>=-1&&r.right<=innerWidth+1&&r.top>=0&&r.bottom<=innerHeight),
+        namesHidden:styles.every(x=>x==='none'),namesRetained:tiles.every(n=>n.getAttribute('aria-label')&&n.getAttribute('title')&&n.querySelector('.feedName')?.textContent),
+        horizontalOverflow:document.documentElement.scrollWidth>innerWidth+2,
+        glyphOverflow:rail.scrollWidth>rail.clientWidth+2||rail.scrollHeight>rail.clientHeight+2,
+        bottom:Math.max(...boxes.map(r=>r.bottom)),
+        pageScroll:document.documentElement.scrollHeight-innerHeight};
     });
-    assert.ok(initial.oneRow&&initial.label==='none'&&initial.labelText,'canonical accessible source names retained in compact glyph strip '+width);
-    const expectedHeld=(JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads||[]).map(h=>h.route).find(h=>h&&h!=='/');
-    assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,expectedHeld,'first exact CURRENT head offers explicit OPEN '+width);
-    assert.ok(initial.idleOpen,'existing CURRENT head is held on landing '+width);
-    assert.ok(initial.railScroll<=initial.railWidth||initial.reachesEnd,'glyph rail reaches final source when overflowed '+width);
-    assert.ok(initial.width>=44&&initial.height>=44&&initial.height<=64,'compact finger-size glyphs '+width);
-    assert.ok(initial.pageWidth<=initial.viewport+2,'no document horizontal overflow '+width);
+    const headN=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.filter(h=>h.route!=='/').length;
+    assert.equal(g.count,headN,'every CURRENT glyph rendered '+width);
+    assert.equal(g.display,'grid','native glyph matrix, not labeled list '+width);
+    assert.ok(g.rows>=1&&g.rows<=3,'all heads in <=3 rows '+width+' '+JSON.stringify(g));
+    assert.ok(g.allVisible&&!g.horizontalOverflow&&!g.glyphOverflow,'all glyphs reachable without scrolling '+width+' '+JSON.stringify(g));
+    assert.ok(g.namesHidden&&g.namesRetained,'words hidden visually, source names remain accessible '+width);
+    const first=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.find(h=>h.route!=='/').route;
+    assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,first,'held CURRENT source exact '+width);
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
-    const heldProbe=await page.evaluate(()=>({href:location.href,pane:document.documentElement.dataset.fieldBarPane,words:document.documentElement.dataset.fieldWords,focus:window.__fieldAct?.focusHref?.(),title:document.getElementById('apTitle')?.textContent,bar:!!window.FieldBarLanding}));
-    console.log('FIELD BAR GLYPH PROBE '+width+' '+JSON.stringify(heldProbe));
-    await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='hold');
-    assert.equal(await page.locator('#feedRail').isVisible(),false,'selecting one glyph folds browse into HOLD');
-    assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
-    assert.ok(await page.locator('#apOpen').getAttribute('href'),'held tool has explicit OPEN '+width);
+    assert.equal(await page.locator('html').getAttribute('data-field-bar-pane'),'browse','select keeps every glyph visible '+width);
+    assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'same native held object '+width);
+    assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,'/house/');
     // The address bar is the CURRENT held address, never a stale :glyphs entry.
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
     const input=page.locator('#fieldUrlInput');
@@ -84,18 +82,23 @@ try{
     await page.evaluate(()=>window.__fieldAct.focus('/house/'));
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
     assert.equal(new URL(page.url()).pathname,'/','native HOLD never navigates '+width);
-    const held=await page.locator('#apTitle').textContent();
     await page.locator('#fieldWords').click();
-    assert.equal(await page.locator('html').getAttribute('data-field-words'),'open');
-    assert.equal(await page.locator('#apTitle').textContent(),held);
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'open','Aa reveals only held detail '+width);
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'Aa keeps glyph field '+width);
+    assert.equal(await page.locator('#workedOn').isVisible(),false,'Aa does not restore giant legacy stack '+width);
+    assert.equal(await page.locator('#apRole').isVisible(),true,'Aa gives selected source detail '+width);
+    assert.equal(await page.locator('#feedRail .feedName:visible').count(),0,'Aa never restores label cards '+width);
+    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','Aa preserves source identity '+width);
     await page.locator('#fieldWords').click();
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
-    assert.equal(await page.locator('#apTitle').textContent(),held);
+    assert.equal(await page.locator('#feedRail').isVisible(),true);
+    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
+    await page.goBack();await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
+    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','BACK restores exact held source '+width);
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'BACK restores glyph matrix '+width);
     assert.deepEqual(errors,[],'no landing script errors '+width);
-    if(process.env.SCREENSHOT_DIR){
-      fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
-      await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`landing-folded-${width}.png`)});
-    }
+    console.log('FIELD GLYPH ONE-SCREEN PASS '+width+'px · '+g.count+' accessible CURRENT marks / '+g.rows+' rows · HOLD, Aa, OPEN, BACK');
+    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'landing-glyphs-'+width+'.png')});}
     // An explicit incoming ?fi remains an intentional editable projection until
     // the operator changes it; passive bootstrap must not rewrite that input.
     await page.goto(base+'/?fi=source%3Agit');

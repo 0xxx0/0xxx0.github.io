@@ -5,7 +5,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
- const stale=['/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ const stale=['/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
  let delayBar=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
   if(prime&&stale.includes(req.url)){
@@ -32,6 +32,8 @@ async function continuumBrowserProof(){
   const warm=await cachedPage.evaluate(async urls=>Promise.all(urls.map(u=>fetch(u).then(r=>r.text()))),stale);
   assert.ok(warm.every(s=>s.includes('prior-continuum')),'the stale responses must really remain in HTTP cache');
   const firstFresh=cacheRequests.length;
+  await cachedPage.goto(base+'/');await cachedPage.waitForFunction(()=>window.FieldBarLanding);
+  for(const file of ['/field-bar-landing.js','/field-bar-landing.css'])assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.2'),'fresh one-screen control/style pair missing: '+file);
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
@@ -60,26 +62,26 @@ async function continuumBrowserProof(){
    const bar=async text=>{await page.locator('#fiAddress').click();await page.locator('#fieldUrlInput').fill(text);await page.locator('#fieldUrlInput').press('Enter');await page.waitForFunction(()=>!document.getElementById('fieldUrlBar').dataset.editing)};
    // First prove the ordinary job: identify a named tool, open its owner, return.
    // Reader round trips below must not silently replace this entry again.
-   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&window.FieldBarLanding&&document.documentElement.dataset.fieldBarPane==='none');
+   await page.goto(base+'/');await page.waitForSelector('#feedRail .feedChip',{state:'attached'});await page.waitForFunction(()=>window.FieldURLBar&&window.FieldBarLanding&&document.documentElement.dataset.fieldBarPane==='browse');
    assert.equal(await page.locator('html[data-instrument="1"]').count(),0);
    assert.equal(await page.locator('#interphaseWorkspace').count(),0);
    assert.equal(requests.includes('/interphase/continuum.mjs'),false,'ordinary entry must not load the experimental reader');
    assert.equal(await page.locator('#workedOn').isVisible(),false,'word-heavy detail starts folded');
    assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'one FIELD address bar');
-   assert.equal(await page.locator('#aperture').isVisible(),false,'no card at rest');
-   assert.equal(await page.locator('#feedRail').isVisible(),false,'no grid at rest');
+   assert.equal(await page.locator('#aperture').isVisible(),true,'one native held source at rest');
+   assert.equal(await page.locator('#feedRail').isVisible(),true,'all CURRENT glyphs visible at rest');
    assert.equal(await page.locator('#runDock').isVisible(),false,'no second dock');
    assert.equal(await page.locator('#fieldOmnibar').count(),0,'one input owner');
    const foldedText=(await page.locator('body').innerText()).length;
-   await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),true);
-   assert.ok((await page.locator('body').innerText()).length>foldedText*2,'Aa restores original detail');
+   await page.locator('#fieldWords').click();assert.equal(await page.locator('#apRole').isVisible(),true);
+   assert.equal(await page.locator('#workedOn').isVisible(),false,'Aa shows held detail without giant text stack');
    const choices=await page.locator('#feedRail .feedChip').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect(),label=n.querySelector('.feedName');return {title:label?.textContent,height:r.height,clipped:r.left<0||r.right>innerWidth+1}}));
    assert.ok(choices.length>=10&&choices.every(x=>x.title&&x.height>=44),'addressed glyph targets retain canonical labels and touch size');
    await page.locator('#feedRail .feedChip').last().scrollIntoViewIfNeeded();
    const lastReachable=await page.locator('#feedRail .feedChip').last().evaluate(n=>{const r=n.getBoundingClientRect();return r.left>=-1&&r.right<=innerWidth+1});
    assert.ok(lastReachable,'final CURRENT head reachable by horizontal scroll at '+width);
    await page.locator('#fieldWords').click();assert.equal(await page.locator('#workedOn').isVisible(),false);
-   assert.equal(await page.locator('#feedRail').isVisible(),false,'Aa restores one-bar state');
+   assert.equal(await page.locator('#feedRail').isVisible(),true,'Aa restores same glyph grid');
    await page.waitForFunction(()=>window.FieldOmnibar);
    await page.locator('#fieldUrlInput').fill(':work');
    await page.locator('#fieldUrlInput').press('Enter');
