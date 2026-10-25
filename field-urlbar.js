@@ -314,7 +314,7 @@ function hermesPrepare(routeOrHref){
 function boot(win){
  if(win.__fieldURLBarBooted||win.location.pathname!=='/')return;win.__fieldURLBarBooted=true;
  const doc=win.document,main=doc.querySelector('main'),header=main?.querySelector(':scope > header');if(!main||!header)return;
- let routes=[],heads=new Set(),selected=0,results=[],currentParsed=parse(''),focusHref=null,flashTimer=0,helpOpen=false,moved=false;
+ let routes=[],heads=new Set(),selected=0,results=[],currentParsed=parse(''),focusHref=null,flashTimer=0,helpOpen=false,moved=false,edited=false;
  const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
  const glyphMnemonic=r=>win.FieldGlyph?.mnemonic?.(r)||'';
  const existing=new URLSearchParams(win.location.search).get('fi')||'';
@@ -583,22 +583,33 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   selected=(selected+delta+total)%total;paint({forceOpen:true});panel.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})
  }
  function focusBar(seed){if(win.FieldInstrument?.active?.()){win.FieldInstrument.edit(seed);return}input.focus();if(seed!=null){input.value=seed;input.setSelectionRange(input.value.length,input.value.length);syncURL(input.value)}selected=0;helpOpen=false;moved=false;paint({forceOpen:true})}
- function syncHeld(href){
+ function syncHeld(href,reflectAddress=true){
   focusHref=href||win.__fieldAct?.focusHref?.()||null;const r=focusHref&&routeMap().get(focusHref);
   glyphNode.innerHTML=r&&win.FieldGlyph?.svg?.(r,{size:28,head:heads.has(r.href)})||'Φ';glyphNode.title=r?(glyphMnemonic(r)+' · '+r.href):'FIELD';
+  // The single line is an ADDRESS at rest, not the last command typed.
+  // Passive focus never replaces an active query or the native map editor.
+  if(reflectAddress&&routes.length&&doc.activeElement!==input&&!win.FieldInstrument?.active?.())
+   input.value=r?.href||'';
  }
  function targetIsTyping(t){const tag=t?.tagName?.toLowerCase?.();return t?.isContentEditable||tag==='input'||tag==='textarea'||tag==='select'}
 
- input.addEventListener('focus',()=>paint({forceOpen:true}));
- input.addEventListener('input',()=>{selected=0;helpOpen=false;moved=false;syncURL(input.value);paint({forceOpen:true})});
+ input.addEventListener('focus',()=>{if(!win.FieldInstrument?.active?.())input.select();paint({forceOpen:true})});
+ input.addEventListener('input',()=>{edited=true;selected=0;helpOpen=false;moved=false;syncURL(input.value);paint({forceOpen:true})});
  input.addEventListener('keydown',e=>{
   if(win.FieldInstrument?.active?.()&&win.FieldInstrument.key(e))return;
   if(e.key==='ArrowDown'){e.preventDefault();move(1);return}
   if(e.key==='ArrowUp'){e.preventDefault();move(-1);return}
   if(e.key==='Enter'){e.preventDefault();applySelection(e.ctrlKey||e.metaKey,'enter');return}
-  if(e.key==='Escape'){e.preventDefault();if(input.value){clearInput();input.focus()}else{panel.hidden=true;input.setAttribute('aria-expanded','false');input.blur()}return}
+  if(e.key==='Escape'){e.preventDefault();if(input.value){clearInput();syncHeld(focusHref);input.focus()}else{panel.hidden=true;input.setAttribute('aria-expanded','false');input.blur()}return}
  });
- input.addEventListener('blur',()=>setTimeout(()=>{if(!shell.contains(doc.activeElement)){panel.hidden=true;input.setAttribute('aria-expanded','false')}},80));
+ input.addEventListener('blur',()=>setTimeout(()=>{
+  if(shell.contains(doc.activeElement))return;
+  panel.hidden=true;input.setAttribute('aria-expanded','false');
+  // A committed command is no longer a query after focus leaves the line.
+  // Keep ?fi consistent with the visible address; preserve the initial
+  // explicit ?fi on cold entry until the operator actually edits it.
+  if(edited){syncHeld(focusHref);syncURL(input.value)}
+ },80));
  doc.addEventListener('keydown',e=>{
   // M3 · THE single document-level entry owner — ⌘K / / / : live only here;
   // field-omnibar.js keeps a passthrough listener for its fallback line only.
@@ -606,7 +617,15 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar('/');return}
   if(e.key===':'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!targetIsTyping(e.target)){e.preventDefault();focusBar(':');return}
  });
- win.addEventListener('field-index:state',e=>syncHeld(e.detail?.focus||null));
+ win.addEventListener('field-index:state',e=>{const href=e.detail?.focus||null;if(href!==focusHref)syncHeld(href)});
+ // Only a completed native command can dismiss the keyboard. :help and @
+ // continue editing in the bar; a rejected route command emits no success.
+ win.addEventListener('field-omnibar',e=>{
+  if(doc.activeElement!==input)return;
+  const cmd=e.detail?.command;
+  if(!cmd||['help','heads','reset'].includes(cmd))return;
+  input.blur();
+ });
 
  Promise.all([
   fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('manifest '+r.status);return r.json()}),
@@ -614,7 +633,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
  ]).then(([manifest,current])=>{
   routes=(manifest.routes||manifest.entries||[]).filter(r=>r?.href&&r.href!=='/');
   heads=new Set((current.current_heads||[]).map(h=>h.route).filter(Boolean));
-  syncHeld(win.__fieldAct?.focusHref?.()||new URLSearchParams(win.location.search).get('focus'));
+  syncHeld(win.__fieldAct?.focusHref?.()||new URLSearchParams(win.location.search).get('focus'),!existing);
   paint({forceOpen:false});
   if(existing){selected=0;paint({forceOpen:false})}
  }).catch(err=>{

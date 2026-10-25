@@ -71,6 +71,19 @@ try{
     assert.equal(await page.locator('#feedRail').isVisible(),false,'selecting one glyph folds browse into HOLD');
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
     assert.ok(await page.locator('#apOpen').getAttribute('href'),'held tool has explicit OPEN '+width);
+    // The address bar is the CURRENT held address, never a stale :glyphs entry.
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
+    const input=page.locator('#fieldUrlInput');
+    await input.focus();
+    assert.deepEqual(await input.evaluate(n=>[n.selectionStart,n.selectionEnd]),[0,7],'held address is selected for immediate replacement '+width);
+    await input.fill('unfinished');
+    await page.evaluate(()=>window.__fieldAct.focus('/desk/'));
+    assert.equal(await input.inputValue(),'unfinished','passive HOLD cannot clobber active input '+width);
+    await input.evaluate(n=>n.blur());
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/desk/');
+    await page.evaluate(()=>window.__fieldAct.focus('/house/'));
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
+    assert.equal(new URL(page.url()).pathname,'/','native HOLD never navigates '+width);
     const held=await page.locator('#apTitle').textContent();
     await page.locator('#fieldWords').click();
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'open');
@@ -83,6 +96,11 @@ try{
       fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
       await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`landing-folded-${width}.png`)});
     }
+    // An explicit incoming ?fi remains an intentional editable projection until
+    // the operator changes it; passive bootstrap must not rewrite that input.
+    await page.goto(base+'/?fi=source%3Agit');
+    await page.waitForFunction(()=>window.FieldURLBar&&window.FieldIndexReadModel?.snapshot?.().routes.length>0);
+    assert.equal(await page.locator('#fieldUrlInput').inputValue(),'source:git','cold explicit expression survives hydration '+width);
     await context.close();
   }
   // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
