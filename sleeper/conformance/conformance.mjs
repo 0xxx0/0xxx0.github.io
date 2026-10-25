@@ -80,7 +80,12 @@ function makeElement(tag = 'div') {
     click() { if (typeof el.onclick === 'function') el.onclick(); },
     appendChild(c) { el.children.push(c); return c; },
     insertAdjacentHTML() {}, remove() {}, closest() { return null; }, matches() { return false; },
-    replaceChildren() {}, scrollIntoView() {}, getBoundingClientRect() { return { x: 0, y: 0, width: 390, height: 844, top: 0, left: 0, right: 390, bottom: 844 }; },
+    replaceChildren() {}, scrollIntoView() {},
+    // A selector-style lookup must be iterable: shipped UI code calls
+    // $('[data-tool]').forEach(...), and the shim's $ returns getElementById for every string.
+    // Iterating one node is enough for the checks and stops a crash that hid all of L2
+    // (found 2026-10-25 — conformance was already red on a clean origin/master).
+    forEach(fn, thisArg) { fn.call(thisArg, el); return el; }, getBoundingClientRect() { return { x: 0, y: 0, width: 390, height: 844, top: 0, left: 0, right: 390, bottom: 844 }; },
     setAttribute(k, v) { el.attributes[k] = v; }, getAttribute(k) { return el.attributes[k] ?? null; },
     addEventListener() {}, removeEventListener() {},
     getContext: () => ctx2d(),
@@ -258,6 +263,11 @@ lineage('L3', 'PLAYABLE DONOR — /sleeper/one-return/ (nine-gate reconstruction
   const html = readFileSync(join(REPO, 'sleeper', 'one-return', 'index.html'), 'utf8');
   const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
   const inline = scripts.sort((a, b) => b.length - a.length)[0];
+  // The page's own EXTERNAL scripts are part of its shipped code — execute them, in order.
+  // Without this a bridge living in its own file can never be measured (2026-10-25).
+  const externals = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)]
+    .map((m) => m[1])
+    .filter((src) => !/sleeper-route-witness\.js$/.test(src));
   const DEFAULT_SEED = /id="seed"[^>]*value="([^"]*)"/.exec(html)?.[1] ?? 'sleeper';
   const DEFAULT_CORPUS = /<textarea id="corpus">([\s\S]*?)<\/textarea>/.exec(html)?.[1] ?? '';
   const routeWitnessApi = require(join(REPO, 'lib', 'sleeper-route-witness.js'));
@@ -267,6 +277,10 @@ lineage('L3', 'PLAYABLE DONOR — /sleeper/one-return/ (nine-gate reconstruction
   function boot(seed, corpus) {
     const dom = makeDom({ seed, corpus, adapter: 'mixed', rate: '420' });
     dom.sandbox.SleeperRouteWitness = routeWitnessApi;
+    for (const src of externals) {
+      const ap = join(REPO, src.replace(/^\//, ''));
+      if (existsSync(ap)) evalFile(readFileSync(ap, 'utf8'), `sleeper/one-return/index.html#${src}`, dom.sandbox);
+    }
     evalFile(inline, 'sleeper/one-return/index.html#inline', dom.sandbox);
     return dom;
   }
