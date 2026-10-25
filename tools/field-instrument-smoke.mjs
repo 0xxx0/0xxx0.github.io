@@ -40,6 +40,9 @@ try{
       &&document.querySelector('#fieldWords')?.parentElement?.classList.contains('fieldUrlFrame'));
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
     assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'resting FIELD is the one bar');
+    await page.waitForFunction(()=>window.FieldURLBar&&window.__fieldAct?.focusHref?.()&&document.getElementById('fieldUrlInput')?.value);
+    const initialNative=await page.evaluate(()=>window.__fieldAct.focusHref());
+    assert.equal(await page.locator('#fieldUrlInput').inputValue(),initialNative,'resting bar reflects the exact native held route '+width);
     assert.equal(await page.locator('#feedRail').isVisible(),false,'no source grid at rest');
     assert.equal(await page.locator('#aperture').isVisible(),false,'no held card at rest');
     // The original strip is still available through its canonical command,
@@ -70,6 +73,16 @@ try{
     await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='hold');
     assert.equal(await page.locator('#feedRail').isVisible(),false,'selecting one glyph folds browse into HOLD');
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'hold selects exact tool '+width);
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput')?.value==='/house/');
+    await page.locator('#fieldUrlInput').fill('uncommitted search');
+    await page.evaluate(()=>window.__fieldAct.focus('/docs/'));
+    assert.equal(await page.locator('#fieldUrlInput').inputValue(),'uncommitted search','active typed query survives native focus '+width);
+    await page.locator('#fieldUrlInput').press('Escape');
+    await page.locator('#fieldUrlInput').evaluate(n=>n.blur());
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput')?.value==='/docs/');
+    assert.equal(new URL(page.url()).searchParams.has('fi'),false,'cancel clears transient query '+width);
+    await page.evaluate(()=>window.__fieldAct.focus('/house/'));
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput')?.value==='/house/');
     assert.ok(await page.locator('#apOpen').getAttribute('href'),'held tool has explicit OPEN '+width);
     const held=await page.locator('#apTitle').textContent();
     await page.locator('#fieldWords').click();
