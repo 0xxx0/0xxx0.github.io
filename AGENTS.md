@@ -53,6 +53,8 @@ SOURCE → HOLD → TURN → TRACE → RETURN
 Contract: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.json`  
 Human/worker protocol: `/control/SOURCE_HOLD_TURN_TRACE_RETURN.md`
 
+Crew closed-loop read-back: `node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME> [--json]`. Coordination only: KEEP is not effect approval, PARK creates no obligation, WRONG_FRAME requires fresh SOURCE/HOLD, and every response keeps `next_authority: NONE`.
+
 It does **not** replace host semantics: HOLD is focus, TURN selects one native move, EFFECT requires explicit native RELEASE/commit, TRACE separates observed/derived/unknown, and RETURN closes before replanning.
 
 ## BEFORE CREATING ANYTHING
