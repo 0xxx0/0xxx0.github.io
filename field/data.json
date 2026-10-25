@@ -1,0 +1,2342 @@
+{
+ "schema": "field-delta/v0.1",
+ "generated_at": "2026-10-25T20:19:02+08:00",
+ "window_hours": 24,
+ "source_window_hours": 72,
+ "law": "measured rows only; machine clockwork collapses to one counted row; no priority, no ranking, no second store",
+ "sources": {
+  "repo": {
+   "rows": 423,
+   "error": null
+  },
+  "route": {
+   "rows": 18,
+   "error": null
+  },
+  "call": {
+   "rows": 16,
+   "error": null
+  },
+  "run": {
+   "rows": 2150,
+   "error": "6 unparsable line(s)"
+  },
+  "return": {
+   "rows": 2,
+   "error": null,
+   "newest": "2026-10-24T00:00:00+08:00",
+   "newest_file": "FIELD_CREW_SOURCE_WITNESS_2026-10-24.json"
+  }
+ },
+ "counts": {
+  "repo": 233,
+  "route": 12,
+  "call": 11,
+  "run": 20,
+  "return": 0,
+  "run_fail": 2,
+  "repo_field": 83,
+  "repo_machine": 150
+ },
+ "counts_earlier": {
+  "repo": 190,
+  "route": 6,
+  "call": 5,
+  "run": 24,
+  "return": 2,
+  "run_fail": 3,
+  "repo_field": 33,
+  "repo_machine": 157
+ },
+ "now": [
+  {
+   "at": "2026-10-25T20:19:02+08:00",
+   "kind": "route",
+   "key": "route:/",
+   "title": "FIELD INDEX / INTERPHASE",
+   "detail": "/ · ACTIVE",
+   "href": "/"
+  },
+  {
+   "at": "2026-10-25T20:18:25+08:00",
+   "kind": "route",
+   "key": "route:/calls/",
+   "title": "CALLS — the decision queue",
+   "detail": "/calls/ · ACTIVE",
+   "href": "/calls/"
+  },
+  {
+   "at": "2026-10-25T20:18:24.538000+08:00",
+   "kind": "run",
+   "key": "run:calltap",
+   "title": "calltap",
+   "detail": "×480 · exit 0 · 0.10s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:18:24",
+     "exit": 0,
+     "dur": 0.096
+    },
+    {
+     "t": "20:15:24",
+     "exit": 0,
+     "dur": 0.068
+    },
+    {
+     "t": "20:12:24",
+     "exit": 0,
+     "dur": 0.057
+    },
+    {
+     "t": "20:09:24",
+     "exit": 0,
+     "dur": 0.06
+    },
+    {
+     "t": "20:06:24",
+     "exit": 0,
+     "dur": 0.054
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:13:22+08:00",
+   "kind": "route",
+   "key": "route:/sleeper/",
+   "title": "SLEEPER // ONE RETURN v2",
+   "detail": "/sleeper/ · ACTIVE",
+   "href": "/sleeper/"
+  },
+  {
+   "at": "2026-10-25T20:13:22+08:00",
+   "kind": "route",
+   "key": "route:/sleeper/one-return/",
+   "title": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
+   "detail": "/sleeper/one-return/ · DONOR",
+   "href": "/sleeper/one-return/"
+  },
+  {
+   "at": "2026-10-25T20:13:22+08:00",
+   "kind": "repo",
+   "key": "repo:theme:SLEEPER",
+   "title": "SLEEPER",
+   "detail": "last · SLEEPER — v2 compat layer + conformance can now see external scripts (call sleeper…",
+   "href": "",
+   "count": 7,
+   "commits": [
+    {
+     "t": "25 20:13",
+     "title": "SLEEPER — v2 compat layer + conformance can now see external scripts (call sleeper-donor C)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/762530019b81a5cc7a9eb412643528645027a382",
+     "sha": "76253001"
+    },
+    {
+     "t": "25 14:44",
+     "title": "SLEEPER READ: source-linked threads, one-tap evidence and mobile-first traversal",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0c5aa4cd7fe6c0e3b0639e1bf1f45100b51122d3",
+     "sha": "0c5aa4cd"
+    },
+    {
+     "t": "25 02:46",
+     "title": "SLEEPER: make source reading the default Bell experience",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/758e47561b0352cf34d5d99cefdf66a83018729e",
+     "sha": "758e4756"
+    },
+    {
+     "t": "25 02:27",
+     "title": "SLEEPER: keep POV walking under thumb drift; isolated Bell browser proof",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/87a1b4fa27ef93ea700df6963fe6b05cae48f403",
+     "sha": "87a1b4fa"
+    },
+    {
+     "t": "25 02:26",
+     "title": "SLEEPER: source-exact AXIS ↔ CITY ↔ RETURN circuit",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8e3119168418f5ab6e74ea2fbf87d865411d7568",
+     "sha": "8e311916"
+    },
+    {
+     "t": "24 22:57",
+     "title": "SLEEPER: AXIS core physically changes the route",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7452b2802f18188970e137aae01dc5fccb26c5d6",
+     "sha": "7452b280"
+    },
+    {
+     "t": "24 21:17",
+     "title": "SLEEPER: meaningful axis history and spatial counterfactual",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fa512cac5e669bb96d2e293c912725caf7f549d6",
+     "sha": "fa512cac"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:09:29+08:00",
+   "kind": "call",
+   "key": "call:sleeper-substrate:2026-10-25T20:09:29+08:00",
+   "title": "sleeper-substrate → D · Buddhadhamma text (operator's own answer)",
+   "detail": "'can we use buddhadhamma as text' — the city's matter = buddhadhamma",
+   "href": "/calls/#sleeper-substrate"
+  },
+  {
+   "at": "2026-10-25T20:07:15+08:00",
+   "kind": "call",
+   "key": "call:sleeper-donor:2026-10-25T20:07:15+08:00",
+   "title": "sleeper-donor → C · Build compat layer",
+   "detail": "answered",
+   "href": "/calls/#sleeper-donor"
+  },
+  {
+   "at": "2026-10-25T20:02:30.206000+08:00",
+   "kind": "run",
+   "key": "run:comms-page",
+   "title": "comms-page",
+   "detail": "×46 · 3 fails · last exit 0 · 3.69s",
+   "href": "",
+   "fails": 3,
+   "runs": [
+    {
+     "t": "20:02:30",
+     "exit": 0,
+     "dur": 3.694
+    },
+    {
+     "t": "19:31:29",
+     "exit": 0,
+     "dur": 4.578
+    },
+    {
+     "t": "19:00:27",
+     "exit": 0,
+     "dur": 6.243
+    },
+    {
+     "t": "18:29:27",
+     "exit": 0,
+     "dur": 4.484
+    },
+    {
+     "t": "17:58:27",
+     "exit": 0,
+     "dur": 4.526
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:02:24.525000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×46 · exit 0 · 0.19s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:02:24",
+     "exit": 0,
+     "dur": 0.191
+    },
+    {
+     "t": "19:31:24",
+     "exit": 0,
+     "dur": 0.186
+    },
+    {
+     "t": "19:00:24",
+     "exit": 0,
+     "dur": 0.177
+    },
+    {
+     "t": "18:29:24",
+     "exit": 0,
+     "dur": 0.174
+    },
+    {
+     "t": "17:58:24",
+     "exit": 0,
+     "dur": 0.177
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:02:24.485000+08:00",
+   "kind": "run",
+   "key": "run:surfaces-push",
+   "title": "surfaces-push",
+   "detail": "×46 · 3 fails · last exit 0 · 10.23s",
+   "href": "",
+   "fails": 3,
+   "runs": [
+    {
+     "t": "20:02:24",
+     "exit": 0,
+     "dur": 10.228
+    },
+    {
+     "t": "19:31:24",
+     "exit": 0,
+     "dur": 10.793
+    },
+    {
+     "t": "19:00:24",
+     "exit": 0,
+     "dur": 10.388
+    },
+    {
+     "t": "18:29:24",
+     "exit": 0,
+     "dur": 8.519
+    },
+    {
+     "t": "17:58:24",
+     "exit": 0,
+     "dur": 8.702
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:02:24.403000+08:00",
+   "kind": "run",
+   "key": "run:loops-tick",
+   "title": "loops-tick",
+   "detail": "×46 · exit 0 · 9.51s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:02:24",
+     "exit": 0,
+     "dur": 9.51
+    },
+    {
+     "t": "19:31:24",
+     "exit": 0,
+     "dur": 10.746
+    },
+    {
+     "t": "19:00:24",
+     "exit": 0,
+     "dur": 7.022
+    },
+    {
+     "t": "18:29:24",
+     "exit": 0,
+     "dur": 5.24
+    },
+    {
+     "t": "17:58:24",
+     "exit": 0,
+     "dur": 6.56
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:00:24.655000+08:00",
+   "kind": "run",
+   "key": "run:fi-contract-stamp",
+   "title": "fi-contract-stamp",
+   "detail": "×24 · exit 0 · 16.41s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:24",
+     "exit": 0,
+     "dur": 16.409
+    },
+    {
+     "t": "19:00:24",
+     "exit": 0,
+     "dur": 16.589
+    },
+    {
+     "t": "18:00:24",
+     "exit": 0,
+     "dur": 16.327
+    },
+    {
+     "t": "17:00:24",
+     "exit": 0,
+     "dur": 17.012
+    },
+    {
+     "t": "16:00:24",
+     "exit": 0,
+     "dur": 15.872
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T20:00:24.534000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×6 · exit 0 · 0.12s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:24",
+     "exit": 0,
+     "dur": 0.117
+    },
+    {
+     "t": "16:00:24",
+     "exit": 0,
+     "dur": 0.023
+    },
+    {
+     "t": "12:00:24",
+     "exit": 0,
+     "dur": 0.021
+    },
+    {
+     "t": "08:00:24",
+     "exit": 0,
+     "dur": 0.042
+    },
+    {
+     "t": "04:00:24",
+     "exit": 0,
+     "dur": 0.051
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T19:56:24.589000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×5 · exit 0 · 0.10s",
+   "href": "",
+   "runs": [
+    {
+     "t": "19:56:24",
+     "exit": 0,
+     "dur": 0.102
+    },
+    {
+     "t": "15:55:24",
+     "exit": 0,
+     "dur": 0.072
+    },
+    {
+     "t": "11:54:24",
+     "exit": 0,
+     "dur": 0.073
+    },
+    {
+     "t": "07:53:24",
+     "exit": 0,
+     "dur": 0.073
+    },
+    {
+     "t": "23:51:24",
+     "exit": 0,
+     "dur": 0.089
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T18:45:24.461000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×1 · exit 0 · 1.16s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:24",
+     "exit": 0,
+     "dur": 1.163
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:54:34+08:00",
+   "kind": "repo",
+   "key": "repo:theme:FIELD",
+   "title": "FIELD",
+   "detail": "last · FIELD: retain one-screen glyphs through slow and cached loading",
+   "href": "",
+   "count": 14,
+   "commits": [
+    {
+     "t": "25 14:54",
+     "title": "FIELD: retain one-screen glyphs through slow and cached loading",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c3b54b98c4900c478cc29bde2573b81271d914c8",
+     "sha": "c3b54b98"
+    },
+    {
+     "t": "25 14:44",
+     "title": "FIELD: fit all CURRENT glyphs on one screen",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/1bf103b1c9f6045fa023898def1db8e396e62c54",
+     "sha": "1bf103b1"
+    },
+    {
+     "t": "25 14:38",
+     "title": "FIELD: keep single-bar address aligned with native HOLD",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0a69d3973f88e484cd3510c97f7ec877c72fdf97",
+     "sha": "0a69d397"
+    },
+    {
+     "t": "25 03:02",
+     "title": "FIELD: one bar landing with native work on demand",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/1e7a75a71c47f1e331d18c0182254c8c24a9bb04",
+     "sha": "1e7a75a7"
+    },
+    {
+     "t": "25 02:44",
+     "title": "FIELD: restore one compact CURRENT glyph landing",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/13f919b3fa5395f75b98c006a96999e5c2f91bfe",
+     "sha": "13f919b3"
+    },
+    {
+     "t": "25 02:23",
+     "title": "FIELD: stamp first-use zoom proof at exact source commit time",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/922f53ea94865a8647129e5fb45623539ce361a5",
+     "sha": "922f53ea"
+    },
+    {
+     "t": "25 02:18",
+     "title": "FIELD: stamp final finite dial review at exact source time",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b20ae221174749b6c4a582040cc7d9c08fdff420",
+     "sha": "b20ae221"
+    },
+    {
+     "t": "25 02:16",
+     "title": "FIELD: stamp identity-preserving dial proof at exact source time",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f2c0f56d1680899df75e809342bb55d8093a9e7f",
+     "sha": "f2c0f56d"
+    },
+    {
+     "t": "25 02:12",
+     "title": "FIELD: stamp integrated dial source verification at exact commit time",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e2b5fea71f0bb2d7c57a1f08f6ca9f2cc1e217f7",
+     "sha": "e2b5fea7"
+    },
+    {
+     "t": "25 02:09",
+     "title": "FIELD: stamp source dial verification at exact semantic source time",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/bc6d4ba867efae4cbc4a3928abdf4d82d8e937b1",
+     "sha": "bc6d4ba8"
+    },
+    {
+     "t": "24 23:10",
+     "title": "FIELD: one held-address Threadwalk across native LIST / STRIP / PLAN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7151110a0c6fdb16ebf958a058ae1f6a5ab5b7a4",
+     "sha": "7151110a"
+    },
+    {
+     "t": "24 22:53",
+     "title": "FIELD: align CURRENT root head with proven 0.10.1 crew handoff release",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7fcf662bb5cb25cb93fd4c2c2db111ceb06b4e83",
+     "sha": "7fcf662b"
+    },
+    {
+     "t": "24 21:44",
+     "title": "FIELD: one address, three readings — LIST / STRIP / PLAN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0f9fa5796b2aa6dfb0913d0f214a9c230f1bb76d",
+     "sha": "0f9fa579"
+    },
+    {
+     "t": "24 21:01",
+     "title": "FIELD 0.10.1: converge held COPY into canonical crew handoff",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/48eb0fa7275503204be6afbd64c2cc465581fcd2",
+     "sha": "48eb0fa7"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:54:29+08:00",
+   "kind": "repo",
+   "key": "repo:theme:repo · other",
+   "title": "repo · other",
+   "detail": "last · Preserve latest crew readback and generated snapshots; landing bytes unchanged",
+   "href": "",
+   "count": 41,
+   "commits": [
+    {
+     "t": "25 14:54",
+     "title": "Preserve latest crew readback and generated snapshots; landing bytes unchanged",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/67a013b7ea4d41d4b49e141666bd335a50a46cdb",
+     "sha": "67a013b7"
+    },
+    {
+     "t": "25 14:50",
+     "title": "Keep one-screen owner changes and bypass the published timed-out control cache",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/201fc4209e1f7b0113cfeecbee9ccdeb0dc2e92e",
+     "sha": "201fc420"
+    },
+    {
+     "t": "25 14:47",
+     "title": "FIELD proof: recognize already-supported crew-turn mode",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fa996c4dbe6cda8bce585f19734d6121d4d5de8f",
+     "sha": "fa996c4d"
+    },
+    {
+     "t": "25 14:46",
+     "title": "Preserve current one-screen glyph host and fresh control/style cache",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/9bb3521b048ea405e6d13c0a54644c532efdd6fb",
+     "sha": "9bb3521b"
+    },
+    {
+     "t": "25 14:42",
+     "title": "Preserve current native held-address and crew changes in one-bar fix",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/dbdbc9377ea20111919bdd6afe6d8f52b395f4d7",
+     "sha": "dbdbc937"
+    },
+    {
+     "t": "25 14:40",
+     "title": "Keep one-bar FIELD reveal alive through slow imports; remove spec drift",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/200331a03c5398f8a157f56c1b99636df43dc93f",
+     "sha": "200331a0"
+    },
+    {
+     "t": "25 14:34",
+     "title": "Crew: pipe bounded TURN and close EFFECT gate ambiguity",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/32d6655df920a89c6f5137bf6cd28444e38083cf",
+     "sha": "32d6655d"
+    },
+    {
+     "t": "25 02:29",
+     "title": "Preserve current native Sleeper and generated snapshots with unchanged verified source dial",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ab6f2ac2b26a5f4c0fefce07bc27c44fe3c69fe6",
+     "sha": "ab6f2ac2"
+    },
+    {
+     "t": "25 02:28",
+     "title": "Preserve landed native Sleeper circuit with unchanged verified source dial",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/514a29bcf435db2133dbfa7f08a5736894d8879e",
+     "sha": "514a29bc"
+    },
+    {
+     "t": "25 02:05",
+     "title": "Fold landing words into on-demand detail",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f8a0eaed8e9ca48dde676fbb049c7712d2264c44",
+     "sha": "f8a0eaed"
+    },
+    {
+     "t": "25 02:04",
+     "title": "Preserve independent AXIAL binding release with unchanged validated landing",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6e3829cc1611453b04e0cd56c2fcc27b7070ec1d",
+     "sha": "6e3829cc"
+    },
+    {
+     "t": "25 02:01",
+     "title": "Preserve current INTERPHASE source recovery while folding the landing",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/18a6797872c25e929de215165e39d06b988ea6bb",
+     "sha": "18a67978"
+    },
+    {
+     "t": "25 01:57",
+     "title": "Integrate current archive route without changing the folded landing",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6e115f28a7ce47d1182c2e4ee4c7685ef17b9475",
+     "sha": "6e115f28"
+    },
+    {
+     "t": "25 01:53",
+     "title": "Pin the two address-bar reveals to stable columns",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8d36f62879bebfd072eb05015ed448c01ed1789c",
+     "sha": "8d36f628"
+    },
+    {
+     "t": "25 01:52",
+     "title": "Keep explicit detail, word reveal and help reachable in the one address bar",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/606cc51d93f1164f3f02b8396d4534d0cdc06650",
+     "sha": "606cc51d"
+    },
+    {
+     "t": "25 01:48",
+     "title": "Fold FIELD words and passive chrome into one in-place detail reveal",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2cd3ba79651ce9aece517341bab261007f2e2e9c",
+     "sha": "2cd3ba79"
+    },
+    {
+     "t": "25 01:42",
+     "title": "calls/decide: fold operator answers — 8 calls recorded (answers.jsonl canonical), 4 remain open (interphase-two-tree, money-topup, sleeper-donor, sleeper-substrate); desk refreshed",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b8b4772e11b20f95601dee0ba6a15a02d11270e6",
+     "sha": "b8b4772e"
+    },
+    {
+     "t": "25 01:38",
+     "title": "Preserve FIELD held object through history and layout scrolls",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/617681a02010246f8fe14d0c0f357f929b680675",
+     "sha": "617681a0"
+    },
+    {
+     "t": "25 01:35",
+     "title": "Keep FIELD focus stable during history and layout scroll restoration",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/9dcb01e19a832d0988012bf01f6a9abb687cbfd1",
+     "sha": "9dcb01e1"
+    },
+    {
+     "t": "25 01:31",
+     "title": "Keep FIELD landing quiet on first visit and HOLD",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/90d82a27a49edcead92e2bd9d6f971d665158531",
+     "sha": "90d82a27"
+    },
+    {
+     "t": "25 01:27",
+     "title": "Keep FIELD first visit free of automatic AWAKE introduction",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/1e2264fe615190792730c6da4c67e00501ae3006",
+     "sha": "1e2264fe"
+    },
+    {
+     "t": "25 01:23",
+     "title": "Restore readable FIELD landing and preserve original INTERPHASE lineage",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6f9146f55198e066df5ceb2f1e28c47a22ecd534",
+     "sha": "6f9146f5"
+    },
+    {
+     "t": "25 01:18",
+     "title": "Pin benign conformance expression in exact redaction allowlist",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e44e30ddcf8b45c42af5497dbb14585aaf5cc8ad",
+     "sha": "e44e30dd"
+    },
+    {
+     "t": "25 01:15",
+     "title": "Restore readable FIELD landing; preserve current map and original-code lineage",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/be943d85b935febb59c1b2fc12072c53c7f7d420",
+     "sha": "be943d85"
+    },
+    {
+     "t": "24 23:57",
+     "title": "chore: stamp /sleeper/ contract (fi-mutation-contract IMPLEMENT,VERIFY)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/beac8cf6d7c082f85ccbaa51c436943ee8fed675",
+     "sha": "beac8cf6"
+    },
+    {
+     "t": "24 23:56",
+     "title": "sleeper: ONE RETURN contract + headless conformance harness + long-horizon goal",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6887aee98b4471c0377b6dec8f99587542c1843d",
+     "sha": "6887aee9"
+    },
+    {
+     "t": "24 23:46",
+     "title": "public-surface gate GREEN — /sleeper/ladder/ gains its evolution contract",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0b0f166659ecde55b8e11d3c80d405c8442cc73f",
+     "sha": "0b0f1666"
+    },
+    {
+     "t": "24 23:00",
+     "title": "repair: showcase-manifest — strip rebase conflict markers, re-root on origin valid JSON, re-add /decide/",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8767ff368f401355c345f98d19fd956cad5b61ad",
+     "sha": "8767ff36"
+    },
+    {
+     "t": "24 21:35",
+     "title": "sleeper/ladder 0.1.0: the four-distance resolution ladder (P1 P3 P4 P5 P6 P8 P12b)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/9c4f9424798c28492aac1b992a7568252cae84a5",
+     "sha": "9c4f9424"
+    },
+    {
+     "t": "24 21:24",
+     "title": "Merge current master into readable FIELD restoration",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e23c8d2dab91c0c6630671d73eb62d4e7cf210b4",
+     "sha": "e23c8d2d"
+    },
+    {
+     "t": "24 21:23",
+     "title": "Restore readable FIELD entry and demote rejected reader takeover",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2ee8573292b056232a508975e0cea2e902ae9be8",
+     "sha": "2ee85732"
+    },
+    {
+     "t": "24 21:07",
+     "title": "Crew: fail closed on stale source handoffs",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b24b61cb22a10848a6fd76eea74a5444693cef8e",
+     "sha": "b24b61cb"
+    },
+    {
+     "t": "24 20:31",
+     "title": "Use native entry provenance to distinguish caller focus from a restored FIELD URL",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/874f5e6edfb87132fe702045d4bf7df87495708c",
+     "sha": "874f5e6e"
+    },
+    {
+     "t": "24 20:29",
+     "title": "Re-observe the host manifest before restoring native ports from RETURN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/429b27a76c568041b664c592e1863302233a6de1",
+     "sha": "429b27a7"
+    },
+    {
+     "t": "24 20:26",
+     "title": "Wait for legacy control attachment before opening its collapsed menu",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ce570b96c4d288da753f051d8a8547759a119885",
+     "sha": "ce570b96"
+    },
+    {
+     "t": "24 20:26",
+     "title": "Observe the native held route before enabling source synchronization after resume",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fe8a84d0f96622d22e94d32b5eef92d258692e70",
+     "sha": "fe8a84d0"
+    },
+    {
+     "t": "24 20:25",
+     "title": "Consume stale caller focus when opening a new source and prove exact reload",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c9170e1acad6d36d1c4026c64b9f5484fbd70493",
+     "sha": "c9170e1a"
+    },
+    {
+     "t": "24 20:23",
+     "title": "Wait for the explicitly lazy legacy compositor before testing its controls",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ce3e96a025cd612ac77053e2debba51264e02fb2",
+     "sha": "ce3e96a0"
+    },
+    {
+     "t": "24 20:22",
+     "title": "Keep source, reader, type and release changes covered by the convergence workflow",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c9c06f566fc04ce97f2f39f57bec4554c6df526e",
+     "sha": "c9c06f56"
+    },
+    {
+     "t": "24 20:21",
+     "title": "Correct the receipt's recovered Python case count to the recorded runner output",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/90862aaaba01d590a357f5998e3d6b403710c41e",
+     "sha": "90862aaa"
+    },
+    {
+     "t": "24 20:20",
+     "title": "Record recovered component proof, stabilize native fixture, and verify local-file reader ride",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f19c4be414d46e642221789350cd22a0ab7e73e5",
+     "sha": "f19c4be4"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:52:02+08:00",
+   "kind": "repo",
+   "key": "repo:theme:RETURN",
+   "title": "RETURN",
+   "detail": "last · RETURN: close the FIELD crew handoff loop",
+   "href": "",
+   "count": 5,
+   "commits": [
+    {
+     "t": "25 14:52",
+     "title": "RETURN: close the FIELD crew handoff loop",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4c9dc59ee0489abde6bd060bc4f1a516267bb1d7",
+     "sha": "4c9dc59e"
+    },
+    {
+     "t": "25 14:36",
+     "title": "RETURN: contract CURRENT next to one TURN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/481ad7c2d7e37cfc56f50d1d69f9ec36b085f8f5",
+     "sha": "481ad7c2"
+    },
+    {
+     "t": "25 14:35",
+     "title": "RETURN: crew TURN pipe + EFFECT gate",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/676fafee129bafac28c055f7e3a8fffcabc87dae",
+     "sha": "676fafee"
+    },
+    {
+     "t": "24 21:07",
+     "title": "RETURN: crew source witness",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/1943130c8b85db21946ba92f0c6e278c288e9639",
+     "sha": "1943130c"
+    },
+    {
+     "t": "24 21:02",
+     "title": "RETURN: FIELD 0.10.1 canonical crew handoff",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3e05c3f6abc107fcb61c9b955ec3d30002a37b69",
+     "sha": "3e05c3f6"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:51:27+08:00",
+   "kind": "repo",
+   "key": "repo:theme:CREW",
+   "title": "CREW",
+   "detail": "last · CREW: close handoff loop with KEEP / PARK / WRONG_FRAME",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "25 14:51",
+     "title": "CREW: close handoff loop with KEEP / PARK / WRONG_FRAME",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8419de97b561634b90f4d549c7b276c4d3d9043b",
+     "sha": "8419de97"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:45:19+08:00",
+   "kind": "repo",
+   "key": "repo:theme:fix(field)",
+   "title": "fix(field)",
+   "detail": "last · fix(field): invalidate cached landing assets after one-screen glyph restoration",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "25 14:45",
+     "title": "fix(field): invalidate cached landing assets after one-screen glyph restoration",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c527c3dbc3f5bbe92e2ffdc3c492f2546f977ea7",
+     "sha": "c527c3db"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:36:09+08:00",
+   "kind": "repo",
+   "key": "repo:theme:CURRENT",
+   "title": "CURRENT",
+   "detail": "last · CURRENT: split Dayline witness from air-instrument TURN",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "25 14:36",
+     "title": "CURRENT: split Dayline witness from air-instrument TURN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8dce8fa1f8b739c4a820eea3e9d23a5f48636527",
+     "sha": "8dce8fa1"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T14:00:24.420000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×3 · exit 0 · 4.87s",
+   "href": "",
+   "runs": [
+    {
+     "t": "14:00:24",
+     "exit": 0,
+     "dur": 4.872
+    },
+    {
+     "t": "06:00:24",
+     "exit": 0,
+     "dur": 0.032
+    },
+    {
+     "t": "22:00:24",
+     "exit": 0,
+     "dur": 0.033
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T10:30:24.565000+08:00",
+   "kind": "run",
+   "key": "run:calls-say",
+   "title": "calls-say",
+   "detail": "×1 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "10:30:24",
+     "exit": 0,
+     "dur": 0.065
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T09:20:24.550000+08:00",
+   "kind": "run",
+   "key": "run:signal",
+   "title": "signal",
+   "detail": "×1 · exit 0 · 1.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:20:24",
+     "exit": 0,
+     "dur": 1.039
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T09:00:24.778000+08:00",
+   "kind": "run",
+   "key": "run:anchor-digest",
+   "title": "anchor-digest",
+   "detail": "×2 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:24",
+     "exit": 0,
+     "dur": 0.058
+    },
+    {
+     "t": "21:00:24",
+     "exit": 0,
+     "dur": 0.046
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T09:00:24.757000+08:00",
+   "kind": "run",
+   "key": "run:pack-doctor",
+   "title": "pack-doctor",
+   "detail": "×1 · exit 0 · 13.72s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:24",
+     "exit": 0,
+     "dur": 13.719
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T07:00:24.712000+08:00",
+   "kind": "run",
+   "key": "run:integrity-audit",
+   "title": "integrity-audit",
+   "detail": "×1 · exit 0 · 10.40s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:00:24",
+     "exit": 0,
+     "dur": 10.401
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T06:00:24.578000+08:00",
+   "kind": "run",
+   "key": "run:field-index-rebuild",
+   "title": "field-index-rebuild",
+   "detail": "×1 · exit 0 · 1.92s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:24",
+     "exit": 0,
+     "dur": 1.924
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T05:00:24.801000+08:00",
+   "kind": "run",
+   "key": "run:daily-trunk-summary",
+   "title": "daily-trunk-summary",
+   "detail": "×1 · exit 0 · 0.11s",
+   "href": "",
+   "runs": [
+    {
+     "t": "05:00:24",
+     "exit": 0,
+     "dur": 0.107
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T02:29:44+08:00",
+   "kind": "repo",
+   "key": "repo:theme:INTERPHASE",
+   "title": "INTERPHASE",
+   "detail": "last · INTERPHASE: finite source dial and operable first zoom (#1008)",
+   "href": "",
+   "count": 8,
+   "commits": [
+    {
+     "t": "25 02:29",
+     "title": "INTERPHASE: finite source dial and operable first zoom (#1008)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6e711a29f05cea96adf7cb26c3ad20bac4125c09",
+     "sha": "6e711a29"
+    },
+    {
+     "t": "25 02:22",
+     "title": "INTERPHASE: make first zoom enter the actual source range",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/db180bf9eb5b3d5d4aa9df618f9f31b7d177adc0",
+     "sha": "db180bf9"
+    },
+    {
+     "t": "25 02:18",
+     "title": "INTERPHASE: distinguish an outside caret from a held-range position",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fae58152e89f0a8073bec5431d2f3a3be48d21ea",
+     "sha": "fae58152"
+    },
+    {
+     "t": "25 02:15",
+     "title": "INTERPHASE: retain structured object identity in the finite dial aperture",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4fcd11848e3f8a19c20cb0a10456e8a84ca7fa18",
+     "sha": "4fcd1184"
+    },
+    {
+     "t": "25 02:12",
+     "title": "INTERPHASE: integrate finite dial repair with compact native FIELD 0.10.6",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e8792c06e31a8fcbf6cc1d4fa4d614b40c0271e6",
+     "sha": "e8792c06"
+    },
+    {
+     "t": "25 02:08",
+     "title": "INTERPHASE: finite source dial, readable phone aperture and coupled cache release",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7b5b3c6c645182d1d684c3fd22b808385be7b2ac",
+     "sha": "7b5b3c6c"
+    },
+    {
+     "t": "25 01:59",
+     "title": "INTERPHASE: recover one exact source across READ WALK DIAL (#1006)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8cfc0ed5a12d8beb23210979662bfe1f35a40da5",
+     "sha": "8cfc0ed5"
+    },
+    {
+     "t": "24 20:36",
+     "title": "INTERPHASE 0.10.0: one source, exact attention, plain / walk / RSVP",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/eca074c15fb945aa038b4640954bda963f2d49ae",
+     "sha": "eca074c1"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T02:22:16+08:00",
+   "kind": "route",
+   "key": "route:/interphase/",
+   "title": "INTERPHASE / SOURCE SPACE",
+   "detail": "/interphase/ · ACTIVE",
+   "href": "/interphase/"
+  },
+  {
+   "at": "2026-10-25T02:02:50+08:00",
+   "kind": "repo",
+   "key": "repo:theme:AXIAL",
+   "title": "AXIAL",
+   "detail": "last · AXIAL: native ring binding, stable state and RETURN",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "25 02:02",
+     "title": "AXIAL: native ring binding, stable state and RETURN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/dedc9cedc2cbc8272afdf023aaae4eb6b9fb8b26",
+     "sha": "dedc9ced"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T02:00:24.671000+08:00",
+   "kind": "run",
+   "key": "run:media-curator-nightly",
+   "title": "media-curator-nightly",
+   "detail": "×1 · exit 0 · 0.01s",
+   "href": "",
+   "runs": [
+    {
+     "t": "02:00:24",
+     "exit": 0,
+     "dur": 0.013
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T01:55:09+08:00",
+   "kind": "route",
+   "key": "route:/field/at-night/",
+   "title": "THE FIELD AT NIGHT",
+   "detail": "/field/at-night/ · ACTIVE",
+   "href": "/field/at-night/"
+  },
+  {
+   "at": "2026-10-25T01:55:09+08:00",
+   "kind": "repo",
+   "key": "repo:theme:ART",
+   "title": "ART",
+   "detail": "last · ART — THE FIELD AT NIGHT: two months of sessions as an aggregate star map (/field/…",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "25 01:55",
+     "title": "ART — THE FIELD AT NIGHT: two months of sessions as an aggregate star map (/field/at-night/)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ba7bbebafab1df9d3dffe5b293a2e2534f6d1d35",
+     "sha": "ba7bbeba"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T01:50:24.629000+08:00",
+   "kind": "run",
+   "key": "run:evolution-eval-gate",
+   "title": "evolution-eval-gate",
+   "detail": "×1 · exit 0 · 82.84s",
+   "href": "",
+   "runs": [
+    {
+     "t": "01:50:24",
+     "exit": 0,
+     "dur": 82.839
+    }
+   ]
+  },
+  {
+   "at": "2026-10-25T01:42:44+08:00",
+   "kind": "route",
+   "key": "route:/decide/",
+   "title": "THE DESK — 14 escalated + 10 calls",
+   "detail": "/decide/ · ACTIVE",
+   "href": "/decide/"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:triangle-bench:2026-10-25T01:39:17+08:00",
+   "title": "triangle-bench → A · Recover as an optional triangle view over the bench (5 bounded deltas; numeric table stays canonical; kill at ~150 lines)",
+   "detail": "answered",
+   "href": "/calls/#triangle-bench"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:whatsapp-pair:2026-10-25T01:39:17+08:00",
+   "title": "whatsapp-pair → B · Later",
+   "detail": "answered",
+   "href": "/calls/#whatsapp-pair"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:six-0817-retire:2026-10-25T01:39:17+08:00",
+   "title": "six-0817-retire → B · Keep open — I'll answer",
+   "detail": "answered",
+   "href": "/calls/#six-0817-retire"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:promise-secret-scan-weekly-enabled:2026-10-25T01:39:17+08:00",
+   "title": "promise-secret-scan-weekly-enabled → C · Waive — closed as no-longer-wanted, ledger records the waiver",
+   "detail": "answered",
+   "href": "/calls/#promise-secret-scan-weekly-enabled"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:promise-ab-voice-scoring-pass:2026-10-25T01:39:17+08:00",
+   "title": "promise-ab-voice-scoring-pass → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-ab-voice-scoring-pass"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:promise-qwen3-8-27b-fallback-pull:2026-10-25T01:39:17+08:00",
+   "title": "promise-qwen3-8-27b-fallback-pull → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-qwen3-8-27b-fallback-pull"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:promise-memory-crowding-consolidate:2026-10-25T01:39:17+08:00",
+   "title": "promise-memory-crowding-consolidate → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-memory-crowding-consolidate"
+  },
+  {
+   "at": "2026-10-25T01:39:17+08:00",
+   "kind": "call",
+   "key": "call:publish-media-consolidated:2026-10-25T01:39:17+08:00",
+   "title": "publish-media-consolidated → A · Publish both (reviewed contact sheets first)",
+   "detail": "answered",
+   "href": "/calls/#publish-media-consolidated"
+  },
+  {
+   "at": "2026-10-24T23:49:57+08:00",
+   "kind": "call",
+   "key": "call:promise-qwen3-8-27b-fallback-pull:2026-10-24T23:49:57+08:00",
+   "title": "promise-qwen3-8-27b-fallback-pull → A · Own it — fix now (machine executes on your word)",
+   "detail": "machine-recorded 2026-10-24: promise verified KEPT (kestrel ollama-local.default_model/model repointed to gpt-oss:20b; live call 'LOCAL LANE OK'); no operator tap needed — the open row was a false BROKEN PROMISE, withdrawn from the board.",
+   "href": "/calls/#promise-qwen3-8-27b-fallback-pull"
+  },
+  {
+   "at": "2026-10-24T23:42:38+08:00",
+   "kind": "route",
+   "key": "route:/recovery/sleeper/painting-path/",
+   "title": "PAINTING / PATH",
+   "detail": "/recovery/sleeper/painting-path/ · FROZEN_DONOR",
+   "href": "/recovery/sleeper/painting-path/"
+  },
+  {
+   "at": "2026-10-24T23:42:38+08:00",
+   "kind": "repo",
+   "key": "repo:theme:THE",
+   "title": "THE",
+   "detail": "last · THE HAND — critic pass: pins stay reachable, real brush dynamics",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "24 23:42",
+     "title": "THE HAND — critic pass: pins stay reachable, real brush dynamics",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/9a3778da642dd5eb2be0b82e877e906b777ebe6f",
+     "sha": "9a3778da"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T23:40:32+08:00",
+   "kind": "repo",
+   "key": "repo:theme:PAINTING/PATH",
+   "title": "PAINTING/PATH",
+   "detail": "last · PAINTING/PATH — the real instrument + THE HAND (magenta ink, mute mode)",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "24 23:40",
+     "title": "PAINTING/PATH — the real instrument + THE HAND (magenta ink, mute mode)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/666517318a7d83c8acaf2746e2b89f6b9f9a9866",
+     "sha": "66651731"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T23:05:20+08:00",
+   "kind": "run",
+   "key": "run:local-dedupe-backups-hardlink",
+   "title": "local-dedupe-backups-hardlink",
+   "detail": "×1 · exit 0 · 1360.00s",
+   "href": "",
+   "runs": [
+    {
+     "t": "23:05:20",
+     "exit": 0,
+     "dur": 1360
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T21:35:08+08:00",
+   "kind": "route",
+   "key": "route:/sleeper/ladder/",
+   "title": "SLEEPER // LADDER 0.1.0",
+   "detail": "/sleeper/ladder/ · CANDIDATE",
+   "href": "/sleeper/ladder/"
+  },
+  {
+   "at": "2026-10-24T21:14:41+08:00",
+   "kind": "route",
+   "key": "route:/sleeper/axis-score.html",
+   "title": "SLEEPER / AXIS SCORE · THE BELL / THREADWALK",
+   "detail": "/sleeper/axis-score.html · CANDIDATE",
+   "href": "/sleeper/axis-score.html"
+  },
+  {
+   "at": "2026-10-24T21:02:00+08:00",
+   "kind": "route",
+   "key": "route:/port/comms/",
+   "title": "HUMAN PORT / COMMS SPINE 0.1.4",
+   "detail": "/port/comms/ · ACTIVE",
+   "href": "/port/comms/"
+  },
+  {
+   "at": "2026-10-24T20:56:36+08:00",
+   "kind": "repo",
+   "key": "repo:theme:READFIELD",
+   "title": "READFIELD",
+   "detail": "last · READFIELD: exact JSON PATHS / text continuity and owner CI proof",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "24 20:56",
+     "title": "READFIELD: exact JSON PATHS / text continuity and owner CI proof",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6be8b279b6b990271eb3a667ec97e63cf6d8a8e1",
+     "sha": "6be8b279"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:47:08+08:00",
+   "kind": "route",
+   "key": "route:/docs/",
+   "title": "READFIELD / RSVP 0.8.6",
+   "detail": "/docs/ · UTILITY",
+   "href": "/docs/"
+  },
+  {
+   "at": "2026-10-25T20:18:25+08:00",
+   "kind": "repo",
+   "key": "repo:machine",
+   "title": "machine refresh",
+   "detail": "×150 · last fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
+   "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
+   "count": 150,
+   "machine": true
+  }
+ ],
+ "earlier": [
+  {
+   "at": "2026-10-24T20:16:37.780000+08:00",
+   "kind": "run",
+   "key": "run:comms-page",
+   "title": "comms-page",
+   "detail": "×93 · 6 fails · last exit 1 · 8.79s",
+   "href": "",
+   "fails": 6,
+   "runs": [
+    {
+     "t": "20:16:37",
+     "exit": 1,
+     "dur": 8.794
+    },
+    {
+     "t": "19:45:35",
+     "exit": 1,
+     "dur": 9.72
+    },
+    {
+     "t": "19:14:36",
+     "exit": 1,
+     "dur": 9.743
+    },
+    {
+     "t": "18:43:39",
+     "exit": 1,
+     "dur": 12.68
+    },
+    {
+     "t": "18:12:36",
+     "exit": 1,
+     "dur": 11.412
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:16:25.213000+08:00",
+   "kind": "run",
+   "key": "run:calltap",
+   "title": "calltap",
+   "detail": "×961 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:16:25",
+     "exit": 0,
+     "dur": 0.058
+    },
+    {
+     "t": "20:13:24",
+     "exit": 0,
+     "dur": 0.064
+    },
+    {
+     "t": "20:10:24",
+     "exit": 0,
+     "dur": 0.054
+    },
+    {
+     "t": "20:07:24",
+     "exit": 0,
+     "dur": 0.053
+    },
+    {
+     "t": "20:04:24",
+     "exit": 0,
+     "dur": 0.053
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:16:24.868000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×93 · exit 0 · 0.18s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:16:24",
+     "exit": 0,
+     "dur": 0.181
+    },
+    {
+     "t": "19:45:24",
+     "exit": 0,
+     "dur": 0.175
+    },
+    {
+     "t": "19:14:24",
+     "exit": 0,
+     "dur": 0.173
+    },
+    {
+     "t": "18:43:24",
+     "exit": 0,
+     "dur": 0.177
+    },
+    {
+     "t": "18:12:24",
+     "exit": 0,
+     "dur": 0.176
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:16:24.824000+08:00",
+   "kind": "run",
+   "key": "run:surfaces-push",
+   "title": "surfaces-push",
+   "detail": "×93 · 6 fails · last exit 1 · 29.71s",
+   "href": "",
+   "fails": 6,
+   "runs": [
+    {
+     "t": "20:16:24",
+     "exit": 1,
+     "dur": 29.713
+    },
+    {
+     "t": "19:45:24",
+     "exit": 1,
+     "dur": 28.621
+    },
+    {
+     "t": "19:14:24",
+     "exit": 1,
+     "dur": 33.916
+    },
+    {
+     "t": "18:43:24",
+     "exit": 1,
+     "dur": 37.261
+    },
+    {
+     "t": "18:12:24",
+     "exit": 1,
+     "dur": 34.225
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:16:24.731000+08:00",
+   "kind": "run",
+   "key": "run:loops-tick",
+   "title": "loops-tick",
+   "detail": "×93 · exit 0 · 4.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:16:24",
+     "exit": 0,
+     "dur": 4.04
+    },
+    {
+     "t": "19:45:24",
+     "exit": 0,
+     "dur": 4.708
+    },
+    {
+     "t": "19:14:24",
+     "exit": 0,
+     "dur": 5.186
+    },
+    {
+     "t": "18:43:24",
+     "exit": 0,
+     "dur": 7.549
+    },
+    {
+     "t": "18:12:24",
+     "exit": 0,
+     "dur": 4.541
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:15:21+08:00",
+   "kind": "repo",
+   "key": "repo:theme:repo · other",
+   "title": "repo · other",
+   "detail": "last · Integrate current THE BELL repairs and verify real RETURN file transport",
+   "href": "",
+   "count": 27,
+   "commits": [
+    {
+     "t": "24 20:15",
+     "title": "Integrate current THE BELL repairs and verify real RETURN file transport",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/68a528a6a17aba89a0a796494c4d06a540125cac",
+     "sha": "68a528a6"
+    },
+    {
+     "t": "24 20:12",
+     "title": "Serve the retained Unicode probe with its original UTF-8 content type",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e93f059c837ded063e969ce82000fb791e71f1b7",
+     "sha": "e93f059c"
+    },
+    {
+     "t": "24 20:11",
+     "title": "Honor explicit caller focus and native held context at the unified landing",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f9114bacf9845101a527c8ed4636d7b82bfbebb1",
+     "sha": "f9114bac"
+    },
+    {
+     "t": "24 20:10",
+     "title": "Keep transport in the phone viewport and verify retained reader doors in a real browser",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/d2671052691de8f2f13de6d473a295303dc37bde",
+     "sha": "d2671052"
+    },
+    {
+     "t": "24 20:05",
+     "title": "Collapse the native bar's empty ribbon row; verify annotated and JSON reader round trips",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/caece859196a96e5e15445aaffe561eae7ca2203",
+     "sha": "caece859"
+    },
+    {
+     "t": "24 20:03",
+     "title": "Keep SOURCE/editor below the fixed phone bar and prove package types",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f5665877fb1119b62ae95b81580a01763c5af0fe",
+     "sha": "f5665877"
+    },
+    {
+     "t": "24 20:00",
+     "title": "Derive incoming JSON scope from native source and check interior paragraph neighbors",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/353b54ac07a3fff2c1c850f5f19ebad6ab499162",
+     "sha": "353b54ac"
+    },
+    {
+     "t": "24 19:59",
+     "title": "Exercise markdown fixtures through the native AUTO structure analysis",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4c386f4913c2d68dc4da516161a39783aefe28fe",
+     "sha": "4c386f49"
+    },
+    {
+     "t": "24 19:57",
+     "title": "Replace aggregated WORK interface with one exact source and attention continuum",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/acc8a9bfdedbf48f797fb150a34c4219f0c04640",
+     "sha": "acc8a9bf"
+    },
+    {
+     "t": "24 19:38",
+     "title": "Retain current master and THE BELL while recovering the source instrument",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0852d0dcaed5317d16d55bdf6dfcdbda420122f0",
+     "sha": "0852d0dc"
+    },
+    {
+     "t": "24 19:34",
+     "title": "Preserve INTERPHASE conversation-to-spec and pure source kernel after runner disconnect",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/808f51ac9ce99e43af284e54b9ee7ffd7e44ea58",
+     "sha": "808f51ac"
+    },
+    {
+     "t": "24 17:30",
+     "title": "Merge INTERPHASE+: unified working landing and recovered workbench",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7135e9081a1bd52bf6c57a5a95e72730849e5992",
+     "sha": "7135e908"
+    },
+    {
+     "t": "24 17:28",
+     "title": "Keep generic FIELD source-intent boundary explicit",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7502f47c181a9d1ada31324bc3fed5e65949e09d",
+     "sha": "7502f47c"
+    },
+    {
+     "t": "24 17:26",
+     "title": "Retain FIELD receipt naming and distinguish current proof from historical release",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3ab9f55fcbe38e009c579a1ef7b6fdd1bfbaaf48",
+     "sha": "3ab9f55f"
+    },
+    {
+     "t": "24 17:23",
+     "title": "Retain concurrent site update and verify recovered workbench controls",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7a866790fee55d8e8a11b1f9da91a3b6e9c9ecd0",
+     "sha": "7a866790"
+    },
+    {
+     "t": "24 17:19",
+     "title": "INTERPHASE+: one working landing for source, composition and RETURN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ef373b5217508d741c799409338eb7d0774e6178",
+     "sha": "ef373b52"
+    },
+    {
+     "t": "24 17:12",
+     "title": "sleeper: expose AXIS SCORE companion without changing City Engine",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/d87a49a1bbd2756579204856d3ea9595af8a33dd",
+     "sha": "d87a49a1"
+    },
+    {
+     "t": "24 17:12",
+     "title": "field: surface Sleeper AXIS SCORE as directly playable recent work",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/17e56203f1c9bf79fd990e269fc940c5f25ddfcb",
+     "sha": "17e56203"
+    },
+    {
+     "t": "24 17:11",
+     "title": "index(sleeper): expose AXIS SCORE in FIELD INDEX manifest",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/a2c3ef1c44facf381ec276c32d3c920e8d21497d",
+     "sha": "a2c3ef1c"
+    },
+    {
+     "t": "24 15:31",
+     "title": "Merge READFIELD shared source/cursor consolidation (#985)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b73138539e2ca83bd6f0d8ae05c676b9d6103ceb",
+     "sha": "b7313853"
+    },
+    {
+     "t": "24 15:03",
+     "title": "field-index: stamp /sleeper/archive/ for the Sleeper archive publish (IMPLEMENT,VERIFY)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/45dad16a0432b287d99a151fd3d752b294ce9a16",
+     "sha": "45dad16a"
+    },
+    {
+     "t": "24 15:02",
+     "title": "sleeper: publish deduped Sleeper archive at /sleeper/archive/ (operator: 'u can publish deduped sleeper too archive stuff')",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8cdbba7592187679694df6408791ae1e226ae5a3",
+     "sha": "8cdbba75"
+    },
+    {
+     "t": "24 13:41",
+     "title": "Merge remote-tracking branch 'origin/master' into poobaby-publish",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e6cb70d21c1806add24500d1be9c632936c35ded",
+     "sha": "e6cb70d2"
+    },
+    {
+     "t": "24 13:41",
+     "title": "field-index: stamp /poobaby/ for the Poo Baby publish (IMPLEMENT,VERIFY)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/16aa2e0133250fa4254a6ee662f9e1d1a7b90f88",
+     "sha": "16aa2e01"
+    },
+    {
+     "t": "24 13:41",
+     "title": "poobaby: publish curated Poo Baby archive at /poobaby/ (explicit export decision, Poo Baby only)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/9fe5d5d994904bc337dd532898a68dad257e51c1",
+     "sha": "9fe5d5d9"
+    },
+    {
+     "t": "23 11:07",
+     "title": "routes: stamp / (IMPLEMENT,OPERATE,RECOVER,VERIFY) — same-change stamp",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/bc823c1eb7c5f8f52c1ec5a722e2d41537e92056",
+     "sha": "bc823c1e"
+    },
+    {
+     "t": "23 11:07",
+     "title": "root: the first screen answers what was worked on — + god's-eye down view",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/1467b5fcb9afe023dc03d3f25c0a7498bbdd5862",
+     "sha": "1467b5fc"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:11:11+08:00",
+   "kind": "repo",
+   "key": "repo:theme:SLEEPER",
+   "title": "SLEEPER",
+   "detail": "last · SLEEPER: enact Bell causality, reversible AXIS and direct POV RETURN",
+   "href": "",
+   "count": 2,
+   "commits": [
+    {
+     "t": "24 20:11",
+     "title": "SLEEPER: enact Bell causality, reversible AXIS and direct POV RETURN",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/82b57233493ce75343fbd74fac722d9bda4472be",
+     "sha": "82b57233"
+    },
+    {
+     "t": "24 17:47",
+     "title": "SLEEPER / THE BELL: first-person causal room in AXIS SCORE",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b4eac95b20082206cefee284bd0929f632ff57cf",
+     "sha": "b4eac95b"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:03:08+08:00",
+   "kind": "route",
+   "key": "route:/fold-bloom/",
+   "title": "FOLD//BLOOM · PUBLIC FRONT",
+   "detail": "/fold-bloom/ · ACTIVE",
+   "href": "/fold-bloom/"
+  },
+  {
+   "at": "2026-10-24T20:00:24.811000+08:00",
+   "kind": "run",
+   "key": "run:fi-contract-stamp",
+   "title": "fi-contract-stamp",
+   "detail": "×48 · exit 0 · 12.74s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:24",
+     "exit": 0,
+     "dur": 12.741
+    },
+    {
+     "t": "19:00:24",
+     "exit": 0,
+     "dur": 12.716
+    },
+    {
+     "t": "18:00:25",
+     "exit": 0,
+     "dur": 13.407
+    },
+    {
+     "t": "17:00:24",
+     "exit": 0,
+     "dur": 13.795
+    },
+    {
+     "t": "16:00:24",
+     "exit": 0,
+     "dur": 13.487
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:00:24.647000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×12 · exit 0 · 0.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:24",
+     "exit": 0,
+     "dur": 0.039
+    },
+    {
+     "t": "16:00:24",
+     "exit": 0,
+     "dur": 0.044
+    },
+    {
+     "t": "12:00:24",
+     "exit": 0,
+     "dur": 0.024
+    },
+    {
+     "t": "08:00:25",
+     "exit": 0,
+     "dur": 0.053
+    },
+    {
+     "t": "04:00:24",
+     "exit": 0,
+     "dur": 0.024
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T19:50:24.716000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×9 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "19:50:24",
+     "exit": 0,
+     "dur": 0.072
+    },
+    {
+     "t": "15:49:24",
+     "exit": 0,
+     "dur": 0.072
+    },
+    {
+     "t": "11:48:24",
+     "exit": 0,
+     "dur": 0.074
+    },
+    {
+     "t": "03:46:24",
+     "exit": 0,
+     "dur": 0.07
+    },
+    {
+     "t": "23:45:24",
+     "exit": 0,
+     "dur": 0.082
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T18:45:24.755000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×2 · exit 0 · 1.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:24",
+     "exit": 0,
+     "dur": 1.043
+    },
+    {
+     "t": "18:45:24",
+     "exit": 0,
+     "dur": 1.13
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T17:10:46+08:00",
+   "kind": "repo",
+   "key": "repo:theme:feat(sleeper)",
+   "title": "feat(sleeper)",
+   "detail": "last · feat(sleeper): publish source-addressed AXIS score instrument",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "24 17:10",
+     "title": "feat(sleeper): publish source-addressed AXIS score instrument",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0de8fa3c7f85577c2fbde43c9f6ba46d912898c0",
+     "sha": "0de8fa3c"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T15:30:26+08:00",
+   "kind": "repo",
+   "key": "repo:theme:READFIELD",
+   "title": "READFIELD",
+   "detail": "last · READFIELD: align structured release version and distinguish baseline CI failures",
+   "href": "",
+   "count": 2,
+   "commits": [
+    {
+     "t": "24 15:30",
+     "title": "READFIELD: align structured release version and distinguish baseline CI failures",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5e6d6d5a7dea6b36f92377f5a5948125ef63f93d",
+     "sha": "5e6d6d5a"
+    },
+    {
+     "t": "24 15:26",
+     "title": "READFIELD: one source and exact cursor across READ, STRUCT and WRIST",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/75c64962acec628f082a9a7df9009621bc4c9172",
+     "sha": "75c64962"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T15:08:10+08:00",
+   "kind": "run",
+   "key": "run:sleeper-publish",
+   "title": "sleeper-publish",
+   "detail": "×1 · exit 0 · 0.00s",
+   "href": "",
+   "runs": [
+    {
+     "t": "15:08:10",
+     "exit": 0,
+     "dur": 0.0
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T15:02:59+08:00",
+   "kind": "route",
+   "key": "route:/sleeper/archive/",
+   "title": "SLEEPER / ARCHIVE",
+   "detail": "/sleeper/archive/ · ACTIVE",
+   "href": "/sleeper/archive/"
+  },
+  {
+   "at": "2026-10-24T14:13:20.398000+08:00",
+   "kind": "run",
+   "key": "run:archive-spine-postpush",
+   "title": "archive-spine-postpush",
+   "detail": "×1 · exit 0 · 4.35s",
+   "href": "",
+   "runs": [
+    {
+     "t": "14:13:20",
+     "exit": 0,
+     "dur": 4.352
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T14:12:16.114000+08:00",
+   "kind": "run",
+   "key": "run:archive-spine-gates",
+   "title": "archive-spine-gates",
+   "detail": "×2 · 1 fail · last exit 0 · 2.53s",
+   "href": "",
+   "fails": 1,
+   "runs": [
+    {
+     "t": "14:12:16",
+     "exit": 0,
+     "dur": 2.531
+    },
+    {
+     "t": "14:11:32",
+     "exit": 1,
+     "dur": 2.724
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T14:11:42+08:00",
+   "kind": "route",
+   "key": "route:/recovery/",
+   "title": "RECOVERY VAULT",
+   "detail": "/recovery/ · ACTIVE",
+   "href": "/recovery/"
+  },
+  {
+   "at": "2026-10-24T14:11:42+08:00",
+   "kind": "route",
+   "key": "route:/recovery/timeline/",
+   "title": "ARCHIVE SPINE",
+   "detail": "/recovery/timeline/ · UTILITY",
+   "href": "/recovery/timeline/"
+  },
+  {
+   "at": "2026-10-24T14:11:42+08:00",
+   "kind": "repo",
+   "key": "repo:theme:ARCHIVE",
+   "title": "ARCHIVE",
+   "detail": "last · ARCHIVE SPINE — /recovery/timeline/: work done over time, one tap each",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "24 14:11",
+     "title": "ARCHIVE SPINE — /recovery/timeline/: work done over time, one tap each",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f77a0d88ac16c8a6a5a5a717e5f5fb1eeed60730",
+     "sha": "f77a0d88"
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T14:00:24.757000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×6 · exit 0 · 7.38s",
+   "href": "",
+   "runs": [
+    {
+     "t": "14:00:24",
+     "exit": 0,
+     "dur": 7.38
+    },
+    {
+     "t": "06:00:24",
+     "exit": 0,
+     "dur": 0.034
+    },
+    {
+     "t": "22:00:24",
+     "exit": 0,
+     "dur": 0.033
+    },
+    {
+     "t": "14:00:24",
+     "exit": 0,
+     "dur": 6.199
+    },
+    {
+     "t": "06:00:25",
+     "exit": 0,
+     "dur": 0.032
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T13:45:03+08:00",
+   "kind": "call",
+   "key": "call:promise-memory-crowding-consolidate:2026-10-24T13:45:03+08:00",
+   "title": "promise-memory-crowding-consolidate → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-memory-crowding-consolidate"
+  },
+  {
+   "at": "2026-10-24T13:44:38+08:00",
+   "kind": "call",
+   "key": "call:promise-memory-crowding-consolidate:2026-10-24T13:44:38+08:00",
+   "title": "promise-memory-crowding-consolidate → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-memory-crowding-consolidate"
+  },
+  {
+   "at": "2026-10-24T13:44:27+08:00",
+   "kind": "call",
+   "key": "call:promise-ab-voice-scoring-pass:2026-10-24T13:44:27+08:00",
+   "title": "promise-ab-voice-scoring-pass → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-ab-voice-scoring-pass"
+  },
+  {
+   "at": "2026-10-24T13:41:16+08:00",
+   "kind": "route",
+   "key": "route:/poobaby/",
+   "title": "POO BABY / ARCHIVE",
+   "detail": "/poobaby/ · ACTIVE",
+   "href": "/poobaby/"
+  },
+  {
+   "at": "2026-10-24T13:26:48+08:00",
+   "kind": "run",
+   "key": "run:backup-dedup-2026-10-22",
+   "title": "backup-dedup-2026-10-22",
+   "detail": "×1 · exit 0 · 4131.20s",
+   "href": "",
+   "runs": [
+    {
+     "t": "13:26:48",
+     "exit": 0,
+     "dur": 4131.2
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T13:15:33+08:00",
+   "kind": "call",
+   "key": "call:publish-media-consolidated:2026-10-24T13:15:33+08:00",
+   "title": "publish-media-consolidated → B · Publish Poo Baby only",
+   "detail": "OK w publishing — B: Poo Baby only, sleeper stays private; the poobaby PDF sequences arent right (flag/exclude)",
+   "href": "/calls/#publish-media-consolidated"
+  },
+  {
+   "at": "2026-10-24T13:15:00+08:00",
+   "kind": "route",
+   "key": "route:/rsvp/",
+   "title": "READFIELD / WRIST",
+   "detail": "/rsvp/ · UTILITY",
+   "href": "/rsvp/"
+  },
+  {
+   "at": "2026-10-24T13:10:35.027000+08:00",
+   "kind": "run",
+   "key": "run:secret-scan",
+   "title": "secret-scan",
+   "detail": "×2 · exit 0 · 142.31s",
+   "href": "",
+   "runs": [
+    {
+     "t": "13:10:35",
+     "exit": 0,
+     "dur": 142.311
+    },
+    {
+     "t": "13:07:16",
+     "exit": 0,
+     "dur": 144.07
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T13:06:43+08:00",
+   "kind": "call",
+   "key": "call:promise-secret-scan-weekly-enabled:2026-10-24T13:06:43+08:00",
+   "title": "promise-secret-scan-weekly-enabled → A · Own it — fix now (machine executes on your word)",
+   "detail": "answered",
+   "href": "/calls/#promise-secret-scan-weekly-enabled"
+  },
+  {
+   "at": "2026-10-24T10:30:24.803000+08:00",
+   "kind": "run",
+   "key": "run:calls-say",
+   "title": "calls-say",
+   "detail": "×2 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "10:30:24",
+     "exit": 0,
+     "dur": 0.061
+    },
+    {
+     "t": "10:30:25",
+     "exit": 0,
+     "dur": 0.082
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T09:20:24.836000+08:00",
+   "kind": "run",
+   "key": "run:signal",
+   "title": "signal",
+   "detail": "×2 · exit 0 · 1.64s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:20:24",
+     "exit": 0,
+     "dur": 1.639
+    },
+    {
+     "t": "09:20:25",
+     "exit": 0,
+     "dur": 1.526
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T09:00:24.930000+08:00",
+   "kind": "run",
+   "key": "run:anchor-digest",
+   "title": "anchor-digest",
+   "detail": "×4 · exit 0 · 0.05s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:24",
+     "exit": 0,
+     "dur": 0.053
+    },
+    {
+     "t": "21:00:24",
+     "exit": 0,
+     "dur": 0.049
+    },
+    {
+     "t": "09:00:25",
+     "exit": 0,
+     "dur": 0.052
+    },
+    {
+     "t": "21:00:25",
+     "exit": 0,
+     "dur": 0.12
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T09:00:24.862000+08:00",
+   "kind": "run",
+   "key": "run:pack-doctor",
+   "title": "pack-doctor",
+   "detail": "×2 · exit 0 · 12.22s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:24",
+     "exit": 0,
+     "dur": 12.218
+    },
+    {
+     "t": "09:00:25",
+     "exit": 0,
+     "dur": 13.695
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T06:00:24.874000+08:00",
+   "kind": "run",
+   "key": "run:field-index-rebuild",
+   "title": "field-index-rebuild",
+   "detail": "×2 · exit 0 · 7.91s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:24",
+     "exit": 0,
+     "dur": 7.912
+    },
+    {
+     "t": "06:00:25",
+     "exit": 0,
+     "dur": 2.015
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T05:00:24.937000+08:00",
+   "kind": "run",
+   "key": "run:daily-trunk-summary",
+   "title": "daily-trunk-summary",
+   "detail": "×2 · exit 0 · 0.10s",
+   "href": "",
+   "runs": [
+    {
+     "t": "05:00:24",
+     "exit": 0,
+     "dur": 0.102
+    },
+    {
+     "t": "05:00:25",
+     "exit": 0,
+     "dur": 0.175
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T02:00:24.868000+08:00",
+   "kind": "run",
+   "key": "run:media-curator-nightly",
+   "title": "media-curator-nightly",
+   "detail": "×2 · exit 0 · 0.02s",
+   "href": "",
+   "runs": [
+    {
+     "t": "02:00:24",
+     "exit": 0,
+     "dur": 0.016
+    },
+    {
+     "t": "02:00:25",
+     "exit": 0,
+     "dur": 0.095
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T01:50:24.843000+08:00",
+   "kind": "run",
+   "key": "run:evolution-eval-gate",
+   "title": "evolution-eval-gate",
+   "detail": "×2 · exit 0 · 72.59s",
+   "href": "",
+   "runs": [
+    {
+     "t": "01:50:24",
+     "exit": 0,
+     "dur": 72.595
+    },
+    {
+     "t": "01:50:25",
+     "exit": 0,
+     "dur": 69.041
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T00:00:00+08:00",
+   "kind": "return",
+   "key": "return:FIELD_CREW_SOURCE_WITNESS_2026-10-24.json",
+   "title": "FIELD CREW SOURCE WITNESS 2026-10-24",
+   "detail": "field-return/v1",
+   "href": "/returns/"
+  },
+  {
+   "at": "2026-10-24T00:00:00+08:00",
+   "kind": "return",
+   "key": "return:FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+   "title": "FIELD INDEX INTERPHASE CONTINUUM 2026-10-24",
+   "detail": "field-index-return/v0.1",
+   "href": "/returns/"
+  },
+  {
+   "at": "2026-10-23T07:00:25.032000+08:00",
+   "kind": "run",
+   "key": "run:integrity-audit",
+   "title": "integrity-audit",
+   "detail": "×1 · exit 0 · 9.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:00:25",
+     "exit": 0,
+     "dur": 9.07
+    }
+   ]
+  },
+  {
+   "at": "2026-10-24T20:11:24+08:00",
+   "kind": "repo",
+   "key": "repo:machine",
+   "title": "machine refresh",
+   "detail": "×157 · last desk: refresh public field data + root git chronology",
+   "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
+   "count": 157,
+   "machine": true
+  }
+ ]
+}
