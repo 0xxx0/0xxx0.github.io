@@ -426,6 +426,8 @@ html[data-field-words]:not([data-instrument="1"]) #fieldWords{display:block;grid
 html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
 <link rel="stylesheet" href="./field-bar-landing.css?v=0.2">
+
+<link rel="stylesheet" href="./tower/tower-section.css">
 </head>
 <body><main>
 <header>
@@ -582,7 +584,24 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
   <span class="syncLocal"><b>φ</b> <span id="syncFocus">/</span></span>
   <span id="syncRepo">HEAD —</span>
 </div>
+<section id="tower" aria-labelledby="tower-title">
+  <h2 id="tower-title">FIELD INDEX / RING TOWER</h2>
+  <div class="tw-stage" title="tap a ring to turn it · arrows turn · U unwraps">
+    <svg id="tower-svg" viewBox="0 0 300 340" role="img" tabindex="0"
+         aria-labelledby="tower-title" aria-describedby="tower-desc">
+      <desc id="tower-desc">A tower of rings on one vertical aperture: the bottom ring is the route strip, above it state, operation and work mode. Each ring is that strip wrapped closed; the lit tick at the top of each ring is the value held at the aperture.</desc>
+      <g class="tw-layer"></g>
+    </svg>
+    <div class="tw-glyph" id="tower-glyph" aria-hidden="true"></div>
+  </div>
+  <p class="tw-reading" id="tower-reading">
+    <span>Each ring is one strip of the field index — route, state, operation, work mode — wrapped until its ends meet at the aperture.</span>
+    <span>The tower is the index held at one aperture: each lit tick is a value at the axis, and turning a ring changes what the tower composes.</span>
+  </p>
+</section>
+
 <section class="axial" id="axialLatest">
+
   <div class="axialHead fieldSignalBar" id="focusHead" data-field-signal="CLEAR"><div><span class="signalGlyph" aria-hidden="true"></span><b>FIELD</b> <span id="axialMeta">loading addressed surfaces…</span></div><span class="tiny">one held object</span></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
@@ -601,7 +620,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
     <summary><b>DEPTH / WORK</b><span id="workDepthMeta">hold one CURRENT head</span></summary>
     <div class="workDepthBody" id="workDepthBody"><div class="workEmpty">Held work and exact evidence remain source-owned.</div></div>
   </details>
-  <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
+    <div class="feedRail" id="feedRail" aria-label="Addressed field"></div>
   <div class="fieldGesture"><span id="feedInstruction">CURRENT HEADS · choose one to hold; held head opens on second tap</span><div class="fieldGestureActions"><button id="feedScope" title="Show recently touched routes; recency is not priority">RECENT</button><button id="moreLatest">ALL</button></div></div>
 
   <details class="focusDepth" id="refineFold">
@@ -827,6 +846,15 @@ function axes(){
  ];
 }
 function selectedValue(a){if(a.key==='route')return focus?.href||null;return axisState[a.key]}
+/* Bridge for the aperture tower (2026-10-26). The tower is built from THESE exact axes:
+   same items, same order, same selection, so a token in a ring is the token that was in the
+   strip. A tower grouped any other way would be a second index, which this system forbids.
+   Read-only: the host keeps ownership of axes, selection and filtering. */
+try{
+ window.FieldAxes=axes;
+ window.FieldAxisSelection=()=>({route:selectedValue({key:'route'}),state:axisState.state,operation:axisState.operation,mode:axisState.mode});
+ window.FieldAxisHold=(key,value)=>{try{if(typeof chooseAxis==='function')chooseAxis(key,value,true)}catch(_){}return window.FieldAxisSelection()};
+}catch(_){}
 function matchesCandidate(r,key,value){
  const state=key==='state'?value:axisState.state,operation=key==='operation'?value:axisState.operation,mode=key==='mode'?value:axisState.mode;
  return (state==='ANY'||r.state===state)&&(operation==='ANY'||opOf(r)===operation)&&(mode==='ANY'||modesOf(r).includes(mode))
@@ -1795,4 +1823,39 @@ window.FieldIndexReadModel=Object.freeze({
 <script type="module" src="./field-instrument.mjs?v=0.10.6"></script>
 <script type="module" src="./field-work.mjs?v=0.10.7-source"></script>
 <script src="./field-bar-landing.js?v=0.3"></script>
-</main></body></html>
+</main>
+<script src="./tower/tower-core.js"></script>
+<script src="./tower/tower-section.js"></script>
+<script>
+/* The tower is the index; the strip is one ring unrolled. Two laws here:
+   1. MOUNT AFTER DATA. The host fills `latest` asynchronously; mounting on DOMContentLoaded
+      built the tower out of an empty index (measured: ROUTE ring 0 members, degenerate
+      composition). We wait until the host's own axes carry the field, then mount once.
+   2. TURNING IS SELECTING, not previewing. A turned ring calls the host's chooseAxis through
+      the bridge, so filter, aperture and survivors move with the figure. */
+(function () {
+  var host = document.getElementById('tower');
+  if (!host || !window.LandingTower) return;
+  var mounted = false, tries = 0;
+  function members() {
+    try { return window.FieldAxes().reduce(function (s, a) { return s + (a && a.values ? a.values.length : 0); }, 0); }
+    catch (e) { return 0; }
+  }
+  function mountWhenReady() {
+    if (mounted) return;
+    if (members() > 6 || tries++ > 60) {
+      try { window.LandingTower.mount(host); mounted = true; }
+      catch (e) { console.error('tower mount failed', e); }
+      return;
+    }
+    setTimeout(mountWhenReady, 120);
+  }
+  mountWhenReady();
+  document.addEventListener('landing-tower:turn', function (e) {
+    var d = e.detail || {};
+    if (!d.axis || d.value == null) return;
+    try { if (window.FieldAxisHold) window.FieldAxisHold(d.axis, d.value); } catch (_) {}
+  });
+})();
+</script>
+</body></html>
