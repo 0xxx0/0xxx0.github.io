@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-26T11:17:35.473Z",
+  "generated": "2026-10-26T20:35:35.807Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-26",
-  "commits_in_window": 14,
-  "git_commits_in_window": 70,
-  "telemetry_commits_in_window": 56,
-  "commits_total": 6960,
+  "commits_in_window": 17,
+  "git_commits_in_window": 99,
+  "telemetry_commits_in_window": 82,
+  "commits_total": 6989,
   "branch_count": 1102,
   "recent_commits": [
-    "LANDING: the strips are a tower now — the index is one object you can turn",
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /sleeper/ladder/ (IMPLEMENT,VERIFY)"
+    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
+    "calls: refresh (auto — answers changed)"
   ],
   "active_fronts": [
     {
