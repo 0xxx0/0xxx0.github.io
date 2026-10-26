@@ -7,9 +7,12 @@
 //            windows and rain
 //   ENTERED  a walkable window of that field. The matter is Buddhadhamma:
 //            paragraph = district, sentence = building, word = room, character
-//            = material, punctuation = rain / window / lamp / beacon. Swipe to
-//            walk; tap or hold a cell to read it; the eight gates ask for a
-//            word out of the line you are standing in
+//            = material. Swipe to walk; tap or hold a cell to read it. The
+//            district you stand in is one band with its weather stitched along
+//            the edge, and that weather is what you carried out of the last
+//            district — nothing here is assigned. The first gate is a threshold
+//            that will not open until its district has been SEEN WHOLE (hold,
+//            and the view rises to the shape); the other seven ask a word.
 //   EXITED   the route recomposed into the painting — deterministic, and
 //            returning restores the original bytes
 //
@@ -19,7 +22,8 @@
 // strip at the foot carries the line the world wants to say right now — a
 // district's line, a gate's question, the exit measurements. The only
 // persistent DOM text is the provenance line, which is read live from the
-// source file.
+// source file. 0.3.0 removed the per-cell weather marks and the per-cell
+// remembered underline: one district band carries both facts now.
 //
 // Determinism: no Math.random, no Date, no performance.now. Every drawn number
 // is a real field of a real record. Motion rides requestAnimationFrame
@@ -31,6 +35,7 @@
   const RAMP = ' .·:-=+*#%@';                       // elevation ramp (floor glyphs)
   const PAINTING_SRC = '/sleeper/borrowed-river/landscape.jpg';
   const HOLD_MS = 380;                               // dwell that opens a decode
+  const RISE_MS = 1400;                              // sustained attention that sees a district whole
   const VOICE_H = 50;                                // the foot strip (3 lines)
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
@@ -45,7 +50,7 @@
     decodeCell: null, hold: null, trans: null, exitCache: null, exitCanvas: null,
     paintingTag: null, drag: null, holdTimer: 0, revealed: false,
     gates: [], lit: null, strikes: null, gate: null, ledger: null, lastP: -1,
-    voice: null, hints: {}, pulse: null,
+    voice: null, pulse: null, seen: null, rise: null, refuse: null, weather: null, lineSaid: -1,
   };
   let W = 0, H = 0, dpr = 1;
 
@@ -94,6 +99,8 @@
       S.gates = placed.gates;
       S.lit = new Uint8Array(S.gates.length);
       S.strikes = new Uint8Array(S.gates.length);
+      S.seen = new Uint8Array(S.gates.length);
+      S.weather = C.weatherChain(S.field, S.moves);
       S.ledger = loadLedger();
       S.ledger.seq = S.ledger.seq || 0;
       paintProvenance();
@@ -176,6 +183,25 @@
   const geoFor = (d) => (d === 'FAR' ? geoFar() : d === 'NEAR' ? geoNear() : d === 'ENTERED' ? geoEntered() : geoExit());
   const srcFor = (d) => (d === 'EXITED' && S.exitCanvas ? S.exitCanvas : S.img);
 
+  // The rise: the same two geometries the ladder already has, held between. As
+  // the hold grows, the walked window widens toward the whole 96x32 field and
+  // the cells shrink — the district stops being a place you are inside and
+  // becomes a shape you can see. No new camera: k interpolates ENTERED -> NEAR.
+  function geoRise(k) {
+    const a = geoEntered(), b = geoNear(), t = k;
+    const cols = lerp(a.win.cols, b.win.cols, t), rows = lerp(a.win.rows, b.win.rows, t);
+    const cell = lerp(a.cell, b.cell, t);
+    const ax = a.dst.x + a.dst.w / 2, ay = a.dst.y + a.dst.h / 2;
+    const bx = b.dst.x + b.dst.w / 2, by = b.dst.y + b.dst.h / 2;
+    return {
+      cell, win: { cols, rows, ox: lerp(a.win.ox, b.win.ox, t), oy: lerp(a.win.oy, b.win.oy, t) },
+      kind: 'rise',
+      src: { x: 0, y: 0, w: S.iw, h: S.ih },
+      dst: { x: lerp(ax, bx, t) - cols * cell / 2, y: lerp(ay, by, t) - rows * cell / 2, w: cols * cell, h: rows * cell },
+      imgA: 0.12, glyphA: 1,
+    };
+  }
+
   // ── painting layer ────────────────────────────────────────────────────────
   const lerp = (a, b, t) => a + (b - a) * t;
   function drawPainting(src, s, d, alpha) {
@@ -204,37 +230,98 @@
     return r > 1e-6 ? (c.lum - S.field.lum.min) / r : 0.5;
   }
 
-  // ── glyph layers ──────────────────────────────────────────────────────────
-  function weatherMark(c, x, y, cell, a) {
-    if (!c.weather || a <= 0.02) return;
+  // ── the district band: shape and weather in one line ──────────────────────
+  // A district used to weather one cell at a time (this comma rains here), which
+  // at phone size was invisible: 83 marks in 3,072 cells. The weather is now the
+  // DISTRICT's, and it is written along the district's own boundary — the same
+  // line the sight gate traces. One vocabulary, two facts: the band is where the
+  // district ends and what weather it is under.
+  const WEATHER_GAP = { window: 15, rain: 9, lamp: 27, beacon: 41 };   // px between marks
+  function weatherFor(p) {
+    if (!S.field || !S.weather) return null;
+    const steps = S.weather.steps;
+    const cur = steps.length ? steps[steps.length - 1] : null;
+    if (cur && cur.p === p) return cur.weather;          // where you stand: what the chain says
+    const rec = S.field.districts[p];
+    return C.weatherOf(rec ? rec.body : null, S.weather.carry);   // anywhere else: what it would be from here
+  }
+  // the marks as data (the probe reads this; draw() paints it)
+  function bandMarks(g, p) {
+    const runs = (S.field.bands && S.field.bands[p]) || [];
+    const w = weatherFor(p);
+    if (!w || !runs.length) return [];
+    // coarse in a room, fine in the overview: never more than about one mark per
+    // cell, so the band stays a stitched edge and not a ruler
+    const gap = Math.max(WEATHER_GAP[w] || 15, g.cell);
+    const out = [];
+    for (const r of runs) {
+      const ax = g.dst.x + (r.x0 - g.win.ox) * g.cell, bx = g.dst.x + (r.x1 - g.win.ox) * g.cell;
+      const y = g.dst.y + (r.y - g.win.oy) * g.cell;
+      if (y < g.dst.y - 8 || y > g.dst.y + g.dst.h + 8) continue;
+      const lo = Math.max(ax, g.dst.x), hi = Math.min(bx, g.dst.x + g.dst.w);
+      if (hi - lo < 4) continue;
+      const n = Math.max(1, Math.floor((hi - lo) / gap));
+      const start = lo + ((hi - lo) - (n - 1) * gap) / 2;
+      for (let i = 0; i < n; i++) out.push({ p, w, x: Math.round((start + i * gap) * 10) / 10, y: Math.round(y) + 0.5 });
+    }
+    return out;
+  }
+  function drawBand(g, p, alpha) {
+    const w = weatherFor(p);
+    if (!w) return;
+    const marks = bandMarks(g, p);
+    if (!marks.length || alpha <= 0.02) return;
     ctx.save();
     ctx.lineWidth = 1;
-    if (c.weather === 'window') {
-      ctx.globalAlpha = a * 0.85; ctx.fillStyle = 'rgb(150,160,170)';
-      const s = Math.max(1, Math.round(cell * 0.14));
-      ctx.fillRect(Math.round(x + cell * 0.68), Math.round(y + cell * 0.2), s, s);
-    } else if (c.weather === 'rain') {
-      ctx.globalAlpha = a * 0.55; ctx.strokeStyle = 'rgb(79,87,96)';
-      const rx = Math.round(x + cell * 0.33) + 0.5;
-      ctx.beginPath(); ctx.moveTo(rx, y + cell * 0.12); ctx.lineTo(rx, y + cell * 0.58); ctx.stroke();
-    } else if (c.weather === 'lamp') {
-      ctx.globalAlpha = a * 0.8; ctx.fillStyle = 'rgb(170,176,184)';
-      const s = Math.max(1, Math.round(cell * 0.1));
-      ctx.fillRect(Math.round(x + cell * 0.46), Math.round(y + cell * 0.16), s, s);
-      ctx.globalAlpha = a * 0.4; ctx.strokeStyle = 'rgb(79,87,96)';
-      const rx = Math.round(x + cell * 0.5) + 0.5;
-      ctx.beginPath(); ctx.moveTo(rx, y + cell * 0.16); ctx.lineTo(rx, y + cell * 0.42); ctx.stroke();
-    } else if (c.weather === 'beacon') {
-      ctx.globalAlpha = a * 0.9; ctx.strokeStyle = 'rgb(190,196,204)';
-      ctx.beginPath(); ctx.arc(x + cell * 0.5, y + cell * 0.5, Math.max(2, cell * 0.2), 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = 'rgb(190,196,204)';
+    ctx.globalAlpha = alpha;
+    if (w === 'beacon' || w === 'lamp') {
+      ctx.beginPath();
+      for (const m of marks) {
+        if (w === 'beacon') { ctx.moveTo(m.x + 2.2, m.y); ctx.arc(m.x, m.y, 2.2, 0, Math.PI * 2); }
+        else { ctx.moveTo(m.x - 1, m.y); ctx.lineTo(m.x + 1, m.y); ctx.moveTo(m.x, m.y - 1); ctx.lineTo(m.x, m.y + 1); }
+      }
+      ctx.stroke();
+    } else if (w === 'window') {
+      ctx.beginPath();
+      for (const m of marks) { ctx.moveTo(m.x, m.y - 3); ctx.lineTo(m.x, m.y - 0.5); }
+      ctx.stroke();
+      ctx.globalAlpha = alpha * 0.5;
+      ctx.beginPath();
+      for (const m of marks) { ctx.moveTo(m.x - 1, m.y - 2); ctx.lineTo(m.x + 1, m.y - 2); }
+      ctx.stroke();
+    } else {
+      ctx.globalAlpha = alpha * 0.85;
+      ctx.beginPath();
+      for (const m of marks) { ctx.moveTo(m.x - 0.5, m.y - 2.5); ctx.lineTo(m.x - 0.5, m.y + 2.5); ctx.moveTo(m.x + 1.5, m.y - 1.5); ctx.lineTo(m.x + 1.5, m.y + 1.5); }
+      ctx.stroke();
     }
+    ctx.restore();
+  }
+  // The shape itself: every side of the district that borders another district.
+  function drawShape(g, p, alpha) {
+    const segs = (S.field.edges && S.field.edges[p]) || [];
+    if (!segs.length || alpha <= 0.02) return;
+    ctx.save();
+    ctx.strokeStyle = 'rgb(190,196,204)';
+    ctx.lineWidth = 1;
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    for (const s of segs) {
+      const x0 = Math.round(g.dst.x + (s[0] - g.win.ox) * g.cell) + 0.5;
+      const y0 = Math.round(g.dst.y + (s[1] - g.win.oy) * g.cell) + 0.5;
+      const x1 = Math.round(g.dst.x + (s[2] - g.win.ox) * g.cell) + 0.5;
+      const y1 = Math.round(g.dst.y + (s[3] - g.win.oy) * g.cell) + 0.5;
+      ctx.moveTo(x0, y0); ctx.lineTo(x1, y1);
+    }
+    ctx.stroke();
     ctx.restore();
   }
 
   // NEAR: the whole visible window at character resolution. Elevation ramp on
   // floors, the source character itself on walls, weather marks, and a radial
   // resolve wave during the transition (reduced motion: no wave, no shimmer).
-  function drawNear(g, alpha, wave, hold) {
+  function drawNear(g, alpha, wave, hold, focus) {
     const cell = g.cell, win = g.win;
     if (cell < 3 || alpha <= 0.01) return;
     ctx.save();
@@ -242,16 +329,19 @@
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const midx = win.ox + win.cols / 2, midy = win.oy + win.rows / 2;
     const maxd = Math.hypot(win.cols, win.rows) / 2;
-    for (let ry = 0; ry < win.rows; ry++) {
-      for (let rx = 0; rx < win.cols; rx++) {
-        const cx = win.ox + rx, cy = win.oy + ry;
+    const fx = focus ? focus.p : -1, fk = focus ? focus.k : 0;
+    const x0 = Math.max(0, Math.floor(win.ox)), y0 = Math.max(0, Math.floor(win.oy));
+    const x1 = Math.min(C.COLS, Math.ceil(win.ox + win.cols)), y1 = Math.min(C.ROWS, Math.ceil(win.oy + win.rows));
+    for (let cy = y0; cy < y1; cy++) {
+      for (let cx = x0; cx < x1; cx++) {
         const c = S.field.cells[cy * C.COLS + cx];
-        const x = g.dst.x + rx * cell, y = g.dst.y + ry * cell;
+        const x = g.dst.x + (cx - win.ox) * cell, y = g.dst.y + (cy - win.oy) * cell;
         let a = alpha;
         if (wave != null) {
           const d = Math.hypot(cx - midx, cy - midy) / maxd;
           a *= Math.max(0, Math.min(1, wave * 1.8 - d));
         }
+        if (fx >= 0 && c.unit.p !== fx) a *= 1 - 0.82 * fk;
         if (a <= 0.015) continue;
         const nn = norm(c);
         ctx.globalAlpha = a;
@@ -273,10 +363,9 @@
           ctx.fillStyle = 'rgb(79,87,96)';
           ctx.fillText(glyph, Math.round(x + cell / 2) + 0.5, Math.round(y + cell / 2) + 0.5);
         }
-        weatherMark(c, x, y, cell, a);
       }
     }
-    if (S.hold && cell < 12) drawLoupe(g, alpha);
+    if (S.hold && cell < 12 && !focus) drawLoupe(g, alpha);
     if (S.decodeCell != null) crosshair(g, S.field.cells[S.decodeCell], alpha, 'rgba(220,224,230,.95)', true);
     ctx.restore();
   }
@@ -327,25 +416,30 @@
   // ENTERED: you are inside the field. District tint from the painting's own
   // hue, walls from its edges, the book's characters as material, visited
   // cells lit, remembered districts marked, the eight gates standing in it.
-  function drawEntered(g, alpha) {
+  function drawEntered(g, alpha, focus) {
     const cell = g.cell, win = g.win;
-    if (cell < 10 || alpha <= 0.01) return;
+    if (cell < 3 || alpha <= 0.01) return;
     const walked = C.walk(S.field, S.moves);
     const litDistricts = new Set();
     for (let i = 0; i < S.gates.length; i++) if (S.lit[i]) litDistricts.add(S.gates[i].p);
-    const remembered = (p) => !!(S.ledger && S.ledger.seen && S.ledger.seen[p]);
+    const fx = focus ? focus.p : -1, fk = focus ? focus.k : 0;
+    const here = S.walker ? S.walker.unit.p : -1;
+    const x0 = Math.max(0, Math.floor(win.ox)), y0 = Math.max(0, Math.floor(win.oy));
+    const x1 = Math.min(C.COLS, Math.ceil(win.ox + win.cols)), y1 = Math.min(C.ROWS, Math.ceil(win.oy + win.rows));
     ctx.save();
     ctx.lineWidth = 1;
     ctx.font = Math.max(9, Math.round(cell * 0.46)) + 'px ' + MONO;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    for (let ry = 0; ry < win.rows; ry++) {
-      for (let rx = 0; rx < win.cols; rx++) {
-        const cx = win.ox + rx, cy = win.oy + ry;
+    for (let cy = y0; cy < y1; cy++) {
+      for (let cx = x0; cx < x1; cx++) {
         const c = S.field.cells[cy * C.COLS + cx];
-        const x = g.dst.x + rx * cell, y = g.dst.y + ry * cell;
+        const x = g.dst.x + (cx - win.ox) * cell, y = g.dst.y + (cy - win.oy) * cell;
+        let a = alpha;
+        if (fx >= 0 && c.unit.p !== fx) a *= 1 - 0.82 * fk;
+        if (a <= 0.015) continue;
         const visits = walked.visits[c.n];
         const inReach = S.field.reach[c.n] === 1;
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = a;
         if (c.district < 8) {                                   // colour only on approach (P8)
           ctx.fillStyle = 'hsla(' + (c.district * 45 + 18) + ',42%,58%,.09)';
           ctx.fillRect(x, y, cell, cell);
@@ -356,17 +450,23 @@
         if (litDistricts.has(c.unit.p)) { ctx.fillStyle = 'rgba(190,196,204,.10)'; ctx.fillRect(x, y, cell, cell); }
         ctx.strokeStyle = 'rgba(79,87,96,.13)';
         ctx.strokeRect(Math.round(x) + 0.5, Math.round(y) + 0.5, cell - 1, cell - 1);
-        // the world remembers your reading: a hairline under a district you have entered
-        if (remembered(c.unit.p) && !c.wall) {
-          ctx.globalAlpha = alpha * 0.5; ctx.strokeStyle = 'rgba(150,158,168,.55)';
-          ctx.beginPath(); ctx.moveTo(x + cell * 0.18, y + cell - 2.5); ctx.lineTo(x + cell * 0.82, y + cell - 2.5); ctx.stroke();
-        }
-        ctx.globalAlpha = alpha * (c.wall ? 0.95 : 0.62);
+        // (the per-cell "remembered" underline is gone: 3,072 of them were a
+        // second, weaker district mark doing the band's job badly. The ledger
+        // still speaks — through the return prompt, not through the field.)
+        ctx.globalAlpha = a * (c.wall ? 0.95 : 0.62);
         ctx.fillStyle = 'rgb(79,87,96)';
         const ch = c.material && c.material !== ' ' ? c.material : (c.wall ? '#' : '·');
         ctx.fillText(ch, Math.round(x + cell / 2) + 0.5, Math.round(y + cell / 2) + 0.5);
-        weatherMark(c, x, y, cell, alpha);
       }
+    }
+    // ONE band at a time: the district you are standing in, its shape as a
+    // hairline and its weather written along the edge. Nothing else in the field
+    // is ruled — when you cross a boundary the band moves with you, and the
+    // weather you carried decides what is written on the one you enter.
+    if (fk < 0.98 && here >= 0) {
+      const fade = 1 - fk;
+      drawShape(g, here, alpha * fade * 0.34);
+      drawBand(g, here, alpha * fade * 0.66);
     }
     drawGates(g, alpha);
     crosshair(g, S.walker, alpha * 0.95, 'rgba(190,196,204,.9)');
@@ -384,10 +484,20 @@
       const x = g.dst.x + (gt.cx - g.win.ox) * cell, y = g.dst.y + (gt.cy - g.win.oy) * cell;
       if (x < g.dst.x - cell || y < g.dst.y - cell || x > g.dst.x + g.dst.w || y > g.dst.y + g.dst.h) continue;
       const lit = S.lit[gt.i];
+      const sight = C.gateKind(gt.i) === 'sight';
       const cxm = x + cell / 2, cym = y + cell / 2, r = cell * 0.30;
-      ctx.globalAlpha = alpha * (lit ? 0.95 : 0.55);
-      ctx.strokeStyle = lit ? 'rgb(214,220,228)' : 'rgb(120,128,138)';
+      ctx.globalAlpha = alpha * (lit ? 0.95 : sight ? 0.7 : 0.55);
+      ctx.strokeStyle = lit ? 'rgb(214,220,228)' : (sight ? 'rgb(190,196,204)' : 'rgb(120,128,138)');
+      // a threshold that has not been seen through is a BROKEN ring: the shape
+      // of the mark is the instruction, and it is the only instruction there is.
+      if (sight && !lit) ctx.setLineDash([2, 3]);
       ctx.beginPath(); ctx.arc(cxm, cym, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+      if (S.refuse && S.refuse.i === gt.i) {            // the step was held: one flare, no words
+        const ph = Math.min(1, (S.refuse.phase || 0) / 3);
+        ctx.globalAlpha = alpha * 0.5 * (1 - ph);
+        ctx.beginPath(); ctx.arc(cxm, cym, r * (1 + ph * 2.2), 0, Math.PI * 2); ctx.stroke();
+      }
       if (lit) {
         ctx.fillStyle = 'rgba(214,220,228,.85)';
         ctx.beginPath(); ctx.arc(cxm, cym, Math.max(1.2, r * 0.32), 0, Math.PI * 2); ctx.fill();
@@ -553,10 +663,33 @@
   }
 
   // ── the draw loop ─────────────────────────────────────────────────────────
+  // The rise: two ways of drawing the same field, held between. The rooms you
+  // stand in dissolve, the field you can see resolves, and one district's shape
+  // comes up out of it with its weather written along the edge.
+  function drawRise(g, alpha, k) {
+    const p = S.rise.p;
+    drawPainting(S.img, g.src, g.dst, g.imgA);
+    if (k < 0.995) drawEntered(g, alpha * (1 - k), { p, k });
+    drawNear(g, alpha * k, null, null, { p, k });
+    frame(g.dst);
+    drawShape(g, p, alpha * 0.5 * k);
+    drawBand(g, p, alpha * 0.95 * Math.max(0, (k - 0.45) / 0.55));
+  }
+
   function draw() {
     ctx.fillStyle = 'rgb(8,12,18)';
     ctx.fillRect(0, 0, W, H);
     if (!S.img) { drawVoice(); return; }
+    if (S.rise) {
+      const g = geoRise(S.rise.k);
+      drawRise(g, 1, S.rise.k);
+      const d = geoEntered().dst;                       // the frame's instruments hold still
+      drawMatte();
+      drawLamps(d);
+      drawNotch(d);
+      drawVoice();
+      return;
+    }
     let t = 1, from = null, to = geoFor(S.distance);
     if (S.trans) {
       const e = S.trans.dur ? Math.min(1, (S.trans.ts - S.trans.t0) / S.trans.dur) : 1;
@@ -623,19 +756,36 @@
   function drawDoorStrip() { if (S.distance === 'ENTERED') drawDoors(); }
 
   // rAF only while something is actually moving: a transition, a held shimmer,
-  // or the answer pulse. Nothing animates unasked.
+  // a held rise, or a one-shot pulse. Nothing animates unasked.
   let rafId = 0;
   function frameLoop(ts) {
     rafId = 0;
     let live = false;
+    if (S.rise) {
+      if (S.rise.t0 == null) S.rise.t0 = ts;
+      const raw = Math.min(1, Math.max(0, (ts - S.rise.t0) / RISE_MS));
+      // reduced motion: the same act in three still steps, never a sweep
+      S.rise.k = reduced ? (raw >= 1 ? 1 : Math.floor(raw * 3) / 3) : raw;
+      if (C.riseMet(S.rise.k)) riseComplete(); else live = true;
+    }
     if (S.trans) {
       if (S.trans.ts == null) { S.trans.t0 = ts; S.trans.ts = ts; }
       S.trans.ts = ts;
-      live = S.trans.dur === 0 ? false : (ts - S.trans.t0) < S.trans.dur;
-      if (!live) S.trans = null;
+      const moving = S.trans.dur === 0 ? false : (ts - S.trans.t0) < S.trans.dur;
+      live = live || moving;
+      if (!moving) S.trans = null;
     }
     if (S.hold) { S.hold.phase = Math.floor((ts - (S.hold.t0 || ts)) / 130); live = true; }
-    if (S.pulse) { S.pulse.phase = Math.floor((ts - S.pulse.t0) / 90); live = S.pulse.phase < 3; if (!live) S.pulse = null; }
+    if (S.pulse) {
+      if (!S.pulse.t0) S.pulse.t0 = ts;
+      S.pulse.phase = Math.floor((ts - S.pulse.t0) / 90);
+      if (S.pulse.phase >= 3) S.pulse = null; else live = true;
+    }
+    if (S.refuse) {
+      if (S.refuse.t0 == null) S.refuse.t0 = ts;
+      S.refuse.phase = Math.floor((ts - S.refuse.t0) / 90);
+      if (S.refuse.phase >= 3) S.refuse = null; else live = true;
+    }
     draw();
     if (live) rafId = requestAnimationFrame(frameLoop);
   }
@@ -660,7 +810,7 @@
     if (!S.field && (d === 'NEAR' || d === 'ENTERED')) { say(['GAP — the city needs both sources; nothing is faked here.'], 'gap', Infinity); draw(); return false; }
     if (d === S.distance) return false;
     if (d === 'EXITED') buildExit();
-    S.decodeCell = null; S.gate = null;
+    S.decodeCell = null; S.gate = null; S.rise = null; S.refuse = null;
     S.trans = { from: S.distance, to: d, dur: reduced ? 0 : 700, t0: 0, ts: null };
     S.distance = d;
     if (!silent) S.revealed = true;
@@ -680,6 +830,8 @@
     S.moves = []; S.exitCache = null; S.exitCanvas = null;
     S.walker = S.field ? S.field.start : null;
     S.gate = null; S.strikes = new Uint8Array(S.gates.length); S.lastP = -1;
+    S.seen = new Uint8Array(S.gates.length); S.rise = null; S.refuse = null; S.lineSaid = -1;
+    if (S.field) S.weather = C.weatherChain(S.field, []);
     setDistance('FAR');
     say(['the painting is back to its own bytes'], 'line', 5);
     draw();
@@ -719,10 +871,21 @@
   // ── the walk ──────────────────────────────────────────────────────────────
   function step(dir) {
     if (!S.field || S.distance !== 'ENTERED') return false;
+    if (S.rise) return false;                                   // the act has the floor
     const next = C.step(S.field, S.walker, dir);
     if (!next) { say(['wall — the painting’s edge says no'], 'wall', 3); draw(); return false; }
+    // A threshold that has not been seen through does not open, and it does not
+    // argue: the step simply does not happen and the ring flares once.
+    const gate = S.gates.find((g) => g.n === next.n);
+    if (gate && !C.gateAdmits(C.gateKind(gate.i), S.seen[gate.i])) {
+      S.refuse = { i: gate.i, t0: null, phase: 0 };
+      if (el.live) el.live.textContent = 'held · this district has not been seen whole';
+      draw(); wake();
+      return false;
+    }
     S.walker = next;
     S.moves.push(dir);
+    S.weather = C.weatherChain(S.field, S.moves);
     if (S.voice && S.voice.ttl !== Infinity && S.voice.kind !== 'gate') S.voice.ttl -= 1;
     if (S.voice && S.voice.ttl <= 0) S.voice = null;
     if (next.n === S.field.start.n && S.moves.length >= 8) {
@@ -746,6 +909,13 @@
   function districtEnter(p, quiet) {
     if (!S.source || S.lastP === p) return;
     S.lastP = p;
+    // a line the sight gate already spoke is not spoken twice
+    if (S.lineSaid === p) {
+      S.lineSaid = -1;
+      S.ledger = C.ledgerMark(S.ledger, p, S.source.districts[p].heading);
+      saveLedger();
+      return;
+    }
     const prompt = C.returnPrompt(S.ledger, p, S.source.districts, C.LEDGER_GAP);
     if (prompt) {
       say(districtLine(p, 'prompt', 'you walked this before (' + prompt.ago + ' districts ago)'), 'prompt', quiet ? 14 : 14);
@@ -760,10 +930,52 @@
     saveLedger();
   }
 
+  // ── the sight gate: one act, no question ──────────────────────────────────
+  // The first gate stands at a district's threshold and refuses the step until
+  // the district has been seen whole. There is no prompt: the ring is broken
+  // (a mark you can read as "not yet"), the step is held (a flare, no words), and
+  // a sustained hold lifts the view to where the district's own shape is legible.
+  // When it is, the gate lights and its line is spoken — in the same quiet voice
+  // every district speaks in, and not one word before.
+  function sightTarget() {
+    if (!S.field || !S.walker || S.distance !== 'ENTERED') return null;
+    for (const gt of S.gates) {
+      if (C.gateKind(gt.i) !== 'sight' || S.seen[gt.i]) continue;
+      if (Math.abs(gt.cx - S.walker.cx) + Math.abs(gt.cy - S.walker.cy) <= 1) return gt;
+    }
+    return null;
+  }
+  function riseStart(i, auto) {
+    const gt = S.gates[i];
+    if (!gt || S.distance !== 'ENTERED' || S.seen[gt.i] || S.rise) return false;
+    if (C.gateKind(gt.i) !== 'sight') return false;
+    S.rise = { i: gt.i, p: gt.p, k: 0, t0: null, auto: !!auto };
+    S.decodeCell = null; S.gate = null; S.voice = null;   // the world holds its tongue while you look
+    updateChrome(); draw(); wake();
+    return true;
+  }
+  function riseEnd() {
+    if (!S.rise || S.rise.auto) return false;
+    S.rise = null; draw();
+    return true;
+  }
+  function riseComplete() {
+    const r = S.rise;
+    if (!r) return;
+    S.rise = null;
+    S.seen[r.i] = 1; S.lit[r.i] = 1;
+    S.pulse = { i: r.i, t0: 0, phase: 0 };
+    const l = districtLine(r.p);
+    if (l) { say(l, 'line', 14); S.lineSaid = r.p; }       // the reveal, after the act, in the old voice
+    S.trans = { from: 'NEAR', to: 'ENTERED', dur: reduced ? 0 : 700, t0: 0, ts: null };
+    updateChrome(); wake(); if (reduced) draw();
+  }
+
   // ── the eight gates: the walk asks something of the walker ────────────────
   function gateAt(cell) {
     const gt = S.gates.find((g) => g.n === cell.n);
     if (!gt || S.lit[gt.i] || S.strikes[gt.i] >= 2) { S.gate = null; return; }
+    if (C.gateKind(gt.i) === 'sight') { S.gate = null; return; }   // the sight gate is not a question
     const card = C.gateCard(S.source.districts, gt.i, gt.p, S.source.fingerprint);
     if (!card) { S.gate = null; return; }
     S.gate = Object.assign({ i: gt.i }, card);
@@ -803,9 +1015,12 @@
     const visited = C.walk(S.field, S.moves).visits[cell.n];
     const hue = cell.hue < 0 ? 'achromatic' : Math.round(cell.hue) + '°';
     const street = cell.wall ? 'wall' : (S.field.reach[cell.n] ? 'street' : 'closed pocket');
+    // the district's weather, and the one you carried into it: the two halves of
+    // the only mechanism on this page that is not about you
+    const w = weatherFor(u.p), carry = S.weather ? S.weather.carry : null;
     return [
       '¶' + (u.p + 1) + ' ' + (d.chapter || '') + ' · ' + street + ' (' + cell.cx + ',' + cell.cy + ') · building ' + (u.s + 1) + '/' + (d.sentences || '?') + ' · room ' + (u.w + 1) +
-        ' · material “' + (cell.material === ' ' ? 'blank' : cell.material) + '” · ' + (cell.weather || 'clear') + ' · visits ' + visited,
+        ' · material “' + (cell.material === ' ' ? 'blank' : cell.material) + '” · ' + (w || 'clear') + (carry && carry !== w ? ' (carried ' + carry + ' in)' : '') + ' · visits ' + visited,
       '“' + (d.line || '') + '”',
       (d.heading || '') + ' · ' + norm(cell).toFixed(2) + ' of the painting’s range · edge ' + cell.edge.toFixed(3) + ' · ' + hue,
     ];
@@ -845,6 +1060,18 @@
     try { if (cv.setPointerCapture && e.pointerId != null) cv.setPointerCapture(e.pointerId); } catch (err) { /* synthetic pointer */ }
     S.drag = { x: e.clientX, y: e.clientY, moved: false, axis: null };
     const cell = cellFromEvent(e);
+    // touch the broken ring: the rise begins under the thumb, and the same hold
+    // that decodes a room now lifts the whole district into view. Holding where
+    // you stand at a blocked threshold is the same act — that is what a person
+    // does when the way is held, and the instrument should not punish it.
+    if (cell && S.distance === 'ENTERED') {
+      const sight = S.gates.find((g) => C.gateKind(g.i) === 'sight' && !S.seen[g.i]);
+      if (sight) {
+        const onRing = cell.n === sight.n;
+        const atThreshold = cell.n === S.walker.n && Math.abs(sight.cx - S.walker.cx) + Math.abs(sight.cy - S.walker.cy) <= 1;
+        if (onRing || atThreshold) { riseStart(sight.i, false); return; }
+      }
+    }
     if (cell && (S.distance === 'NEAR' || S.distance === 'ENTERED') && !reduced) S.hold = { cx: cell.cx, cy: cell.cy, phase: 0, t0: 0 };
     clearTimeout(S.holdTimer);
     S.holdTimer = setTimeout(() => {
@@ -877,7 +1104,13 @@
   cv.addEventListener('pointerup', (e) => {
     const wasMoved = S.drag && S.drag.moved;
     const p = localXY(e);
+    const wasRising = !!S.rise;
     endPointer();
+    if (wasRising) {                                   // let go early: the district settles back
+      riseEnd();
+      if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
+      return;
+    }
     if (wasMoved) {
       if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
       return;
@@ -901,8 +1134,14 @@
   cv.addEventListener('contextmenu', (e) => e.preventDefault());
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeDecode(); if (S.gate) { S.gate = null; draw(); } return; }
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); advance(); return; }
+    if (e.key === 'Escape') { if (S.rise) { S.rise = null; draw(); return; } closeDecode(); if (S.gate) { S.gate = null; draw(); } return; }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      // a keyboard cannot hold: one press begins the same sustained look
+      const st = sightTarget();
+      if (st) { riseStart(st.i, true); return; }
+      advance(); return;
+    }
     if (S.distance !== 'ENTERED') return;
     const m = { ArrowUp: 'U', ArrowDown: 'D', ArrowLeft: 'L', ArrowRight: 'R', w: 'U', s: 'D', a: 'L', d: 'R' }[e.key];
     if (m) { e.preventDefault(); step(m); }
@@ -1009,6 +1248,17 @@
       ledger: S.ledger ? { seq: S.ledger.seq, read: Object.keys(S.ledger.seen).length, seen: S.ledger.seen } : null,
       voice: S.voice ? { kind: S.voice.kind, lines: S.voice.lines.slice() } : null,
       decode: S.decodeCell,
+      // what the city is under, and what you are carrying: the chain, not a value
+      weather: S.weather ? {
+        carry: S.weather.carry,
+        p: S.weather.steps.length ? S.weather.steps[S.weather.steps.length - 1].p : null,
+        here: S.weather.steps.length ? S.weather.steps[S.weather.steps.length - 1].weather : null,
+        steps: S.weather.steps.map((s) => ({ p: s.p, in: s.carryIn, out: s.weather })),
+      } : null,
+      sight: S.gates.length ? {
+        p: S.gates[0].p, kind: C.gateKind(0), seen: !!S.seen[0],
+        rise: S.rise ? { k: +S.rise.k.toFixed(3), p: S.rise.p, i: S.rise.i } : null,
+      } : null,
     };
   }
   window.SleeperLadder = Object.freeze({
@@ -1033,6 +1283,13 @@
     gateRoute: (i) => routeTo(S.gates[i] ? S.gates[i].n : null),
     decode: (n) => { const c = S.field && S.field.cells[n]; return c ? openDecode(c) : null; },
     closeDecode,
+    // the sight gate's act, the city's weather, and the shape it is written on
+    rise: (i) => riseStart(i == null ? 0 : i, true),
+    riseEnd,
+    adjacentSight: () => { const t = sightTarget(); return t ? { i: t.i, p: t.p, x: t.cx, y: t.cy } : null; },
+    weatherOf: (p) => weatherFor(p),
+    weatherInk: (p) => bandMarks(geoFor('ENTERED'), p == null ? (S.walker ? S.walker.unit.p : 0) : p),
+    shape: (p) => (S.field && S.field.edges[p] ? S.field.edges[p].map((s) => s.slice()) : null),
     voice: () => voiceLines(),
     doors: () => doorRects().map((r) => ({ i: r.i, x: r.x, y: r.y, w: r.w, h: r.h })),
     layout: () => ({ w: W, h: H, voiceH: VOICE_H }),

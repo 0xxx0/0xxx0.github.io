@@ -9048,35 +9048,37 @@
     },
     {
       "href": "/sleeper/ladder/",
-      "title": "SLEEPER // LADDER 0.2.0",
+      "title": "SLEEPER // LADDER 0.3.0",
       "kind": "experiment",
       "parent": "/sleeper/",
       "family": "SLEEPER",
       "operation": "PLAY / PROVE / RETURN",
       "state": "CANDIDATE",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "showcase_card": false,
       "receipt": "/sleeper/ladder/release.json",
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/sleeper/",
-        "generation": 2,
+        "generation": 3,
         "stage": "TEST",
-        "question": "Can the resolution ladder carry a real BOOK as its matter and teach it — game-grade, diagetic, quiet — without adding a single surface?",
-        "baseline": "Borrowed River painting (sleeper/borrowed-river/landscape.jpg) plus the ONE RETURN v2 contract; no resolution ladder existed between the two.",
-        "mutation": "Matter replaced: the canonical ONE RETURN contract -> a derived projection of P. A. Payutto's Buddhadhamma (Section 7), with provenance, a selection sha256 and per-cell source coordinates. Added eight understanding gates, one diagetic meter, a clock-free return-prompt ledger and a NEAR loupe. Removed: header, readout, primary button, rail, moiré strip, decode panel, gap panel.",
-        "evidence_gate": "ladder-selftest 65/65 with the derivation reproduced from the local corpus; browser proof of walk + gate + return prompt + exit; determinism on real pixels (same route = same sha256, different route = different); the page carries no button, nav, rail, status or panel.",
-        "next_if_pass": "Treat the ledger as the retention layer for other SLEEPER surfaces; carry lit gates across walks.",
-        "next_if_fail": "Keep it CANDIDATE and split matter-projection from the resolution ladder; do not claim the city is the book."
+        "question": "Can the mechanics carry the meaning — is a gate that can only be passed by an act of attention more gripping than a gate that asks a word, and does a world whose weather is a consequence of your own route demonstrate conditionality without quoting it?",
+        "baseline": "LADDER 0.2.0: the city was made of Buddhadhamma and the eight gates all asked one word of a cited line. Verdict on that build: interesting, not gripping — the world contained the text but demonstrated nothing.",
+        "mutation": "Doctrine-mechanic slice. (1) Gate 1 (samma-ditthi) is enacted: a threshold that refuses the step until its district has been seen whole (a sustained hold lifts the view from the walked window to the whole field until the district's own outline is legible), with its cited line revealed only after the act — no prompt, no doors, no HUD. (2) Weather stopped being a per-cell property and became a carried state: a district's body is its own text's punctuation, and the weather you carry out turns one notch of the wheel window -> rain -> lamp -> beacon, the district taking the first weather it can hold. (3) The district you stand in is one hairline band, its shape being its own cell boundary, its weather stitched along that edge. Removed: per-cell weather marks, per-cell remembered underline, gate 1's quiz card/doors/instruction, dead state. Gates 2-8 untouched.",
+        "evidence_gate": "ladder-selftest 85/85 (20 new arms: the weather little-law with its negative, the flip by predecessor, the shape-is-the-boundary arms, the admission law, the two reductions); real-pointer interaction proof (refused step, k 0.21 -> 0.44 -> 0.77 -> seen, gate lit, line revealed, step then admitted); weather conditionality proven twice (identical fold in two node processes; same cell 47,24 = lamp/27 marks/e36e1407 from one side and rain/85 marks/a712d751 from the other); determinism unchanged; surface count 4 elements, no new route or panel.",
+        "next_if_pass": "Enact one more gate by replacement only, and carry the weather chain into the EXITED line so the painting remembers what the city was under.",
+        "next_if_fail": "The mechanic does not grip: revert to 0.2.0 and stop trying to carry doctrine in mechanics — keep the city as a reading instrument."
       },
-      "role": "The four-distance resolution ladder, now built out of Buddhadhamma: FAR is the Borrowed River painting, NEAR resolves its brushwork into the whole 96x32 character field computed from the image itself, ENTERED is a walkable window whose matter is P. A. Payutto's Buddhadhamma (Section 7, chapters 16-18; paragraph = district, sentence = building, word = room, character = material, punctuation = rain/window/lamp/beacon), and EXITED recomposes the painting from the walked U/D/L/R witness. Game-grade learning: eight gates ask one word of the district's own cited line, one diagetic meter (eight lamps on the frame) records what was understood, and a clock-free ledger quotes a line you walked before when you come back to a district. No HUD: canvas + one provenance line. The book's text is never republished — the artifact carries a sampled projection, provenance and one cited line per district.",
+      "role": "The four-distance resolution ladder, now built out of Buddhadhamma: FAR is the Borrowed River painting, NEAR resolves its brushwork into the whole 96x32 character field computed from the image itself, ENTERED is a walkable window whose matter is P. A. Payutto's Buddhadhamma (Section 7, chapters 16-18; paragraph = district, sentence = building, word = room, character = material), and EXITED recomposes the painting from the walked U/D/L/R witness. The city is conditional: the district you stand in is one hairline band whose weather is the fold of the route you took to it (the weather you carry turns a wheel and the district becomes the first weather its own text can hold), and the first gate is not a question but a threshold that will not open until its district has been seen whole — a sustained hold lifts the view until the shape is legible, and only then is its line spoken. Seven word gates and one diagetic meter (eight lamps) remain; a clock-free ledger quotes a line you walked before. No HUD: canvas + one provenance line. The book's text is never republished — the artifact carries a sampled projection, provenance and one cited line per district.",
       "transfer": [
         "painting sha256 -> one hash32 tag f0f09635 = painting identity = city identity = artifact identity",
         "selected text sha256 -> one hash32 fingerprint bbbe96ac = source identity (a different selection is a different artifact)",
         "walked U/D/L/R witness -> deterministic recomposition + measured divergence (mad64 / changedPx / sha256)",
         "image statistics -> walkable city field (walls from the edge quantile that opens the largest district)",
-        "book text -> district/building/room/material/weather matter, drawn counts asserted against the source",
-        "district line -> a gate question (cloze + three doors) and a spaced return prompt",
+        "book text -> district/building/room/material matter, drawn counts asserted against the source",
+        "district punctuation -> a weather body; carried weather -> a wheel -> the next district's weather (a pure fold over the route)",
+        "district cell set -> its boundary sides -> one band: the shape a gate can be passed by seeing, and the line the weather is written on",
+        "district line -> a word gate's cloze (gates 2-8) or the sentence spoken after a gate has been enacted (gate 1), and a spaced return prompt",
         "return to origin -> route completion (ninth-gate move) and exact reconstruction"
       ],
       "contract": {
@@ -9086,7 +9088,7 @@
           ],
           "requires": [
             "sleeper.borrowed-river/landscape.jpg",
-            "ONE_RETURN_V2.md source text"
+            "sleeper/ladder/source-dhamma.json (sleeper/source-slice@1)"
           ]
         },
         "transforms": {
@@ -9112,10 +9114,11 @@
         "evidence": {
           "receipt": "/sleeper/ladder/release.json",
           "checks": [
-            "node sleeper/ladder/ladder-selftest.mjs — 65 passed, 0 failed, 0 skipped (derivation re-run against the local corpus: the shipped file is its byte-identical output; window 8 -> different fingerprint)",
-            "browser 390x844 dpr2 — touch tap FAR->NEAR->ENTERED, hold decode, keyboard walk, gate answered (lamp lit), return prompt after 13 districts, origin retrieval -> EXITED, tap to RETURN",
+            "node sleeper/ladder/ladder-selftest.mjs — 85 passed, 0 failed, 0 skipped (derivation re-run against the local corpus: the shipped file is its byte-identical output; window 8 -> different fingerprint; 20 new arms cover the weather fold, the district shape and the enacted gate)",
+            "browser 390x844 dpr2 — sight gate refused the 9th step (witness unchanged, no doors), a real pointer hold raised the rise 0.21 -> 0.44 -> 0.77 -> seen, the gate lit, its cited line appeared, the next step was admitted; touch tap FAR->NEAR->ENTERED, hold decode, keyboard walk, word gate answered, origin retrieval -> EXITED, tap to RETURN",
             "same route twice -> identical sha256; different route -> different sha256; empty witness -> mad64 0, changedPx 0",
-            "surface budget: index.html + ladder.js + ladder-core.js + source-dhamma.json = 122 KB, no frameworks, no build step"
+            "weather: the fold is byte-identical across two node processes and two page loads; the same cell (47,24) is lamp with 27 band marks (crop e36e1407) from one side and rain with 85 (crop a712d751) from the other",
+            "surface budget: index.html + ladder.js + ladder-core.js + source-dhamma.json = 143 KB, no frameworks, no build step; 4 elements on the page, no new route or panel"
           ],
           "return_path": "/sleeper/ladder/"
         },

@@ -1,6 +1,6 @@
 {
   "schema": "field.release/v1",
-  "artifact": "SLEEPER // LADDER 0.2.0",
+  "artifact": "SLEEPER // LADDER 0.3.0",
   "route": "/sleeper/ladder/",
   "status": "CANDIDATE",
   "source": "DESIGN_SPEC.md four-distance table + ONE RETURN contract (void-anchor/sleeper/README.md); painting borrowed from /sleeper/borrowed-river/landscape.jpg (sha256 7b1e50ff…); city matter is P. A. Payutto's Buddhadhamma, free online edition (buddhadhamma.github.io), Section 7 'Path Factors' chapters 16-18, retrieved 2026-10-25 and projected into /sleeper/ladder/source-dhamma.json — the raw text stays local in void-anchor/sleeper/corpus/buddhadhamma/",
@@ -9,25 +9,31 @@
     "recomposition": "route -> hash32(tag|U/D/L/R witness) -> visited-tile tone inside a measured band + a hairline trace of the walked path",
     "rest": "empty route recomposes to the original pixels (mad64 = 0, changedPx = 0)",
     "witness": "compressed U/D/L/R string; blocked steps never enter it; returning to the origin coordinate completes the run",
-    "matter": "paragraph = district, sentence = building, word = room, character = material, punctuation = rain/window/lamp/beacon; 28 districts / 50 buildings / 1,228 drawn rooms of 1,257",
-    "learning": "eight gates ask one word of the district's own cited line (three doors, two wrong answers shut the gate for the walk); a clock-free ledger quotes a line you walked before after five other district visits"
+    "weather": "a district's weather is a pure fold: the weather carried out of the previous district turns one notch of the wheel window -> rain -> lamp -> beacon, and the district becomes the first weather its own text carries going round; a district whose text carries no weather lets the carry pass. No assignment, no clock, no randomness",
+    "sight": "gate 1 is enacted, not asked: the threshold cell refuses the step until its district has been SEEN WHOLE (a sustained hold lifts the view from the walked window to the whole field until the district's own outline is legible). Its cited line is spoken only after the act. Gates 2-8 still ask one word",
+    "matter": "paragraph = district, sentence = building, word = room, character = material, punctuation = a district's weather body (window/rain/lamp/beacon); 28 districts / 50 buildings / 1,217 drawn rooms of 1,257",
+    "learning": "one enacted gate (sight) + seven word gates (three doors, two wrong answers shut that gate for the walk); a clock-free ledger quotes a line you walked before after five other district visits"
   },
   "changes": [
-    "MATTER: the city is now built of Buddhadhamma — the shipped artifact is a derived projection (provenance + selection sha256 + 3,072 characters of matter + per-cell source coordinates + one cited line per district), never the book's text",
+    "ENACTED GATE: gate 1 (samma-ditthi, right view) no longer asks a word. It stands as a threshold that refuses the step, and the act that opens it is attention: a sustained hold lifts the view from the walked window to the whole 96x32 field until that district's own outline is legible. The district's cited line is revealed only after the act, in the same quiet voice every district speaks in. No prompt, no doors, no HUD",
+    "WEATHER IS CARRIED: the four marks stopped being a per-cell property (this comma rains here) and became a district state. Each district's body is the punctuation its own text carries; the weather you carry out of the last district turns the wheel one notch and the district becomes the first weather it can hold going round window -> rain -> lamp -> beacon. Walking from one district into the next produces the next district's weather from the one you left — measured on the shipped source: 24 changes across a walk of the city, 10 of 24 districts flip with the side you entered from",
+    "VISIBLE WEATHER: the district you stand in is one hairline band — its shape is the boundary of its own cells, and its weather is stitched along that boundary (a rain of ticks, a window of slits, a lamp of crosses, a beacon of rings). The band moves with you when you cross, so the weather you carried is what you see change underfoot",
+    "REDUCED: the per-cell weather marks (83 invisible marks in 3,072 cells) and the per-cell remembered underline (3,072 hairlines) are gone — one district band carries both facts; the gate-1 quiz card, its three doors and its 'one word is missing' line are gone; dead state removed",
+    "MATTER: the city is built of Buddhadhamma — the shipped artifact is a derived projection (provenance + selection sha256 + 3,072 characters of matter + per-cell source coordinates + one cited line per district), never the book's text",
     "DERIVATION: sleeper/ladder/derive-source.mjs re-runs PROVENANCE -> SELECTION -> MAPPING -> PROJECTION from the local corpus; the selftest requires the shipped file to be its output byte for byte and a different selection to change the fingerprint",
-    "MAPPING: parseSource split sentences at terminators (not at ')'), and measures punctuation with Unicode word classes so ā/ṭ/ṇ stay matter — the old ASCII \\w turned the last letter of every Pali word into weather",
-    "GAME: eight gates that verify understanding, one diagetic meter (eight lamps on the frame, 0..8, monotone), return prompts from a clock-free reading ledger, reveal-on-touch loupe",
-    "REDUCED: header, status readout, primary button, four-detent rail, moiré identity strip, decode DOM panel and gap panel are gone — canvas + one provenance line + an sr-only live region",
-    "NEAR now draws the WHOLE 96x32 frame in the painting's own box (a crop lost the composition); legibility is bought with a 9x9 loupe on hold"
+    "GAME: one diagetic meter (eight lamps on the frame, 0..8, monotone), return prompts from a clock-free reading ledger, reveal-on-touch loupe",
+    "REDUCED (0.2.0): header, status readout, primary button, four-detent rail, moiré identity strip, decode DOM panel and gap panel are gone — canvas + one provenance line + an sr-only live region"
   ],
   "validation": {
-    "selftest": "PASS: node sleeper/ladder/ladder-selftest.mjs — 65 passed, 0 failed, 0 skipped (synthetic painting; derivation arms re-run against the local corpus)",
-    "browser": "PASS: Chromium 390x844 dpr2 — touch tap FAR->NEAR->ENTERED, touch hold decode, keyboard walk to a gate across 9 steps, gate answered at a door (lamp lit), return prompt after 13 districts, origin retrieval -> EXITED, tap to RETURN",
-    "determinism": "same route twice -> identical sha256 (57fd475d…); different route -> different sha256 (4c137147…); empty witness -> mad64 0 and changedPx 0; source fingerprint bbbe96ac reproduced from the corpus, window 8 gives 81585e34"
+    "selftest": "PASS: node sleeper/ladder/ladder-selftest.mjs — 85 passed, 0 failed, 0 skipped (synthetic painting; derivation arms re-run against the local corpus; 20 new arms cover the weather fold, the district shape and the enacted gate)",
+    "browser": "PASS: Chromium 390x844 dpr2 — the sight gate refused the 9th step (witness unchanged DDDDDDDD, no doors), a real pointer hold raised k 0.21 -> 0.44 -> 0.77 -> seen, the gate lit, its cited line appeared, and the next step was admitted; touch tap FAR->NEAR->ENTERED, hold decode, keyboard walk, word gate answered at a door, origin retrieval -> EXITED, tap to RETURN",
+    "determinism": "same route twice -> identical sha256; different route -> different sha256; empty witness -> mad64 0 and changedPx 0; source fingerprint bbbe96ac reproduced from the corpus, window 8 gives 81585e34; the weather chain is byte-identical across two node processes and across two page loads",
+    "weather": "same cell (47,24), two predecessors: arriving from ¶20 the district is lamp (27 marks, canvas crop e36e1407); leaving ¶21 and returning the same cell is rain (85 marks, canvas crop a712d751)"
   },
   "interop": {
-    "schema": "sleeper.ladder.route/v0.2",
+    "schema": "sleeper.ladder.route/v0.3",
     "witness": "U/D/L/R string",
+    "weather": "fold over the district runs of the witness (sleeper.ladder.weather/v0.1, pure)",
     "source_slice": "sleeper/source-slice@1",
     "automatic_other_project_import": false
   },
@@ -36,6 +42,8 @@
     "The book is under reserved distribution rights: only the sampled projection and one cited line per district are public; the source URL is printed as text, never as an anchor",
     "The recomposition bakes visited tiles plus the walked trace; it does not re-paint brushwork, so a long straight route reads as a drawn line",
     "The eight lamps reset each walk; only the reading ledger persists (localStorage, keyed by source schema)",
+    "The weather wheel's order (window -> rain -> lamp -> beacon) is the mapping's own declaration order, not a claim about the text's meaning; it is a mechanism, and the receipt records why the alternatives were rejected",
+    "A district whose sampled cells carry no punctuation at all shows no weather (¶23): that is the text's own silence, not a gap",
     "Determinism is proven on the natural-size pixel buffer; display resampling at other DPRs is outside the contract"
   ]
 }

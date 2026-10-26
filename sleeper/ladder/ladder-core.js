@@ -273,6 +273,7 @@
     }
     if (!chosen) { decorate(edges[edges.length - 1]); chosen = { q: CUT_LADDER[0], cut: edges[edges.length - 1], walls: 0, start: nearestWalkable(), reach: floodFill(cells, nearestWalkable()), size: 0 }; }
     decorate(chosen.cut);
+    const measured = measureDistricts(cells);
     // The painting's own luminance range: the NEAR tone ladder is this stretch,
     // not an arbitrary curve, and it is the SAME stretch at every distance.
     let lmin = 1, lmax = 0;
@@ -295,6 +296,7 @@
       cols: COLS, rows: ROWS, cells, cut: chosen.cut, cutQ: chosen.q, start: chosen.start,
       lum: { min: lmin, max: lmax },
       reach: chosen.reach, reachable: chosen.size,
+      districts: measured.districts, edges: measured.edges, bands: measured.bands,
       source: {
         path: SOURCE_PATH,
         fingerprint: projection.fingerprint || null,
@@ -455,6 +457,126 @@
     if (!d || !d.line) return null;
     return { p, ago, line: d.line, locator: d.locator, heading: d.heading, reads: rec.n };
   }
+
+  // ── DISTRICT WEATHER: carried, not assigned ───────────────────────────────
+  // The marks used to be a property of the cell (this character is a comma, so
+  // this cell rains). They are now a property of the DISTRICT, and the district
+  // is not free to be anything: its own text is its whole vocabulary.
+  //
+  // The law (one sentence): the weather you carry turns the wheel one notch, and
+  // the district becomes the first weather its own text carries going round
+  // window -> rain -> lamp -> beacon; a district whose text carries no weather
+  // at all lets the carry pass through untouched. So the weather of the next
+  // district is a pure function of the weather you carried out of the previous
+  // one plus that district's own units — nothing is assigned, nothing is random,
+  // and the same city is a different weather depending on how you got there.
+  //
+  // Why the wheel and not "the loudest mark wins": measured on the shipped
+  // source, the loudest-mark rule collapses to one weather for 24 of the 28
+  // districts (every district's body is dominated by window/rain), which is a
+  // constant dressed as a mechanic. The wheel changes 24 times across a walk of
+  // the city and flips on 10 of the 25 districts you can enter from either side
+  // (receipt: AXIS/work/sleeper-doctrine-2026-10-25/weather-law.txt).
+  const WEATHERS = ['window', 'rain', 'lamp', 'beacon'];
+  function heaviestWeather(b) {
+    let best = null, bv = 0;
+    for (const w of WEATHERS) { const v = (b && b[w]) || 0; if (v > bv) { bv = v; best = w; } }
+    return best;
+  }
+  function weatherOf(body, carry) {
+    const b = body || {};
+    const own = WEATHERS.filter((w) => (b[w] || 0) > 0);
+    if (!own.length) return carry || null;                 // no weather in its text: the carry crosses
+    if (!carry || WEATHERS.indexOf(carry) < 0) return heaviestWeather(b);
+    const i = WEATHERS.indexOf(carry);
+    for (let s = 1; s <= WEATHERS.length; s++) {
+      const w = WEATHERS[(i + s) % WEATHERS.length];
+      if ((b[w] || 0) > 0) return w;                        // the next weather it can hold
+    }
+    return heaviestWeather(b);
+  }
+  // A fold, so the state you carry out is exactly the state you brought in plus
+  // the text you crossed. `bodies` may be the field's district records or plain
+  // histograms; `seq` is the district ids you entered, in walk order.
+  function weatherFold(bodies, seq) {
+    let carry = null;
+    const steps = [];
+    for (const p of seq) {
+      const rec = bodies && bodies[p];
+      const b = rec && rec.body ? rec.body : (rec || {});
+      const w = weatherOf(b, carry);
+      steps.push({ p, carryIn: carry, weather: w });
+      carry = w;
+    }
+    return { steps, carry };
+  }
+  // The district you are in, in the order you entered it: consecutive cells of
+  // one district are one visit, so the chain is the walk's own district run.
+  function districtRuns(field, moves) {
+    const w = walk(field, moves);
+    const seq = [];
+    for (const n of w.path) {
+      const p = field.cells[n].unit.p;
+      if (!seq.length || seq[seq.length - 1] !== p) seq.push(p);
+    }
+    return seq;
+  }
+  function weatherChain(field, moves) { return weatherFold(field.districts, districtRuns(field, moves)); }
+
+  // The district's SHAPE: every cell side that borders another district (or the
+  // frame). One vocabulary for two facts — the sight gate traces it, and the
+  // district's weather is written along it.
+  function measureDistricts(cells) {
+    const districts = [];
+    for (let n = 0; n < CELLS; n++) {
+      const c = cells[n], p = c.unit.p, x = c.cx, y = c.cy;
+      let d = districts[p];
+      if (!d) d = districts[p] = { p, cells: 0, n0: n, n1: n, x0: x, y0: y, x1: x, y1: y, body: { window: 0, rain: 0, lamp: 0, beacon: 0 } };
+      d.cells++; d.n1 = n;
+      if (x < d.x0) d.x0 = x;
+      if (x > d.x1) d.x1 = x;
+      if (y < d.y0) d.y0 = y;
+      if (y > d.y1) d.y1 = y;
+      if (c.unit.punct) d.body[c.unit.punct]++;
+    }
+    const edges = [];
+    const push = (p, x0, y0, x1, y1) => { (edges[p] || (edges[p] = [])).push([x0, y0, x1, y1]); };
+    const owner = (x, y) => (x < 0 || y < 0 || x >= COLS || y >= ROWS ? -1 : cells[y * COLS + x].unit.p);
+    for (let n = 0; n < CELLS; n++) {
+      const c = cells[n], p = c.unit.p, x = c.cx, y = c.cy;
+      if (owner(x, y - 1) !== p) push(p, x, y, x + 1, y);
+      if (owner(x, y + 1) !== p) push(p, x, y + 1, x + 1, y + 1);
+      if (owner(x - 1, y) !== p) push(p, x, y, x, y + 1);
+      if (owner(x + 1, y) !== p) push(p, x + 1, y, x + 1, y + 1);
+    }
+    // Horizontal boundary runs, merged: one district edge is one line, not one
+    // line per cell, so a weather rhythm laid along it does not restart at every
+    // room and turn into a dotted mess.
+    const bands = [];
+    for (const p of Object.keys(edges)) {
+      const hs = edges[p].filter((s) => s[1] === s[3]).map((s) => ({ y: s[1], x0: s[0], x1: s[2] })).sort((a, b) => (a.y - b.y) || (a.x0 - b.x0));
+      const runs = [];
+      for (const s of hs) {
+        const last = runs[runs.length - 1];
+        if (last && last.y === s.y && s.x0 <= last.x1) last.x1 = Math.max(last.x1, s.x1);
+        else runs.push({ y: s.y, x0: s.x0, x1: s.x1 });
+      }
+      bands[p] = runs;
+    }
+    return { districts, edges, bands };
+  }
+
+  // ── the sight gate: entry is admitted by an act, not by a word ────────────
+  // The first gate is not a question. It stands at the threshold of a district
+  // and refuses the step until that district has been SEEN WHOLE: a sustained
+  // hold lifts the view from the walked window to the whole field until the
+  // district's own shape is legible. Only then is its line spoken. The rest of
+  // the gates still ask. One gate is the experiment; the law lives in the act.
+  const SIGHT_GATES = 1;
+  const SEEN_AT = 0.9;                                    // the hold is satisfied here
+  function gateKind(i) { return i < SIGHT_GATES ? 'sight' : 'word'; }
+  function gateAdmits(kind, seen) { return kind === 'sight' ? !!seen : true; }
+  function riseMet(k) { return Number(k) >= SEEN_AT; }
 
   // ── the walk: compressed U/D/L/R witness (the ONE RETURN path signature) ──
   const DELTA = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] };
@@ -617,12 +739,14 @@
   }
 
   return Object.freeze({
-    version: '0.2.0',
+    version: '0.3.0',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
     PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, GATE_HORIZON_CAP, LEDGER_GAP,
-    CUT_LADDER,
+    CUT_LADDER, WEATHERS, SIGHT_GATES, SEEN_AT,
     hash32, tag8, lumOf, hueOf, districtOf, parseSource, splitSentences, firstSentence, projectCells, readDerived,
     sourceFingerprint, imageField, buildField,
+    heaviestWeather, weatherOf, weatherFold, districtRuns, weatherChain, measureDistricts,
+    gateKind, gateAdmits, riseMet,
     floodFill, bfs, placeGates, gateCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
     changedPx, syntheticPainting, PUNCT,

@@ -239,8 +239,105 @@ ok('NEGATIVE: two different routes recompose visibly different paintings (mad64 
 ok('recomposition touches only the walked tiles', a1.visited > 0 && a1.tiles > 0 &&
   a1.tiles <= a1.visited * Math.ceil(W / CORE.COLS) * Math.ceil(H / CORE.ROWS) + 1, `${a1.visited} cells / ${a1.tiles} px`);
 
-// ── 9. discipline: no ambient time, no surface creep ──────────────────────
-section('9 · determinism discipline + the surface budget');
+// ── 9. the doctrine slice: weather is CARRIED, not assigned ────────────────
+// The marks used to be a property of the cell. They are now a district state
+// that is a pure function of the weather carried out of the previous district
+// and this district's own units, so the city you are in depends on the way you
+// came. These arms test the law itself, not a constant that happens to hold.
+section('9 · district weather (a fold over the walk, no clock, no randomness)');
+const WR = ['window', 'rain', 'lamp', 'beacon'];
+ok('the four marks stand in one wheel, and it is the mapping’s own order',
+  JSON.stringify(CORE.WEATHERS) === JSON.stringify(WR) &&
+  WR.every((w) => Object.prototype.hasOwnProperty.call(CORE.PUNCT, Object.keys(CORE.PUNCT).find((k) => CORE.PUNCT[k] === w))),
+  CORE.WEATHERS.join(' -> '));
+const bodies = field.districts;
+const bodyTotals = WR.reduce((a, w) => { a[w] = bodies.reduce((n, d) => n + (d ? d.body[w] : 0), 0); return a; }, {});
+ok('every district body is its own text’s punctuation — 31 / 40 / 11 / 1',
+  bodyTotals.window === 31 && bodyTotals.rain === 40 && bodyTotals.lamp === 11 && bodyTotals.beacon === 1 &&
+  WR.every((w) => bodyTotals[w] === field.drawn.weather[w]),
+  WR.map((w) => w + ' ' + bodyTotals[w]).join(' · '));
+const weatherless = bodies.filter((d) => d && WR.every((w) => d.body[w] === 0)).map((d) => d.p);
+ok('a district can carry no weather at all, and then the weather crosses it untouched',
+  weatherless.length > 0 && CORE.weatherOf({}, 'rain') === 'rain' && CORE.weatherOf({}, null) === null,
+  '¶' + weatherless.map((p) => p + 1).join(',¶'));
+const multi = bodies.filter((d) => d && WR.filter((w) => d.body[w] > 0).length >= 2);
+ok('NEGATIVE: the wheel never hands back the weather you carried, when the district owns another',
+  multi.length > 0 && multi.every((d) => WR.filter((w) => d.body[w] > 0).every((w) => CORE.weatherOf(d.body, w) !== w)),
+  `${multi.length} districts own more than one weather`);
+const single = bodies.find((d) => d && WR.filter((w) => d.body[w] > 0).length === 1);
+ok('the wheel comes all the way round for a district that owns only one weather',
+  !!single && CORE.weatherOf(single.body, WR.filter((w) => single.body[w] > 0)[0]) === WR.filter((w) => single.body[w] > 0)[0],
+  single ? '¶' + (single.p + 1) + ' owns only ' + WR.filter((w) => single.body[w] > 0)[0] : 'none');
+const down = [...Array(src.districts.length).keys()];
+const chainA = CORE.weatherFold(bodies, down);
+const chainB = CORE.weatherFold(bodies, down);
+ok('the same district sequence twice -> an identical weather chain',
+  JSON.stringify(chainA) === JSON.stringify(chainB) && chainA.steps.length === down.length,
+  chainA.steps.map((s) => (s.weather || '-')[0]).join(''));
+ok('the weather changes as you cross the city (it is not a constant dressed as a mechanic)',
+  new Set(chainA.steps.map((s) => s.weather)).size >= 3 &&
+  chainA.steps.filter((s, i) => i && s.weather !== chainA.steps[i - 1].weather).length >= 8,
+  `${new Set(chainA.steps.map((s) => s.weather)).size} weathers · ` +
+  `${chainA.steps.filter((s, i) => i && s.weather !== chainA.steps[i - 1].weather).length} changes of 28`);
+// the proof the operator asked for: the SAME district, entered from the other
+// side, is a different weather — the state you carried out conditions the one
+// you enter.
+const fromAbove = CORE.weatherFold(bodies, down.slice(0, 10)).steps.slice(-1)[0];      // ... ¶9 -> ¶10
+const fromBelow = CORE.weatherFold(bodies, down.slice(0, 11).concat([9])).steps.slice(-1)[0]; // ... ¶11 -> ¶10
+ok('NEGATIVE/different predecessor: the same district is a different weather from the other side',
+  fromAbove.p === fromBelow.p && fromAbove.carryIn !== fromBelow.carryIn && fromAbove.weather !== fromBelow.weather,
+  `¶${fromAbove.p + 1} via ¶${fromAbove.p}: ${fromAbove.carryIn} -> ${fromAbove.weather} || via ¶${fromBelow.p + 2}: ${fromBelow.carryIn} -> ${fromBelow.weather}`);
+let flips = 0;
+for (let p = 2; p < src.districts.length - 1; p++) {
+  const a = CORE.weatherFold(bodies, down.slice(0, p + 1)).steps.slice(-1)[0];
+  const b = CORE.weatherFold(bodies, down.slice(0, p + 2).concat([p])).steps.slice(-1)[0];
+  if (a.weather !== b.weather) flips++;
+}
+ok('conditional districts are common, not a single contrived case', flips >= 6, `${flips} of ${src.districts.length - 4} districts flip with the side you came from`);
+const movesW = ['D', 'D', 'D', 'D'];
+ok('the chain over a real walk == the fold over the district runs it entered',
+  JSON.stringify(CORE.weatherChain(field, movesW)) === JSON.stringify(CORE.weatherFold(bodies, CORE.districtRuns(field, movesW))) &&
+  CORE.districtRuns(field, movesW).length >= 1,
+  'districts ' + CORE.districtRuns(field, movesW).map((p) => '¶' + (p + 1)).join(' '));
+
+// ── 10. the sight gate: entry is admitted by an act, not by a word ─────────
+section('10 · the sight gate + the district shape it traces');
+ok('gate 1 is the sight gate; gates 2-8 still ask a word',
+  CORE.gateKind(0) === 'sight' && CORE.gateKind(1) === 'word' && CORE.gateKind(CORE.GATES - 1) === 'word' &&
+  CORE.SIGHT_GATES === 1, 'kinds ' + [0, 1, 7].map((i) => CORE.gateKind(i)).join(','));
+ok('admission: an unseen district is refused, a seen one is admitted (and a word gate always opens)',
+  CORE.gateAdmits('sight', false) === false && CORE.gateAdmits('sight', true) === true && CORE.gateAdmits('word', false) === true,
+  'the refused step is the whole instruction');
+ok('the hold is satisfied only near the whole: SEEN_AT', CORE.SEEN_AT > 0.5 && CORE.SEEN_AT < 1 &&
+  CORE.riseMet(CORE.SEEN_AT - 0.01) === false && CORE.riseMet(CORE.SEEN_AT) === true && CORE.riseMet(1) === true,
+  'riseMet(' + CORE.SEEN_AT + ') = true, riseMet(' + (CORE.SEEN_AT - 0.01).toFixed(2) + ') = false');
+const shapes = field.edges;
+const owner = (x, y) => (x < 0 || y < 0 || x >= CORE.COLS || y >= CORE.ROWS ? -1 : field.cells[y * CORE.COLS + x].unit.p);
+let badSeg = 0, innerSeg = 0, segs = 0;
+for (let p = 0; p < shapes.length; p++) {
+  for (const s of shapes[p] || []) {
+    segs++;
+    const [x0, y0, x1, y1] = s;
+    // a boundary side: exactly one of the two cells it separates is the district
+    const cellsOf = (x0 === x1) ? [owner(x0 - 1, y0), owner(x0, y0)] : [owner(x0, y0 - 1), owner(x0, y0)];
+    const inside = cellsOf.filter((q) => q === p).length;
+    if (inside !== 1) badSeg++;
+    if (inside === 2) innerSeg++;
+  }
+}
+ok('a district’s shape is its real boundary — every side separates it from another district',
+  segs > 2000 && badSeg === 0, `${segs} sides, ${badSeg} that do not bound exactly one side`);
+ok('NEGATIVE: no side is drawn inside a district (the shape is not a grid)',
+  innerSeg === 0, innerSeg + ' interior sides');
+ok('the shapes tile the field: every cell belongs to exactly one district',
+  bodies.reduce((n, d) => n + d.cells, 0) === CORE.CELLS && bodies.length === src.districts.length,
+  bodies.length + ' districts · ' + bodies.reduce((n, d) => n + d.cells, 0) + ' cells');
+ok('the sight gate’s district has a line — the sentence revealed only after the act',
+  !!(src.districts[placed.gates[0].p] && src.districts[placed.gates[0].p].line.length > 20),
+  '¶' + (placed.gates[0].p + 1) + ' “' + (src.districts[placed.gates[0].p].line || '').slice(0, 48) + '…”');
+
+// ── 11. discipline: no ambient time, no surface creep ─────────────────────
+section('11 · determinism discipline + the surface budget');
 for (const f of ['ladder-core.js', 'ladder.js', 'index.html']) {
   const s = readFileSync(join(HERE, f), 'utf8');
   const bare = s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
@@ -255,6 +352,21 @@ const bytes = statSync(join(HERE, 'index.html')).size + statSync(join(HERE, 'lad
   statSync(join(HERE, 'ladder-core.js')).size + statSync(join(HERE, 'source-dhamma.json')).size;
 ok('the whole instrument fits the 2 MB addition budget', bytes < 2 * 1024 * 1024, (bytes / 1024).toFixed(1) + ' KB');
 ok('the page still names its source and its retrieval date', /Payutto/.test(html) && /2026-10-25/.test(html));
+// REDUCTION, asserted: the pass added two mechanisms and removed a drawing
+// layer, a text prompt and a dead field. The old per-cell weather mark must be
+// gone (weather is one district band now), and the page must still be one canvas
+// with nothing to press.
+const js = readFileSync(join(HERE, 'ladder.js'), 'utf8');
+ok('REDUCED: the per-cell weather mark is gone; weather is one district band',
+  !/function weatherMark/.test(js) && !/weatherMark\(/.test(js) && /function bandMarks/.test(js) && /function drawBand/.test(js),
+  'world-scale weather replaced cell-scale weather (83 invisible marks -> 28 bands)');
+ok('REDUCED: the sight gate has no card, no doors and no instruction line',
+  /gateKind\(gt\.i\) === 'sight'\) \{ S\.gate = null; return; \}/.test(js) &&
+  !/card.*sight|sight.*cloze/i.test(js) && /function riseStart/.test(js),
+  'gate 1 never reaches the quiz surface; the other seven still do');
+ok('the surface count did not grow: four elements, no control, no panel',
+  (html.match(/\sid="/g) || []).length === 4 && !/<button|<input|<select|<textarea|<dialog|<form/i.test(html),
+  ((html.match(/\sid="/g) || []).length) + ' elements · canvas + provenance + sr-only live + sr-only help');
 
 console.log(`\n${pass} passed, ${fail} failed, ${skip} skipped`);
 process.exit(fail ? 1 : 0);
