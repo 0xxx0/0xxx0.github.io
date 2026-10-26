@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-26T04:21:25+08:00",
+  "updated": "2026-10-26T15:54:25+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10452,7 +10452,7 @@
       "family": "FIELD / READ",
       "role": "Compact layout over the existing READFIELD engine and source trail. Fixed ORP, progress ring, local text/JSON, shared source/cursor/pace and explicit RETURN to READFIELD. No independent tokenizer, playback timer or position store. Browser-tested at 180px; physical watch usability remains unmeasured.",
       "index": {
-        "updated_at": "2026-10-24T13:15:00+08:00",
+        "updated_at": "2026-10-26T15:54:25+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
