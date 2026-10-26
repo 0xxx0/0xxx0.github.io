@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-10-26T08:11:36.569Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-10-26T11:17:35.473Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **10 material commits on 2026-10-26** across **1101 branches** (55 exact Git commits in the window; 45 generated telemetry; 6945 on master all-time).
+At capture, the field had **14 material commits on 2026-10-26** across **1102 branches** (70 exact Git commits in the window; 56 generated telemetry; 6960 on master all-time).
 At capture, **1/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
@@ -15,9 +15,9 @@ At capture, **1/2** fronts were marked live, against **12** captured current hea
 
 ## Last material commits at capture
 
-- LANDING: the root can reach the one playable thing that can be lost
+- LANDING: the strips are a tower now — the index is one object you can turn
 - desk: refresh public field data + root git chronology
-- fi-mutation-contract: stamp /rsvp/ (IMPLEMENT,VERIFY)
+- fi-mutation-contract: stamp /sleeper/ladder/ (IMPLEMENT,VERIFY)
 
 ## Law
 
