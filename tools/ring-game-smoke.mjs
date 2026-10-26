@@ -155,6 +155,9 @@ try {
     // Ledger survives a reload (the reason to come back).
     const persisted = await page.evaluate(() => { window.RingApp.stop(); return window.RingApp.state().ledger; });
     assert.ok(persisted.runs >= 1, 'ledger did not record a run');
+    // A run that is banked with zero words is a ledger crediting nothing: the score must be a
+    // real number, not a politely recorded failure.
+    assert.ok(persisted.best > 0, 'ledger recorded ' + persisted.runs + ' runs but a best score of ' + persisted.best + ' — runs are not being credited');
     await page.reload();
     await page.waitForFunction(() => window.RingApp && window.RingApp.state().ledger);
     const after = await page.evaluate(() => window.RingApp.state().ledger);

@@ -379,6 +379,13 @@ function answer(i){
 function forceProgress(p){
  if(!raw||!run||run.over)return state();
  liveProgress=clamp(p,0,1);
+ // The test path must MOVE THE SAME CLOCK the player's does. Without this the aperture stayed
+ // at word 0, the next paint pulled liveProgress back from s.source_progress, and every run
+ // scored 0 words — the ledger recorded runs it could never credit. A test hook that does not
+ // drive the real clock is a second implementation wearing a debug name.
+ try{if(typeof ap.seekFraction==='function')ap.seekFraction(liveProgress)}catch(_){}
+ const after=snap();
+ if(after&&Number.isFinite(after.source_progress))liveProgress=clamp(after.source_progress,0,1);
  if(plan)run.wordsRead=Math.min(plan.words,Math.round(liveProgress*plan.words));
  openIfDue();
  frame(snap());
