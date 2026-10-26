@@ -1,49 +1,48 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06090d"><title>READFIELD · WRIST</title>
-<style>
-:root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#06090d;color:#eff2ef;--mut:#93a4ae;--accent:#fd956e;--line:#26343e}
-*{box-sizing:border-box}field-aperture[hidden]{display:none!important}html,body{margin:0;height:100%;overflow:hidden}
-button,input,textarea{font:inherit}button{color:inherit;cursor:pointer;border:1px solid var(--line);background:#101923;min-width:38px;min-height:38px}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent)}button:active{background:#25323d}
-main{height:100%;height:100svh;max-width:540px;margin:auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;position:relative;isolation:isolate;padding:env(safe-area-inset-top) max(5px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(5px,env(safe-area-inset-left))}
-header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;font:600 10px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.05em;color:var(--mut)}
-header .path{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}header .meta{flex-shrink:0;color:#b4c3c9}
-.stage{position:relative;display:grid;place-items:center;min-height:0;overflow:hidden;touch-action:manipulation;background:transparent;border:0;width:100%;padding:0}
-.orbit{position:absolute;width:min(90vw,72svh,340px);height:min(90vw,72svh,340px);pointer-events:none;opacity:.8}
-.orbit circle{fill:none;stroke:#27343d;stroke-width:1.8}.orbit .progress{stroke:var(--accent);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .1s linear;transform-origin:center;transform:rotate(-90deg)}
-.word{z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:baseline;width:100%;padding:0 8px;letter-spacing:-.035em;font:700 clamp(19px,7vw,37px)/1.15 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:nowrap;overflow:hidden}
-.word .before{text-align:right;overflow:hidden}.word .after{text-align:left;overflow:hidden}.word .mark{color:var(--accent);font-size:1.08em}
-.axis{position:absolute;top:50%;left:50%;width:1px;height:62px;transform:translate(-50%,-50%);background:linear-gradient(transparent,#758b99 24%,transparent 24%,transparent 76%,#758b99 76%,transparent);opacity:.46;pointer-events:none}
-.context{position:absolute;bottom:7%;width:88%;max-width:330px;text-align:center;color:var(--mut);font:11px/1.35 system-ui;max-height:2.7em;overflow:hidden;opacity:.85;pointer-events:none}
-footer{padding:0 7px 8px;display:grid;gap:5px}.transport{display:grid;grid-template-columns:1fr 1.6fr 1fr auto;gap:5px}.transport button{font-size:18px}.transport .play{border-color:#ad6854;color:#ffd7c7;font-size:14px;font-weight:700}.transport .source{font-size:13px;min-width:38px}
-.meter{height:2px;background:#26323c;width:100%;position:relative;cursor:pointer}.meter i{height:100%;display:block;background:var(--accent);width:0}
-.status{display:flex;justify-content:space-between;color:var(--mut);font:10px ui-monospace,monospace;letter-spacing:.03em}
-.drawer{position:absolute;inset:0;background:#0a1016;z-index:4;padding:clamp(12px,5vw,30px);display:flex;flex-direction:column;gap:10px;overflow-y:auto}
-.drawer[hidden]{display:none}.drawer h1{font-size:18px;margin:0}.drawer label{font-size:11px;color:var(--mut)}.drawer textarea{min-height:90px;max-height:30vh;resize:vertical}.drawer input,.drawer textarea{width:100%;background:#111c24;color:#fff;border:1px solid #374651;padding:9px;border-radius:0;font-size:13px}.drawer .row{display:flex;gap:6px;flex-wrap:wrap}.drawer .row>*{flex:1}.drawer button{font-size:12px}.drawer .close{align-self:flex-end;flex:none}.drawer p{font-size:11px;line-height:1.4;color:var(--mut);margin:0}.drawer small{color:#f5af98}
-@media(max-width:240px),(max-height:260px){.transport{grid-template-columns:28px minmax(0,1fr) 28px 28px;gap:3px}.transport button,.transport .source{min-width:0;padding:0 2px}.transport .play{font-size:11px}header{font-size:9px;padding:5px 14px}footer{padding:0 11px 5px}.context{bottom:1%;font-size:9px}.word{font-size:clamp(16px,11vw,25px)}.transport button{min-height:32px}.orbit{width:min(92vw,85svh);height:min(92vw,85svh)}}
-@media(prefers-reduced-motion:reduce){.orbit .progress{transition:none}}
-</style></head><body>
+<meta name="theme-color" content="#080c12">
+<title>THE RING · READFIELD / WRIST</title>
+<link rel="stylesheet" href="./ring.css">
+</head><body>
 <main>
 <header><span class="path" id="label">PIN / LOCAL</span><span class="meta" id="speed">260 WPM</span></header>
-<button class="stage" id="stage" aria-label="Tap to pause or resume the reader">
-<svg class="orbit" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="53"/><circle class="progress" id="ring" cx="60" cy="60" r="53" stroke-dasharray="333.009" stroke-dashoffset="333.009"/></svg>
-<span class="axis"></span><span class="word"><span class="before" id="before"></span><span class="mark" id="mark">φ</span><span class="after" id="after"></span></span>
+<button class="stage" id="stage" aria-label="Tap to pause or resume. While a gate is open, tap the sector holding the word that was removed.">
+<svg class="orbit" viewBox="0 0 120 120" aria-hidden="true">
+<!-- Paint order is a statement: the gate sectors are UNDER the position arc, so opening a
+     gate can never erase the one thing that says where you are. -->
+<circle class="base" cx="60" cy="60" r="53"/>
+<g id="gates" hidden></g>
+<g id="ticks"></g>
+<circle class="progress" id="ring" cx="60" cy="60" r="53" stroke-dasharray="333.009" stroke-dashoffset="333.009"/>
+<circle class="sweep" id="sweep" cx="60" cy="7" r="1.9"/>
+<g id="marks"></g>
+</svg>
+<span class="axis"></span>
+<span class="word"><span class="before" id="before"></span><span class="mark" id="mark">φ</span><span class="after" id="after"></span></span>
+<span class="decode" id="decode" hidden aria-hidden="true"><b>WHAT THE COLOURS MEAN</b><span id="decodeList"></span></span>
 <span class="context" id="context">Tap SOURCE to read text or JSON.</span>
 </button>
-<footer><div class="meter" id="meter"><i id="fill"></i></div><div class="status"><span id="position">NO SOURCE</span><span id="state">READY</span></div>
-<div class="transport"><button id="prev" aria-label="Previous word">←</button><button class="play" id="play">▶ READ</button><button id="next" aria-label="Next word">→</button><button class="source" id="show" aria-label="Open source and speed settings">☷</button></div></footer>
-<section class="drawer" id="drawer" hidden aria-label="Reader source">
-<button class="close" id="close">RETURN ↩</button><h1>READFIELD / WRIST</h1>
+<footer>
+<div class="meter" id="meter" role="presentation"><i id="fill"></i></div>
+<div class="status"><span id="position">NO SOURCE</span><span id="state">READY</span></div>
+<div class="transport"><button id="prev" aria-label="Previous word">←</button><button class="play" id="play">▶ READ</button><button id="next" aria-label="Next word">→</button><button class="source" id="show" aria-label="Open source, speed and the ledger">☷</button></div>
+</footer>
+<section class="drawer" id="drawer" hidden aria-label="Reader source and run ledger">
+<button class="close" id="close">RETURN ↩</button><h1>THE RING / WRIST</h1>
 <p>One fixed focal point. The same READFIELD engine reads exact source text. JSON paths stay attached to the words. No upload, no account, no dependency.</p>
+<p>One run is one source as a chapter arc. At six places the ring stops and asks for the word you just crossed: tap the sector, or press 1 2 3. Right raises the pace by 20 wpm, wrong lowers it by 40, three wrongs end the run. The ring shows the sweep of position, and a mark for every gate answered.</p>
+<p class="ledger" id="ledger">NO RUNS YET</p>
 <label>Speed <output id="value">260 WPM</output><input type="range" min="60" max="6000" step="10" id="rate" value="260"></label>
 <label>Local file (TXT / JSON / MD / CSV)<input type="file" id="file" accept=".txt,.json,.md,.markdown,.csv,.log,.yaml,.yml,text/*,application/json"></label>
 <label>Same-origin source path<input id="path" type="text" placeholder="/control/CURRENT.json" spellcheck="false"></label>
 <div class="row"><button id="open">OPEN PATH</button><button id="sample">TRY JSON</button></div>
 <label>Or paste text / JSON<textarea id="paste" placeholder="Paste then press READ TEXT"></textarea></label>
 <button id="read">READ TEXT</button><small id="error" role="status"></small>
-<p>Tap: pause/play · arrows: step · watch crown/scroll: speed while playing, position while paused · Space: pause/play. Source bytes remain in this browser session. <a id="readfield" href="/docs/" style="color:#bfe0ec">READFIELD ↗</a> <a id="interphase" href="/interphase/">WALK ↗</a></p>
-</section></main>
+<p>Tap: pause/play · arrows: step · 1 2 3: answer a gate · watch crown/scroll: speed while playing, position while paused · Space: pause/play. Source bytes remain in this browser session. <a id="readfield" href="/docs/">READFIELD ↗</a> <a id="interphase" href="/interphase/">WALK ↗</a></p>
+</section>
+</main>
+<p class="sr" id="runLive" aria-live="polite"></p>
 <field-aperture id="wristAperture" hidden inert aria-hidden="true"></field-aperture>
-<script src="/lib/document-structure.js"></script><script src="/lib/read-trail.js"></script><script src="/field-aperture.js?v=0.8.7"></script><script src="./reader.js?v=0.10.0"></script>
+<script src="/lib/document-structure.js"></script><script src="/lib/read-trail.js"></script><script src="/field-aperture.js?v=0.8.7"></script><script src="./ring-core.js"></script><script src="./ring-view.js"></script><script src="./ring-app.js?v=1.0.0"></script>
 </body></html>

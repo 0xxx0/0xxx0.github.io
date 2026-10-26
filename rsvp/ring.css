@@ -1,0 +1,140 @@
+/* THE RING — house law, not decoration.
+   pad rgb(8,12,18) · lines rgb(79,87,96) · bone #eff2ef · accent #fd956e
+   every colour below is one of the seven RingCore.PALETTE entries:
+   ground / structure / word / ask / paid / read / gate. */
+:root{
+  color-scheme:dark;
+  --pad:rgb(8,12,18);
+  --line:rgb(79,87,96);
+  --bone:#eff2ef;
+  --accent:#fd956e;
+  /* muted text is the word hue at low alpha, never a new hue */
+  --mut:color-mix(in srgb,var(--bone) 56%,var(--pad));
+  --paid:#c98a4b;
+  --read:#7f93a3;
+  --gate:#b6c2c9;
+  background:var(--pad);color:var(--bone);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+field-aperture[hidden]{display:none!important}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--pad)}
+body{font:400 13px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--bone);-webkit-text-size-adjust:100%}
+button,input,textarea,output{font:inherit;color:inherit}
+button{background:transparent;border:1px solid var(--line);border-radius:0;min-width:38px;min-height:38px;padding:0 6px;cursor:pointer;
+  font:600 10px/1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.45;cursor:default}
+main{height:100%;height:100svh;max-width:540px;margin:auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;position:relative;isolation:isolate;
+  padding:env(safe-area-inset-top) max(5px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(5px,env(safe-area-inset-left))}
+
+/* ── head ───────────────────────────────────────────────────────── */
+header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:7px 9px 3px}
+header .path{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font:600 10px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.07em;color:var(--mut)}
+header .meta{flex:none;font:600 10px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.07em;opacity:.85}
+
+/* ── the ring is the board ──────────────────────────────────────── */
+.stage{position:relative;display:grid;place-items:center;min-height:0;overflow:hidden;touch-action:manipulation;background:transparent;border:0;width:100%;padding:0}
+.orbit{position:absolute;width:min(90vw,72svh,340px);height:min(90vw,72svh,340px);pointer-events:none;overflow:visible}
+.orbit .base{fill:none;stroke:var(--line);stroke-width:1.3;opacity:.5}
+.orbit .progress{fill:none;stroke:var(--read);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:333.009;stroke-dashoffset:333.009;
+  transform-origin:center;transform:rotate(-90deg);transition:stroke-dashoffset .1s linear}
+.orbit .sweep{fill:var(--read)}
+#marks{pointer-events:none}
+#gates[hidden]{display:none}
+#gates{pointer-events:none}
+#gates text{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.02em}
+
+.axis{position:absolute;top:50%;left:50%;width:1px;height:56px;transform:translate(-50%,-50%);pointer-events:none;opacity:.42;
+  background:linear-gradient(transparent,var(--line) 24%,transparent 24%,transparent 76%,var(--line) 76%,transparent)}
+
+/* ── the word / the gap the gate makes ─────────────────────────── */
+.word{z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:baseline;width:100%;max-width:320px;margin:0 auto;padding:0 6px;
+  letter-spacing:-.02em;font:700 clamp(19px,7vw,37px)/1.15 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:nowrap;overflow:hidden}
+.word .before{text-align:right;overflow:hidden}
+.word .after{text-align:left;overflow:hidden}
+.word .mark{color:var(--bone);font-size:1.06em;padding:0 .1em;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.2em}
+.word.gate{font-weight:400;letter-spacing:0;font-size:clamp(10px,3vw,14px);line-height:1.55;color:var(--bone)}
+.word.gate .mark{display:inline-block;min-width:2ch;height:auto;padding:0 .15em .1em;transform:none;
+  text-decoration:none;border-bottom:1.5px solid var(--accent)}
+
+.context{position:absolute;top:calc(50% + min(180px,46svh));bottom:auto;width:88%;max-width:330px;text-align:center;color:var(--mut);
+  font:10px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.02em;
+  max-height:2.9em;overflow:hidden;opacity:.9;pointer-events:none}
+.context.ask{text-transform:uppercase;letter-spacing:.1em}
+
+/* ── transport (unchanged four + the meter it already had) ─────── */
+footer{padding:0 7px max(7px,env(safe-area-inset-bottom));display:grid;gap:5px}
+.transport{display:grid;grid-template-columns:1fr 1.4fr 1fr 1fr;gap:5px}
+.transport button{font-size:13px}
+.transport .source{font-size:13px;min-width:38px}
+.meter{height:2px;background:var(--line);opacity:.45;position:relative;cursor:pointer}
+.meter i{display:block;height:100%;background:var(--read);width:0}
+.status{display:flex;justify-content:space-between;gap:8px;color:var(--mut);
+  font:9px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em}
+.status span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── drawer (the one panel that already existed) ───────────────── */
+.drawer{position:absolute;inset:0;background:var(--pad);z-index:4;padding:clamp(12px,5vw,28px);display:flex;flex-direction:column;gap:9px;overflow-y:auto}
+.drawer[hidden]{display:none}
+.drawer h1{font:600 12px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.16em;margin:0;text-transform:uppercase}
+.drawer label{display:grid;gap:5px;font:10px/1.35 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.drawer output{color:var(--bone)}
+.drawer input,.drawer textarea{width:100%;background:transparent;border:1px solid var(--line);color:var(--bone);padding:8px;border-radius:0;
+  font:13px/1.35 ui-monospace,SFMono-Regular,Consolas,monospace}
+.drawer textarea{min-height:84px;max-height:26vh;resize:vertical}
+.drawer input[type=range]{padding:0;border:0;accent-color:var(--accent)}
+.drawer input[type=file]{padding:6px}
+.drawer input[type=file]::file-selector-button{background:transparent;border:1px solid var(--line);color:var(--bone);margin-right:8px;padding:4px 8px;
+  font:600 10px/1 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.drawer .row{display:flex;gap:6px;flex-wrap:wrap}
+.drawer .row>*{flex:1}
+.drawer .close{align-self:flex-start;flex:none}
+.drawer p{font:10px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.02em;color:var(--mut);margin:0}
+.drawer small{color:var(--bone);font:10px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;min-height:1.5em}
+.drawer .ledger{color:var(--bone);opacity:.8;letter-spacing:.12em;text-transform:uppercase}
+.drawer a{color:var(--mut)}
+
+/* ── the wrist: 180×180 is a real viewport, not a crop ─────────── */
+@media(max-width:240px),(max-height:260px){
+  .transport{grid-template-columns:26px minmax(0,1fr) 26px 26px;gap:3px}
+  .transport button,.transport .source{min-width:0;min-height:30px;padding:0 2px;font-size:10px;letter-spacing:0}
+  header{padding:4px 11px 1px}
+  header .path,header .meta{font-size:9px;letter-spacing:.02em}
+  footer{padding:0 10px 4px;gap:3px}
+  .status{font-size:8px;gap:5px}
+  .meter{height:1px}
+  .context{top:auto;bottom:0;font-size:7.5px;max-height:2.2em}
+  .word{font-size:clamp(15px,10.5vw,24px);padding:0 4px;max-width:100%}
+  .word.gate{font-size:9px}
+  .orbit{width:min(94vw,48svh);height:min(94vw,48svh)}
+  .axis{height:40px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .orbit .progress{transition:none}
+  *{animation:none!important;scroll-behavior:auto!important}
+}
+
+/* a live region that is audible and never drawn */
+.sr{position:absolute;top:0;left:0;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
+
+/* ── DECODE — the coloured bits, named in place (P14) ───────────────────────────────
+   Hold the ring (or press D) and every hue currently drawn states its field. The ring
+   dims but stays drawn: the legend sits OVER the thing it explains, so a colour is read
+   against its own mark rather than against a help page that can drift from the surface. */
+.decode{position:absolute;inset:8% 6%;display:none;flex-direction:column;justify-content:center;gap:.35em;
+  padding:.7em .8em;background:rgba(8,12,18,.88);border:1px solid rgba(79,87,96,.34);
+  font:8.5px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;
+  color:#eff2ef;text-align:left;pointer-events:none;overflow:hidden}
+.decode[hidden]{display:none}
+.decode:not([hidden]){display:flex}
+.decode b{font-weight:400;color:rgba(239,242,239,.46);letter-spacing:.12em;font-size:7.5px}
+.decode i{display:inline-block;width:12px;height:2px;margin-right:.5em;vertical-align:middle}
+.decode .row{display:grid;grid-template-columns:12px minmax(0,1fr);gap:.5em;align-items:baseline}
+.decode .row em{font-style:normal;color:rgba(239,242,239,.84)}
+.decode .row u{text-decoration:none;color:rgba(239,242,239,.42)}
+.dim .orbit,.dim .word,.dim .axis{opacity:.12}
+@media(prefers-reduced-motion:reduce){.decode,.decode *{transition:none!important;animation:none!important}}
