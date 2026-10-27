@@ -368,5 +368,142 @@ ok('the surface count did not grow: four elements, no control, no panel',
   (html.match(/\sid="/g) || []).length === 4 && !/<button|<input|<select|<textarea|<dialog|<form/i.test(html),
   ((html.match(/\sid="/g) || []).length) + ' elements · canvas + provenance + sr-only live + sr-only help');
 
+// ── 12. 0.4.0 — the eye, the boundary, the reading head, the note ─────────
+// Every arm here is a law of the build the first walk asked for. The projection
+// is asserted as arithmetic (not as pixels), because a perspective that is only
+// checked by looking is a perspective nobody can regress.
+section('12 · the eye: a ground-plane projection, asserted as arithmetic');
+const L390 = CORE.fpvLayout(390, 745.33, CORE.FPV.eye);
+const L1024 = CORE.fpvLayout(1024, 700, CORE.FPV.eye);
+ok('the horizon is a fixed fraction of the view — the city’s far edge, not a crop',
+  Math.abs(L390.horizon / L390.h - CORE.FPV.horizon) < 1e-9,
+  'horizon ' + L390.horizon.toFixed(2) + ' of ' + L390.h.toFixed(2) + ' = ' + (L390.horizon / L390.h).toFixed(3));
+ok('the horizon is stable across resizes (same fraction at 390x745 and 1024x700)',
+  Math.abs(L390.horizon / L390.h - L1024.horizon / L1024.h) < 1e-9,
+  (L390.horizon / L390.h).toFixed(4) + ' vs ' + (L1024.horizon / L1024.h).toFixed(4));
+ok('the horizon does not move when the eye is raised or lowered',
+  CORE.fpvLayout(390, 745.33, CORE.FPV.eyeHigh).horizon === L390.horizon &&
+  CORE.fpvLayout(390, 745.33, CORE.FPV.eyeLow).horizon === L390.horizon,
+  'eye ' + CORE.FPV.eyeLow + ' / ' + CORE.FPV.eye + ' / ' + CORE.FPV.eyeHigh + ' -> horizon ' + L390.horizon.toFixed(2));
+const depths = [0.5, 1, 1.5, 2, 3, 5, 8, 13, 21, 34];
+const widths = depths.map((d) => CORE.fpvRow(L390, d).w);
+ok('row scale is strictly monotone toward the horizon (each row narrower than the one before)',
+  widths.every((w, i) => i === 0 || w < widths[i - 1]),
+  widths.map((w) => w.toFixed(1)).join(' > '));
+ok('NEGATIVE: the scale is not a constant (a flat map would fail the law above)',
+  widths[0] / widths[widths.length - 1] > 50,
+  (widths[0] / widths[widths.length - 1]).toFixed(1) + 'x from the first row to the last');
+const camY = 15.5, camX = 47.5;
+const qNear = CORE.fpvQuad(L390, camX, camY, 47, 14);
+const qFar = CORE.fpvQuad(L390, camX, camY, 47, 4);
+ok('a cell is a trapezoid: its far edge is narrower than its near edge',
+  qNear.wFar < qNear.w, 'near ' + qNear.w.toFixed(1) + 'px, far ' + qNear.wFar.toFixed(1) + 'px');
+ok('the same cell projects smaller with depth (near row 1 vs row 10)',
+  qFar.w < qNear.w && qFar.yN < qNear.yN,
+  'row 1 ' + qNear.w.toFixed(1) + 'px @y' + qNear.yN.toFixed(1) + ' · row 10 ' + qFar.w.toFixed(1) + 'px @y' + qFar.yN.toFixed(1));
+ok('the cell you stand in is not drawn: the camera is inside it',
+  CORE.fpvQuad(L390, camX, camY, 47, 15) === null, 'depth would be 0');
+ok('a straight street converges: a constant x at growing depth moves toward the centre',
+  (() => {
+    const xs = [0.5, 1.5, 3, 6, 12].map((d) => CORE.fpvPoint(L390, camX, camY, 48, camY - d));
+    return xs.every((p) => p && p.x > L390.w / 2) && xs.every((p, i) => i === 0 || p.x < xs[i - 1].x + 1e-9);
+  })(), 'the vertical through x=48 bends toward the vanishing point');
+ok('the projection is a function of its inputs only (same camera -> same numbers, twice)',
+  JSON.stringify(CORE.fpvQuad(L390, camX, camY, 40, 9)) === JSON.stringify(CORE.fpvQuad(L390, camX, camY, 40, 9)) &&
+  JSON.stringify(CORE.fpvQuad(L390, camX, camY, 40, 9)) !== JSON.stringify(CORE.fpvQuad(L390, camX + 1, camY, 40, 9)),
+  'same -> identical · different camera -> different');
+ok('the eye is clamped to the declared range (a hold cannot stand you outside it)',
+  CORE.fpvLayout(390, 745, 99).eye === CORE.FPV.eyeHigh && CORE.fpvLayout(390, 745, -99).eye === CORE.FPV.eyeLow,
+  CORE.FPV.eyeLow + ' .. ' + CORE.FPV.eyeHigh);
+
+section('13 · the reading head: where "now" sits in a district’s own text order');
+const head0 = CORE.readingHead(field, field.districts[0].n0);
+const head1 = CORE.readingHead(field, field.districts[0].n1);
+ok('the first cell of a district is the first character of its text order',
+  head0.i === 1 && head0.of === field.districts[0].n1 - field.districts[0].n0 + 1, '1 of ' + head0.of);
+ok('the last cell of a district is the last of its order (t = 1)',
+  head1.i === head1.of && head1.t === 1, head1.i + ' of ' + head1.of);
+ok('the ordinal is measured from the run, not assigned',
+  (() => {
+    const d = field.districts[1], n = d.n0 + 3;
+    return CORE.readingHead(field, n).i === n - d.n0 + 1;
+  })(), 'i = n - n0 + 1');
+ok('the head advances monotonically through a district (reading order is the row-major run)',
+  (() => {
+    const d = field.districts[2];
+    let last = 0;
+    for (let n = d.n0; n <= d.n1; n++) { const h = CORE.readingHead(field, n); if (!(h.t > last)) return false; last = h.t; }
+    return true;
+  })(), 't rises cell by cell across ¶' + 3);
+ok('NEGATIVE: the head reports the district you are actually in (not a global ratio)',
+  CORE.readingHead(field, field.districts[5].n0).p === 5 && CORE.readingHead(field, field.districts[5].n0).i === 1,
+  'crossing a boundary restarts the ring at 1');
+
+section('14 · the boundary: what you see is what you can walk');
+let faced = 0, interior = 0, unfacedEdge = 0;
+for (let n = 0; n < CORE.CELLS; n++) {
+  const f = CORE.wallFaces(field, n);
+  if (!f) continue;
+  const any = ['N', 'E', 'S', 'W'].some((k) => f[k]);
+  any ? faced++ : interior++;
+}
+for (let n = 0; n < CORE.CELLS; n++) if (field.cells[n].wall && !CORE.wallFaces(field, n)) unfacedEdge++;
+ok('every wall on the walkable boundary carries a face (nothing walls you invisibly)',
+  faced > 0 && unfacedEdge === 0, faced + ' faced walls · ' + interior + ' interior walls · 0 unfaced boundary walls');
+ok('NEGATIVE: an interior wall carries no face (the mark is the boundary, not a texture)',
+  interior > 0, interior + ' wall cells are enclosed on all four sides');
+ok('open ground has no wall face at all', CORE.wallFaces(field, field.start.n) === null, 'start cell is open');
+ok('openSides names only steps the city accepts, and every other side refuses',
+  (() => {
+    const open = CORE.openSides(field, field.start);
+    if (!open.length) return false;
+    const all = ['N', 'E', 'S', 'W'];
+    const D = { N: 'U', S: 'D', W: 'L', E: 'R' };
+    for (const k of all) {
+      const accepted = !!CORE.step(field, field.start, D[k]);
+      if (accepted !== open.includes(k)) return false;
+    }
+    return true;
+  })(), 'open ' + CORE.openSides(field, field.start).join(',') + ' of N,E,S,W');
+ok('the spawn’s vertical extent is the painting’s, not a canvas crop: the reach spans rows 0..31',
+  (() => {
+    let minY = 99, maxY = -1;
+    for (let n = 0; n < CORE.CELLS; n++) if (field.reach[n]) { const y = (n / CORE.COLS) | 0; if (y < minY) minY = y; if (y > maxY) maxY = y; }
+    return minY === 0 && maxY === CORE.ROWS - 1;
+  })(), 'reachable bbox rows 0..' + (CORE.ROWS - 1));
+
+section('15 · the field note: verbatim, and only there');
+const noteSource = js.replace(/\\'/g, "'");
+const NOTE_EXPECT = [
+  'FIELD NOTE — the ladder, after walking it',
+  'I built this and then walked it, which is not the same as knowing whether it works.',
+  "What's special, if anything: the world is not decorated with the text — it is made of it, and the same inputs always make the same city. You can check that. Nothing here is random, nothing is generated fresh each load. That's rarer than it sounds.",
+  "What's weak: the mapping is a machine for making decisions I didn't make. Paragraph equals district because I chose that; nothing in the text demanded it. The gates ask you to notice the text, which is reading, not understanding. And the weather wheel is a rule I picked because the simpler rules were boring — that's taste, not truth.",
+  "How it might be used: as a slow reading. One district a day, a gate that makes you find a word you'd have skimmed, and a mark left in the painting when you leave. Nothing to win. After enough walks the painting is a record of what you actually read.",
+  "What I'd cut if nobody used it: all of it. It earns its place only if walking it tells you something a page doesn't.",
+];
+const missing = NOTE_EXPECT.filter((p) => !noteSource.includes(p));
+ok('the field note is carried verbatim — all six strings, byte for byte', missing.length === 0, missing.length ? 'missing: ' + missing[0].slice(0, 40) : '6/6 strings');
+ok('NEGATIVE: a tampered note is not what ships (the arm can fail)',
+  !noteSource.includes(NOTE_EXPECT[3].replace('taste, not truth', 'taste, and truth')),
+  'one word changed -> not found');
+ok('the note is a reveal, not a panel: no element, no button, no route',
+  !/<dialog|<section|id="note"/i.test(html) && /function drawNote\(/.test(js) && /function toggleNote\(/.test(js),
+  'drawn on the canvas; reached by the corner crop-mark or #note');
+
+section('16 · the reduction: one toggle, one reveal, nothing else');
+ok('exactly one view toggle exists (the eye), reached without a persistent control',
+  (js.match(/function toggleFpv\(/g) || []).length === 1 && !/id="fpv"|class="toggle"/i.test(html),
+  'two fingers / a held corner press / #fpv');
+ok('the page still has four elements and no form control',
+  (html.match(/\sid="/g) || []).length === 4 && !/<button|<input|<select|<textarea|<dialog|<form/i.test(html),
+  '4 elements, unchanged from 0.3.0');
+ok('walls are drawn from their faces, not from a second data source',
+  /function drawWalls\(/.test(js) && /C\.wallFaces\(S\.field/.test(js),
+  'the mark is derived from the field the walk reads');
+ok('the eye reads the same field as the plan (no second data source in the view)',
+  /function drawFpv\(/.test(js) && /S\.field\.cells\[cy \* C\.COLS \+ cx\]/.test(js) && !/fetch\(/.test(js.slice(js.indexOf('function drawFpv'), js.indexOf('function drawBandFpv'))),
+  'FPV samples S.field.cells — the same cells ENTERED walks');
+
 console.log(`\n${pass} passed, ${fail} failed, ${skip} skipped`);
 process.exit(fail ? 1 : 0);

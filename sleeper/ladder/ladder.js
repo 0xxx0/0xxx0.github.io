@@ -25,6 +25,22 @@
 // source file. 0.3.0 removed the per-cell weather marks and the per-cell
 // remembered underline: one district band carries both facts now.
 //
+// 0.4.0 — the answers to the first walk, and nothing else:
+//   the walk up   walls wear their FACE now (the painting's ridge was always
+//                 there; it was drawn as floor), a refused step marks the edge
+//                 that refused and names the sides still open, and the wall you
+//                 hit is a block whose height is its own measured edge
+//   the eye       two fingers (or a held press on the distance corner) stand you
+//                 inside the field: a ground-plane projection of the same cells,
+//                 the same walls, the same gates, with the city's far edge as
+//                 the horizon. Hold raises the eye line; the horizon never moves
+//   the reading   the ring seam where "now" sits: a hairline ring on your cell
+//                 whose arc is your place in the district's own text order,
+//                 revealed on the same hold that decodes a room
+//   the note      one crop-mark at the frame's top-left (or #note) sets the
+//                 field note over the field, verbatim, and puts it away on tap
+// No route, no panel, no persistent control: one toggle and one reveal.
+//
 // Determinism: no Math.random, no Date, no performance.now. Every drawn number
 // is a real field of a real record. Motion rides requestAnimationFrame
 // timestamps and one-shot transitions only (P3: depth behind an explicit act,
@@ -51,6 +67,13 @@
     paintingTag: null, drag: null, holdTimer: 0, revealed: false,
     gates: [], lit: null, strikes: null, gate: null, ledger: null, lastP: -1,
     voice: null, pulse: null, seen: null, rise: null, refuse: null, weather: null, lineSaid: -1,
+    // 0.4.0 — the eye, the block, and one note
+    fpv: false,        // the first-person view of the same field (a toggle, no chrome)
+    eyeK: 0,           // how far the eye has been raised by a held press
+    eyeDir: 0,         // +1 raising while held, 0 settling
+    block: null,       // the edge the city just refused: {n, dir}
+    note: false,       // the field note (a reveal, no chrome)
+    pointers: 0,       // two fingers = the view; measured, never a button
   };
   let W = 0, H = 0, dpr = 1;
 
@@ -104,8 +127,11 @@
       S.ledger = loadLedger();
       S.ledger.seq = S.ledger.seq || 0;
       paintProvenance();
+      S.edgeMax = 0;
+      for (const c of S.field.cells) if (c.edge > S.edgeMax) S.edgeMax = c.edge;
       S.ready = true;
       fit(); updateChrome(); draw();
+      readHash();
       return state();
     })
     .catch((err) => {
@@ -136,6 +162,9 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   window.addEventListener('resize', () => { fit(); draw(); });
+  // #note and #fpv are the two deep links into the same two reveals the corner
+  // holds open — nothing is added to the page for them.
+  window.addEventListener('hashchange', () => { if (S.ready) readHash(); });
   const fieldH = () => Math.max(80, H - VOICE_H);
 
   // One geometry per distance: where the painting's own region sits, how big a
@@ -179,8 +208,24 @@
       imgA: 0.12, glyphA: 1,                       // you are standing IN the painting
     };
   }
+  // FPV is the same window, stood in. The camera is on the walker's own cell
+  // (its centre is under your feet), the eye is `eye` cell-heights up, and the
+  // view is the whole field area — the horizon has to be the city's far edge,
+  // not the top of a crop. `cell` is only a nominal size for the marks that are
+  // drawn in screen space; the field itself is drawn by the projection.
+  function geoFpv() {
+    const FH = fieldH();
+    const eye = C.FPV.eye + (C.FPV.eyeHigh - C.FPV.eye) * Math.max(0, Math.min(1, S.eyeK));
+    const lay = C.fpvLayout(W, FH, eye);
+    return {
+      kind: 'fpv', cell: lay.f / 7, win: null,
+      src: { x: 0, y: 0, w: S.iw, h: S.ih },
+      dst: { x: 0, y: 0, w: W, h: FH }, imgA: 0, glyphA: 1,
+      lay, camX: S.walker.cx + 0.5, camY: S.walker.cy + 0.5,
+    };
+  }
   function geoExit() { const g = geoFar(); g.imgA = 1; g.glyphA = 0; return g; }
-  const geoFor = (d) => (d === 'FAR' ? geoFar() : d === 'NEAR' ? geoNear() : d === 'ENTERED' ? geoEntered() : geoExit());
+  const geoFor = (d) => (d === 'FAR' ? geoFar() : d === 'NEAR' ? geoNear() : d === 'ENTERED' ? (S.fpv ? geoFpv() : geoEntered()) : geoExit());
   const srcFor = (d) => (d === 'EXITED' && S.exitCanvas ? S.exitCanvas : S.img);
 
   // The rise: the same two geometries the ladder already has, held between. As
@@ -468,35 +513,285 @@
       drawShape(g, here, alpha * fade * 0.34);
       drawBand(g, here, alpha * fade * 0.66);
     }
+    drawWalls(g, alpha, x0, y0, x1, y1);
     drawGates(g, alpha);
     crosshair(g, S.walker, alpha * 0.95, 'rgba(190,196,204,.9)');
+    drawHead(g, alpha, 'flat');
     if (S.decodeCell != null) crosshair(g, S.field.cells[S.decodeCell], alpha, 'rgba(220,224,230,.95)', true);
+    ctx.restore();
+  }
+
+  // ── walls are walls ───────────────────────────────────────────────────────
+  // 0.3.0 drew a wall as a slightly warmer floor: 675 cells of the painting's own
+  // strong edges, indistinguishable from a room, so walking north stopped for no
+  // visible reason. A wall now wears its FACE — the one side that meets ground you
+  // could walk on — as a hairline. An interior wall has no face and stays quiet;
+  // the city's rim gets its line from the frame. What you see is what you can walk.
+  const FACE_INK = { N: [0, 0, 1, 0], S: [0, 1, 1, 1], W: [0, 0, 0, 1], E: [1, 0, 1, 1] };
+  function drawWalls(g, alpha, cx0, cy0, cx1, cy1) {
+    const cell = g.cell;
+    ctx.save();
+    ctx.lineWidth = 1;
+    for (let cy = cy0; cy < cy1; cy++) {
+      for (let cx = cx0; cx < cx1; cx++) {
+        const c = S.field.cells[cy * C.COLS + cx];
+        if (!c.wall) continue;
+        const f = C.wallFaces(S.field, c.n);
+        if (!f) continue;
+        const x = g.dst.x + (cx - g.win.ox) * cell, y = g.dst.y + (cy - g.win.oy) * cell;
+        ctx.globalAlpha = alpha * 0.5;
+        ctx.strokeStyle = 'rgb(150,158,168)';
+        for (const k of ['N', 'E', 'S', 'W']) {
+          if (!f[k]) continue;
+          const s = FACE_INK[k];
+          ctx.beginPath();
+          ctx.moveTo(Math.round(x + s[0] * cell) + 0.5, Math.round(y + s[1] * cell) + 0.5);
+          ctx.lineTo(Math.round(x + s[2] * cell) + 0.5, Math.round(y + s[3] * cell) + 0.5);
+          ctx.stroke();
+        }
+      }
+    }
+    // the edge the last step was refused on, marked once, where it happened: the
+    // boundary is never just "no" — it is a line you can see and walk along
+    const b = S.block;
+    if (b) {
+      const c = S.field.cells[b.n];
+      if (c) {
+        const x = g.dst.x + (c.cx - g.win.ox) * cell, y = g.dst.y + (c.cy - g.win.oy) * cell;
+        const s = FACE_INK[b.dir] || FACE_INK.N;
+        ctx.globalAlpha = alpha * 0.9;
+        ctx.strokeStyle = 'rgb(214,220,228)';
+        ctx.beginPath();
+        ctx.moveTo(Math.round(x + s[0] * cell) + 0.5, Math.round(y + s[1] * cell) + 0.5);
+        ctx.lineTo(Math.round(x + s[2] * cell) + 0.5, Math.round(y + s[3] * cell) + 0.5);
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  // ── the reading head (the ring seam where "now" sits) ─────────────────────
+  // THE RING (/rsvp/) reads a source as a game: one ring, its sweep is progress,
+  // its seam is where the reading stands. The ladder is a walk, not a clock, so
+  // it carries the smallest faithful part of that instrument: a hairline ring on
+  // the cell you stand in whose ARC is your position in the district's own text
+  // order (cell 47 of 178, row-major — the order the matter was projected in),
+  // and whose SEAM is now. It reveals on the same hold that decodes a room; at
+  // rest there is no ring, because at rest there is nothing to say about time.
+  function headArc(head) {
+    return { t: Math.max(0, Math.min(1, head ? head.t : 0)), seam: -Math.PI / 2 + Math.max(0, Math.min(1, head ? head.t : 0)) * Math.PI * 2 };
+  }
+  function drawHead(g, alpha, mode) {
+    const open = S.decodeCell != null || !!S.hold;
+    if (!open || !S.walker) return;
+    const h = C.readingHead(S.field, S.walker.n);
+    if (!h) return;
+    const a = headArc(h);
+    ctx.save();
+    ctx.lineWidth = 1;
+    let cx, cy, r, ry;
+    if (mode === 'fpv') { cx = W / 2; cy = g.dst.h - 15; r = 11; ry = 4.6; }
+    else {
+      const cell = g.cell;
+      cx = g.dst.x + (S.walker.cx - g.win.ox + 0.5) * cell;
+      cy = g.dst.y + (S.walker.cy - g.win.oy + 0.5) * cell;
+      r = cell * 0.62; ry = r;              // a ring AROUND the cell, not inside it
+    }
+    // the seam first: a hairline radius at "now", then the arc that has been read
+    ctx.globalAlpha = alpha * 0.9;
+    ctx.strokeStyle = 'rgb(214,220,228)';
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a.seam) * (r - 1.5), cy + Math.sin(a.seam) * (ry - 1.5));
+    ctx.lineTo(cx + Math.cos(a.seam) * (r + 2.5), cy + Math.sin(a.seam) * (ry + 2.5));
+    ctx.stroke();
+    ctx.globalAlpha = alpha * 0.62;
+    ctx.strokeStyle = 'rgb(150,158,168)';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, r, ry, 0, -Math.PI / 2, -Math.PI / 2 + a.t * Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ── FPV: the same field, from inside it ───────────────────────────────────
+  // The view is the closed-form ground-plane camera in ladder-core (fpvLayout /
+  // fpvQuad): the walker's cell is under your feet, the eye is a cell-height up,
+  // and the rows of glyphs recede to the city's own far edge, drawn as the
+  // horizon. Nothing new is read: every quad is a cell of the same field, every
+  // wall its own edge energy (a wall is now a block whose height is its measured
+  // edge), every gate its own ring on the ground. Hold raises the eye line; the
+  // horizon does not move, so the horizon is the stable law of the view.
+  function quadPath(q) {
+    ctx.beginPath();
+    ctx.moveTo(q.xFL + 0.5, q.yF + 0.5);
+    ctx.lineTo(q.xFR + 0.5, q.yF + 0.5);
+    ctx.lineTo(q.xNR + 0.5, q.yN + 0.5);
+    ctx.lineTo(q.xNL + 0.5, q.yN + 0.5);
+    ctx.closePath();
+  }
+  function edgeNorm(c) {
+    const lo = S.field.cut, hi = Math.max(lo + 1e-6, S.edgeMax || lo + 1e-6);
+    return Math.max(0, Math.min(1, (c.edge - lo) / (hi - lo)));
+  }
+  function drawFpv(g, alpha, focus) {
+    const lay = g.lay, camX = g.camX, camY = g.camY;
+    const fx = focus ? focus.p : -1, fk = focus ? focus.k : 0;
+    const FH = g.dst.h;
+    // the horizon: the city's far edge. One hairline; above it is the pad.
+    ctx.save();
+    ctx.strokeStyle = 'rgba(79,87,96,.34)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, Math.round(lay.horizon) + 0.5); ctx.lineTo(W, Math.round(lay.horizon) + 0.5); ctx.stroke();
+    ctx.restore();
+
+    const nearRow = Math.floor(camY) - 1;
+    for (let cy = 0; cy <= nearRow; cy++) {                 // far -> near: painter's order
+      const d = camY - (cy + 0.5);
+      if (d > C.FPV.maxDepth) continue;
+      const probe = C.fpvQuad(lay, camX, camY, 0, cy);
+      if (!probe || probe.yN < lay.horizon - 2 || probe.yF > FH + 2) continue;
+      const half = Math.ceil(((W / 2) + 48) * d / lay.f);
+      const cx0 = Math.max(0, Math.floor(camX - half)), cx1 = Math.min(C.COLS, Math.ceil(camX + half));
+      for (let cx = cx0; cx < cx1; cx++) {
+        const c = S.field.cells[cy * C.COLS + cx];
+        const q = C.fpvQuad(lay, camX, camY, cx, cy);
+        if (!q) continue;
+        if (q.xNL > W + 60 || q.xNR < -60) continue;
+        let a = alpha * (0.62 + 0.38 * Math.max(0, 1 - q.far / 22));
+        if (fx >= 0 && c.unit.p !== fx) a *= 1 - 0.82 * fk;
+        if (a <= 0.012) continue;
+        const nn = norm(c);
+        ctx.globalAlpha = a;
+        if (c.wall) {
+          // a block: its near face and its top, both measured from the cell's own
+          // edge energy — the ridge that used to be invisible is a wall you walk up to
+          const hh = 0.22 + 1.15 * edgeNorm(c);
+          const dyN = lay.f * hh / q.near, dyF = lay.f * hh / q.far;
+          ctx.fillStyle = tone(nn, 10);
+          ctx.beginPath();
+          ctx.moveTo(q.xNL + 0.5, q.yN + 0.5); ctx.lineTo(q.xNR + 0.5, q.yN + 0.5);
+          ctx.lineTo(q.xNR + 0.5, q.yN - dyN + 0.5); ctx.lineTo(q.xNL + 0.5, q.yN - dyN + 0.5);
+          ctx.closePath(); ctx.fill();
+          ctx.fillStyle = tone(nn, 26);
+          ctx.beginPath();
+          ctx.moveTo(q.xNL + 0.5, q.yN - dyN + 0.5); ctx.lineTo(q.xNR + 0.5, q.yN - dyN + 0.5);
+          ctx.lineTo(q.xFR + 0.5, q.yF - dyF + 0.5); ctx.lineTo(q.xFL + 0.5, q.yF - dyF + 0.5);
+          ctx.closePath(); ctx.fill();
+          ctx.globalAlpha = a * 0.55; ctx.strokeStyle = 'rgb(150,158,168)'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(q.xNL + 0.5, q.yN - dyN + 0.5); ctx.lineTo(q.xNR + 0.5, q.yN - dyN + 0.5); ctx.stroke();
+          // the block is still made of its character: the material is painted on
+          // the face you walk up to, so a wall is a wall of text, not a blank slab
+          const fs = Math.min(dyN * 0.72, q.w * 0.8);
+          if (fs >= 4) {
+            ctx.globalAlpha = a * 0.8;
+            ctx.fillStyle = 'rgb(150,158,168)';
+            ctx.font = Math.max(5, Math.round(fs)) + 'px ' + MONO;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            const chw = c.material && c.material !== ' ' ? c.material : '#';
+            ctx.fillText(chw, Math.round((q.xNL + q.xNR) / 2) + 0.5, Math.round(q.yN - dyN / 2) + 0.5);
+          }
+        } else {
+          ctx.fillStyle = tone(nn, 0);
+          quadPath(q); ctx.fill();
+          const size = Math.min((q.yN - q.yF) * 0.96, q.wFar * 0.96);
+          if (size >= 3.2) {
+            // the material is the light in this city: the same ink the plan uses,
+            // and it LIES on the ground — squashed by the same foreshortening that
+            // squeezes the row, so a character is pavement, not a sign
+            const k = Math.max(0.32, Math.min(1, (q.yN - q.yF) / Math.max(1, q.wFar)));
+            ctx.globalAlpha = a * 0.92;
+            ctx.fillStyle = 'rgb(168,176,186)';
+            ctx.font = Math.max(5, Math.round(size)) + 'px ' + MONO;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            const ch = c.material && c.material !== ' ' ? c.material : '·';
+            ctx.save();
+            ctx.translate(Math.round(q.cx) + 0.5, Math.round(q.cy) + 0.5);
+            ctx.scale(1, k);
+            ctx.fillText(ch, 0, 0);
+            ctx.restore();
+          }
+        }
+      }
+    }
+    // the one band, on the ground: the district you stand in, its boundary drawn
+    // in perspective with its weather stitched along it in the same rhythm
+    if (S.walker && fk < 0.98) drawBandFpv(g, S.walker.unit.p, alpha * (1 - fk));
+    drawGates(g, alpha, 'fpv');
+    drawHead(g, alpha, 'fpv');
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.55; ctx.strokeStyle = 'rgb(190,196,204)'; ctx.lineWidth = 1;
+    ctx.beginPath();                                  // "you are here": the ground under the camera
+    ctx.moveTo(W / 2 - 5, FH - 3.5); ctx.lineTo(W / 2, FH - 8.5); ctx.lineTo(W / 2 + 5, FH - 3.5);
+    ctx.stroke();
+    ctx.restore();
+  }
+  function drawBandFpv(g, p, alpha) {
+    const lay = g.lay, camX = g.camX, camY = g.camY;
+    const segs = (S.field.edges && S.field.edges[p]) || [];
+    const w = weatherFor(p);
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(150,158,168,.42)';
+    for (const s of segs) {
+      const a = C.fpvPoint(lay, camX, camY, s[0], s[1]), b = C.fpvPoint(lay, camX, camY, s[2], s[3]);
+      if (!a || !b) continue;
+      ctx.globalAlpha = alpha * 0.5;
+      ctx.beginPath(); ctx.moveTo(a.x + 0.5, a.y + 0.5); ctx.lineTo(b.x + 0.5, b.y + 0.5); ctx.stroke();
+      if (!w) continue;
+      // one mark per room along the edge: the grid is the spacing, so the rhythm
+      // survives the perspective instead of collapsing at the horizon
+      const len = Math.hypot(s[2] - s[0], s[3] - s[1]);
+      const n = Math.max(1, Math.round(len * 1.4));
+      for (let i = 1; i < n; i++) {
+        const t = i / n;
+        const q = C.fpvPoint(lay, camX, camY, s[0] + (s[2] - s[0]) * t, s[1] + (s[3] - s[1]) * t);
+        if (!q) continue;
+        const ink = Math.min(1, 0.5 + (lay.f / Math.max(1, q.depth)));
+        const sz = Math.max(1.2, Math.min(4, (lay.f / Math.max(1, q.depth)) * 0.16));
+        ctx.globalAlpha = alpha * 0.55 * ink;
+        ctx.strokeStyle = 'rgb(190,196,204)';
+        ctx.beginPath();
+        if (w === 'rain') { ctx.moveTo(q.x, q.y); ctx.lineTo(q.x, q.y + sz * 1.6); }
+        else if (w === 'window') { ctx.moveTo(q.x - sz, q.y); ctx.lineTo(q.x + sz, q.y); }
+        else if (w === 'lamp') { ctx.moveTo(q.x - sz, q.y - sz); ctx.lineTo(q.x + sz, q.y + sz); ctx.moveTo(q.x - sz, q.y + sz); ctx.lineTo(q.x + sz, q.y - sz); }
+        else { ctx.arc(q.x, q.y, Math.max(1, sz * 0.75), 0, Math.PI * 2); }
+        ctx.stroke();
+      }
+    }
     ctx.restore();
   }
 
   // A gate is a mark in the city, not a widget: a hairline ring in the cell, a
   // second ring when lit. It is only visible in ENTERED (state through world).
-  function drawGates(g, alpha) {
+  function drawGates(g, alpha, mode) {
     const cell = g.cell;
+    const fpv = mode === 'fpv';
     ctx.save();
     ctx.lineWidth = 1;
     for (const gt of S.gates) {
-      const x = g.dst.x + (gt.cx - g.win.ox) * cell, y = g.dst.y + (gt.cy - g.win.oy) * cell;
-      if (x < g.dst.x - cell || y < g.dst.y - cell || x > g.dst.x + g.dst.w || y > g.dst.y + g.dst.h) continue;
+      let cxm, cym, r, ry;
+      if (fpv) {
+        // the ring lies on the ground, so it projects to an ellipse
+        const q = C.fpvQuad(g.lay, g.camX, g.camY, gt.cx, gt.cy);
+        if (!q || q.yN < g.lay.horizon || q.yN > g.dst.h + 4) continue;
+        r = Math.max(1.5, q.w * 0.30); ry = Math.max(1, r * 0.42);
+        cxm = q.cx; cym = q.cy;
+      } else {
+        const x = g.dst.x + (gt.cx - g.win.ox) * cell, y = g.dst.y + (gt.cy - g.win.oy) * cell;
+        if (x < g.dst.x - cell || y < g.dst.y - cell || x > g.dst.x + g.dst.w || y > g.dst.y + g.dst.h) continue;
+        r = cell * 0.30; ry = r; cxm = x + cell / 2; cym = y + cell / 2;
+      }
       const lit = S.lit[gt.i];
       const sight = C.gateKind(gt.i) === 'sight';
-      const cxm = x + cell / 2, cym = y + cell / 2, r = cell * 0.30;
       ctx.globalAlpha = alpha * (lit ? 0.95 : sight ? 0.7 : 0.55);
       ctx.strokeStyle = lit ? 'rgb(214,220,228)' : (sight ? 'rgb(190,196,204)' : 'rgb(120,128,138)');
       // a threshold that has not been seen through is a BROKEN ring: the shape
       // of the mark is the instruction, and it is the only instruction there is.
       if (sight && !lit) ctx.setLineDash([2, 3]);
-      ctx.beginPath(); ctx.arc(cxm, cym, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cxm, cym, r, ry, 0, 0, Math.PI * 2); ctx.stroke();
       ctx.setLineDash([]);
       if (S.refuse && S.refuse.i === gt.i) {            // the step was held: one flare, no words
         const ph = Math.min(1, (S.refuse.phase || 0) / 3);
         ctx.globalAlpha = alpha * 0.5 * (1 - ph);
-        ctx.beginPath(); ctx.arc(cxm, cym, r * (1 + ph * 2.2), 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(cxm, cym, r * (1 + ph * 2.2), ry * (1 + ph * 2.2), 0, 0, Math.PI * 2); ctx.stroke();
       }
       if (lit) {
         ctx.fillStyle = 'rgba(214,220,228,.85)';
@@ -504,7 +799,7 @@
         if (S.pulse && S.pulse.i === gt.i) {                    // one-shot: the light arrives
           const ph = Math.min(1, (S.pulse.phase || 0) / 3);
           ctx.globalAlpha = alpha * 0.55 * (1 - ph);
-          ctx.beginPath(); ctx.arc(cxm, cym, r * (1 + ph * 1.8), 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(cxm, cym, r * (1 + ph * 1.8), ry * (1 + ph * 1.8), 0, 0, Math.PI * 2); ctx.stroke();
         }
       } else {
         ctx.globalAlpha = alpha * 0.4;
@@ -574,6 +869,23 @@
       const lit = i === cur;
       inkRect(x, y - (lit ? 7 : 3), 1, lit ? 8 : 4, lit ? 0.95 : 0.28, lit ? 'rgb(214,220,228)' : 'rgb(150,158,168)');
     }
+    // the eye: a fifth tick in the same corner when the first-person view is on.
+    // No button, no label — the corner that already carries the distance carries
+    // one more fact, and the world itself (a horizon) is the rest of the state.
+    if (S.fpv) inkRect(r.x + r.w - 6 - 4 * 5 - 3, r.y + r.h - 6 - 8, 1, 9, 0.9, 'rgb(214,220,228)');
+    ctx.restore();
+  }
+  // the note's corner: one crop-mark, hairline, top-left of the frame. Hold it to
+  // read the field note, hold again (or tap) to put it away.
+  function noteTickRect(d) { return { x: d.x + 3, y: d.y + 3, w: 24, h: 24 }; }
+  function drawNoteTick(d) {
+    const r = noteTickRect(d);
+    ctx.save();
+    ctx.strokeStyle = 'rgb(150,158,168)'; ctx.lineWidth = 1;
+    ctx.globalAlpha = S.note ? 0.85 : 0.24;
+    ctx.beginPath();
+    ctx.moveTo(r.x + 0.5, r.y + 8.5); ctx.lineTo(r.x + 0.5, r.y + 0.5); ctx.lineTo(r.x + 8.5, r.y + 0.5);
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -676,6 +988,12 @@
     drawBand(g, p, alpha * 0.95 * Math.max(0, (k - 0.45) / 0.55));
   }
 
+  // one place decides how a distance is drawn, so FPV cannot fork the ladder
+  function drawField(g, alpha, hold, wave) {
+    if (g.kind === 'fpv') return drawFpv(g, alpha);
+    if (g.kind === 'near') return drawNear(g, alpha, wave, hold);
+    return drawEntered(g, alpha);
+  }
   function draw() {
     ctx.fillStyle = 'rgb(8,12,18)';
     ctx.fillRect(0, 0, W, H);
@@ -687,7 +1005,9 @@
       drawMatte();
       drawLamps(d);
       drawNotch(d);
+      drawNoteTick(d);
       drawVoice();
+      if (S.note) drawNote();
       return;
     }
     let t = 1, from = null, to = geoFor(S.distance);
@@ -698,7 +1018,7 @@
     }
     if (!S.trans) {
       drawPainting(srcFor(S.distance), to.src, to.dst, to.imgA);
-      if (to.glyphA > 0) (S.distance === 'NEAR' ? drawNear(to, to.glyphA, null, S.hold) : drawEntered(to, to.glyphA));
+      if (to.glyphA > 0) drawField(to, to.glyphA, S.hold, null);
       if (S.distance === 'FAR' || S.distance === 'EXITED') frame(to.dst);
     } else {
       // one morph: the painting's own region flies into the next frame while
@@ -708,17 +1028,19 @@
         { x: lerp(from.dst.x, to.dst.x, t), y: lerp(from.dst.y, to.dst.y, t), w: lerp(from.dst.w, to.dst.w, t), h: lerp(from.dst.h, to.dst.h, t) },
         lerp(from.imgA, to.imgA, t));
       drawPainting(srcFor(b), to.src, to.dst, to.imgA * t);
-      if (from.glyphA > 0) (a === 'NEAR' ? drawNear(from, from.glyphA * (1 - t), null, null) : drawEntered(from, from.glyphA * (1 - t)));
-      if (to.glyphA > 0) (b === 'NEAR' ? drawNear(to, to.glyphA * t, b === 'NEAR' && a === 'FAR' ? t : null, S.hold) : drawEntered(to, to.glyphA * t));
+      if (from.glyphA > 0) drawField(from, from.glyphA * (1 - t), null, null);
+      if (to.glyphA > 0) drawField(to, to.glyphA * t, S.hold, b === 'NEAR' && a === 'FAR' ? t : null);
       if (t >= 1) { S.trans = null; frame(to.dst); }
     }
     const d = geoFor(S.distance);
     drawMatte();
     drawLamps(d.dst);
     drawNotch(d.dst);
+    drawNoteTick(d.dst);
     drawDoorStrip();
     drawTitle(d.dst);
     drawVoice();
+    if (S.note) drawNote();
   }
 
   // The matte: the painting fades into the pad at the two edges that carry
@@ -752,6 +1074,68 @@
     ctx.restore();
   }
 
+  // ── the field note (a reveal, not a panel) ────────────────────────────────
+  // The operator's own reading of the build, verbatim, set in the same quiet
+  // type. It is not help and not a caption: it is the self-critique, and the
+  // instrument carries it without editing it. Reachable by holding the frame's
+  // top-left crop-mark or by the URL hash #note; no element is added to the page.
+  const NOTE = [
+    'FIELD NOTE — the ladder, after walking it',
+    '',
+    'I built this and then walked it, which is not the same as knowing whether it works.',
+    '',
+    "What's special, if anything: the world is not decorated with the text — it is made of it, and the same inputs always make the same city. You can check that. Nothing here is random, nothing is generated fresh each load. That's rarer than it sounds.",
+    '',
+    "What's weak: the mapping is a machine for making decisions I didn't make. Paragraph equals district because I chose that; nothing in the text demanded it. The gates ask you to notice the text, which is reading, not understanding. And the weather wheel is a rule I picked because the simpler rules were boring — that's taste, not truth.",
+    '',
+    'How it might be used: as a slow reading. One district a day, a gate that makes you find a word you\'d have skimmed, and a mark left in the painting when you leave. Nothing to win. After enough walks the painting is a record of what you actually read.',
+    '',
+    "What I'd cut if nobody used it: all of it. It earns its place only if walking it tells you something a page doesn't.",
+  ];
+  function wrapAll(text, maxW, size) {
+    ctx.font = size + 'px ' + MONO;
+    const words = String(text).split(/\s+/).filter(Boolean);
+    const out = [];
+    let cur = '';
+    for (const w of words) {
+      const t = cur ? cur + ' ' + w : w;
+      if (ctx.measureText(t).width > maxW && cur) { out.push(cur); cur = w; } else cur = t;
+    }
+    if (cur) out.push(cur);
+    return out;
+  }
+  function drawNote() {
+    const pad = 9, box = { x: pad, y: pad, w: W - pad * 2, h: fieldH() - pad * 2 };
+    ctx.save();
+    ctx.fillStyle = 'rgba(8,12,18,.965)';
+    ctx.fillRect(0, 0, W, fieldH());
+    ctx.strokeStyle = 'rgba(79,87,96,.34)'; ctx.lineWidth = 1;
+    ctx.strokeRect(Math.round(box.x) + 0.5, Math.round(box.y) + 0.5, Math.round(box.w) - 1, Math.round(box.h) - 1);
+    const maxW = box.w - 24;
+    let size = 9.5, lead = 13.6, laid = null;
+    for (const s of [9.5, 9, 8.5, 8, 7.5, 7]) {
+      const lh = Math.round(s * 1.44 * 10) / 10;
+      const rows = [];
+      for (const para of NOTE) {
+        if (!para) { rows.push(''); continue; }
+        for (const l of wrapAll(para, maxW, s)) rows.push(l);
+      }
+      if (rows.length * lh <= box.h - 26) { size = s; lead = lh; laid = rows; break; }
+      laid = rows; size = s; lead = lh;
+    }
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.font = size + 'px ' + MONO;
+    let y = box.y + 13;
+    for (let i = 0; i < laid.length; i++) {
+      if (!laid[i]) { y += lead * 0.42; continue; }
+      ctx.globalAlpha = i === 0 ? 0.92 : 0.74;
+      ctx.fillStyle = i === 0 ? 'rgb(214,220,228)' : 'rgb(170,178,188)';
+      ctx.fillText(laid[i], box.x + 12, Math.round(y));
+      y += lead;
+    }
+    ctx.restore();
+  }
+
   // doors are drawn after the world so they read as the city's own thresholds
   function drawDoorStrip() { if (S.distance === 'ENTERED') drawDoors(); }
 
@@ -776,6 +1160,18 @@
       if (!moving) S.trans = null;
     }
     if (S.hold) { S.hold.phase = Math.floor((ts - (S.hold.t0 || ts)) / 130); live = true; }
+    // the eye line: a held press raises it, letting go settles it. Frame deltas
+    // only (no wall clock), and the ramp stops the moment it is done — so nothing
+    // animates unasked and the view is the same at rest on every load.
+    if (S.eyeDir > 0 || S.eyeK > 0) {
+      const dt = Math.min(64, Math.max(0, ts - (S.lastTs || ts)));
+      S.lastTs = ts;
+      const target = S.eyeDir > 0 ? 1 : 0;
+      const rate = dt / (S.eyeDir > 0 ? 900 : 520);
+      const gap = target - S.eyeK;
+      S.eyeK = Math.abs(gap) <= rate ? target : S.eyeK + (gap > 0 ? rate : -rate);
+      live = true;
+    } else S.lastTs = ts;
     if (S.pulse) {
       if (!S.pulse.t0) S.pulse.t0 = ts;
       S.pulse.phase = Math.floor((ts - S.pulse.t0) / 90);
@@ -798,6 +1194,7 @@
     if (!S.field) { announce('loading the painting and the source'); return; }
     const g = S.gates.filter((x, i) => S.lit[i]).length;
     announce(S.distance.toLowerCase() + ' · ' + g + ' of ' + S.gates.length + ' gates lit · ' +
+      (S.fpv ? 'the eye · ' : '') + (S.note ? 'field note · ' : '') +
       (S.voice && S.voice.lines.length ? S.voice.lines[0] : 'the field'));
   }
   function say(lines, kind, ttl) {
@@ -825,6 +1222,45 @@
     if (S.distance === 'ENTERED') { setDistance('EXITED'); return; }
     if (S.distance === 'EXITED') { resetRoute(); return; }
     setDistance(DISTANCES[Math.min(3, DISTANCES.indexOf(S.distance) + 1)]);
+  }
+
+  // ── the eye (0.4.0) ───────────────────────────────────────────────────────
+  // One toggle, no button: two fingers on the field, or a held press on the
+  // distance corner. It only exists inside the walk, because the eye is a way of
+  // standing in the city, not a mode of the painting. The view says so itself —
+  // the plan becomes a horizon — and the corner gains one tick.
+  function toggleFpv(on) {
+    const want = on === undefined ? !S.fpv : !!on;
+    if (want && S.distance !== 'ENTERED') return false;
+    S.fpv = want;
+    S.decodeCell = null; S.gate = null; S.block = null;
+    if (!S.fpv) { S.eyeK = 0; S.eyeDir = 0; }
+    // the eye line is a real field of the view: say it, once, in the world's voice
+    say([S.fpv ? 'the eye · standing in the city, looking north · hold to raise the eye' : 'the plan · the city from above'], 'line', 5);
+    updateChrome(); draw(); wake();
+    return S.fpv;
+  }
+  // the note is a reveal, not a mode: it does not change the field, it covers it
+  // until you put it away.
+  function toggleNote(on) {
+    S.note = on === undefined ? !S.note : !!on;
+    if (S.note) { S.decodeCell = null; S.gate = null; }
+    draw(); wake();
+    return S.note;
+  }
+  function readHash() {
+    if (!S.field) return;
+    const h = String(location.hash || '').replace(/^#/, '');
+    if (h === 'note') { toggleNote(true); return; }
+    if (h === 'fpv') {
+      if (S.distance !== 'ENTERED') setDistance('ENTERED');
+      toggleFpv(true);
+      refreshEye();
+      draw();
+    }
+  }
+  function refreshEye() {
+    if (S.ready && S.distance === 'ENTERED' && S.fpv) { fit(); draw(); }
   }
   function resetRoute() {
     S.moves = []; S.exitCache = null; S.exitCanvas = null;
@@ -873,7 +1309,26 @@
     if (!S.field || S.distance !== 'ENTERED') return false;
     if (S.rise) return false;                                   // the act has the floor
     const next = C.step(S.field, S.walker, dir);
-    if (!next) { say(['wall — the painting’s edge says no'], 'wall', 3); draw(); return false; }
+    if (!next) {
+      // The refusal is a place, not a margin. Mark the shared edge in the cell
+      // that refused (the wall's face toward you) and name the sides the city
+      // does leave open, from the same field the walk reads.
+      const D = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] };
+      const FACE = { U: 'S', D: 'N', L: 'E', R: 'W' };
+      const dx = D[dir] ? D[dir][0] : 0, dy = D[dir] ? D[dir][1] : 0;
+      const wx = S.walker.cx + dx, wy = S.walker.cy + dy;
+      const inside = wx >= 0 && wy >= 0 && wx < C.COLS && wy < C.ROWS;
+      const wall = inside ? S.field.cells[wy * C.COLS + wx] : null;
+      S.block = wall && wall.wall ? { n: wall.n, dir: FACE[dir] } : null;
+      const open = C.openSides(S.field, S.walker, (c) => {
+        const gt = S.gates.find((g) => g.n === c.n);
+        return !(gt && !C.gateAdmits(C.gateKind(gt.i), S.seen[gt.i]));
+      });
+      const name = { N: 'north', E: 'east', S: 'south', W: 'west' };
+      say(['wall — the painting’s edge says no' + (open.length ? ' · open ' + open.map((k) => name[k]).join(', ') : ' · this room is closed')], 'wall', 3);
+      updateChrome(); draw(); return false;
+    }
+    S.block = null;
     // A threshold that has not been seen through does not open, and it does not
     // argue: the step simply does not happen and the ring flares once.
     const gate = S.gates.find((g) => g.n === next.n);
@@ -1013,13 +1468,15 @@
     if (!cell) return [];
     const u = cell.unit, d = S.source.districts[u.p] || {};
     const visited = C.walk(S.field, S.moves).visits[cell.n];
+    const head = C.readingHead(S.field, cell.n);
     const hue = cell.hue < 0 ? 'achromatic' : Math.round(cell.hue) + '°';
     const street = cell.wall ? 'wall' : (S.field.reach[cell.n] ? 'street' : 'closed pocket');
     // the district's weather, and the one you carried into it: the two halves of
     // the only mechanism on this page that is not about you
     const w = weatherFor(u.p), carry = S.weather ? S.weather.carry : null;
     return [
-      '¶' + (u.p + 1) + ' ' + (d.chapter || '') + ' · ' + street + ' (' + cell.cx + ',' + cell.cy + ') · building ' + (u.s + 1) + '/' + (d.sentences || '?') + ' · room ' + (u.w + 1) +
+      (head ? 'reading head ' + head.i + '/' + head.of + ' of ¶' + (head.p + 1) + ' · ' : '') +
+        '¶' + (u.p + 1) + ' ' + (d.chapter || '') + ' · ' + street + ' (' + cell.cx + ',' + cell.cy + ') · building ' + (u.s + 1) + '/' + (d.sentences || '?') + ' · room ' + (u.w + 1) +
         ' · material “' + (cell.material === ' ' ? 'blank' : cell.material) + '” · ' + (w || 'clear') + (carry && carry !== w ? ' (carried ' + carry + ' in)' : '') + ' · visits ' + visited,
       '“' + (d.line || '') + '”',
       (d.heading || '') + ' · ' + norm(cell).toFixed(2) + ' of the painting’s range · edge ' + cell.edge.toFixed(3) + ' · ' + hue,
@@ -1038,8 +1495,20 @@
     if (!S.field) return null;
     const r = cv.getBoundingClientRect();
     const g = geoFor(S.distance);
-    if (!g.win) return null;
     const x = e.clientX - r.left, y = e.clientY - r.top;
+    if (g.kind === 'fpv') {
+      // the inverse of the same projection: a screen point is a ray, and where
+      // the ray meets the ground is the room under the finger. Above the horizon
+      // is the sky (the city's far edge) and there is nothing there to touch.
+      const lay = g.lay, dy = y - lay.horizon;
+      if (!(dy > 0.5)) return null;
+      const d = lay.f * lay.eye / dy;
+      if (!(d > 0.05)) return null;
+      const cx = Math.floor(g.camX + (x - lay.w / 2) * d / lay.f), cy = Math.floor(g.camY - d);
+      if (cx < 0 || cy < 0 || cx >= C.COLS || cy >= C.ROWS) return null;
+      return S.field.cells[cy * C.COLS + cx];
+    }
+    if (!g.win) return null;
     const rx = Math.floor((x - g.dst.x) / g.cell), ry = Math.floor((y - g.dst.y) / g.cell);
     if (rx < 0 || ry < 0 || rx >= g.win.cols || ry >= g.win.rows) return null;
     const cx = g.win.ox + rx, cy = g.win.oy + ry;
@@ -1057,8 +1526,39 @@
   }
   cv.addEventListener('pointerdown', (e) => {
     if (!S.field) return;
+    S.pointers = (S.pointers || 0) + 1;
+    // TWO FINGERS = THE EYE. The view has no button: the second finger is the
+    // whole control, it costs no pixel at rest, and it cannot be hit by accident
+    // while walking (a walk is one finger).
+    if (S.pointers >= 2) {
+      if (!S.twoFinger) {
+        S.twoFinger = true;
+        clearTimeout(S.holdTimer); clearTimeout(S.cornerTimer);
+        S.hold = null; S.drag = null;
+        if (S.distance === 'ENTERED') toggleFpv(); else say(['the eye belongs to the walk — enter the city first'], 'line', 4);
+        draw();
+      }
+      return;
+    }
     try { if (cv.setPointerCapture && e.pointerId != null) cv.setPointerCapture(e.pointerId); } catch (err) { /* synthetic pointer */ }
     S.drag = { x: e.clientX, y: e.clientY, moved: false, axis: null };
+    // a held corner tick opens a reveal: top-left is the note, bottom-right (the
+    // distance corner) is the eye. Same hold, no new surface, no button.
+    const g0 = geoFor(S.distance);
+    const p0 = localXY(e);
+    const corner = hit(noteTickRect(g0.dst), p0) ? 'note' : (hit(notchRect(g0.dst), p0) ? 'fpv' : null);
+    if (corner) {
+      clearTimeout(S.cornerTimer);
+      S.cornerTimer = setTimeout(() => {
+        if (!S.drag) return;
+        S.drag.moved = true;
+        if (corner === 'note') toggleNote();
+        else if (S.distance === 'ENTERED') toggleFpv();
+        else say(['the eye belongs to the walk — enter the city first'], 'line', 4);
+        draw();
+      }, 560);
+    }
+    if (S.note) return;                                  // the note takes the next tap
     const cell = cellFromEvent(e);
     // touch the broken ring: the rise begins under the thumb, and the same hold
     // that decodes a room now lifts the whole district into view. Holding where
@@ -1071,14 +1571,19 @@
         const atThreshold = cell.n === S.walker.n && Math.abs(sight.cx - S.walker.cx) + Math.abs(sight.cy - S.walker.cy) <= 1;
         if (onRing || atThreshold) { riseStart(sight.i, false); return; }
       }
+      // in the eye, the held press is the eye line itself: it rises while held
+      // and settles when you let go. The decode still opens on a touch-tap.
+      if (S.fpv) { S.eyeDir = 1; wake(); }
     }
-    if (cell && (S.distance === 'NEAR' || S.distance === 'ENTERED') && !reduced) S.hold = { cx: cell.cx, cy: cell.cy, phase: 0, t0: 0 };
+    if (cell && (S.distance === 'NEAR' || S.distance === 'ENTERED') && !reduced && !S.fpv) S.hold = { cx: cell.cx, cy: cell.cy, phase: 0, t0: 0 };
     clearTimeout(S.holdTimer);
-    S.holdTimer = setTimeout(() => {
-      if (!S.drag) return;
-      const c2 = cellFromEvent({ clientX: S.drag.x, clientY: S.drag.y });
-      if (c2) { S.drag.moved = true; openDecode(c2); }
-    }, HOLD_MS);
+    if (!S.fpv) {
+      S.holdTimer = setTimeout(() => {
+        if (!S.drag) return;
+        const c2 = cellFromEvent({ clientX: S.drag.x, clientY: S.drag.y });
+        if (c2) { S.drag.moved = true; openDecode(c2); }
+      }, HOLD_MS);
+    }
     wake();
   });
   cv.addEventListener('pointermove', (e) => {
@@ -1100,29 +1605,38 @@
       }
     }
   });
-  function endPointer() { clearTimeout(S.holdTimer); S.hold = null; S.drag = null; wake(); draw(); }
+  function endPointer() {
+    clearTimeout(S.holdTimer); clearTimeout(S.cornerTimer);
+    S.hold = null; S.drag = null; S.eyeDir = 0;
+    wake(); draw();
+  }
   cv.addEventListener('pointerup', (e) => {
+    S.pointers = Math.max(0, (S.pointers || 1) - 1);
+    const wasTwo = !!S.twoFinger;
+    if (S.pointers === 0) S.twoFinger = false;
     const wasMoved = S.drag && S.drag.moved;
     const p = localXY(e);
     const wasRising = !!S.rise;
+    const noteWasOpen = S.note;
     endPointer();
+    const release = () => { if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } } };
+    if (wasTwo) { release(); return; }                 // the second finger already chose
     if (wasRising) {                                   // let go early: the district settles back
       riseEnd();
-      if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
+      release();
       return;
     }
-    if (wasMoved) {
-      if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
-      return;
-    }
+    if (noteWasOpen) { toggleNote(false); release(); return; }
+    if (wasMoved) { release(); return; }
     // 1. a door, if a gate is open (the only thumb-sized answer)
     if (S.gate && S.distance === 'ENTERED') {
       const di = doorFromEvent(e);
-      if (di >= 0) { answerDoor(di); if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } } return; }
+      if (di >= 0) { answerDoor(di); release(); return; }
     }
-    // 2. the frame's distance corner
+    // 2. the frame's two corners: the note (top-left) and the distance (bottom-right)
     const g = geoFor(S.distance);
-    if (hit(notchRect(g.dst), p)) { advance(); if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } } return; }
+    if (hit(noteTickRect(g.dst), p)) { toggleNote(); release(); return; }
+    if (hit(notchRect(g.dst), p)) { advance(); release(); return; }
     // 3. the world itself
     if (S.distance === 'FAR') setDistance('NEAR');
     else if (S.distance === 'NEAR') setDistance('ENTERED');
@@ -1248,6 +1762,15 @@
       ledger: S.ledger ? { seq: S.ledger.seq, read: Object.keys(S.ledger.seen).length, seen: S.ledger.seen } : null,
       voice: S.voice ? { kind: S.voice.kind, lines: S.voice.lines.slice() } : null,
       decode: S.decodeCell,
+      // 0.4.0: the eye, the boundary, the reading head — each a real field of the
+      // view, not a flag about the UI
+      view: {
+        fpv: !!S.fpv, eyeK: +S.eyeK.toFixed(3),
+        horizon: S.fpv ? +(C.fpvLayout(W, fieldH(), C.FPV.eye + (C.FPV.eyeHigh - C.FPV.eye) * S.eyeK).horizon).toFixed(2) : null,
+        eye: S.fpv ? +(C.FPV.eye + (C.FPV.eyeHigh - C.FPV.eye) * S.eyeK).toFixed(3) : null,
+        note: !!S.note, block: S.block ? { n: S.block.n, face: S.block.dir } : null,
+      },
+      head: S.walker ? C.readingHead(S.field, S.walker.n) : null,
       // what the city is under, and what you are carrying: the chain, not a value
       weather: S.weather ? {
         carry: S.weather.carry,
@@ -1287,8 +1810,21 @@
     rise: (i) => riseStart(i == null ? 0 : i, true),
     riseEnd,
     adjacentSight: () => { const t = sightTarget(); return t ? { i: t.i, p: t.p, x: t.cx, y: t.cy } : null; },
+    // 0.4.0 probes: the eye, the note, the reading head, and the projection itself
+    fpv: (on) => toggleFpv(on),
+    note: (on) => toggleNote(on),
+    eye: (k) => { S.eyeK = Math.max(0, Math.min(1, Number(k) || 0)); S.eyeDir = 0; draw(); return S.eyeK; },
+    head: (n) => C.readingHead(S.field, n == null ? (S.walker ? S.walker.n : 0) : n),
+    fpvRows: (eye) => {
+      const lay = C.fpvLayout(W, fieldH(), eye == null ? C.FPV.eye : eye);
+      const out = [];
+      for (let cy = (S.walker ? S.walker.cy : 15) - 1; cy >= 0; cy--) out.push({ cy, row: C.fpvRow(lay, (S.walker ? S.walker.cy + 0.5 : 15.5) - (cy + 0.5)) });
+      return { lay: { w: lay.w, h: lay.h, f: lay.f, horizon: lay.horizon, eye: lay.eye }, rows: out };
+    },
+    walls: (n) => C.wallFaces(S.field, n),
+    openSides: () => C.openSides(S.field, S.walker),
     weatherOf: (p) => weatherFor(p),
-    weatherInk: (p) => bandMarks(geoFor('ENTERED'), p == null ? (S.walker ? S.walker.unit.p : 0) : p),
+    weatherInk: (p) => bandMarks(geoEntered(), p == null ? (S.walker ? S.walker.unit.p : 0) : p),
     shape: (p) => (S.field && S.field.edges[p] ? S.field.edges[p].map((s) => s.slice()) : null),
     voice: () => voiceLines(),
     doors: () => doorRects().map((r) => ({ i: r.i, x: r.x, y: r.y, w: r.w, h: r.h })),

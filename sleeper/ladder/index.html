@@ -36,15 +36,17 @@
 </head>
 <body>
   <main>
-    <canvas id="field" tabindex="0" aria-label="The ladder: a painting that resolves into a city built of Buddhadhamma. Tap to resolve, swipe to walk, tap a cell to read it, answer the gates."></canvas>
+    <canvas id="field" tabindex="0" aria-label="The ladder: a painting that resolves into a city built of Buddhadhamma. Tap to resolve, swipe to walk, tap a cell to read it, answer the gates. Two fingers, or a held press on the distance corner, stand you inside the city; hold to raise the eye line. Hold the top-left corner for the field note."></canvas>
   </main>
 
   <p id="prov">text · P. A. Payutto, <b>Buddhadhamma</b> (free online ed.) · buddhadhamma.github.io · retrieved 2026-10-25 (provenance loads with the source)</p>
   <p class="sr" id="live" aria-live="polite"></p>
-  <p class="sr" id="help">Tap the painting to resolve it into characters, tap again to enter the city. Swipe to walk, tap a cell to read its district, sentence, word and material. The first gate does not ask a question: it will not let you step in until you have seen that district whole — hold on it, and the view rises until its shape is legible. The gates after it ask for a word from the line you are standing in. The weather of each district is what you carried out of the last one. Tap the painting when it is recomposed to return.</p>
+  <p class="sr" id="help">Tap the painting to resolve it into characters, tap again to enter the city. Swipe to walk, tap a cell to read its district, sentence, word and material, and hold to see where you stand in that district's own text order — a hairline ring whose seam is now. The first gate does not ask a question: it will not let you step in until you have seen that district whole — hold on it, and the view rises until its shape is legible. The gates after it ask for a word from the line you are standing in. The weather of each district is what you carried out of the last one. Walls are the painting's own strong edges, drawn by their faces; a refused step marks the edge that refused and names the sides still open. Two fingers on the field, or a held press on the distance corner, stand you inside the city looking north: the same cells in perspective, and holding raises the eye line. The distance corner again returns to the plan; two fingers again puts the eye away. Hold the top-left corner, or open #note, to read the field note. Tap the painting when it is recomposed to return.</p>
 
   <script src="/lib/moire-ambient.js"></script>
-  <script src="ladder-core.js"></script>
-  <script src="ladder.js"></script>
+  <!-- ?v= rides with the code: a phone that cached 0.3.0 must not run it against
+       a 0.4.0 page. Bump it in the same commit that changes either module. -->
+  <script src="ladder-core.js?v=0.4.0"></script>
+  <script src="ladder.js?v=0.4.0"></script>
 </body>
 </html>

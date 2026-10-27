@@ -1,4 +1,4 @@
-# SLEEPER // LADDER — instrument spec (v0.3.0)
+# SLEEPER // LADDER — instrument spec (v0.4.0)
 
 **One painting, four distances, and the city is made of Buddhadhamma.**
 
@@ -7,7 +7,9 @@ painting and city the same object at different resolutions.* 0.2.0 gave the city
 its matter and its gates. 0.3.0 makes the city **conditional**: the weather you
 meet is the weather you brought, and the first gate is not a question but an act
 of attention. Both are mechanics, not quotations — the doctrine is in what the
-walker has to do, and no doctrine word appears on the page.
+walker has to do, and no doctrine word appears on the page. 0.4.0 answers the
+first real walk: the boundary is drawn, the same field can be stood in, and the
+walk now carries a reading head — see §"The first walk" below.
 
 | distance | what exists on screen |
 |---|---|
@@ -131,6 +133,115 @@ look; reduced motion gets the same act in three still steps instead of a sweep.)
 Gates 2–8 still ask one word of the district's own line. One gate is the
 experiment; the law lives in the act.
 
+## The first walk (v0.4.0)
+
+The operator walked 0.3.0 and said: *"its pretty dope. Please continue!"* — with
+four asks. They are answered here in the order they arrived, each with the
+measurement that decided it.
+
+### 1. "I can't move up beyond a certain margin"
+
+**Diagnosis: the clamp is the wall map, not a canvas or district bound — and the
+defect was that the wall was drawn as floor.**
+
+Measured on the shipped painting (cut = the 0.78 quantile of cell edge energy,
+`edge > 0.2015`):
+
+| fact | before (0.3.0) |
+|---|---|
+| wall cells | 675 of 3,072 (22.0 %) |
+| wall cells drawn as walls | **0** (a 0.18 fill and the same glyph channel as open ground) |
+| reachable from the spawn | 2,364 cells, bbox x 0..95, **y 0..31** — the whole frame |
+| the walk north from (47,15) | 15 → 14 → 13, refused at (47,12) (`edge 0.212`) |
+| open sides at the spawn | **N, S only** (the spawn sits in a one-cell-wide shaft) |
+| rows of the city visible north of the walker | 9 (window rows 6..14 of 32) |
+
+So: the vertical extent was never clamped — every row of the field is reachable
+(selftest arm: reach bbox rows 0..31). What was accidental was that the first
+thing a walker tries, north, is a ridge three cells up, and nothing on screen
+said so. Two things changed, both presentation, both derived from the field:
+
+* **a wall wears its face.** `wallFaces()` strokes every side of a wall cell that
+  meets walkable ground — 672 strokes; the 3 fully enclosed cells stay quiet, so
+  the mark IS the walkable boundary and not a texture.
+* **a refusal is a place.** The refused step marks that shared edge in white
+  (one hairline, in place, cleared on the next accepted step), and the foot line
+  names the sides still open, from `openSides()` — the same function the walk
+  uses: `wall — the painting's edge says no · open south, west`.
+
+The eye (below) makes the same wall a block whose height is the cell's measured
+edge energy, so the ridge is a range you can see the shape of. Nothing about the
+walk's geometry changed: the route is the route, and the gates are where the
+distance field puts them.
+
+### 2. The eye — a first-person view of the same field
+
+One toggle, no button. Closed-form ground-plane projection in
+`ladder-core.js` (`FPV`, `fpvLayout`, `fpvRow`, `fpvPoint`, `fpvQuad`):
+
+```
+depth z cells ahead   ->  y = horizon + f*eye/z      one cell wide = f/z
+lateral u cells       ->  x = w/2 + f*u/z
+horizon = 0.32 * view height      f = 0.92 * view width
+eye 1.20 cells at rest, 0.50 low, 2.40 fully raised
+```
+
+A cell is drawn as a **trapezoid** (near edge wider than far edge), rows are
+painted far→near, walls are extruded to `0.22 + 1.15 × edgeNorm(cell)` (height is
+the cell's own measured edge), gates are rings lying on the ground, and the
+district's boundary is projected with its weather stitched along it at one mark
+per room. The camera stands on the walker's own cell (its centre is under your
+feet, so the cell is not drawn), faces **north — the text's own reading
+direction** — and:
+
+* **hold raises the eye line** (1.20 → 2.40 cells over ~0.9 s, settling in ~0.5 s
+  on release). Reusing the hold is the point: the same press that decodes a room
+  in the plan raises the eye here, and a tap still decodes.
+* **the horizon never moves** — not with the eye, not with the resize
+  (0.3200 at 390×745 and at 1024×700; asserted).
+* **the view is the instrument, not a second one**: it samples `S.field.cells`
+  (the cells ENTERED walks), and `measureRoute('RRRRUU')` returns sha256
+  `93b650de…`, seed `45d716cc`, mad64 `0.084037` with the eye on and with it off.
+* **no new data, no new route, no framework**; the page still has four elements.
+
+Reachability without chrome: **two fingers on the field**, or **a held press
+(560 ms) on the distance corner** — the corner that already carries the distance
+gains a fifth tick while the eye is on. Deep link `#fpv` for a proof or a share.
+
+Known limit, named: the eye shows ~15 rows legibly and compresses the rest into
+the horizon line. That is what a ground camera does to a 32-row field; the plan
+remains the map, and the eye is a place to stand, not a second map.
+
+### 3. The RSVP rings — what they actually are
+
+`/rsvp/` is **THE RING**: a game layer over READFIELD's aperture — a circular
+reading-progress ring (`ring.setAttribute('stroke-dashoffset', C*(1-p))`), a
+sweep, gate sectors with three candidate words each, and its own ledger
+(`ring.ledger.v1`). It is a separate instrument on a separate route with its own
+source loader. **The ladder never had rings**; its only rings are the eight gate
+rings drawn in `drawGates()`.
+
+What crossed over is the smallest faithful part — **the seam where "now" sits**:
+
+* `readingHead(field, n)` measures your ordinal in your district's own text order:
+  `i = n - n0 + 1` of `n1 - n0 + 1` (the district is a contiguous run of cells in
+  row-major order — the order the matter was projected in).
+* on the **existing hold** (the same one that opens the decode) a hairline ring is
+  drawn around your cell: its arc is `i/of` of the circle, its seam is a radius at
+  "now", and the decode's first line says `reading head 146/217 of ¶12`.
+* at rest there is no ring: a reading head that is always on is decoration.
+
+### 4. The field note
+
+The operator's self-critique, verbatim, drawn on the canvas in the quiet type and
+nothing else. Reached by **holding the frame's top-left crop-mark** or by
+`#note`; a tap puts it away. No element, no panel, no route; the selftest asserts
+all six strings byte for byte and that a tampered note is not what ships.
+
+**Budget for the whole pass:** one toggle (the eye) + one reveal (the note).
+Page elements 4 → 4. Routes 0 → 0. Wall marks and the reading head are marks on
+objects that already existed.
+
 ## Determinism contract
 
 - `paintingTag = hash32(PAINTING_ID + sha256(painting bytes))` = `f0f09635`.
@@ -177,6 +288,10 @@ Measured on the real painting (Chromium, 390x844, dpr 2, receipt in
 | step onto a word gate (2–8) | the gate asks one word of the line you stand in; three doors at the foot |
 | return to the origin coordinate (≥8 steps) | ninth-gate move: auto-EXIT, the run closes where it began |
 | tap the recomposed painting | RETURN: the route clears, FAR, the painting reconstructs exactly |
+| **two fingers on the field** (0.4.0) | the eye: stand in the same city looking north; two fingers again returns to the plan |
+| **hold the distance corner 560 ms** (0.4.0) | the same toggle, for one thumb and for discoverability (the corner gains a fifth tick while on) |
+| **hold in the eye** (0.4.0) | raise the eye line 1.20 → 2.40 cells; release settles it. Tap still decodes a room |
+| **hold the top-left crop-mark** (0.4.0) | the field note, verbatim; a tap puts it away. `#note` deep-links it, `#fpv` deep-links the eye |
 
 There is no header, no status bar, no rail, no panel, no button. The frame
 carries the meter; the cells carry their own matter; one hairline strip at the
@@ -186,7 +301,9 @@ provenance line, and two sr-only paragraphs.
 
 Surface count did not grow in 0.3.0: the door strip is not drawn for the sight
 gate (it replaces, not adds, the gate-1 quiz), the rise reuses the hold the
-instrument already had, and two drawing layers were removed.
+instrument already had, and two drawing layers were removed. 0.4.0 spends the
+allowance exactly once: **one toggle** (the eye, with no control of its own) and
+**one reveal** (the note, likewise). Elements stay at four.
 
 ## The game mechanisms that earned their place
 
@@ -277,9 +394,17 @@ SleeperLadder.measureRoute(route)        // sha256 / mad64 / changedPx / visited
 SleeperLadder.pairwise(A, B)             // head-to-head separation of two routes
 SleeperLadder.decode(cellIndex) / closeDecode()
 SleeperLadder.fieldStats()               // cut quantile, walkable, reachable, drawn counts, fingerprint, matter
+// 0.4.0 probes
+SleeperLadder.fpv(on)                    // the eye; false if asked for outside ENTERED
+SleeperLadder.eye(k)                     // 0..1 of the declared eye range, for a still proof
+SleeperLadder.fpvRows(eye)               // { lay: {w,h,f,horizon,eye}, rows: [{cy, row:{y,w,depth}}] }
+SleeperLadder.head(n)                    // { p, n, i, of, t, n0, n1 } — the reading head's ordinal
+SleeperLadder.walls(n)                   // the faces of a wall cell, or null for open ground
+SleeperLadder.openSides()                // N/E/S/W the city would accept from where you stand
+SleeperLadder.note(on)                   // the field note reveal
 ```
 
-Selftest: `node sleeper/ladder/ladder-selftest.mjs` (85 arms, zero fixtures;
+Selftest: `node sleeper/ladder/ladder-selftest.mjs` (113 arms, zero fixtures;
 `--rgba <file> --size WxH` runs the same laws against real painting pixels;
 `BUDDHADHAMMA_CORPUS=<dir>` enables the derivation arms, which re-run the slice
 from the local corpus and require the shipped file to be its output byte for
@@ -290,8 +415,9 @@ byte. Without the corpus those arms report SKIP — never PASS).
 1. NEAR cannot show 96 columns of legible characters on a phone: the composition
    is carried by tone and glyph texture, and legibility is bought with the loupe.
    That is a resolution trade, named, not a hidden filter.
-2. ENTERED is a top-down character grid; the radial "sleeper maze" donor is not
-   used.
+2. ENTERED is a top-down character grid with one ground-level view (the eye); the
+   radial "sleeper maze" donor is not used. The eye looks north only, because north
+   is the text's reading direction — a turnable camera would be a second control.
 3. The recomposition is tone + trace, not re-painted brushwork: a long straight
    route reads as a drawn line across the water.
 4. One selection, one fingerprint: the slice is Section 7's opening window. A

@@ -738,8 +738,120 @@
     return rgba;
   }
 
+  // ── FPV: standing in the city, looking north ──────────────────────────────
+  // The ENTERED distance draws the city plan: a window of cells, seen from
+  // above. FPV draws the same field from inside it — one camera on the walker's
+  // own cell, eye at `eye` cell-heights above the ground, looking north (up the
+  // text's own reading order). The projection is the closed form of a ground
+  // plane, so there is no loop to converge and nothing to tune per frame:
+  //
+  //   depth z cells ahead  ->  y = horizon + f * eye / z,  one cell wide = f / z
+  //   lateral u cells      ->  x = w/2 + f * u / z
+  //
+  // Three laws fall out and the selftest asserts each: a cell's width falls
+  // monotonically with depth (the rows recede toward the horizon), the horizon
+  // is a fraction of the view (stable across resizes) and does not move with the
+  // eye, and a straight street projects to a straight line that converges.
+  // No clock, no random, no DOM: same field + same camera -> same pixels.
+  const FPV = {
+    // Eye height is the one number that decides how much city you see: the
+    // nearest visible row sits at depth f*eye/(h-horizon), so a higher eye stands
+    // you further back and buys legible rows (eye 1.2 -> ~10 rows over 3px, eye
+    // 2.4 -> ~15). It is a real quantity (rooms tall), not a zoom.
+    eye: 1.20,
+    eyeHigh: 2.40,        // a sustained hold raises the eye line to here
+    eyeLow: 0.50,         // and can lower it to here
+    focal: 0.92,          // focal length as a fraction of view width
+    horizon: 0.32,        // the city's far edge, as a fraction of view height
+    maxDepth: 34,         // the whole 32-row field plus two cells of margin
+  };
+  function fpvLayout(w, h, eye) {
+    const e = eye == null ? FPV.eye : Number(eye);
+    return {
+      w: Math.max(1, Number(w) || 1), h: Math.max(1, Number(h) || 1),
+      f: Math.max(1, Number(w) || 1) * FPV.focal,
+      horizon: Math.max(1, Number(h) || 1) * FPV.horizon,
+      eye: Math.max(FPV.eyeLow, Math.min(FPV.eyeHigh, Number.isFinite(e) ? e : FPV.eye)),
+    };
+  }
+  // depth (cells ahead of the eye) -> the screen row it lands on and the width
+  // of one cell there. Both are strictly monotone in depth: that is the law.
+  function fpvRow(lay, depth) {
+    const d = Math.max(0.05, Number(depth) || 0.05);
+    return { y: lay.horizon + lay.f * lay.eye / d, w: lay.f / d, depth: d };
+  }
+  // a ground point (grid coordinates, cell edges) -> screen, or null if behind
+  function fpvPoint(lay, camX, camY, gx, gy) {
+    const d = camY - gy;
+    if (!(d > 0.05)) return null;
+    const r = fpvRow(lay, d);
+    return { x: lay.w / 2 + lay.f * (gx - camX) / d, y: r.y, w: r.w, depth: d };
+  }
+  // one cell as a ground quad: four corners, so the cell is a trapezoid whose
+  // far edge is narrower than its near edge (a perspective floor, not a squash)
+  function fpvQuad(lay, camX, camY, cx, cy) {
+    const near = camY - (cy + 1), far = camY - cy;
+    if (!(near > 0.05) || !(far > near)) return null;
+    const x = (u, d) => lay.w / 2 + lay.f * u / d;
+    const u0 = cx - camX, u1 = cx + 1 - camX;
+    const yN = lay.horizon + lay.f * lay.eye / near;   // near edge (lower on screen)
+    const yF = lay.horizon + lay.f * lay.eye / far;    // far edge (closer to the horizon)
+    const xNL = x(u0, near), xNR = x(u1, near), xFL = x(u0, far), xFR = x(u1, far);
+    return {
+      near, far, yN, yF, xNL, xNR, xFL, xFR,
+      cx: x((u0 + u1) / 2, (near + far) / 2), cy: (yN + yF) / 2,
+      w: Math.abs(xNR - xNL), wFar: Math.abs(xFR - xFL), scale: lay.f / far,
+    };
+  }
+
+  // ── the reading head: where "now" sits in a district's text order ─────────
+  // A district is a contiguous run of cells [n0, n1] in reading order (the order
+  // the matter was projected into the grid: left to right, row after row). So a
+  // cell's ordinal in its district is measured, never assigned — the ring the
+  // ladder draws at the walker is this number, and its seam is the point where
+  // the reading stands now.
+  function readingHead(field, n) {
+    if (!field || !field.cells || !(n >= 0) || !field.cells[n]) return null;
+    const c = field.cells[n], p = c.unit.p, d = field.districts && field.districts[p];
+    if (!d) return null;
+    const of = d.n1 - d.n0 + 1, i = n - d.n0 + 1;
+    return { p, n, i, of, t: of > 0 ? i / of : 0, n0: d.n0, n1: d.n1, cx: c.cx, cy: c.cy };
+  }
+
+  // ── the wall's face ───────────────────────────────────────────────────────
+  // A wall is made of the painting's own strong edges. Its FACE is the side that
+  // meets something you could walk on; an interior wall has no face and needs no
+  // mark, a wall on the city's rim has one. Drawing the faces is therefore
+  // drawing the walkable boundary itself — what you see is what you can walk.
+  const SIDES = [['N', 0, -1], ['E', 1, 0], ['S', 0, 1], ['W', -1, 0]];
+  function wallFaces(field, n) {
+    const c = field && field.cells && field.cells[n];
+    if (!c || !c.wall) return null;
+    const out = {};
+    for (const [k, dx, dy] of SIDES) {
+      const x = c.cx + dx, y = c.cy + dy;
+      const rim = x < 0 || y < 0 || x >= COLS || y >= ROWS;
+      out[k] = rim ? true : !field.cells[y * COLS + x].wall;
+    }
+    return out;
+  }
+  // which steps out of this cell the city would accept (the refusal line names
+  // them, so a boundary is never just "no")
+  function openSides(field, pos, passable) {
+    if (!field || !pos) return [];
+    const ok = typeof passable === 'function' ? passable : () => true;
+    const out = [];
+    for (const [k, dx, dy] of SIDES) {
+      const x = pos.cx + dx, y = pos.cy + dy;
+      if (x < 0 || y < 0 || x >= COLS || y >= ROWS) continue;
+      const c = field.cells[y * COLS + x];
+      if (!c.wall && ok(c)) out.push(k);
+    }
+    return out;
+  }
+
   return Object.freeze({
-    version: '0.3.0',
+    version: '0.4.0',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
     PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, GATE_HORIZON_CAP, LEDGER_GAP,
     CUT_LADDER, WEATHERS, SIGHT_GATES, SEEN_AT,
@@ -750,5 +862,6 @@
     floodFill, bfs, placeGates, gateCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
     changedPx, syntheticPainting, PUNCT,
+    FPV, fpvLayout, fpvRow, fpvPoint, fpvQuad, readingHead, wallFaces, openSides, SIDES,
   });
 });
