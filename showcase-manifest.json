@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-27T14:22:54+08:00",
+  "updated": "2026-10-27T15:18:17+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -9048,28 +9048,28 @@
     },
     {
       "href": "/sleeper/ladder/",
-      "title": "SLEEPER // LADDER 0.4.0",
+      "title": "SLEEPER // LADDER 0.5.0",
       "kind": "experiment",
       "parent": "/sleeper/",
       "family": "SLEEPER",
       "operation": "PLAY / PROVE / RETURN",
       "state": "CANDIDATE",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "showcase_card": false,
       "receipt": "/sleeper/ladder/release.json",
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/sleeper/",
-        "generation": 4,
+        "generation": 5,
         "stage": "TEST",
-        "question": "Can the same field be walked and inhabited — is a city whose walls are visible and whose far edge is a horizon more of a place than the same city seen only as a plan, and does carrying THE RING's seam into the walk (a reading head in the district's own text order) connect the walk to the text without adding a second instrument?",
-        "baseline": "LADDER 0.3.0: the city was conditional (carried weather, an enacted first gate) but its walls were drawn as floor, so the walk refused steps for no visible reason, and the plan was the only view.",
-        "mutation": "Four answers to the first real walk, one reduction. (1) Walls wear their faces (672 strokes on the walkable boundary), a refused step marks the shared edge in place and the foot line names the sides still open. (2) The eye: one toggle (two fingers / held distance corner) gives a closed-form ground-plane projection of the same 96x32 field, walls as blocks whose height is their measured edge, gates as ground rings, hold to raise the eye line, horizon fixed at 0.32 of the view. (3) The reading head: THE RING's seam carried into the ladder as a hairline ring whose arc is the walker's ordinal in the district's text order, revealed on the existing hold. (4) The field note: the operator's self-critique, verbatim, as a reveal. Nothing new to press: 4 page elements, one toggle, one reveal.",
-        "evidence_gate": "ladder-selftest 113/113 (28 new arms: the projection asserted as arithmetic — row scale monotone toward the horizon, horizon stable across resizes and across eye heights, trapezoid quads, converging street; the reading head's ordinals; the wall faces; the note verbatim; the reduction). Real CDP touch proof at 390x844: two fingers toggled the eye with fingerprint/tag/seed unchanged, a hold raised eyeK 0.46 -> 0.79 -> 1.0 with the horizon fixed, three real swipes walked UU and the third was refused with the edge marked and 'open south, west' spoken. Route RRRRUU: identical sha256 with the eye on and off.",
-        "next_if_pass": "Let the eye carry the district band's weather as ground marks in perspective (it already stitches them on the boundary — verify they read at eye height), then test whether a walk at eye height changes what a person reads.",
-        "next_if_fail": "The eye is a view of the same instrument trading legibility for immersion: keep the plan as the only view and spend the pass on the reading head alone."
+        "question": "The instrument's eight gates and its source section's eight path factors were the same number and never met: can binding gate i to path factor i — quoted from the text's own account of that factor, six of them enacted rather than asked — and making the walk cost breath turn a reading check into a practice?",
+        "baseline": "LADDER 0.4.0: eight gates at arbitrary quantiles of the walk's distance field running generic cloze quizzes drawn from whichever district they stood in; one gate (right view) enacted. The source text is Section 7 'Path Factors' and the gates knew nothing about the factors. The walk had no stake: nothing could be lost, so nothing was at risk.",
+        "mutation": "Gate i asks path factor i in the text's own order (MN 117, quoted at Ch. 16 ¶15; verified against the corpus, not assumed). Each factor's own paragraph is quoted verbatim with its locator; the build refuses an address that does not carry the factor's name. Six factors are enacted: right view (hold until the district's shape resolves), right thought (let go of the three wrong thoughts), right speech (say none of the four), right effort (four steps), right mindfulness (go back onto walked ground), right concentration (stay still). Two ask one word of their own sentence (right action, right livelihood) because their accounts are definitions with no gesture in them. The walk costs breath = the city's 50 sentences + 28 paragraphs = 78: a step costs 1, a failed gate 3, and at 0 the walk ends where it stands. The gate now speaks its factor, its sentence and its ask in three lines. REMOVED: placeGates + quantile targets, gateCard + seven generic cloze gates, SIGHT_GATES. No route, element or control added (page still has four elements).",
+        "evidence_gate": "ladder-selftest 142/142 (and 142/142 with --rgba on the real painting): the doctrine's order read out of the corpus, all eight quotes verified against their addressed paragraph (8/8) plus a neighbouring-address negative, the city digest identical to 0.4.0 (18ac9948) and unchanged when the factors block is dropped, budget 50+28=78 with monotone spend and no refill, one road whose legs cost their step difference (58 steps on the real painting). Browser 390x844 and 1280x577: a full walk of the eight factors — 8/8 gates lit, breath 15 of 78, exit line 'exited · 63 steps · 8/8 gates · 15 ¶ read · breath 15 of 78'; a real click on the silence gate failed it (breath -3); a second walk spent all 78 steps and ended 'the breath is spent'. Phone card: each of the three lines ends within 2px of its own measured width (no overprint), page has no overflow.",
+        "next_if_pass": "Carry the factor table into the exit line (which factors were done, which were left), and let the ledger remember done factors across walks so the eight can be finished over days without the lamps resetting.",
+        "next_if_fail": "If the acts read as a gauntlet rather than a practice, keep the binding and the words and drop the blocking: a gate you may pass undone but that leaves its lamp dark."
       },
-      "role": "The four-distance resolution ladder, built out of Buddhadhamma: FAR is the Borrowed River painting, NEAR resolves its brushwork into the whole 96x32 character field computed from the image itself, ENTERED is a walkable window whose matter is P. A. Payutto's Buddhadhamma (Section 7, chapters 16-18; paragraph = district, sentence = building, word = room, character = material), and EXITED recomposes the painting from the walked U/D/L/R witness. 0.4.0 answers the first real walk: the city's walls wear their faces (the painting's edge is now a boundary you can see, and a refused step names the sides still open); two fingers — or a held press on the distance corner — stand you inside the same field in a ground-plane perspective whose horizon is the city's own far edge, with a held press raising the eye line; and a hairline ring on your cell shows where now sits in the district's own text order. The city is conditional: the district you stand in is one hairline band whose weather is the fold of the route you took to it.",
+      "role": "The four-distance resolution ladder, built out of Buddhadhamma: FAR is the Borrowed River painting, NEAR resolves its brushwork into the whole 96x32 character field, ENTERED is a walkable window whose matter is P. A. Payutto's Buddhadhamma (Section 7, chapters 16-18; paragraph = district, sentence = building, word = room, character = material), and EXITED recomposes the painting from the walked U/D/L/R witness. 0.5.0 binds the eight gates to the section's eight path factors in the text's own order: six are thresholds you cannot pass until you have DONE the factor (seen, let go, said none, walked, gone back, stayed), two ask one word of the factor's own sentence, and every gate says who it is, what the text says, and what it asks. The walk is paid for in breath — the city's own sentence and paragraph counts — and ends where the breath does.",
       "transfer": [
         "painting sha256 -> one hash32 tag f0f09635 = painting identity = city identity = artifact identity",
         "selected text sha256 -> one hash32 fingerprint bbbe96ac = source identity (a different selection is a different artifact)",
@@ -9078,7 +9078,9 @@
         "cell edge -> wall face (the drawn boundary) and, in the eye, the block's height",
         "walker cell + district run -> reading-head ordinal (n - n0 + 1 of n1 - n0 + 1), the ring's arc and its seam",
         "book text -> district/building/room/material matter, drawn counts asserted against the source",
-        "district punctuation -> a weather body; carried weather -> a district's weather (the fold, not an assignment)"
+        "district punctuation -> a weather body; carried weather -> a district's weather (the fold, not an assignment)",
+        "path factor table (paragraph -> verbatim quote + locator + the text's own list) -> gate i's factor, its act, and the three lines it says",
+        "the city's own counts (sentences + paragraphs) -> the walk's breath budget; a step 1, a failed gate 3, no refill"
       ],
       "contract": {
         "accepts": {
@@ -9113,11 +9115,10 @@
         "evidence": {
           "receipt": "/sleeper/ladder/release.json",
           "checks": [
-            "node sleeper/ladder/ladder-selftest.mjs — 85 passed, 0 failed, 0 skipped (derivation re-run against the local corpus: the shipped file is its byte-identical output; window 8 -> different fingerprint; 20 new arms cover the weather fold, the district shape and the enacted gate)",
-            "browser 390x844 dpr2 — sight gate refused the 9th step (witness unchanged, no doors), a real pointer hold raised the rise 0.21 -> 0.44 -> 0.77 -> seen, the gate lit, its cited line appeared, the next step was admitted; touch tap FAR->NEAR->ENTERED, hold decode, keyboard walk, word gate answered, origin retrieval -> EXITED, tap to RETURN",
-            "same route twice -> identical sha256; different route -> different sha256; empty witness -> mad64 0, changedPx 0",
-            "weather: the fold is byte-identical across two node processes and two page loads; the same cell (47,24) is lamp with 27 band marks (crop e36e1407) from one side and rain with 85 (crop a712d751) from the other",
-            "surface budget: index.html + ladder.js + ladder-core.js + source-dhamma.json = 143 KB, no frameworks, no build step; 4 elements on the page, no new route or panel"
+            "node sleeper/ladder/ladder-selftest.mjs — 142 passed, 0 failed, 0 skipped; also 142/142 with --rgba on the real painting (2172x724). New arms: the doctrine's own order read out of the corpus; the eight quotes verified against their addressed paragraphs; the text's own lists; a seven-factor or unknown-act slice refused; the city digest identical to 0.4.0 and unchanged without the factors block; budget 78 = 50+28 with monotone spend and no refill; one road, each leg costing its step difference",
+            "browser 390x844 dpr2 + 1280x577 — a full walk of the eight factors: gate 1 rise -> lit, gate 2 three holds -> lit, gate 3 four speeches out while still -> lit (a real click on the ring failed it, -3 breath), gates 4-5 answered from the doors ('abstain', 'abandoned'), gate 6 four steps -> lit, gate 7 one step back -> lit, gate 8 stillness -> lit; 8/8 with breath 15 of 78; a second walk spent the 78 steps and ended 'the breath is spent'",
+            "determinism: painting tag f0f09635, source fingerprint bbbe96ac, city digest 18ac9948 unchanged from 0.4.0; same route twice -> identical sha256; empty witness -> mad64 0, changedPx 0; gate placement deterministic and moved by a different painting",
+            "surface budget: four page elements, no form control, no new route; the gate table is one appended key in source-dhamma.json (+3.3 KB)"
           ],
           "return_path": "/sleeper/ladder/"
         },
@@ -9128,11 +9129,10 @@
       },
       "spec": "/sleeper/ladder/SPEC.md",
       "index": {
-        "updated_at": "2026-10-27T14:22:54+08:00",
+        "updated_at": "2026-10-27T15:18:17+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "VERIFY",
-          "PLAY"
+          "VERIFY"
         ]
       },
       "tier": "FIELD"
