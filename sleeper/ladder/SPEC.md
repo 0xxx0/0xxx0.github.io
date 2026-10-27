@@ -312,10 +312,10 @@ output byte for byte).
 
 1. NEAR cannot show 96 columns of legible characters on a phone: legibility is
    bought with the loupe.
-2. The road crosses 14 paragraphs but the eight gates land in three of them
-   (¶14 six times): the city's paragraphs are unevenly sized, and even pacing was
-   chosen over even coverage. A walk that wants the other paragraphs can leave the
-   road — the city is open.
+2. The road crosses 14 paragraphs but the eight gates land in three districts
+   (Ch. 17 ¶6 six times, Ch. 18 ¶3, Ch. 18 ¶16): the city's paragraphs are
+   unevenly sized, and even pacing was chosen over even coverage. A walk that
+   wants the other paragraphs can leave the road — the city is open.
 3. Only two gates ask a word, and a word gate is still a reading check, not an
    understanding. That is why they are two and not seven.
 4. Breath is a single pool: a walker who spends it wandering cannot buy it back,
