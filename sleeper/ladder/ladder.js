@@ -10,9 +10,11 @@
 //            = material. Swipe to walk; tap or hold a cell to read it. The
 //            district you stand in is one band with its weather stitched along
 //            the edge, and that weather is what you carried out of the last
-//            district — nothing here is assigned. The first gate is a threshold
-//            that will not open until its district has been SEEN WHOLE (hold,
-//            and the view rises to the shape); the other seven ask a word.
+//            district — nothing here is assigned. THE EIGHT GATES ARE THE EIGHT
+//            PATH FACTORS, in the doctrine's own order; five are thresholds you
+//            cannot pass until you have DONE the factor (seen, let go, said
+//            none, walked, gone back, stayed), two ask one word of the text's
+//            own sentence, and the walk is paid for in breath.
 //   EXITED   the route recomposed into the painting — deterministic, and
 //            returning restores the original bytes
 //
@@ -39,6 +41,20 @@
 //                 revealed on the same hold that decodes a room
 //   the note      one crop-mark at the frame's top-left (or #note) sets the
 //                 field note over the field, verbatim, and puts it away on tap
+// 0.5.0 — the eight gates become the eight path factors, and the walk costs:
+//   the binding  gate i asks factor i (right view … right concentration), quoted
+//                from the paragraph where the text gives that factor's own
+//                account, with its locator. Where the city kept the paragraph,
+//                the gate speaks the room it stands in.
+//   the acts     right view = hold until the shape resolves (0.4.0, unchanged);
+//                right thought = let go of the three wrong thoughts, one hold
+//                each; right speech = say none of the four, keep off the ring;
+//                right effort = the four endeavours, four steps; right
+//                mindfulness = go back onto ground you have walked; right
+//                concentration = stay still on one point.
+//   the stake    breath = the city's own sentences + its own paragraphs (78).
+//                Every step spends one; a failed gate spends three. At zero the
+//                walk ends where it stands. Nothing refills inside a walk.
 // No route, no panel, no persistent control: one toggle and one reveal.
 //
 // Determinism: no Math.random, no Date, no performance.now. Every drawn number
@@ -53,6 +69,9 @@
   const HOLD_MS = 380;                               // dwell that opens a decode
   const RISE_MS = 1400;                              // sustained attention that sees a district whole
   const VOICE_H = 50;                                // the foot strip (3 lines)
+  const LETGO_MS = 620;                              // one wrong thought, held until it goes
+  const SPEECH_MS = 700;                             // one wrong speech, unsaid
+  const STAY_MS = 2400;                              // one point, kept
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 
@@ -67,6 +86,8 @@
     paintingTag: null, drag: null, holdTimer: 0, revealed: false,
     gates: [], lit: null, strikes: null, gate: null, ledger: null, lastP: -1,
     voice: null, pulse: null, seen: null, rise: null, refuse: null, weather: null, lineSaid: -1,
+    // 0.5.0 — the eight factors, the act a gate asks, and the breath that pays for the walk
+    factors: null, act: null, breath: null, breathMax: null, ended: null, visited: new Set(),
     // 0.4.0 — the eye, the block, and one note
     fpv: false,        // the first-person view of the same field (a toggle, no chrome)
     eyeK: 0,           // how far the eye has been raised by a held press
@@ -117,12 +138,18 @@
       S.source = C.readDerived(derived);                     // strict: a bad slice is a gap
       S.field = C.buildField(S.rgba, S.iw, S.ih, S.source);
       S.walker = S.field.start;
+      S.visited = new Set([S.field.start.n]);
       S.paintingTag = C.tag8(C.PAINTING_ID + C.PAINTING_SHA256);
-      const placed = C.placeGates(S.field, C.GATES, (p) => !!(S.source.districts[p] && S.source.districts[p].cloze));
+      // the gate layer: eight factors, eight gates, placed ON this city by the
+      // walk's own distance field inside the breath the text allows
+      S.factors = S.source.factors;
+      S.breathMax = C.breathBudget(S.source.counts);
+      S.breath = S.breathMax;
+      const placed = C.placeFactors(S.field, S.factors, S.breathMax);
       S.gates = placed.gates;
       S.lit = new Uint8Array(S.gates.length);
       S.strikes = new Uint8Array(S.gates.length);
-      S.seen = new Uint8Array(S.gates.length);
+      S.seen = new Uint8Array(S.gates.length);      // the gate's act is done
       S.weather = C.weatherChain(S.field, S.moves);
       S.ledger = loadLedger();
       S.ledger.seq = S.ledger.seq || 0;
@@ -759,6 +786,33 @@
     ctx.restore();
   }
 
+  // the act, drawn as the gate's own ring divided into as many arcs as the factor
+  // has parts; each arc fills as that part is done. One mark, no panel.
+  function actProgress(a) {
+    if (!a) return 0;
+    const now = a.ts == null ? (a.t0 || 0) : a.ts;
+    if (a.kind === 'letgo') return Math.min(1, a.holdT / LETGO_MS);
+    if (a.kind === 'silence') return a.t0 == null ? 0 : Math.min(1, (now - a.t0) / SPEECH_MS - a.got);
+    if (a.kind === 'stay') return a.t0 == null ? 0 : Math.min(1, (now - a.t0) / STAY_MS - a.got);
+    return 0;
+  }
+  function drawActRing(cxm, cym, r, ry, alpha) {
+    const a = S.act;
+    if (!a) return;
+    const n = Math.max(1, a.need);
+    ctx.save();
+    ctx.lineWidth = 1.6; ctx.strokeStyle = 'rgb(214,220,228)';
+    for (let k = 0; k < n; k++) {
+      const frac = k < a.got ? 1 : (k === a.got ? actProgress(a) : 0);
+      if (frac <= 0) continue;
+      const a0 = -Math.PI / 2 + (k / n) * Math.PI * 2 + 0.07;
+      const a1 = a0 + (Math.PI * 2 / n - 0.14) * frac;
+      ctx.globalAlpha = alpha * 0.85;
+      ctx.beginPath(); ctx.ellipse(cxm, cym, r * 1.6, ry * 1.6, 0, a0, a1); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
   // A gate is a mark in the city, not a widget: a hairline ring in the cell, a
   // second ring when lit. It is only visible in ENTERED (state through world).
   function drawGates(g, alpha, mode) {
@@ -780,7 +834,7 @@
         r = cell * 0.30; ry = r; cxm = x + cell / 2; cym = y + cell / 2;
       }
       const lit = S.lit[gt.i];
-      const sight = C.gateKind(gt.i) === 'sight';
+      const sight = kindOf(gt.i) === 'sight';
       ctx.globalAlpha = alpha * (lit ? 0.95 : sight ? 0.7 : 0.55);
       ctx.strokeStyle = lit ? 'rgb(214,220,228)' : (sight ? 'rgb(190,196,204)' : 'rgb(120,128,138)');
       // a threshold that has not been seen through is a BROKEN ring: the shape
@@ -788,6 +842,7 @@
       if (sight && !lit) ctx.setLineDash([2, 3]);
       ctx.beginPath(); ctx.ellipse(cxm, cym, r, ry, 0, 0, Math.PI * 2); ctx.stroke();
       ctx.setLineDash([]);
+      if (S.act && S.act.i === gt.i) drawActRing(cxm, cym, r, ry, alpha);
       if (S.refuse && S.refuse.i === gt.i) {            // the step was held: one flare, no words
         const ph = Math.min(1, (S.refuse.phase || 0) / 3);
         ctx.globalAlpha = alpha * 0.5 * (1 - ph);
@@ -845,6 +900,17 @@
     ctx.fillRect(Math.round(x) - 1, Math.round(y) - 1, Math.round(w) + 2, Math.round(h) + 2);
     ctx.globalAlpha = alpha; ctx.fillStyle = colour;
     ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+  }
+  // breath is the frame's own remaining ink: a hairline along the inner top edge
+  // that shortens as you walk. No meter, no number at rest — the world shows it.
+  function drawBreath(d) {
+    if (S.breath == null || S.breathMax == null || !S.breathMax) return;
+    const w = Math.max(0, Math.min(1, S.breath / S.breathMax));
+    const x0 = d.x + 8, y = d.y + 5, full = Math.max(0, d.w - 16);
+    if (full <= 0) return;
+    if (w <= 0) { inkRect(x0, y, 3, 1, 0.16, 'rgb(150,158,168)'); return; }
+    inkRect(x0, y, full * w, 1, 0.30, 'rgb(150,158,168)');
+    inkRect(x0 + full * w - 0.5, y - 2, 1, 5, 0.42, 'rgb(190,196,204)');
   }
   function drawLamps(d) {
     const rs = lampRects(d);
@@ -946,13 +1012,34 @@
     if (cur) lines.push(cur);
     return lines.slice(0, 3);
   }
+  // A gate has to say three things at once on a phone: WHO it is, WHAT the text
+  // says, and WHAT it asks. So each of its lines gets one line of the strip and
+  // is ellipsized if it does not fit — a quote that eats the instruction is a
+  // gate that cannot be passed. A word gate is the exception: its BLANK must be
+  // readable, so the sentence gets two lines and the third line is the doors.
+  function fitLine(text, maxW, size) {
+    const all = wrapText(text, maxW, size);
+    if (all.length <= 1) return all;
+    return [all[0].replace(/[,;:.\s]+$/, '') + '…'];
+  }
   function voiceLines() {
     if (S.decodeCell != null && S.field) return decodeLines();
     if (!S.voice) return [];
     const size = 9.5;
+    const raw = S.voice.lines;
+    if (S.voice.kind === 'gate' && raw.length >= 3 && S.gates.length) {
+      const who = fitLine(raw[0], W - 26, size);
+      if (S.gate) {
+        const cloze = wrapText(raw[1], W - 26, size).slice(0, 2);
+        return who.concat(cloze).slice(0, 3);
+      }
+      const says = fitLine(raw[1], W - 26, size);
+      const asks = fitLine(raw.slice(2).join(' · '), W - 26, size);
+      return who.concat(says, asks).slice(0, 3);
+    }
     const out = [];
-    for (const raw of S.voice.lines) {
-      for (const l of wrapText(raw, W - 26, size)) out.push(l);
+    for (const r of raw) {
+      for (const l of wrapText(r, W - 26, size)) out.push(l);
     }
     return out.slice(0, 3);
   }
@@ -1004,6 +1091,7 @@
       const d = geoEntered().dst;                       // the frame's instruments hold still
       drawMatte();
       drawLamps(d);
+      drawBreath(d);
       drawNotch(d);
       drawNoteTick(d);
       drawVoice();
@@ -1035,6 +1123,7 @@
     const d = geoFor(S.distance);
     drawMatte();
     drawLamps(d.dst);
+    if (S.distance === 'ENTERED' || S.distance === 'EXITED') drawBreath(d.dst);
     drawNotch(d.dst);
     drawNoteTick(d.dst);
     drawDoorStrip();
@@ -1160,6 +1249,9 @@
       if (!moving) S.trans = null;
     }
     if (S.hold) { S.hold.phase = Math.floor((ts - (S.hold.t0 || ts)) / 130); live = true; }
+    // an act in progress runs on frame time: a hold that fills or drains, a
+    // silence that counts itself out, a point that stays. No clock is read.
+    if (S.act && actTick(ts)) live = true;
     // the eye line: a held press raises it, letting go settles it. Frame deltas
     // only (no wall clock), and the ramp stops the moment it is done — so nothing
     // animates unasked and the view is the same at rest on every load.
@@ -1267,6 +1359,8 @@
     S.walker = S.field ? S.field.start : null;
     S.gate = null; S.strikes = new Uint8Array(S.gates.length); S.lastP = -1;
     S.seen = new Uint8Array(S.gates.length); S.rise = null; S.refuse = null; S.lineSaid = -1;
+    // a new walk: the breath comes back whole, the acts do not carry over
+    S.act = null; S.ended = null; S.breath = S.breathMax; S.visited = new Set(S.field ? [S.field.start.n] : []);
     if (S.field) S.weather = C.weatherChain(S.field, []);
     setDistance('FAR');
     say(['the painting is back to its own bytes'], 'line', 5);
@@ -1299,7 +1393,7 @@
     const m = S.exitCache && S.exitCache.metrics;
     const lit = S.gates.filter((x, i) => S.lit[i]).length;
     const read = Object.keys(S.ledger.seen || {}).length;
-    const parts = ['exited · ' + S.moves.length + ' steps · ' + lit + '/' + S.gates.length + ' gates · ' + read + ' ¶ read'];
+    const parts = ['exited · ' + S.moves.length + ' steps · ' + lit + '/' + S.gates.length + ' gates · ' + read + ' ¶ read · breath ' + S.breath + ' of ' + S.breathMax];
     if (m) parts.push('seed ' + routeSeedHex() + ' · mad64 ' + m.mad64.toFixed(4) + ' · ' + (m.sha ? 'sha ' + m.sha.slice(0, 8) : 'sha…') + ' · source ' + S.field.source.fingerprint);
     say([parts.join(' · '), 'tap the painting to return'], 'measure', Infinity);
   }
@@ -1308,6 +1402,7 @@
   function step(dir) {
     if (!S.field || S.distance !== 'ENTERED') return false;
     if (S.rise) return false;                                   // the act has the floor
+    if (S.act && S.act.kind === 'stay') actFail('that was a move');
     const next = C.step(S.field, S.walker, dir);
     if (!next) {
       // The refusal is a place, not a margin. Mark the shared edge in the cell
@@ -1322,7 +1417,7 @@
       S.block = wall && wall.wall ? { n: wall.n, dir: FACE[dir] } : null;
       const open = C.openSides(S.field, S.walker, (c) => {
         const gt = S.gates.find((g) => g.n === c.n);
-        return !(gt && !C.gateAdmits(C.gateKind(gt.i), S.seen[gt.i]));
+        return !(gt && !C.gateAdmits(kindOf(gt.i), S.seen[gt.i]));
       });
       const name = { N: 'north', E: 'east', S: 'south', W: 'west' };
       say(['wall — the painting’s edge says no' + (open.length ? ' · open ' + open.map((k) => name[k]).join(', ') : ' · this room is closed')], 'wall', 3);
@@ -1332,9 +1427,12 @@
     // A threshold that has not been seen through does not open, and it does not
     // argue: the step simply does not happen and the ring flares once.
     const gate = S.gates.find((g) => g.n === next.n);
-    if (gate && !C.gateAdmits(C.gateKind(gate.i), S.seen[gate.i])) {
+    const kind = gate ? kindOf(gate.i) : null;
+    if (gate && !C.gateAdmits(kind, S.seen[gate.i])) {
+      // the refusal is still silent about blame, but the gate now says what it
+      // is and what it wants: a factor you cannot pass without doing it
       S.refuse = { i: gate.i, t0: null, phase: 0 };
-      if (el.live) el.live.textContent = 'held · this district has not been seen whole';
+      gateSays(gate.i);
       draw(); wake();
       return false;
     }
@@ -1349,8 +1447,20 @@
       updateChrome(); setDistance('EXITED', true); return true;
     }
     districtEnter(next.unit.p);
-    gateAt(next);
-    updateChrome(); draw();
+    // a step is what the walk costs; the act you are in may be paid for by it
+    const a = S.act;
+    const wasWalked = S.visited.has(next.n);
+    S.visited.add(next.n);
+    if (a && a.kind === 'walk' && next.unit.p === a.p) {
+      a.got++;
+      if (a.got >= a.need) actDone();
+    } else if (a && a.kind === 'return' && wasWalked) {
+      actDone();
+    } else {
+      gateAt(next);
+    }
+    spend(C.BREATH_STEP);
+    if (S.distance === 'ENTERED') { updateChrome(); draw(); }
     return true;
   }
 
@@ -1385,27 +1495,66 @@
     saveLedger();
   }
 
-  // ── the sight gate: one act, no question ──────────────────────────────────
-  // The first gate stands at a district's threshold and refuses the step until
-  // the district has been seen whole. There is no prompt: the ring is broken
-  // (a mark you can read as "not yet"), the step is held (a flare, no words), and
-  // a sustained hold lifts the view to where the district's own shape is legible.
-  // When it is, the gate lights and its line is spoken — in the same quiet voice
-  // every district speaks in, and not one word before.
-  function sightTarget() {
-    if (!S.field || !S.walker || S.distance !== 'ENTERED') return null;
-    for (const gt of S.gates) {
-      if (C.gateKind(gt.i) !== 'sight' || S.seen[gt.i]) continue;
-      if (Math.abs(gt.cx - S.walker.cx) + Math.abs(gt.cy - S.walker.cy) <= 1) return gt;
-    }
-    return null;
+  // ── the eight gates: the eight path factors, asked of the walk ────────────
+  // Gate i asks factor i. What it asks is the factor's own act, named by the
+  // text: five are gestures the walk can make (see, let go, say none, walk, go
+  // back, stay), two are a word of the text's own sentence. A sight or act gate
+  // refuses the step until the act is done; a word gate opens a card on arrival.
+  function kindOf(i) { return C.gateKind(S.factors, i); }
+  // the unlit gate you are standing on, or standing beside — the only gates a
+  // press can address. A gate you have already done is not a gate any more.
+  function gateNear(cell) {
+    if (!cell) return null;
+    const here = cell.n === (S.walker && S.walker.n);
+    return S.gates.find((g) => !S.seen[g.i] && (g.n === cell.n ||
+      (here && Math.abs(g.cx - S.walker.cx) + Math.abs(g.cy - S.walker.cy) <= 1))) || null;
   }
+  function clip(t, max) {
+    const s2 = String(t || '').replace(/\s+/g, ' ').trim();
+    if (s2.length <= max) return s2;
+    const cut = s2.slice(0, max - 1), at = cut.lastIndexOf(' ');
+    return (at > max * 0.5 ? cut.slice(0, at) : cut).replace(/[,;:.\s]+$/, '') + '…';
+  }
+  const ACT_HINT = {
+    see: 'hold, and the district rises',
+    letgo: 'let go: hold each until it goes',
+    silence: 'say none: keep off the ring',
+    walk: 'walk four steps in this district',
+    return: 'go back onto ground you have walked',
+    stay: 'stay still: one point',
+    word: 'one word is missing',
+  };
+  // what a gate says, in three lines: WHO it is (the doctrine's own name, its
+  // Pali, its locator), WHAT the text says (its own sentence), WHAT it asks.
+  function gateVoice(i) {
+    const gt = S.gates[i];
+    if (!gt) return null;
+    const fl = C.factorLine(S.factors, S.source.districts, i, gt.p);
+    if (!fl) return null;
+    const word = kindOf(i) === 'word';
+    const line3 = word ? ACT_HINT.word : ACT_HINT[fl.act] + (fl.items ? ' · ' + fl.items.join(' · ') : '');
+    // a word gate must show its own BLANK: the sentence with the word in it is the answer
+    const shown = word && S.gate && S.gate.i === i ? S.gate.cloze : clip(fl.line, word ? 118 : 58);
+    return [
+      (i + 1) + '/' + S.gates.length + ' ' + fl.en + ' (' + fl.pali + ') · ' + fl.locator,
+      '“' + shown + '”',
+      line3,
+    ];
+  }
+  function gateSays(i, ttl) {
+    const v = gateVoice(i);
+    if (v) say(v, 'gate', ttl == null ? Infinity : ttl);
+    if (el.live && v) el.live.textContent = v.join(' · ');
+    return v;
+  }
+
   function riseStart(i, auto) {
     const gt = S.gates[i];
-    if (!gt || S.distance !== 'ENTERED' || S.seen[gt.i] || S.rise) return false;
-    if (C.gateKind(gt.i) !== 'sight') return false;
+    if (!gt || S.distance !== 'ENTERED' || S.seen[gt.i] || S.rise || S.act) return false;
+    if (kindOf(gt.i) !== 'sight') return false;
     S.rise = { i: gt.i, p: gt.p, k: 0, t0: null, auto: !!auto };
-    S.decodeCell = null; S.gate = null; S.voice = null;   // the world holds its tongue while you look
+    S.decodeCell = null; S.gate = null;
+    gateSays(gt.i);                                     // the gate names itself while you look
     updateChrome(); draw(); wake();
     return true;
   }
@@ -1426,16 +1575,114 @@
     updateChrome(); wake(); if (reduced) draw();
   }
 
-  // ── the eight gates: the walk asks something of the walker ────────────────
+  // ── the acts: one press begins the factor, then the factor says what it wants
+  function actStart(i, auto) {
+    const gt = S.gates[i];
+    if (!gt || S.distance !== 'ENTERED' || S.seen[gt.i] || S.act || S.rise) return false;
+    const kind = kindOf(gt.i);
+    if (kind === 'word') return false;
+    if (kind === 'sight') return riseStart(gt.i, auto);
+    const fl = C.factorLine(S.factors, S.source.districts, gt.i, gt.p);
+    if (!fl) return false;
+    const need = fl.act === 'walk' ? 4 : (fl.items ? fl.items.length : 1);
+    S.act = {
+      i: gt.i, key: fl.key, kind: fl.act, need, got: 0,
+      p: S.walker.unit.p,          // "this district" = the one you are standing in
+      t0: null, ts: null, holdT: 0, holdT0: null, held: false, auto: !!auto,
+    };
+    S.decodeCell = null; S.gate = null;
+    gateSays(gt.i);
+    updateChrome(); draw(); wake();
+    return true;
+  }
+  function actDone() {
+    const a = S.act;
+    if (!a) return;
+    const gt = S.gates[a.i];
+    S.act = null;
+    S.seen[a.i] = 1; S.lit[a.i] = 1;
+    S.pulse = { i: a.i, t0: 0, phase: 0 };
+    const fl = C.factorLine(S.factors, S.source.districts, a.i, gt.p);
+    const name = fl ? fl.en : 'the gate';
+    say([(a.i + 1) + '/' + S.gates.length + ' ' + name + ' — done · the threshold opens',
+      'breath ' + S.breath + ' of ' + S.breathMax], 'line', 10);
+    updateChrome(); draw();
+  }
+  function actFail(reason) {
+    const a = S.act;
+    S.act = null;
+    if (navigator.vibrate) { try { navigator.vibrate(18); } catch (err) { /* no haptics */ } }
+    spend(C.BREATH_FAIL, reason);
+    if (S.distance === 'ENTERED') say([reason + ' · −' + C.BREATH_FAIL + ' breath · ' + S.breath + ' of ' + S.breathMax], 'line', 6);
+    updateChrome(); draw();
+  }
+  // the act's own clock: the instrument reads requestAnimationFrame timestamps,
+  // never Date — the same law as the rise
+  function actTick(ts) {
+    const a = S.act;
+    if (!a || S.distance !== 'ENTERED') return false;
+    if (a.ts == null) a.ts = ts;
+    const dt = Math.max(0, Math.min(120, ts - a.ts));
+    a.ts = ts;
+    if (a.kind === 'letgo') {
+      // absolute frame time, not accumulated deltas: a throttled tab (or a slow
+      // phone) fires rAF rarely, and a delta-sum would starve the hold
+      if (a.held || a.auto) {
+        if (a.holdT0 == null) a.holdT0 = ts;
+        a.holdT = ts - a.holdT0;
+        if (a.holdT >= LETGO_MS) {
+          a.got++; a.holdT = 0; a.holdT0 = ts;
+          if (a.got >= a.need) { actDone(); return false; }
+        }
+      } else { a.holdT0 = null; a.holdT = 0; }
+      return true;
+    }
+    if (a.kind === 'silence' || a.kind === 'stay') {
+      if (a.t0 == null) a.t0 = ts;
+      const per = a.kind === 'stay' ? STAY_MS : SPEECH_MS;
+      const got = Math.min(a.need, Math.floor((ts - a.t0) / per));
+      if (got > a.got) { a.got = got; }
+      if (a.got >= a.need) { actDone(); return false; }
+      return true;
+    }
+    return false;                                       // walk / return finish on a step
+  }
+  function actTouch() {                                  // a touch while an act is open
+    const a = S.act;
+    if (!a) return false;
+    if (a.kind === 'silence' && a.got < a.need) { actFail('that was speech'); return true; }
+    if (a.kind === 'stay') { actFail('that was a move'); return true; }
+    return false;
+  }
+
+  // ── breath: the walk's stake ─────────────────────────────────────────────
+  function spend(cost, reason) {
+    if (S.breath == null) return;
+    S.breath = C.spendBreath(S.breath, cost);
+    if (S.breath <= 0) endWalk(reason);
+  }
+  function endWalk(reason) {
+    if (S.distance !== 'ENTERED') return;
+    const lit = S.lit.reduce((n, v) => n + v, 0);
+    S.ended = reason || 'the breath is spent';
+    S.act = null; S.gate = null; S.rise = null; S.refuse = null;
+    setDistance('EXITED', true);
+    say([
+      'out of breath — ' + S.ended + ' · ' + S.moves.length + ' steps · ' + lit + '/' + S.gates.length + ' gates · 0 of ' + S.breathMax,
+      'the walk ends where it stands; nothing is given back inside a walk',
+    ], 'measure', Infinity);
+    updateChrome(); draw();
+  }
+
+  // ── the word gates: one word of the text's own sentence ──────────────────
   function gateAt(cell) {
     const gt = S.gates.find((g) => g.n === cell.n);
     if (!gt || S.lit[gt.i] || S.strikes[gt.i] >= 2) { S.gate = null; return; }
-    if (C.gateKind(gt.i) === 'sight') { S.gate = null; return; }   // the sight gate is not a question
-    const card = C.gateCard(S.source.districts, gt.i, gt.p, S.source.fingerprint);
+    if (kindOf(gt.i) !== 'word') { S.gate = null; return; }   // an act gate is not a question
+    const card = C.factorCard(S.factors, S.source.districts, gt.i, gt.p, S.source.fingerprint);
     if (!card) { S.gate = null; return; }
     S.gate = Object.assign({ i: gt.i }, card);
-    say(['gate ' + (gt.i + 1) + '/' + S.gates.length + ' · ¶' + (gt.p + 1) + ' ' + (card.heading || '') + ' — one word is missing',
-      '“' + card.cloze + '”'], 'gate', Infinity);
+    say(gateVoice(gt.i), 'gate', Infinity);
   }
   function answerDoor(i) {
     if (!S.gate) return null;
@@ -1443,15 +1690,17 @@
     const right = String(pick).toLowerCase() === String(g.answer).toLowerCase();
     if (right) {
       S.lit[g.i] = 1;
+      S.seen[g.i] = 1;
       S.gate = null; S.pulse = { i: g.i, t0: 0, phase: 0 };
-      say(['lit · ' + g.answer + ' — gate ' + (g.i + 1) + ' of ' + S.gates.length], 'line', 6);
+      say(['lit · ' + g.answer + ' — ' + (g.i + 1) + '/' + S.gates.length + ' ' + g.en + ' · breath ' + S.breath + ' of ' + S.breathMax], 'line', 6);
       if (navigator.vibrate) { try { navigator.vibrate(8); } catch (err) { /* no haptics */ } }
     } else {
       S.strikes[g.i] = (S.strikes[g.i] || 0) + 1;
       if (navigator.vibrate) { try { navigator.vibrate(22); } catch (err) { /* no haptics */ } }
       if (S.strikes[g.i] >= 2) {
         S.gate = null;
-        say(['the gate stays shut — walk on, or return and come back to it'], 'line', 7);
+        spend(C.BREATH_FAIL, 'not that word');
+        if (S.distance === 'ENTERED') say(['the gate stays shut — walk on, or return and come back to it · −' + C.BREATH_FAIL + ' breath'], 'line', 7);
       } else {
         say(['not that word · “' + g.cloze + '” · one more try'], 'gate', Infinity);
       }
@@ -1565,11 +1814,15 @@
     // you stand at a blocked threshold is the same act — that is what a person
     // does when the way is held, and the instrument should not punish it.
     if (cell && S.distance === 'ENTERED') {
-      const sight = S.gates.find((g) => C.gateKind(g.i) === 'sight' && !S.seen[g.i]);
-      if (sight) {
-        const onRing = cell.n === sight.n;
-        const atThreshold = cell.n === S.walker.n && Math.abs(sight.cx - S.walker.cx) + Math.abs(sight.cy - S.walker.cy) <= 1;
-        if (onRing || atThreshold) { riseStart(sight.i, false); return; }
+      const gt = gateNear(cell);
+      if (gt) {
+        if (S.drag) S.drag.moved = true;      // the gate took the touch; no decode behind it
+        if (S.act && S.act.i === gt.i) {
+          if (S.act.kind === 'letgo') { S.act.held = true; wake(); return; }
+          if (S.act.kind === 'silence' || S.act.kind === 'stay') { actTouch(); return; }
+          return;                                   // a step-act is paid for in steps
+        }
+        if (!S.seen[gt.i]) { actStart(gt.i, false); return; }
       }
       // in the eye, the held press is the eye line itself: it rises while held
       // and settles when you let go. The decode still opens on a touch-tap.
@@ -1577,7 +1830,7 @@
     }
     if (cell && (S.distance === 'NEAR' || S.distance === 'ENTERED') && !reduced && !S.fpv) S.hold = { cx: cell.cx, cy: cell.cy, phase: 0, t0: 0 };
     clearTimeout(S.holdTimer);
-    if (!S.fpv) {
+    if (!S.fpv && !S.act) {
       S.holdTimer = setTimeout(() => {
         if (!S.drag) return;
         const c2 = cellFromEvent({ clientX: S.drag.x, clientY: S.drag.y });
@@ -1611,6 +1864,7 @@
     wake(); draw();
   }
   cv.addEventListener('pointerup', (e) => {
+    if (S.act && S.act.held) S.act.held = false;      // a let-go that is let go drains
     S.pointers = Math.max(0, (S.pointers || 1) - 1);
     const wasTwo = !!S.twoFinger;
     if (S.pointers === 0) S.twoFinger = false;
@@ -1651,9 +1905,9 @@
     if (e.key === 'Escape') { if (S.rise) { S.rise = null; draw(); return; } closeDecode(); if (S.gate) { S.gate = null; draw(); } return; }
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      // a keyboard cannot hold: one press begins the same sustained look
-      const st = sightTarget();
-      if (st) { riseStart(st.i, true); return; }
+      // a keyboard cannot hold: one press begins the same act, and the act runs
+      const st = S.distance === 'ENTERED' ? gateNear(S.walker) : null;
+      if (st) { actStart(st.i, true); return; }
       advance(); return;
     }
     if (S.distance !== 'ENTERED') return;
@@ -1755,7 +2009,13 @@
         counts: S.field.source.counts, drawn: S.field.drawn, districts: S.source.districts.length,
       } : null,
       field: S.field ? { cells: S.field.cells.length, walkable: S.field.walkable, reachable: S.field.reachable, cutQ: S.field.cutQ } : null,
-      gates: S.gates.map((g, i) => ({ i: g.i, x: g.cx, y: g.cy, p: g.p, dist: g.dist, lit: !!S.lit[i], strikes: S.strikes[i] })),
+      gates: S.gates.map((g, i) => {
+        const f = S.factors && S.factors[i];
+        return { i: g.i, x: g.cx, y: g.cy, p: g.p, dist: g.dist, lit: !!S.lit[i], strikes: S.strikes[i],
+          factor: f ? f.key : null, en: f ? f.en : null, act: f ? f.act : null, kind: kindOf(i) };
+      }),
+      breath: S.breath, breathMax: S.breathMax, ended: S.ended,
+      act: S.act ? { i: S.act.i, key: S.act.key, kind: S.act.kind, need: S.act.need, got: S.act.got } : null,
       gate: S.gate ? { i: S.gate.i, p: S.gate.p, cloze: S.gate.cloze, answer: S.gate.answer, options: S.gate.options.slice() } : null,
       doors: doorRects().length,
       lit: Array.from(S.lit || []).reduce((n, v) => n + v, 0),
@@ -1779,7 +2039,7 @@
         steps: S.weather.steps.map((s) => ({ p: s.p, in: s.carryIn, out: s.weather })),
       } : null,
       sight: S.gates.length ? {
-        p: S.gates[0].p, kind: C.gateKind(0), seen: !!S.seen[0],
+        p: S.gates[0].p, kind: kindOf(0), seen: !!S.seen[0],
         rise: S.rise ? { k: +S.rise.k.toFixed(3), p: S.rise.p, i: S.rise.i } : null,
       } : null,
     };
@@ -1809,7 +2069,17 @@
     // the sight gate's act, the city's weather, and the shape it is written on
     rise: (i) => riseStart(i == null ? 0 : i, true),
     riseEnd,
-    adjacentSight: () => { const t = sightTarget(); return t ? { i: t.i, p: t.p, x: t.cx, y: t.cy } : null; },
+    adjacentSight: () => { const t = gateNear(S.walker); return t ? { i: t.i, p: t.p, x: t.cx, y: t.cy, kind: kindOf(t.i) } : null; },
+    // 0.5.0 probes: the factor a gate asks, the act, and the breath the walk costs
+    factors: () => (S.factors ? JSON.parse(JSON.stringify(S.factors)) : []),
+    factor: (i) => (S.factors ? S.factors[i] || null : null),
+    gateVoice: (i) => gateVoice(i == null ? 0 : i),
+    act: (i) => actStart(i == null ? 0 : i, true),
+    breath: (n) => {
+      if (n == null) return { breath: S.breath, max: S.breathMax };
+      S.breath = Math.max(0, Math.min(S.breathMax == null ? 0 : S.breathMax, Number(n) || 0));
+      draw(); return S.breath;
+    },
     // 0.4.0 probes: the eye, the note, the reading head, and the projection itself
     fpv: (on) => toggleFpv(on),
     note: (on) => toggleNote(on),
@@ -1822,6 +2092,14 @@
       return { lay: { w: lay.w, h: lay.h, f: lay.f, horizon: lay.horizon, eye: lay.eye }, rows: out };
     },
     walls: (n) => C.wallFaces(S.field, n),
+    // probe-only: where a cell sits on screen (CSS px), so a proof can touch the
+    // real control path instead of calling the handler it is meant to exercise
+    screenOf: (n) => {
+      const g = geoFor(S.distance);
+      if (!g || !g.win || !S.field) return null;
+      const c = S.field.cells[n];
+      return { x: g.dst.x + (c.cx - g.win.ox + 0.5) * g.cell, y: g.dst.y + (c.cy - g.win.oy + 0.5) * g.cell };
+    },
     openSides: () => C.openSides(S.field, S.walker),
     weatherOf: (p) => weatherFor(p),
     weatherInk: (p) => bandMarks(geoEntered(), p == null ? (S.walker ? S.walker.unit.p : 0) : p),
@@ -1829,12 +2107,14 @@
     voice: () => voiceLines(),
     doors: () => doorRects().map((r) => ({ i: r.i, x: r.x, y: r.y, w: r.w, h: r.h })),
     layout: () => ({ w: W, h: H, voiceH: VOICE_H }),
+    frameRect: () => { const g = geoFor(S.distance); return g && g.dst ? { x: g.dst.x, y: g.dst.y, w: g.dst.w, h: g.dst.h } : null; },
     fieldStats: () => S.field ? {
       cutQ: S.field.cutQ, cut: +S.field.cut.toFixed(5), walkable: S.field.walkable, reachable: S.field.reachable,
       lumRange: { min: +S.field.lum.min.toFixed(4), max: +S.field.lum.max.toFixed(4) },
       drawn: S.field.drawn, sourceCounts: S.field.source.counts, start: { x: S.field.start.cx, y: S.field.start.cy },
       fingerprint: S.field.source.fingerprint, matter: S.source.matter.length, districts: S.source.districts.length,
-      gates: S.gates.length,
+      gates: S.gates.length, factors: S.factors ? S.factors.length : 0,
+      breath: S.breath, breathMax: S.breathMax,
     } : null,
   });
 

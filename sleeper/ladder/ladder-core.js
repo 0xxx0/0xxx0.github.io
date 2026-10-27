@@ -169,10 +169,19 @@
     for (const u of units) if (!districts[u.p]) bad('cell points at missing district ' + u.p);
     const drawn = new Set(units.map((u) => u.p));
     if (drawn.size !== districts.length) bad('drawn districts ' + drawn.size + ' != districts ' + districts.length);
+    // the gate layer: eight factors, each addressed to its own paragraph. This
+    // block is NOT city matter — it never enters `units` or `districts`, so a
+    // city built with it is bit-identical to one built without it.
+    const factors = Array.isArray(derived.factors) ? derived.factors : [];
+    if (factors.length && factors.length !== GATES) bad('factors[] must hold ' + GATES + ' entries, got ' + factors.length);
+    for (const f of factors) {
+      if (!f || !f.key || !f.en || !f.pali || !f.act || !f.line) bad('factor ' + (f && f.i) + ' needs key/en/pali/act/line');
+      if (ACT_KINDS[f.act] == null) bad('factor ' + f.key + ': unknown act "' + f.act + '"');
+    }
     return {
       schema: SOURCE_SCHEMA, fingerprint: fp, sha256: sel.sha256,
       provenance: prov, selection: sel, counts: derived.counts || {}, districts,
-      units, matter,
+      units, matter, factors,
     };
   }
 
@@ -357,77 +366,148 @@
     return dist;
   }
 
-  // ── the eight gates ───────────────────────────────────────────────────────
-  // The ONE RETURN contract's eight enacted gates, now learning checks. Gates
-  // stand at the quantiles of the walk's own distance field, inside a horizon
-  // a phone can actually walk (the 85th percentile of reachable distance, hard
-  // cap 96 steps). Each gate prefers an unvisited district, so the eight gates
-  // are eight different paragraphs of the book.
+  // ── the eight gates ARE the eight path factors ────────────────────────────
+  // The order is the doctrine's own: MN 117 (Mahācattārīsaka Sutta), quoted by
+  // the text at path-factors-of-wisdom.txt:29 (Ch. 16 ¶15) — right view, right
+  // thought, right speech, right action, right livelihood, right effort, right
+  // mindfulness, right concentration. Gate i asks factor i, and the factor's own
+  // paragraph is what it asks with. There is no gate without a factor.
   const GATES = 8;
-  const GATE_HORIZON_CAP = 96;
-  function placeGates(field, count, usable) {
-    const k = count || GATES;
-    const dist = bfs(field);
-    const okDistrict = typeof usable === 'function' ? usable : () => true;
-    const reach = [];
-    let worst = 0;
-    for (let n = 0; n < CELLS; n++) if (dist[n] > 0 && field.reach[n]) { reach.push(n); if (dist[n] > worst) worst = dist[n]; }
-    // horizon: the 85th percentile of reachable distance, capped
-    reach.sort((a, b) => (dist[a] - dist[b]) || (a - b));
-    const p85 = reach.length ? dist[reach[Math.max(0, Math.floor(reach.length * 0.85))]] : 0;
-    const horizon = Math.max(k, Math.min(GATE_HORIZON_CAP, p85 || worst));
-    const band = reach.filter((n) => dist[n] <= horizon);
-    const used = new Set(), usedDistricts = new Set(), out = [];
-    for (let i = 0; i < k && band.length; i++) {
-      const target = Math.floor((i + 0.5) * band.length / k);       // measured quantile
-      let pick = -1, fallback = -1;
-      for (let step = 0; step < band.length; step++) {
-        const n = band[(target + step) % band.length];
-        if (used.has(n)) continue;
-        const p = field.cells[n].unit.p;
-        if (!okDistrict(p)) continue;                 // a gate needs a line it can ask
-        if (fallback < 0) fallback = n;
-        if (!usedDistricts.has(p)) { pick = n; break; }
-      }
-      if (pick < 0) pick = fallback >= 0 ? fallback : band[target];
-      used.add(pick);
-      usedDistricts.add(field.cells[pick].unit.p);
-      out.push({ i, n: pick, cx: pick % COLS, cy: (pick / COLS) | 0, p: field.cells[pick].unit.p, dist: dist[pick] });
-    }
-    return { gates: out, dist, horizon, band: band.length };
+  // what each factor's act is, in the instrument's own grammar: an act the walk
+  // can perform ('sight' = the rise, 'act' = a gesture named by the factor), or
+  // a word from the text where no gesture can carry the factor.
+  const ACT_KINDS = { see: 'sight', word: 'word', letgo: 'act', silence: 'act', walk: 'act', return: 'act', stay: 'act' };
+
+  // ── breath: the walk's stake, measured in the city's own units ────────────
+  // One breath for every sentence the city is made of, and one for every
+  // paragraph you must cross: 50 + 28 = 78 on the shipped source. Same source,
+  // same budget, in every process. Nothing refills it inside a walk.
+  const BREATH_STEP = 1;
+  const BREATH_FAIL = 3;                    // a wrong door, or a word said at the silence gate
+  function breathBudget(counts) {
+    const c = counts || {};
+    return (Number(c.sentences) || 0) + (Number(c.districts) || 0);
+  }
+  function spendBreath(breath, cost) {
+    return Math.max(0, (Number(breath) || 0) - (Number(cost) || 0));
   }
 
-  // A gate's card: the district's own cited line with one word taken out, and
-  // three doors. Distractors are words of the SAME text (other districts), so
-  // the question can only be answered from what the book says.
-  function gateCard(districts, gateIndex, p, seedStr) {
-    const d = districts[p];
-    if (!d || !d.cloze || !d.answer) return null;
+  function gateKind(factors, i) {
+    const f = factors && factors[i];
+    return (f && ACT_KINDS[f.act]) || 'word';
+  }
+  // a sight or act gate refuses the step until its act is done; a word gate
+  // opens its card when you arrive and never blocks the walk
+  function gateAdmits(kind, done) { return kind === 'word' ? true : !!done; }
+
+  // Gates stand ON the city, never in its matter. The eight factors are a PATH,
+  // so the gates are one road: the walk's own way out of the city that crosses
+  // the most paragraphs, divided into eight stretches, one threshold each, in the
+  // doctrine's order. The road is found in the distance field the walk already
+  // computes; no factor text is read here, and the matter is never touched.
+  function pathFrom(field, far, dist) {
+    const path = [far];
+    let n = far;
+    while (n !== field.start.n && path.length < CELLS) {
+      const c = field.cells[n], pos = { n, cx: c.cx, cy: c.cy, unit: c.unit };
+      let prev = -1;
+      for (const d of ['U', 'D', 'L', 'R']) {
+        const nx = step(field, pos, d);
+        if (nx && dist[nx.n] === dist[n] - 1) { prev = nx.n; break; }
+      }
+      if (prev < 0) break;
+      path.push(prev); n = prev;
+    }
+    return path.reverse();
+  }
+  function roadPath(field, budget) {
+    const dist = bfs(field);
+    const limit = Math.floor(Math.max(8, Number(budget) * 0.75));
+    let best = null;
+    for (let n = 0; n < CELLS; n++) {
+      if (!field.reach[n] || dist[n] <= 2 || dist[n] > limit) continue;
+      const path = pathFrom(field, n, dist);
+      let ds = 0;
+      const seen = new Set();
+      for (const k of path) { const p = field.cells[k].unit.p; if (!seen.has(p)) { seen.add(p); ds++; } }
+      const better = !best || ds > best.ds || (ds === best.ds && dist[n] > best.len) ||
+        (ds === best.ds && dist[n] === best.len && n < best.n);
+      if (better) best = { n, ds, len: dist[n], path };
+    }
+    if (!best) return { dist, path: [field.start.n], districts: 0 };
+    return { dist, path: best.path, districts: best.ds };
+  }
+  function placeFactors(field, factors, budget) {
+    const k = (factors && factors.length) || GATES;
+    const road = roadPath(field, budget);
+    const { dist, path } = road;
+    const span = Math.max(1, path.length - 1);
+    // eight equal stretches of one road, in the doctrine's order: the walk meets
+    // the factors at a steady pace, and the last threshold is the end of the road
+    const gates = [], used = new Set();
+    for (let i = 0; i < k; i++) {
+      let at = Math.max(1, Math.min(path.length - 1, Math.round((i + 1) * span / k)));
+      while (used.has(at) && at < path.length - 1) at++;
+      used.add(at);
+      const n = path[at], f = factors && factors[i];
+      gates.push({ i, n, cx: n % COLS, cy: (n / COLS) | 0, p: field.cells[n].unit.p, dist: at, factor: f ? f.key : null });
+    }
+    return { gates, dist, horizon: span, band: path.length, districts: road.districts };
+  }
+
+  // What a gate says: the factor's own sentence, cited. When the gate happens to
+  // stand in the very district whose paragraph is that sentence, the district's
+  // own cited line is spoken instead — the room and the gate agree, so the gate
+  // does not repeat the book twice.
+  function factorLine(factors, districts, gateIndex, p) {
+    const f = factors && factors[gateIndex];
+    if (!f) return null;
+    const d = districts && districts[p];
+    const own = d && f.district != null && Number(f.district) === Number(p) && d.line ? d : null;
+    return {
+      i: gateIndex, key: f.key, en: f.en, pali: f.pali, act: f.act,
+      line: own ? d.line : f.line,
+      locator: own ? (d.locator || '') : (f.quoteLocator || f.locator || ''),
+      items: f.items || null,
+      quoted: own ? 'district' : 'factor',
+    };
+  }
+
+  // A word gate's card: the text's own sentence with one word taken out and three
+  // doors. The sentence is the factor's own paragraph — the gate cannot ask about
+  // anything but its factor. Distractors are words of the SAME text (the city's
+  // other districts), so the question can only be answered from what the book says.
+  function factorCard(factors, districts, gateIndex, p, seedStr) {
+    const f = factors && factors[gateIndex];
+    if (!f || !f.cloze || !f.answer) return null;
+    const line = f.cloze, answer = f.answer;
     const pool = [];
-    for (const o of districts) {
-      if (!o || o.p === p || !o.answer) continue;
+    for (const o of (districts || [])) {
+      if (!o || !o.answer) continue;
       const w = o.answer;
       if (w.length < 4 || w.length > 18) continue;
-      // same neighbourhood of length: a distractor that cannot be spotted by size
-      if (Math.abs(w.length - d.answer.length) > 3) continue;
-      const wl = w.toLowerCase(), al = d.answer.toLowerCase();
+      if (Math.abs(w.length - answer.length) > 3) continue;      // no size tells
+      const wl = w.toLowerCase(), al = answer.toLowerCase();
       if (wl === al) continue;
-      // a distractor that is a form of the answer ("definition" / "definitions")
-      // is not a distractor: it makes the question unanswerable by reading
-      if (wl.indexOf(al) >= 0 || al.indexOf(wl) >= 0) continue;
+      if (wl.indexOf(al) >= 0 || al.indexOf(wl) >= 0) continue;  // a form of the answer is not a distractor
       pool.push(w);
     }
-    const seen = new Set([d.answer.toLowerCase()]);
+    const seen = new Set([answer.toLowerCase()]);
     const uniq = pool.filter((w) => { const l = w.toLowerCase(); if (seen.has(l)) return false; seen.add(l); return true; });
-    const seed = String(seedStr || '') + '|g' + gateIndex + '|p' + p;
-    const opts = [d.answer];
+    const seed = String(seedStr || '') + '|f' + gateIndex + '|p' + p;
+    const opts = [answer];
     for (let i = 0; i < 2 && uniq.length; i++) {
       const idx = hash32(seed + '#' + i) % uniq.length;
       opts.push(uniq.splice(idx, 1)[0]);
     }
-    // order the doors by hash (the answer's position is not a pattern)
     const order = opts.map((w, i) => ({ w, k: hash32(seed + '@' + i) })).sort((a, b) => (a.k - b.k) || 0).map((x) => x.w);
-    return { p, cloze: d.cloze, answer: d.answer, options: order, heading: d.heading, locator: d.locator };
+    return {
+      p, i: gateIndex, key: f.key, en: f.en, pali: f.pali, act: f.act,
+      cloze: line, answer, options: order,
+      heading: f.en + ' — the text’s own account',
+      locator: f.quoteLocator || f.locator || '',
+      quoted: 'factor',
+    };
   }
 
   // ── the return ledger (retention, clock-free) ─────────────────────────────
@@ -567,15 +647,11 @@
   }
 
   // ── the sight gate: entry is admitted by an act, not by a word ────────────
-  // The first gate is not a question. It stands at the threshold of a district
-  // and refuses the step until that district has been SEEN WHOLE: a sustained
-  // hold lifts the view from the walked window to the whole field until the
-  // district's own shape is legible. Only then is its line spoken. The rest of
-  // the gates still ask. One gate is the experiment; the law lives in the act.
-  const SIGHT_GATES = 1;
+  // Gate 1 (right view) is not a question. It stands at the threshold of a
+  // district and refuses the step until that district has been SEEN WHOLE: a
+  // sustained hold lifts the view from the walked window to the whole field
+  // until the district's own shape is legible. Only then is its line spoken.
   const SEEN_AT = 0.9;                                    // the hold is satisfied here
-  function gateKind(i) { return i < SIGHT_GATES ? 'sight' : 'word'; }
-  function gateAdmits(kind, seen) { return kind === 'sight' ? !!seen : true; }
   function riseMet(k) { return Number(k) >= SEEN_AT; }
 
   // ── the walk: compressed U/D/L/R witness (the ONE RETURN path signature) ──
@@ -851,15 +927,15 @@
   }
 
   return Object.freeze({
-    version: '0.4.0',
+    version: '0.5.0',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
-    PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, GATE_HORIZON_CAP, LEDGER_GAP,
-    CUT_LADDER, WEATHERS, SIGHT_GATES, SEEN_AT,
+    PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, LEDGER_GAP,
+    CUT_LADDER, WEATHERS, SEEN_AT, BREATH_STEP, BREATH_FAIL, ACT_KINDS,
     hash32, tag8, lumOf, hueOf, districtOf, parseSource, splitSentences, firstSentence, projectCells, readDerived,
     sourceFingerprint, imageField, buildField,
     heaviestWeather, weatherOf, weatherFold, districtRuns, weatherChain, measureDistricts,
-    gateKind, gateAdmits, riseMet,
-    floodFill, bfs, placeGates, gateCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
+    gateKind, gateAdmits, riseMet, breathBudget, spendBreath, factorLine,
+    floodFill, bfs, placeFactors, factorCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
     changedPx, syntheticPainting, PUNCT,
     FPV, fpvLayout, fpvRow, fpvPoint, fpvQuad, readingHead, wallFaces, openSides, SIDES,

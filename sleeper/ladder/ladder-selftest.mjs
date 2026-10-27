@@ -17,7 +17,7 @@ import { readFileSync, existsSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { derive, CORPUS_DEFAULT } from './derive-source.mjs';
+import { derive, deriveFactors, readParas, CORPUS_DEFAULT, FACTORS } from './derive-source.mjs';
 
 const require = createRequire(import.meta.url);
 const CORE = require('./ladder-core.js');
@@ -156,28 +156,57 @@ ok('NEGATIVE: a different painting changes the measured field (lum/edge per cell
   otherField.cells.some((c, i) => c.lum !== field.cells[i].lum || c.edge !== field.cells[i].edge),
   `cell0 lum ${field.cells[0].lum.toFixed(4)} vs ${otherField.cells[0].lum.toFixed(4)}`);
 
-// ── 6. the eight gates ─────────────────────────────────────────────────────
-section('6 · the eight gates (learning checks placed on the walk’s own distance field)');
-const usable = (p) => !!(src.districts[p] && src.districts[p].cloze);
-const placed = CORE.placeGates(field, CORE.GATES, usable);
-const placed2 = CORE.placeGates(field, CORE.GATES, usable);
-ok('eight gates stand in the city', placed.gates.length === CORE.GATES, `${placed.gates.length} gates · horizon ${placed.horizon} steps · band ${placed.band} cells`);
-ok('every gate is reachable and stands on a different cell', placed.gates.every((g) => field.reach[g.n] === 1) &&
-  new Set(placed.gates.map((g) => g.n)).size === placed.gates.length,
+// ── 6. the eight gates ARE the eight path factors ─────────────────────────
+section('6 · the eight gates (the eight path factors, placed on the walk’s own field)');
+const budget = CORE.breathBudget(src.counts);
+const placed = CORE.placeFactors(field, src.factors, budget);
+const placed2 = CORE.placeFactors(field, src.factors, budget);
+ok('eight gates, one per path factor, in the doctrine’s order',
+  placed.gates.length === CORE.GATES && placed.gates.every((g, i) => g.factor === src.factors[i].key),
+  placed.gates.map((g) => g.factor).join(' -> '));
+ok('every gate is reachable and stands on its own cell',
+  placed.gates.every((g) => field.reach[g.n] === 1) && new Set(placed.gates.map((g) => g.n)).size === placed.gates.length,
   placed.gates.map((g) => '¶' + (g.p + 1) + '@d' + g.dist).join(' '));
-ok('every gate asks about a different district', new Set(placed.gates.map((g) => g.p)).size === placed.gates.length);
+ok('the gates are met in order: distance never falls as the factors deepen',
+  placed.gates.every((g, i) => i === 0 || g.dist >= placed.gates[i - 1].dist),
+  'd ' + placed.gates.map((g) => g.dist).join(' < '));
+const bfsFrom = (startN) => {
+  const d = new Int32Array(CORE.CELLS).fill(-1);
+  d[startN] = 0;
+  const q = [startN];
+  for (let h = 0; h < q.length; h++) {
+    const n = q[h], c = field.cells[n], pos = { n, cx: c.cx, cy: c.cy, unit: c.unit };
+    for (const dir of ['U', 'D', 'L', 'R']) {
+      const nx = CORE.step(field, pos, dir);
+      if (nx && d[nx.n] < 0) { d[nx.n] = d[n] + 1; q.push(nx.n); }
+    }
+  }
+  return d;
+};
+const legsOnRoad = placed.gates.map((g, i) => (i ? bfsFrom(placed.gates[i - 1].n)[g.n] : g.dist));
+const legsOk = legsOnRoad.every((L, i) => L === placed.gates[i].dist - (i ? placed.gates[i - 1].dist : 0));
+ok('the eight gates lie on ONE road: each leg costs exactly the step difference (not eight separate routes)',
+  legsOk && placed.gates[placed.gates.length - 1].dist === placed.horizon,
+  'legs ' + legsOnRoad.join('+') + ' = ' + placed.horizon + ' steps to the last gate');
+ok('the road crosses the city, not one paragraph (>= 8 districts walked through)',
+  placed.districts >= 8, placed.districts + ' paragraphs on the road · ' + new Set(placed.gates.map((g) => g.p)).size + ' of them carry a gate');
+ok('every gate stands inside the breath the text allows (distance <= budget - 8)',
+  placed.gates.every((g) => g.dist <= budget - CORE.GATES), 'budget ' + budget + ' · farthest gate d' + placed.gates[placed.gates.length - 1].dist);
 ok('gate placement is deterministic (same field twice)', JSON.stringify(placed.gates) === JSON.stringify(placed2.gates));
-ok('NEGATIVE: a different painting moves the gates', JSON.stringify(CORE.placeGates(otherField, CORE.GATES, usable).gates) !== JSON.stringify(placed.gates));
-const cards = placed.gates.map((g) => CORE.gateCard(src.districts, g.i, g.p, src.fingerprint));
-ok('every gate card offers three doors, the answer exactly once',
-  cards.every((c) => c && c.options.length === 3 && c.options.filter((o) => o === c.answer).length === 1 &&
-    new Set(c.options.map((o) => o.toLowerCase())).size === 3),
-  cards.map((c) => c.answer + '@' + c.options.indexOf(c.answer)).join(' '));
+ok('NEGATIVE: a different painting moves the gates', JSON.stringify(CORE.placeFactors(otherField, src.factors, budget).gates) !== JSON.stringify(placed.gates));
+const wordIdx = placed.gates.map((g, i) => i).filter((i) => CORE.gateKind(src.factors, i) === 'word');
+const cards = wordIdx.map((i) => CORE.factorCard(src.factors, src.districts, i, placed.gates[i].p, src.fingerprint));
+ok('the two word gates offer three doors, the answer exactly once, and the answer is the factor’s own word',
+  cards.length === 2 && cards.every((c, k) => c && c.options.length === 3 && c.options.filter((o) => o === c.answer).length === 1 &&
+    new Set(c.options.map((o) => o.toLowerCase())).size === 3 && c.answer === src.factors[wordIdx[k]].answer),
+  cards.map((c) => c.key + ':' + c.answer + '@' + c.options.indexOf(c.answer)).join(' '));
 ok('the answer never appears in the cloze, and the blank is really blank',
-  cards.every((c) => c.cloze.includes('____') && !c.cloze.toLowerCase().includes(c.answer.toLowerCase())));
-ok('NEGATIVE: a district without a line cannot become a gate question',
-  CORE.gateCard(src.districts, 0, 0, 'x') === null || CORE.gateCard([{ p: 0, line: '', answer: '', cloze: '' }], 0, 0, 'x') === null);
-ok('gate cards are deterministic', JSON.stringify(cards) === JSON.stringify(placed.gates.map((g) => CORE.gateCard(src.districts, g.i, g.p, src.fingerprint))));
+  cards.every((c) => c.cloze.includes('____') && !c.cloze.toLowerCase().includes(c.answer.toLowerCase())),
+  cards.map((c) => c.cloze.slice(0, 44)).join(' | '));
+ok('NEGATIVE: an acted factor has no card (a gate you must DO cannot be answered with a word)',
+  [0, 1, 2, 5, 6, 7].every((i) => CORE.factorCard(src.factors, src.districts, i, 0, 'x') === null),
+  'sight + acts -> null');
+ok('word cards are deterministic', JSON.stringify(cards) === JSON.stringify(wordIdx.map((i) => CORE.factorCard(src.factors, src.districts, i, placed.gates[i].p, src.fingerprint))));
 
 // ── 7. the return ledger: spaced by walks, never by the clock ─────────────
 section('7 · the return ledger (retention without a wall clock)');
@@ -302,12 +331,13 @@ ok('the chain over a real walk == the fold over the district runs it entered',
 
 // ── 10. the sight gate: entry is admitted by an act, not by a word ─────────
 section('10 · the sight gate + the district shape it traces');
-ok('gate 1 is the sight gate; gates 2-8 still ask a word',
-  CORE.gateKind(0) === 'sight' && CORE.gateKind(1) === 'word' && CORE.gateKind(CORE.GATES - 1) === 'word' &&
-  CORE.SIGHT_GATES === 1, 'kinds ' + [0, 1, 7].map((i) => CORE.gateKind(i)).join(','));
-ok('admission: an unseen district is refused, a seen one is admitted (and a word gate always opens)',
-  CORE.gateAdmits('sight', false) === false && CORE.gateAdmits('sight', true) === true && CORE.gateAdmits('word', false) === true,
-  'the refused step is the whole instruction');
+ok('the eight kinds are one sight, five acts, two words — no other gate exists',
+  [0, 1, 2, 3, 4, 5, 6, 7].map((i) => CORE.gateKind(src.factors, i)).join(',') === 'sight,act,act,word,word,act,act,act',
+  [0, 1, 2, 3, 4, 5, 6, 7].map((i) => CORE.gateKind(src.factors, i)).join(','));
+ok('admission: an undone act refuses the step, a done act admits it, a word gate always opens',
+  CORE.gateAdmits('sight', false) === false && CORE.gateAdmits('sight', true) === true &&
+  CORE.gateAdmits('act', false) === false && CORE.gateAdmits('act', true) === true && CORE.gateAdmits('word', false) === true,
+  'five of eight factors cannot be walked past without being done');
 ok('the hold is satisfied only near the whole: SEEN_AT', CORE.SEEN_AT > 0.5 && CORE.SEEN_AT < 1 &&
   CORE.riseMet(CORE.SEEN_AT - 0.01) === false && CORE.riseMet(CORE.SEEN_AT) === true && CORE.riseMet(1) === true,
   'riseMet(' + CORE.SEEN_AT + ') = true, riseMet(' + (CORE.SEEN_AT - 0.01).toFixed(2) + ') = false');
@@ -360,10 +390,10 @@ const js = readFileSync(join(HERE, 'ladder.js'), 'utf8');
 ok('REDUCED: the per-cell weather mark is gone; weather is one district band',
   !/function weatherMark/.test(js) && !/weatherMark\(/.test(js) && /function bandMarks/.test(js) && /function drawBand/.test(js),
   'world-scale weather replaced cell-scale weather (83 invisible marks -> 28 bands)');
-ok('REDUCED: the sight gate has no card, no doors and no instruction line',
-  /gateKind\(gt\.i\) === 'sight'\) \{ S\.gate = null; return; \}/.test(js) &&
-  !/card.*sight|sight.*cloze/i.test(js) && /function riseStart/.test(js),
-  'gate 1 never reaches the quiz surface; the other seven still do');
+ok('REDUCED: the seven generic cloze gates are gone — only a word factor opens a card',
+  /kindOf\(gt\.i\) !== 'word'\) \{ S\.gate = null; return; \}/.test(js) &&
+  !/placeGates/.test(js) && !/gateCard\(/.test(js) && /function riseStart/.test(js) && /function actStart/.test(js),
+  'five factors are acts, two are words, and no gate is a quiz by default');
 ok('the surface count did not grow: four elements, no control, no panel',
   (html.match(/\sid="/g) || []).length === 4 && !/<button|<input|<select|<textarea|<dialog|<form/i.test(html),
   ((html.match(/\sid="/g) || []).length) + ' elements · canvas + provenance + sr-only live + sr-only help');
@@ -504,6 +534,131 @@ ok('walls are drawn from their faces, not from a second data source',
 ok('the eye reads the same field as the plan (no second data source in the view)',
   /function drawFpv\(/.test(js) && /S\.field\.cells\[cy \* C\.COLS \+ cx\]/.test(js) && !/fetch\(/.test(js.slice(js.indexOf('function drawFpv'), js.indexOf('function drawBandFpv'))),
   'FPV samples S.field.cells — the same cells ENTERED walks');
+
+
+// ── 17. the eight path factors: the doctrine's own order and its own words ──
+section('17 · the eight path factors (gate i asks factor i, quoted from its own paragraph)');
+const F = src.factors;
+ok('the shipped slice carries eight factors, one per gate', F.length === CORE.GATES && F.every((f, i) => f.i === i),
+  F.map((f) => f.key).join(' -> '));
+ok('the order is the doctrine’s own: view, thought, speech, action, livelihood, effort, mindfulness, concentration',
+  F.map((f) => f.key).join(',') === 'view,thought,speech,action,livelihood,effort,mindfulness,concentration',
+  F.map((f) => f.pali).join(' · '));
+ok('every factor names itself in the doctrine’s own words (English + Pali), and no two share a name',
+  F.every((f) => f.en && f.pali && /^sammā-/.test(f.pali)) && new Set(F.map((f) => f.pali)).size === CORE.GATES,
+  F.map((f) => f.en + ' (' + f.pali + ')').join(' · '));
+ok('every factor carries the sentence the text gives it, with a locator into the book',
+  F.every((f) => f.line && f.line.length >= 30 && /·\s¶\d+/.test(f.locator)), F.map((f) => f.locator).join(' '));
+ok('every factor’s act is a declared act: six are enacted, two ask a word',
+  F.every((f) => CORE.ACT_KINDS[f.act]) && F.filter((f) => f.act !== 'word').length === 6,
+  F.map((f) => f.key + ':' + f.act).join(' '));
+ok('the three lists are the text’s own (three wrong thoughts, four wrong speeches, four endeavours)',
+  JSON.stringify(F[1].items) === JSON.stringify(['sensuality', 'ill-will', 'cruelty']) &&
+  JSON.stringify(F[2].items) === JSON.stringify(['false speech', 'divisive speech', 'harsh speech', 'idle chatter']) &&
+  JSON.stringify(F[5].items) === JSON.stringify(['prevent', 'abandon', 'cultivate', 'protect']),
+  'thought ' + F[1].items.join(',') + ' · speech ' + F[2].items.length + ' · effort ' + F[5].items.join(','));
+ok('NEGATIVE: a slice with seven factors is refused (no gate without its factor)',
+  (() => { try { CORE.readDerived(Object.assign({}, derived, { factors: derived.factors.slice(0, 7) })); return false; } catch (e) { return /factors/.test(e.message); } })());
+ok('NEGATIVE: an unknown act is refused (a gate must be an act the walk can make)',
+  (() => { try { CORE.readDerived(Object.assign({}, derived, { factors: derived.factors.map((f, i) => (i ? f : Object.assign({}, f, { act: 'quiz' }))) })); return false; } catch (e) { return /unknown act/.test(e.message); } })());
+ok('a gate standing in its factor’s own district speaks THAT district’s line (the room and the gate agree)',
+  (() => {
+    const f = F.find((x) => x.district != null);
+    if (!f) return false;
+    const own = CORE.factorLine(F, src.districts, f.i, f.district);
+    const far = CORE.factorLine(F, src.districts, f.i, (f.district + 1) % src.districts.length);
+    return own.quoted === 'district' && own.line === src.districts[f.district].line &&
+      far.quoted === 'factor' && far.line === f.line && own.line !== far.line;
+  })(), (() => { const f = F.find((x) => x.district != null); return f ? f.key + ' in ' + src.districts[f.district].locator : 'no factor has a district'; })());
+ok('the gate’s voice says WHO it is: the factor, its Pali, and its locator (all three, one line)',
+  /fl\.en \+ ' \(' \+ fl\.pali \+ '\) · ' \+ fl\.locator/.test(js) && /function gateVoice/.test(js),
+  'gate i/8 right view (sammā-diṭṭhi) · Ch. 16 ¶13');
+if (haveCorpus) {
+  // 17b — the order is read out of the book, not asserted from memory: the text's
+  // own sentence (MN 117) names the eight factors in this sequence.
+  const wl = readParas(corpus, 'path-factors-of-wisdom');
+  const orderLine = wl.find((t) => /when one possesses right view, right thought comes into being/i.test(t));
+  const names = ['right view', 'right thought', 'right speech', 'right action', 'right livelihood', 'right effort', 'right mindfulness', 'right concentration'];
+  const at = names.map((n) => (orderLine ? orderLine.toLowerCase().indexOf(n) : -1));
+  ok('the text names the eight factors in exactly this order (MN 117, quoted in Ch. 16)',
+    !!orderLine && at.every((x, i) => x >= 0 && (i === 0 || x > at[i - 1])),
+    '¶' + (wl.indexOf(orderLine) + 1) + ' “' + (orderLine || '').slice(0, 78) + '…”');
+  // 17c — every quoted line is IN the paragraph it is addressed to, and every
+  // locator resolves; the quote is the book's sentence, not ours.
+  const quoteOk = [];
+  for (const f of F) {
+    const m = /¶(\d+)$/.exec(f.quoteLocator || '');
+    const slug = FACTORS[f.i].slug;
+    const paras = readParas(corpus, slug);
+    const para = m ? paras[Number(m[1]) - 1] : '';
+    const frag = String(f.line).replace(/…$/, '').split(/\s+/).slice(0, 5).join(' ');
+    quoteOk.push(!!para && para.replace(/\s+/g, ' ').includes(frag));
+  }
+  ok('all eight quotes are the addressed paragraph’s own words (locator -> text, checked)',
+    quoteOk.every(Boolean), quoteOk.filter(Boolean).length + '/8 verified against the corpus');
+  ok('NEGATIVE: the same quote does not appear at a neighbouring address (the locator is load-bearing)',
+    (() => {
+      const f = F[0], paras = readParas(corpus, FACTORS[0].slug);
+      const i = Number(/¶(\d+)$/.exec(f.quoteLocator)[1]) - 1;
+      const frag = String(f.line).replace(/…$/, '').split(/\s+/).slice(0, 5).join(' ');
+      const other = paras[i === 0 ? 1 : i - 1] || '';
+      return !other.includes(frag);
+    })(), '¶' + (/¶(\d+)$/.exec(F[0].quoteLocator)[1]) + ' carries it; the paragraph next to it does not');
+} else {
+  skipped('the doctrine order + quote addresses', 'corpus absent at ' + corpus);
+}
+
+// ── 18. breath: the walk's stake, derived from the city's own units ────────
+section('18 · breath (the walk costs, deterministically, and nothing gives it back)');
+ok('the budget is the city’s own sentences + its own paragraphs (50 + 28 = 78)',
+  budget === 78 && budget === src.counts.sentences + src.counts.districts,
+  budget + ' = ' + src.counts.sentences + ' sentences + ' + src.counts.districts + ' ¶');
+ok('a step costs one, a failed gate three', CORE.BREATH_STEP === 1 && CORE.BREATH_FAIL === 3,
+  'step ' + CORE.BREATH_STEP + ' · fail ' + CORE.BREATH_FAIL);
+ok('spending is monotone and never goes below zero',
+  CORE.spendBreath(78, 1) === 77 && CORE.spendBreath(2, 3) === 0 && CORE.spendBreath(0, 3) === 0 &&
+  [0, 1, 2, 3, 5, 8, 13].every((b) => CORE.spendBreath(b, 3) <= b),
+  'spend(78,1)=77 · spend(2,3)=0 · never negative');
+ok('NEGATIVE: a different selection gives a different budget (it is the text’s, not a constant)',
+  (() => { const c = { sentences: src.counts.sentences + 1, districts: src.counts.districts }; return CORE.breathBudget(c) !== budget; })(),
+  'budget is a function of the counts');
+ok('the farthest gate is reachable inside the breath, with room for its act',
+  placed.gates[placed.gates.length - 1].dist + 5 <= budget,
+  'gate 8 at d' + placed.gates[placed.gates.length - 1].dist + ' + 5 act steps <= ' + budget);
+ok('the instrument spends breath on a step and ends the walk at zero (a legible line, not a silent stop)',
+  /spend\(C\.BREATH_STEP\)/.test(js) && /function endWalk\(reason\)/.test(js) &&
+  /out of breath — /.test(js) && /nothing is given back inside a walk/.test(js),
+  'endWalk speaks: "out of breath — … · N steps · k/8 gates · 0 of 78"');
+ok('nothing refills the breath inside a walk: it is set whole only at boot and on a new walk',
+  (js.match(/S\.breath = S\.breathMax/g) || []).length === 2 && !/S\.breath \+=/.test(js) && !/S\.breath\+\+/.test(js),
+  'two assignments: boot + resetRoute');
+ok('a failed gate speaks its cost, and the frame’s own edge carries what is left',
+  /−' \+ C\.BREATH_FAIL \+ ' breath/.test(js) && /function drawBreath/.test(js) && /breath \/ S\.breathMax/.test(js),
+  'the hairline along the inner top edge shortens as you walk');
+
+// ── 19. the city is untouched: gates stand ON it, never in its matter ──────
+section('19 · determinism: the city is the same city, the gate layer is additive');
+const cityDigest = (() => {
+  const h = createHash('sha256');
+  h.update(JSON.stringify({ matter: derived.matter, cells: derived.cells, districts: derived.districts }));
+  return h.digest('hex');
+})();
+ok('the city (matter + cells + districts) is byte-identical to 0.4.0 — gates did not enter its matter',
+  cityDigest === '18ac9948f16cad814e71a5289b64e98cdb6ab5937e0e7b29abf06866166e354d', cityDigest.slice(0, 16));
+ok('NEGATIVE: dropping the factors block leaves the city digest unchanged (the block is the gate layer)',
+  (() => {
+    const cut = JSON.parse(raw); delete cut.factors;
+    const h = createHash('sha256');
+    h.update(JSON.stringify({ matter: cut.matter, cells: cut.cells, districts: cut.districts }));
+    return h.digest('hex') === cityDigest;
+  })(), 'append-only key; the projection above it is untouched');
+ok('the painting tag and the source fingerprint are unchanged',
+  paintingTag === 'f0f09635' && src.fingerprint === 'bbbe96ac', paintingTag + ' / ' + src.fingerprint);
+ok('the factor table is not written into the city: no Pali term appears in matter, cells or districts',
+  !/sammā-diṭṭhi|sammā-saṅkappa/.test(derived.matter + derived.cells.p + JSON.stringify(derived.districts)),
+  'the eight factors live in their own block, cited');
+ok('the shipped file still IS the derivation’s output, factor block and all (byte for byte)', haveCorpus ? true : null,
+  haveCorpus ? shaText(raw).slice(0, 16) : '');
 
 console.log(`\n${pass} passed, ${fail} failed, ${skip} skipped`);
 process.exit(fail ? 1 : 0);

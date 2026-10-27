@@ -144,6 +144,107 @@ export function selectText(corpus, window) {
   return { pages, selected, districts, window: W };
 }
 
+// ── the eight path factors, in the doctrine's own order ──────────────────────
+// Order: MN 117 (Mahācattārīsaka Sutta), quoted by the text at
+// path-factors-of-wisdom.txt:29 (Ch. 16 ¶15) — "when one possesses right view,
+// right thought comes into being; … right livelihood … right effort … right
+// mindfulness … right concentration". The standard order, but VERIFIED against
+// this text, not assumed: the same sequence is repeated at line 25 and is the
+// order the three chapters then take up.
+//
+// Each row addresses the paragraph where the text gives that factor's own
+// account, quotes one sentence of it verbatim (clipped), and names the act the
+// gate asks. `criteria` is the term the paragraph must contain — the build
+// refuses to emit a factor whose address does not hold its own name, so a
+// drifted corpus cannot silently re-bind a gate to the wrong teaching.
+//
+// `items` is the text's own list (the abstentions, the wrong thoughts), one
+// label per paragraph, extracted by `label` — never typed here.
+export const FACTORS = [
+  { key: 'view', en: 'right view', pali: 'sammā-diṭṭhi', act: 'see', criteria: 'right view comes first',
+    slug: 'path-factors-of-wisdom', para: 12 },
+  { key: 'thought', en: 'right thought', pali: 'sammā-saṅkappa', act: 'letgo', criteria: 'what is right thought',
+    slug: 'path-factors-of-wisdom', para: 153,
+    items: { from: 161, to: 163, label: /^Thoughts of (.+?)\s*\(/ } },
+  { key: 'speech', en: 'right speech', pali: 'sammā-vācā', act: 'silence', criteria: 'what, monks, is right speech',
+    slug: 'path-factors-of-virtuous-conduct', para: 7,
+    items: { from: 8, to: 11, label: /^To abstain from (.+?)\s*\(/ } },
+  { key: 'action', en: 'right action', pali: 'sammā-kammanta', act: 'word', criteria: 'what, monks, is right action',
+    slug: 'path-factors-of-virtuous-conduct', para: 12, quotePara: 13, blank: 'abstain' },
+  { key: 'livelihood', en: 'right livelihood', pali: 'sammā-ājīva', act: 'word', criteria: 'abandoned wrong livelihood',
+    slug: 'path-factors-of-virtuous-conduct', para: 16, sentence: 1, blank: 'abandoned' },
+  { key: 'effort', en: 'right effort', pali: 'sammā-vāyāma', act: 'walk', criteria: 'what is right effort',
+    slug: 'path-factors-of-concentration', para: 5, quotePara: 6,
+    items: { from: 16, to: 19, label: /the endeavour to ([a-z]+)/ } },
+  { key: 'mindfulness', en: 'right mindfulness', pali: 'sammā-sati', act: 'return', criteria: 'constant recollection',
+    slug: 'path-factors-of-concentration', para: 79 },
+  { key: 'concentration', en: 'right concentration', pali: 'sammā-samādhi', act: 'stay', criteria: 'one-pointed attention',
+    slug: 'path-factors-of-concentration', para: 302 },
+];
+
+export function readParas(corpus, slug) {
+  return readFileSync(join(corpus, 'text', slug + '.txt'), 'utf8').split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+}
+
+// The gate layer's own table: eight factors, each ADDRESSED to the paragraph
+// where the text gives its own account, quoted verbatim, with the act the gate
+// asks. This is not city matter — nothing here enters `matter`, `cells` or
+// `districts`, so the city's fingerprint and every cell coordinate stay
+// identical; only the gates that stand ON the city learn what they are.
+export function deriveFactors(corpus, districts) {
+  const cache = {};
+  const parasOf = (slug) => (cache[slug] || (cache[slug] = readParas(corpus, slug)));
+  const chapterOf = (slug) => (PAGES.find((p) => p.slug === slug) || {}).chapter || '';
+  // a footnote marker is the edition's furniture, not the sentence: "…livelihood,1 earns"
+  const clean = (t) => String(t).replace(/([.,;:])\d{1,3}(?=\s|$)/g, '$1').replace(/\s+\d{1,3}$/, '');
+  return FACTORS.map((f, i) => {
+    const paras = parasOf(f.slug);
+    const block = paras[f.para];
+    if (!block) throw new Error('factor ' + f.key + ': no paragraph at ¶' + (f.para + 1) + ' of ' + f.slug);
+    if (block.toLowerCase().indexOf(f.criteria.toLowerCase()) < 0) {
+      throw new Error('factor ' + f.key + ': ¶' + (f.para + 1) + ' of ' + f.slug + ' does not carry "' + f.criteria +
+        '" — refusing to bind a gate to a paragraph that is not this factor’s account');
+    }
+    const qp = f.quotePara == null ? f.para : f.quotePara;
+    const qblock = paras[qp];
+    if (!qblock) throw new Error('factor ' + f.key + ': no quoted paragraph at ¶' + (qp + 1));
+    // the quote is the paragraph's own opening, clipped at a word boundary — the
+    // same sentence the text would say first, not a sentence we built
+    const ss = CORE.splitSentences(clean(qblock));
+    const from = Math.max(0, Math.min(f.sentence || 0, Math.max(0, ss.length - 1)));
+    const line = citeLine(ss.length ? ss.slice(from).join(' ') : clean(qblock), 118);
+    const out = {
+      i, key: f.key, en: f.en, pali: f.pali, act: f.act,
+      locator: chapterOf(f.slug) + ' · ¶' + (f.para + 1),
+      quoteLocator: chapterOf(f.slug) + ' · ¶' + (qp + 1),
+      line,
+      items: null,
+      // the city district that already quotes this exact paragraph, when the
+      // selection kept it: then the gate can speak the room it stands in
+      district: (districts.filter((d) => d.slug === f.slug && d.para === qp).map((d) => d.p)[0]),
+    };
+    if (out.district === undefined) delete out.district;
+    if (f.act === 'word') {
+      const word = f.blank;
+      const re = new RegExp('(^|[^\\p{L}])(' + word + ')(?=$|[^\\p{L}])', 'u');
+      if (!re.test(line)) throw new Error('factor ' + f.key + ': the blank "' + word + '" is not in its own line');
+      out.answer = word;
+      out.cloze = line.replace(re, (m, pre) => pre + '____');
+    }
+    if (f.items) {
+      out.items = [];
+      for (let k = f.items.from; k <= f.items.to; k++) {
+        const t = paras[k];
+        if (!t) throw new Error('factor ' + f.key + ': no list item at ¶' + (k + 1));
+        const m = t.match(f.items.label);
+        if (!m) throw new Error('factor ' + f.key + ': ¶' + (k + 1) + ' is not one of its own list items');
+        out.items.push(m[1].trim());
+      }
+    }
+    return out;
+  });
+}
+
 const B36 = 2;
 const enc = (v) => Math.max(0, Math.min(1295, v | 0)).toString(36).padStart(B36, '0');
 
@@ -219,6 +320,8 @@ export function derive(opts) {
       sentences: d.sentences, words: d.words, chars: d.chars,
       line: d.line, answer: d.answer, cloze: d.cloze,
     })),
+    // appended, never interleaved: the city above is byte-identical to 0.4.0
+    factors: deriveFactors(corpus, sel.districts),
   };
   return { derived, sliceText, parsed, sel };
 }
