@@ -56,6 +56,8 @@ jobs:
           node --check lib/interphase-history.js
           node --check interphase/continuum.mjs
           node --check interphase/entry.mjs
+          node --check interphase/semantic-field.mjs
+          node --check tools/interphase-semantic-field-smoke.mjs
           node --check interphase/navigation.mjs
           node --check field-work.mjs
           node --check rsvp/reader.js
@@ -88,6 +90,11 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           node tools/interphase-workbench-smoke.mjs
+      - name: CURRENT continuum semantic FIELD / native source RETURN
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
+        run: node tools/interphase-semantic-field-smoke.mjs
       - name: One-source continuum / native clock / exact reader RETURN
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
