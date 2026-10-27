@@ -1063,6 +1063,10 @@
     ctx.textAlign = 'left'; ctx.textBaseline = 'top';
     const d = S.field ? geoFor(S.distance).dst : null;
     const y0 = d ? Math.min(H - VOICE_H + 7, d.y + d.h + 11) : H - VOICE_H + 7;
+    // the strip is a clean slate each frame: a ride rewrites its own lines, and
+    // no earlier frame may show through under them
+    ctx.globalAlpha = 1; ctx.fillStyle = 'rgb(8,12,18)';
+    ctx.fillRect(0, Math.max(0, y0 - 6), W, H - Math.max(0, y0 - 6));
     const maxW = W - 26;
     const words = p.line.split(' ');
     const lines = []; let cur = [];
@@ -1075,25 +1079,38 @@
     const mark = r.over ? { frac: r.markFrac, verdict: r.verdict }
       : (r.markFrac != null ? { frac: r.markFrac, verdict: 'soft' } : null);
     drawRail(Math.min(H - 8, y0 + 44), p, r.over ? null : at.frac, at.phase, mark);
-    const shown = r.over ? words.length : at.i + 1;
-    let wi = 0;
     const space = ctx.measureText(' ').width;
-    for (let k = 0; k < Math.min(2, lines.length); k++) {
-      let x = 13;
-      for (const w of lines[k]) {
-        ctx.globalAlpha = wi < shown ? 0.95 : 0.26;
-        ctx.fillStyle = 'rgb(214,220,228)';
-        ctx.fillText(w, x, y0 + k * 13);
-        x += ctx.measureText(w).width + space;
-        wi++;
+    if (r.over) {
+      // the news first: what the release was, then the sentence it came from
+      const verdict = r.verdict === 'sharp' ? 'held to the end'
+        : r.verdict === 'blown' ? 'late · past the end' : 'early · three times';
+      ctx.globalAlpha = 0.96; ctx.fillStyle = 'rgb(232,236,240)';
+      ctx.fillText(verdict, 13, y0);
+      for (let k = 0; k < Math.min(2, lines.length); k++) {
+        let x = 13;
+        for (const w of lines[k]) {
+          ctx.globalAlpha = 0.58; ctx.fillStyle = 'rgb(214,220,228)';
+          ctx.fillText(w, x, y0 + 13 + k * 13);
+          x += ctx.measureText(w).width + space;
+        }
       }
+    } else {
+      const shown = at.i + 1;
+      let wi = 0;
+      for (let k = 0; k < Math.min(2, lines.length); k++) {
+        let x = 13;
+        for (const w of lines[k]) {
+          ctx.globalAlpha = wi < shown ? 0.95 : 0.26;
+          ctx.fillStyle = 'rgb(214,220,228)';
+          ctx.fillText(w, x, y0 + k * 13);
+          x += ctx.measureText(w).width + space;
+          wi++;
+        }
+      }
+      ctx.globalAlpha = at.phase === 'window' ? 0.92 : 0.62;
+      ctx.fillStyle = at.phase === 'window' ? 'rgb(232,236,240)' : 'rgb(150,158,168)';
+      ctx.fillText(at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end', 13, y0 + 2 * 13);
     }
-    ctx.fillStyle = r.over ? 'rgb(214,220,228)' : 'rgb(150,158,168)';
-    const tail = r.over
-      ? (r.verdict === 'sharp' ? 'held to the end' : r.verdict === 'blown' ? 'late · past the end' : 'early · three times')
-      : (at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end');
-    ctx.globalAlpha = r.over ? 0.95 : 0.62;
-    ctx.fillText(tail, 13, y0 + 2 * 13);
     ctx.restore();
   }
   function drawVoice() {
@@ -2297,6 +2314,7 @@
     rideAt: () => (S.ride ? C.rideAt(S.ride, S.ride.plan, S.ride.t) : null),
     rides: () => JSON.parse(JSON.stringify(S.rides || {})),
     taught: () => !!S.taughtRide,
+    redraw: () => { draw(); return true; },
     rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowFrom.toFixed(4), ticks: pl.crestAt.map((c) => +c.toFixed(4)), words: pl.words } : null; },
     startRideAt: (n) => { const c = S.field && S.field.cells[n]; return c ? startRide(c) : null; },
     frameRect: () => { const g = geoFor(S.distance); return g && g.dst ? { x: g.dst.x, y: g.dst.y, w: g.dst.w, h: g.dst.h } : null; },
