@@ -1,6 +1,6 @@
 {
   "schema": "field.release/v1",
-  "artifact": "SLEEPER // LADDER 0.5.0",
+  "artifact": "SLEEPER // LADDER 0.6.0",
   "route": "/sleeper/ladder/",
   "status": "CANDIDATE",
   "source": "The source text IS Section 7, 'Path Factors' (P. A. Payutto, Buddhadhamma, Ch. 16-18, free online edition buddhadhamma.github.io, retrieved 2026-10-25). 0.5.0 binds the instrument's eight gates to that section's eight path factors, in the text's own order, each quoted verbatim with its locator. The raw pages and the extracted text stay local in void-anchor/sleeper/corpus/buddhadhamma/; the public artifact carries a sampled projection, one cited line per district, and eight cited factor lines.",
@@ -19,7 +19,8 @@
     "eye": "the first-person view of the SAME field (0.4.0, unchanged): closed-form ground-plane projection, camera on the walker's cell looking north, hold raises the eye line, horizon fixed at 0.32 of the view",
     "reading_head": "a hairline ring on the walker's cell whose arc is the walker's ordinal in the district's own text order, revealed on the same hold that decodes a room",
     "note": "the field note is carried verbatim (six strings, asserted byte for byte), reached by the top-left crop-mark or #note, put away by a tap. No element, no panel, no route",
-    "boundary": "walls are the painting's own strong edges, drawn by their faces; a refused step marks the shared edge and names the sides still open"
+    "boundary": "walls are the painting's own strong edges, drawn by their faces; a refused step marks the shared edge and names the sides still open",
+    "ride": "0.6.0 adds the wave: holding a cell past the decode sets that district's cited line riding at its own measured pace (beat = 320 ms/word scaled by chars/word, clamped 260–420; one arch per clause mark; the release window opens at the final clause but never earlier than three words before the end, and closes 900 ms after). Release in the window = sharp; early = soft (rewind to the clause); late = blown; three early releases lose the ride. A ride spends no breath. The score is a pure function of the line (same line + same pace → same plan and digest); the ledger records completed rides per district and nothing else."
   },
   "changes": [
     "THE EIGHT GATES BECOME THE EIGHT PATH FACTORS: gate i asks factor i in the text's own order (verified in the corpus, not assumed), quoted from the paragraph where the text gives that factor's own account, with its locator. The resonance that was sitting unused — the instrument's eight gates and the section's eight factors — is now the mechanism",

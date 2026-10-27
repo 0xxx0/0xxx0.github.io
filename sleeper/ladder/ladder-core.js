@@ -926,8 +926,68 @@
     return out;
   }
 
+  // ── 0.6.0 · the wave: text as time ────────────────────────────────────────
+  // Pure and total, no clock. The score is the sentence's own clause marks and
+  // its own density; the same line plus the same pace gives the same score in
+  // any process. A ride spends no breath.
+  const WAVE_BASE = 320, WAVE_MIN = 260, WAVE_MAX = 420;
+  const WAVE_CPW = 5.51, WAVE_CLOSE = 900, WAVE_LOOK = 3, WAVE_REWIND = 700;
+  function waveOf(line) {
+    const text = String(line == null ? '' : line).replace(/\s+/g, ' ').trim();
+    if (!text) throw new Error('wave: empty line');
+    const toks = text.split(' ');
+    const n = toks.length;
+    const chars = toks.reduce((a, t) => a + t.length, 0);
+    const cpw = chars / n;
+    const beat = Math.round(Math.min(WAVE_MAX, Math.max(WAVE_MIN,
+      WAVE_BASE * Math.min(1.4, Math.max(0.8, cpw / WAVE_CPW)))));
+    const marks = [];
+    toks.forEach((t, i) => { if (/[,;:—–]$/.test(t)) marks.push(i); });
+    const last = marks.length ? marks[marks.length - 1] : -1;
+    // the final clause, but never earlier than three words before the end
+    const from = Math.max(marks.length ? (last + 1) / n : 1, (n - WAVE_LOOK) / n);
+    const crestAt = marks.map((i) => (i + 1) / n).concat([1]);
+    return {
+      line: text, words: n, chars, charsPerWord: +cpw.toFixed(2),
+      beatMs: beat, endMs: n * beat, windowMs: WAVE_CLOSE,
+      windowFrom: Math.min(1, from), crestAt, marks,
+      digest: hash32('wave|' + text).toString(16).padStart(8, '0'),
+    };
+  }
+  function rideNew() { return { t: 0, misses: 0, over: false, verdict: null }; }
+  function rideAt(ride, plan, t) {
+    const tt = Math.max(0, Number(t) || 0);
+    const frac = plan.endMs > 0 ? Math.min(1, tt / plan.endMs) : 1;
+    let phase = 'reading';
+    if (tt >= plan.windowFrom * plan.endMs) phase = 'window';
+    if (tt > plan.endMs + plan.windowMs) phase = 'after';
+    return { phase, t: tt, frac, i: Math.min(plan.words - 1, Math.floor(frac * plan.words)) };
+  }
+  function rideRelease(ride, plan, t) {
+    const r = { t: ride.t, misses: ride.misses, over: ride.over, verdict: ride.verdict };
+    if (r.over) return { ride: r, verdict: 'over', rewindToMs: null };
+    const tt = Math.max(0, Number(t) || 0);
+    if (tt < plan.windowFrom * plan.endMs) {
+      const frac = Math.min(1, tt / plan.endMs);
+      let start = 0;
+      for (const c of plan.crestAt) { if (c <= frac) start = c; else break; }
+      r.misses += 1; r.verdict = 'soft';
+      if (r.misses >= 3) { r.over = true; r.verdict = 'lost'; }
+      r.t = start * plan.endMs + WAVE_REWIND;
+      return { ride: r, verdict: r.verdict, rewindToMs: r.t };
+    }
+    r.over = true;
+    r.verdict = tt <= plan.endMs + plan.windowMs ? 'sharp' : 'blown';
+    return { ride: r, verdict: r.verdict, rewindToMs: null };
+  }
+  function ridePace(plan, releaseMs) {
+    const actual = (Number(releaseMs) || 0) / plan.words;
+    const delta = Math.max(-40, Math.min(40, (actual - plan.beatMs) * 0.04));
+    return Math.round(Math.min(WAVE_MAX, Math.max(WAVE_MIN, plan.beatMs + delta)));
+  }
+
   return Object.freeze({
-    version: '0.5.0',
+    version: '0.6.0',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
     PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, LEDGER_GAP,
     CUT_LADDER, WEATHERS, SEEN_AT, BREATH_STEP, BREATH_FAIL, ACT_KINDS,
@@ -937,6 +997,7 @@
     gateKind, gateAdmits, riseMet, breathBudget, spendBreath, factorLine,
     floodFill, bfs, placeFactors, factorCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
+    waveOf, rideNew, rideAt, rideRelease, ridePace,
     changedPx, syntheticPainting, PUNCT,
     FPV, fpvLayout, fpvRow, fpvPoint, fpvQuad, readingHead, wallFaces, openSides, SIDES,
   });

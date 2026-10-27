@@ -72,6 +72,7 @@
   const LETGO_MS = 620;                              // one wrong thought, held until it goes
   const SPEECH_MS = 700;                             // one wrong speech, unsaid
   const STAY_MS = 2400;                              // one point, kept
+  const RIDE_MS = 1200;                              // hold past the decode = the line rides
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 
@@ -95,6 +96,8 @@
     block: null,       // the edge the city just refused: {n, dir}
     note: false,       // the field note (a reveal, no chrome)
     pointers: 0,       // two fingers = the view; measured, never a button
+    // 0.6.0 — the wave: a held line rides at its own pace; release at the last arch
+    ride: null, rideTimer: 0, rides: {},
   };
   let W = 0, H = 0, dpr = 1;
 
@@ -152,6 +155,7 @@
       S.seen = new Uint8Array(S.gates.length);      // the gate's act is done
       S.weather = C.weatherChain(S.field, S.moves);
       S.ledger = loadLedger();
+      S.rides = S.ledger.rides || {};
       S.ledger.seq = S.ledger.seq || 0;
       paintProvenance();
       S.edgeMax = 0;
@@ -1023,6 +1027,7 @@
     return [all[0].replace(/[,;:.\s]+$/, '') + '…'];
   }
   function voiceLines() {
+    if (S.ride) return rideVoiceLines();
     if (S.decodeCell != null && S.field) return decodeLines();
     if (!S.voice) return [];
     const size = 9.5;
@@ -1043,7 +1048,47 @@
     }
     return out.slice(0, 3);
   }
+  // the ride is drawn word by word: the sentence lights up at its own pace and
+  // the strip says only what the body should do next. No clock, no counter.
+  function drawRideVoice() {
+    const r = S.ride, p = r.plan;
+    const size = 9.5;
+    ctx.save();
+    ctx.font = size + 'px ' + MONO;
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    const d = S.field ? geoFor(S.distance).dst : null;
+    const y0 = d ? Math.min(H - VOICE_H + 7, d.y + d.h + 11) : H - VOICE_H + 7;
+    const maxW = W - 26;
+    const words = p.line.split(' ');
+    const lines = []; let cur = [];
+    for (const w of words) {
+      const t = cur.concat(w).join(' ');
+      if (ctx.measureText(t).width > maxW && cur.length) { lines.push(cur); cur = [w]; } else cur.push(w);
+    }
+    if (cur.length) lines.push(cur);
+    const at = C.rideAt(r, p, r.t);
+    const shown = r.over ? words.length : at.i + 1;
+    let wi = 0;
+    const space = ctx.measureText(' ').width;
+    for (let k = 0; k < Math.min(2, lines.length); k++) {
+      let x = 13;
+      for (const w of lines[k]) {
+        ctx.globalAlpha = wi < shown ? 0.95 : 0.26;
+        ctx.fillStyle = 'rgb(214,220,228)';
+        ctx.fillText(w, x, y0 + k * 13);
+        x += ctx.measureText(w).width + space;
+        wi++;
+      }
+    }
+    ctx.globalAlpha = 0.62; ctx.fillStyle = 'rgb(150,158,168)';
+    const tail = r.over
+      ? (r.verdict === 'sharp' ? 'sharp · the line held' : r.verdict === 'blown' ? 'blown · past the moment' : 'lost · three times early')
+      : (at.phase === 'window' ? 'let go · the last arch' : 'hold · one breath');
+    ctx.fillText(tail, 13, y0 + 2 * 13);
+    ctx.restore();
+  }
   function drawVoice() {
+    if (S.ride) { drawRideVoice(); return; }
     const lines = voiceLines();
     if (!lines.length) return;
     ctx.save();
@@ -1274,6 +1319,17 @@
       S.refuse.phase = Math.floor((ts - S.refuse.t0) / 90);
       if (S.refuse.phase >= 3) S.refuse = null; else live = true;
     }
+    // the ride runs on frame time; a throttled tab pauses it, it cannot skip it
+    if (S.ride && !S.ride.over) {
+      if (!S.ride.t0) S.ride.t0 = ts - S.ride.t;
+      S.ride.t = ts - S.ride.t0;
+      const p = S.ride.plan;
+      if (S.ride.t > p.endMs + p.windowMs + 300) {
+        const out = C.rideRelease(S.ride, p, S.ride.t);
+        S.ride = Object.assign(S.ride, out.ride);
+        say(['blown · the moment passed'], 'line', 5);
+      } else live = true;
+    }
     draw();
     if (live) rafId = requestAnimationFrame(frameLoop);
   }
@@ -1299,7 +1355,7 @@
     if (!S.field && (d === 'NEAR' || d === 'ENTERED')) { say(['GAP — the city needs both sources; nothing is faked here.'], 'gap', Infinity); draw(); return false; }
     if (d === S.distance) return false;
     if (d === 'EXITED') buildExit();
-    S.decodeCell = null; S.gate = null; S.rise = null; S.refuse = null;
+    S.decodeCell = null; S.gate = null; S.rise = null; S.refuse = null; S.ride = null;
     S.trans = { from: S.distance, to: d, dur: reduced ? 0 : 700, t0: 0, ts: null };
     S.distance = d;
     if (!silent) S.revealed = true;
@@ -1739,6 +1795,47 @@
   }
   function closeDecode() { S.decodeCell = null; draw(); }
 
+  // ── 0.6.0 · the ride ──────────────────────────────────────────────────────
+  // Holding a cell past the decode sets the district's own line riding at its
+  // own pace. Let go at the last arch. A ride spends no breath: breath is the
+  // walk's stake; attention is the ride's.
+  function startRide(cell) {
+    if (!cell || !S.source || !cell.unit) return null;
+    const d = S.source.districts[cell.unit.p];
+    if (!d || !d.line) return null;
+    S.ride = { plan: C.waveOf(d.line), t: 0, t0: 0, misses: 0, over: false, verdict: null, p: cell.unit.p };
+    S.decodeCell = null;
+    S.drag.moved = true;                                // the hold already acted
+    draw();
+    return S.ride.plan;
+  }
+  function endRide() {
+    if (!S.ride || S.ride.over) return null;
+    const out = C.rideRelease(S.ride, S.ride.plan, S.ride.t);
+    S.ride = Object.assign(S.ride, out.ride);
+    if (out.verdict === 'soft') {
+      // the instrument bends: the line rewinds to the clause you were in
+      S.ride.t0 = 0; S.ride.t = out.rewindToMs; S.ride.over = false; S.ride.verdict = null;
+      say(['soft · let go at the last arch'], 'line', 4);
+    } else if (out.verdict === 'sharp') {
+      S.rides[S.ride.p] = (S.rides[S.ride.p] || 0) + 1;
+      if (S.ledger) { S.ledger.rides = S.rides; saveLedger(); }
+      say(['sharp · “' + S.ride.plan.line + '”'], 'line', 7);
+    } else if (out.verdict === 'blown') {
+      say(['blown · held past the moment'], 'line', 5);
+    } else if (out.verdict === 'lost') {
+      say(['lost · three times early'], 'line', 5);
+    }
+    draw();
+    return out.verdict;
+  }
+  function rideVoiceLines() {
+    const r = S.ride, p = r.plan;
+    if (r.over) return [p.line, r.verdict === 'sharp' ? 'sharp · the line held' : (r.verdict === 'blown' ? 'blown · past the moment' : 'lost · three times early')];
+    const at = C.rideAt(r, p, r.t);
+    return [p.line, at.phase === 'window' ? 'let go · the last arch' : 'hold · one breath'];
+  }
+
   // ── pointer + keyboard (touch-first) ──────────────────────────────────────
   function cellFromEvent(e) {
     if (!S.field) return null;
@@ -1775,6 +1872,7 @@
   }
   cv.addEventListener('pointerdown', (e) => {
     if (!S.field) return;
+    if (S.ride && S.ride.over) S.ride = null;           // a finished ride clears on the next touch
     S.pointers = (S.pointers || 0) + 1;
     // TWO FINGERS = THE EYE. The view has no button: the second finger is the
     // whole control, it costs no pixel at rest, and it cannot be hit by accident
@@ -1829,20 +1927,26 @@
       if (S.fpv) { S.eyeDir = 1; wake(); }
     }
     if (cell && (S.distance === 'NEAR' || S.distance === 'ENTERED') && !reduced && !S.fpv) S.hold = { cx: cell.cx, cy: cell.cy, phase: 0, t0: 0 };
-    clearTimeout(S.holdTimer);
+    clearTimeout(S.holdTimer); clearTimeout(S.rideTimer);
     if (!S.fpv && !S.act) {
       S.holdTimer = setTimeout(() => {
         if (!S.drag) return;
         const c2 = cellFromEvent({ clientX: S.drag.x, clientY: S.drag.y });
         if (c2) { S.drag.moved = true; openDecode(c2); }
       }, HOLD_MS);
+      // keep holding: the decode becomes the ride
+      S.rideTimer = setTimeout(() => {
+        if (!S.drag || !S.decodeCell) return;
+        const c2 = cellFromEvent({ clientX: S.drag.x, clientY: S.drag.y });
+        if (c2) startRide(c2);
+      }, RIDE_MS);
     }
     wake();
   });
   cv.addEventListener('pointermove', (e) => {
     if (!S.drag || !S.field) return;
     const dx = e.clientX - S.drag.x, dy = e.clientY - S.drag.y;
-    if (Math.hypot(dx, dy) > 10) { S.drag.moved = true; clearTimeout(S.holdTimer); }
+    if (Math.hypot(dx, dy) > 10) { S.drag.moved = true; clearTimeout(S.holdTimer); clearTimeout(S.rideTimer); }
     if (S.distance === 'NEAR' && S.hold) {
       const c = cellFromEvent(e);
       if (c) { S.hold.cx = c.cx; S.hold.cy = c.cy; wake(); }
@@ -1859,11 +1963,19 @@
     }
   });
   function endPointer() {
-    clearTimeout(S.holdTimer); clearTimeout(S.cornerTimer);
+    clearTimeout(S.holdTimer); clearTimeout(S.cornerTimer); clearTimeout(S.rideTimer);
     S.hold = null; S.drag = null; S.eyeDir = 0;
     wake(); draw();
   }
   cv.addEventListener('pointerup', (e) => {
+    if (S.ride && !S.ride.over) {
+      endRide();
+      S.drag = null; S.hold = null;
+      S.pointers = Math.max(0, (S.pointers || 1) - 1);
+      if (S.pointers === 0) S.twoFinger = false;
+      if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
+      return;
+    }
     if (S.act && S.act.held) S.act.held = false;      // a let-go that is let go drains
     S.pointers = Math.max(0, (S.pointers || 1) - 1);
     const wasTwo = !!S.twoFinger;
@@ -2107,6 +2219,11 @@
     voice: () => voiceLines(),
     doors: () => doorRects().map((r) => ({ i: r.i, x: r.x, y: r.y, w: r.w, h: r.h })),
     layout: () => ({ w: W, h: H, voiceH: VOICE_H }),
+    // 0.6.0 probes: the ride's own state and score (never a UI)
+    ride: () => (S.ride ? { p: S.ride.p, t: +S.ride.t.toFixed(1), over: S.ride.over, verdict: S.ride.verdict, misses: S.ride.misses, plan: S.ride.plan } : null),
+    rideAt: () => (S.ride ? C.rideAt(S.ride, S.ride.plan, S.ride.t) : null),
+    rides: () => JSON.parse(JSON.stringify(S.rides || {})),
+    startRideAt: (n) => { const c = S.field && S.field.cells[n]; return c ? startRide(c) : null; },
     frameRect: () => { const g = geoFor(S.distance); return g && g.dst ? { x: g.dst.x, y: g.dst.y, w: g.dst.w, h: g.dst.h } : null; },
     fieldStats: () => S.field ? {
       cutQ: S.field.cutQ, cut: +S.field.cut.toFixed(5), walkable: S.field.walkable, reachable: S.field.reachable,

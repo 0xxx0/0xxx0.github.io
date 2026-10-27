@@ -660,5 +660,52 @@ ok('the factor table is not written into the city: no Pali term appears in matte
 ok('the shipped file still IS the derivation’s output, factor block and all (byte for byte)', haveCorpus ? true : null,
   haveCorpus ? shaText(raw).slice(0, 16) : '');
 
+// ── 20. the wave: text as time (0.6.0) ─────────────────────────────────────
+section('20 · the wave (a held line rides at its own pace; release at the last arch)');
+{
+  let threw = false;
+  try { CORE.waveOf('   '); } catch (e) { threw = /empty/.test(e.message); }
+  ok('W1 an empty line refuses by name', threw);
+  const lines = src.districts.map((d) => d.line).filter(Boolean);
+  const plans = lines.map((l) => CORE.waveOf(l));
+  ok('W2 every shipped district line scores', plans.length === src.districts.length,
+    plans.length + ' of ' + src.districts.length + ' lines');
+  ok('W3 the beat stays 260..420 ms/word', plans.every((p) => p.beatMs >= 260 && p.beatMs <= 420),
+    plans.map((p) => p.beatMs).join(','));
+  ok('W4 crests strictly increase and end at 1',
+    plans.every((p) => p.crestAt.every((c, i) => (i === 0 ? c > 0 : c > p.crestAt[i - 1])) && p.crestAt[p.crestAt.length - 1] === 1),
+    'one crest per clause mark + the terminal');
+  ok('W5 the window never opens before the last three words',
+    plans.every((p) => p.windowFrom >= (p.words - 3) / p.words - 1e-9),
+    plans.map((p) => (p.windowFrom * 100).toFixed(0) + '%').join(' '));
+  ok('W6 a sharp release is inside the window; soft before; blown after',
+    (() => {
+      const p = CORE.waveOf('One, two; three: four — five. Six.');
+      const sharp = CORE.rideRelease(CORE.rideNew(), p, p.endMs).verdict;
+      const soft = CORE.rideRelease(CORE.rideNew(), p, Math.round(p.endMs * 0.2)).verdict;
+      const blown = CORE.rideRelease(CORE.rideNew(), p, p.endMs + p.windowMs + 1).verdict;
+      return sharp === 'sharp' && soft === 'soft' && blown === 'blown';
+    })(), 'sharp / soft / blown');
+  ok('W7 three early releases lose the ride', (() => {
+    const p = CORE.waveOf('One, two; three: four — five. Six.');
+    let r = CORE.rideNew(), out = null;
+    for (let i = 0; i < 3; i++) { out = CORE.rideRelease(r, p, Math.round(p.endMs * 0.1)); r = out.ride; }
+    return r.over && r.verdict === 'lost' && r.misses === 3;
+  })(), 'misses 3 -> lost');
+  ok('W8 pace drift is bounded', (() => {
+    const p = CORE.waveOf('One, two; three: four — five. Six.');
+    const fast = CORE.ridePace(p, Math.round(p.endMs * 0.5));
+    const slow = CORE.ridePace(p, Math.round(p.endMs * 1.2));
+    return fast >= 260 && fast <= p.beatMs && slow >= p.beatMs && slow <= 420;
+  })(), '4% per ride, ±40 ms');
+  ok('W9 the same line gives the same plan and digest',
+    JSON.stringify(CORE.waveOf(lines[0])) === JSON.stringify(CORE.waveOf(lines[0])) &&
+    CORE.waveOf(lines[0]).digest !== CORE.waveOf(lines[0].replace('a', 'e')).digest,
+    'stable; one changed letter is a different score');
+  ok('W10 the wave never touches breath (it is attention, not the walk’s stake)',
+    !/breath/i.test(CORE.waveOf.toString() + CORE.rideRelease.toString() + CORE.ridePace.toString()),
+    'no breath reference in the wave functions');
+}
+
 console.log(`\n${pass} passed, ${fail} failed, ${skip} skipped`);
 process.exit(fail ? 1 : 0);
