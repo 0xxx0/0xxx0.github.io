@@ -1626,8 +1626,8 @@
       release();
       return;
     }
+    if (wasMoved) { release(); return; }               // a hold or a drag already acted
     if (noteWasOpen) { toggleNote(false); release(); return; }
-    if (wasMoved) { release(); return; }
     // 1. a door, if a gate is open (the only thumb-sized answer)
     if (S.gate && S.distance === 'ENTERED') {
       const di = doorFromEvent(e);
