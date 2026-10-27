@@ -12,7 +12,7 @@ assert.match(docs,/id="demoRead"/);
 assert.match(docs,/id="demoRead"[^]*?TRY RSVP/);
 assert.match(docs,/A\.scaleIndex\?\.\('WORD'\)/);
 assert.match(docs,/aperture\.scaleIndex\?\.\('WORD'\)/);
-assert.match(docs,/<script src="\.\.\/lib\/readfield-controls\.js"><\/script>/);
+assert.match(docs,/<script src="\.\.\/lib\/readfield-controls\.js(?:\?v=[^"]+)?"><\/script>/);
 assert.match(markup,/id="demoListen"/);
 assert.match(listen,/demoWavBytes\(\)/);
 assert.match(listen,/if\(requestId!==loadToken\)return/);

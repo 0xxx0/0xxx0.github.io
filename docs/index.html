@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" class="dark doc doc-docs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>READFIELD / RSVP 0.8.6 · Phone Work</title>
+<meta name="robots" content="noindex,nofollow"><title>READFIELD · Read / Annotate / Review</title>
 <link rel="stylesheet" href="/tools/house-patterns.css">
-</head><body><main><header><div><div class="ey">Φ / READFIELD · φ / CURSOR · RSVP 0.8.6</div><h1>READFIELD.</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a><button id="focusView" type="button">VIEW · PLAIN</button><button id="pulseSync" type="button">PULSE OFF</button><span id="pulseState" class="pulseState">NO FIELD PULSE CLOCK</span></nav></header>
+</head><body><main><header><div><div class="ey">Φ / READFIELD · φ / CURSOR · RSVP 0.8.6</div><h1>READFIELD.</h1></div><nav><button id="openSourceButton" type="button">OPEN</button><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a><button id="focusView" type="button">VIEW · PLAIN</button><button id="pulseSync" type="button">PULSE OFF</button><span id="pulseState" class="pulseState">NO FIELD PULSE CLOCK</span></nav></header>
 <p class="hint">One source. One position. Φ names the READFIELD host; φ is the addressed cursor/focus projected through scale, pace, voice or context. READFIELD owns source + cursor; INTERPHASE shares focus / projection / RETURN without copying text authority. PLAIN is fastest; FOCUS restores the AXIAL/LISTEN ring; MIN keeps ring + RSVP focus.</p>
 <div class="workDeck"><div class="workRail" id="workRail" role="toolbar" aria-label="Reader work mode">
   <button data-reader-action="fast">FAST</button><button data-reader-action="review">REVIEW</button><button data-reader-action="pulse4">PULSE</button><button data-reader-action="voice">VOICE</button><button data-reader-action="loci">LOCI</button><button data-reader-action="current">REPO</button>
@@ -22,9 +22,9 @@
   <div class="workflowChain"><b>READ → LOCI → RETURN</b><span>Carry the exact addressed position into LOCI for rehearsal or memory, then return to the same source rather than rebuilding context.</span></div>
 </div>
 <div class="useLaw">One source, unequal work modes. Mode changes alter projection / pace / handoff only. PULSE is optional. Handoffs carry bounded focus, not a second source authority; RAW remains available. Pasted/local-file bytes stay session-local and are never uploaded by READFIELD.</div></details>
-<div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><button id="demoRead" type="button">TRY RSVP</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
+<details id="sourceDrawer"><summary>OPEN · address / file / paste</summary><div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button><button id="demoRead" type="button">TRY RSVP</button><input id="localFile" class="nativeFile" type="file" accept=".txt,.md,.markdown,.json,.csv,.log,.yaml,.yml,.js,.mjs,.css,.html,.svg,text/*,application/json"><label class="localFileBtn" for="localFile">FILE</label></div><details class="pasteFold"><summary>PASTE TEXT</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste text. It stays in this browser session."></textarea><button id="readPaste">READ</button><div class="pasteNote">TXT · Markdown · JSON · CSV · source code. PDF/EPUB require text extraction first.</div></div></details></details>
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <button id="markHere">MARK</button> <button id="nextMark">NEXT MARK</button> <button id="rideLive">RIDE LIVE</button> <button id="jsonProjection" type="button" hidden>STRUCT</button> <a id="wristLink" href="/rsvp/">WRIST ↗</a> <a id="walkLink" href="/interphase/">WALK ↗</a> <a id="echoBackLink" class="returnLink" href="#" hidden>↩ ECHO</a> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="sourceEcho" id="sourceEcho" hidden><b>ECHO</b><a id="sourceEchoLink" href="#"></a><span id="sourceEchoBasis"></span></div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
-<script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js?v=0.8.7"></script><script src="../lib/path.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
+<script src="../lib/document-structure.js"></script><script src="../lib/read-trail.js?v=review-1"></script><script src="../lib/source-echo.js"></script><script src="../field-aperture.js?v=0.8.8"></script><script src="../lib/path.js"></script><script src="../lib/interphase-core.js"></script><script src="../lib/interphase-carrier.js"></script><script src="../lib/interphase-readfield.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
 ['SLEEPER / ONE RETURN V2','../recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md','Canonical city contract: inputs, eight enacted Gates, Return Artifact v2, generalization boundary'],
@@ -240,9 +240,9 @@ async function acceptReadRideReturn(){
 }
 window.ReadfieldRideReturn=Object.freeze({accept:()=>acceptReadRideReturn()});
 function finishTrailIdentity(epoch,text,known=''){
-  const immediate=normalizeExactId(known);if(immediate){activeTrailIdentity=immediate;document.documentElement.dataset.readfieldTrail='identity-ready';return Promise.resolve(immediate)}
+  const immediate=normalizeExactId(known);if(immediate){activeTrailIdentity=immediate;document.documentElement.dataset.readfieldTrail='identity-ready';queueMicrotask(()=>window.dispatchEvent(new Event('readfield-source')));return Promise.resolve(immediate)}
   document.documentElement.dataset.readfieldTrail='identity-pending';
-  return exactTextId(text).then(id=>{if(epoch!==sourceEpoch)return'';activeTrailIdentity=id;document.documentElement.dataset.readfieldTrail=id?'identity-ready':'identity-unavailable';const snap=A.snapshot?.();if(snap){trailRecord(snap);syncMarkUi(snap)}return id})
+  return exactTextId(text).then(id=>{if(epoch!==sourceEpoch)return'';activeTrailIdentity=id;document.documentElement.dataset.readfieldTrail=id?'identity-ready':'identity-unavailable';const snap=A.snapshot?.();if(snap){trailRecord(snap);syncMarkUi(snap)}window.dispatchEvent(new Event('readfield-source'));return id})
 }
 function legacyMarkKey(){
   const id=activeUrl?activeUrl.pathname+activeUrl.search:(activeLabel+'|'+activeRaw.length+'|'+activeRaw.slice(0,80));
@@ -266,7 +266,7 @@ function ensureTrail(){
   return tr
 }
 function readMarks(){return ensureTrail()?.marks||[]}
-function writeMarks(xs){const key=trailKey();return key?globalThis.FieldSourceTrail?.setMarks?.(key,xs):null}
+function writeMarks(xs){const key=trailKey(),result=key?globalThis.FieldSourceTrail?.setMarks?.(key,xs):null;window.dispatchEvent(new Event('readfield-review-change'));return result}
 function trailRecord(snap,via='READFIELD'){
   const key=trailKey();if(!key||!snap)return null;
   const tr=globalThis.FieldSourceTrail?.record?.(key,{address:snap.address||'',progress:Number(snap.source_progress)||0,focus:snap.focus||'',charIndex:Number.isFinite(Number(snap.char_index))?Number(snap.char_index):null,scale:snap.scale||'',via})||null;
@@ -291,11 +291,11 @@ function syncMarkUi(snap=lastSnap){
   if(!snap)return;lastSnap=snap;const tr=ensureTrail(),state=tr?.storageState||'UNAVAILABLE';
   document.documentElement.dataset.readfieldTrail=String(state).toLowerCase();
   if(!['EMPTY','READY'].includes(state)){MK.textContent='MARK · '+state;MK.disabled=true;NM.disabled=true;MK.classList.remove('readMarkOn');return}
-  MK.disabled=false;const marks=tr.marks||[],on=marks.some(m=>markMatches(m,snap));
+  MK.disabled=false;const marks=tr.marks||[],on=marks.some(m=>!m.revision&&markMatches(m,snap));
   MK.textContent=(on?'MARKED':'MARK')+' · '+marks.length;MK.classList.toggle('readMarkOn',on);NM.disabled=!marks.length
 }
 function restoreMark(m){
-  if(!m)return;A.restore?.({scale:m.scale,address:m.address,char_index:m.charIndex??m.char_index,index:m.index,wpm:m.wpm});syncMarkUi(A.snapshot?.())
+  if(!m||(m.revision&&(m.revision!==activeTrailIdentity||m.quote!==activeRaw.slice(m.charIndex,m.endIndex))))return;A.restore?.({scale:m.scale,address:m.address,char_index:m.charIndex??m.char_index,index:m.index,wpm:m.wpm});syncMarkUi(A.snapshot?.())
 }
 
 function renderReading(snap){
@@ -303,10 +303,11 @@ function renderReading(snap){
  const bits=[],strong=document.createElement('b');strong.textContent='FOCUS '+(snap.scale_label||snap.scale||'—');bits.push(strong);
  const sec=document.createElement('span');sec.textContent=snap.section?.label||'WHOLE SOURCE';bits.push(sec);
  const pos=document.createElement('span');pos.textContent=Math.round((Number(snap.source_progress)||0)*100)+'% · '+(snap.address||'—');bits.push(pos);M.replaceChildren(...bits);
- V.replaceChildren();
+ V.replaceChildren();delete V.dataset.sourceStart;
  if(snap.kind==='TEXT'&&activeRaw){
    const span=validSnapSpan(snap)||{start:clampNumber(Number(snap.char_index)||0,0,Math.max(0,activeRaw.length-1)),end:clampNumber((Number(snap.char_index)||0)+1,1,activeRaw.length)};
    const from=Math.max(0,span.start-900),to=Math.min(activeRaw.length,Math.max(span.end+900,from+1800));
+   V.dataset.sourceStart=String(from);V.dataset.sourcePrefix=from?'2':'0';
    const pre=document.createElement('span'),mark=document.createElement('mark'),post=document.createElement('span');
    pre.textContent=(from?'… ':'')+activeRaw.slice(from,span.start);mark.textContent=activeRaw.slice(span.start,Math.max(span.start+1,span.end))||'·';post.textContent=activeRaw.slice(Math.max(span.start+1,span.end),to)+(to<activeRaw.length?' …':'');
    V.append(pre,mark,post);requestAnimationFrame(()=>{V.scrollTop=Math.max(0,mark.offsetTop-V.clientHeight*.42)});
@@ -395,8 +396,8 @@ async function openSource(n,value){
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
 A.addEventListener('aperture-focus',e=>{lastSnap=e.detail;syncAperture(e.detail);syncMarkUi(e.detail)});
-MK.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;let marks=readMarks(),id=markIdentity(snap),i=marks.findIndex(m=>markMatches(m,snap));if(i>=0)marks.splice(i,1);else marks.push({id,address:snap.address,scale:snap.scale,char_index:snap.char_index,index:snap.index,wpm:snap.wpm,focus:String(snap.focus||'').slice(0,180),progress:Number(snap.source_progress)||0,at:new Date().toISOString(),via:'READFIELD'});writeMarks(marks);syncMarkUi(snap)};
-NM.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;const marks=readMarks().slice().sort((a,b)=>(a.progress||0)-(b.progress||0));if(!marks.length)return;const p=Number(snap.source_progress)||0,next=marks.find(m=>(m.progress||0)>p+1e-6)||marks[0];restoreMark(next)};
+MK.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;let marks=readMarks(),id=markIdentity(snap),i=marks.findIndex(m=>!m.revision&&markMatches(m,snap));if(i>=0)marks.splice(i,1);else if(marks.length>=64){MK.title='64 mark limit. Export or remove a mark first.';return}else marks.push({id,address:snap.address,scale:snap.scale,char_index:snap.char_index,index:snap.index,wpm:snap.wpm,focus:String(snap.focus||'').slice(0,180),progress:Number(snap.source_progress)||0,at:new Date().toISOString(),via:'READFIELD'});writeMarks(marks);syncMarkUi(snap)};
+NM.onclick=()=>{const snap=A.snapshot?.();if(!snap)return;const marks=readMarks().filter(m=>!m.revision||(m.revision===activeTrailIdentity&&m.quote===activeRaw.slice(m.charIndex,m.endIndex))).slice().sort((a,b)=>(a.progress||0)-(b.progress||0));if(!marks.length)return;const p=Number(snap.source_progress)||0,next=marks.find(m=>(m.progress||0)>p+1e-6)||marks[0];restoreMark(next)};
 
 O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});PB.onclick=()=>openPaste();PT.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter')openPaste()});LF.addEventListener('change',e=>openLocalFile(e.target.files?.[0]));
 C.onclick=async()=>{const old=C.textContent;const snap=A.snapshot?.();const payload=activeEphemeral?[activeLabel,snap?.address,snap?.focus].filter(Boolean).join('\n'):location.href;try{await navigator.clipboard.writeText(payload);C.textContent='COPIED'}catch(_){prompt(activeEphemeral?'Copy current focus:':'Copy addressed DOCS view:',payload)}setTimeout(()=>C.textContent=old,700)};
@@ -437,6 +438,12 @@ else if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
 else if(local?.raw!=null)openLocalText(local.raw,local.name||'LOCAL FILE',local.type||'',local.format||localFormat(local.name||''),false,local.exactId||'');
 else if(paste){PT.value=paste;openPaste(paste)}
 else{const wanted=location.hash.slice(1),entry=docs.find(x=>slug(x[0])===wanted)||docs[0];if(entry)openSource(entry[0],entry[1])}
+window.ReadfieldSource=Object.freeze({
+ snapshot:()=>({raw:activeRaw,label:activeLabel,address:activeUrl?activeUrl.pathname+activeUrl.search:'',revision:activeTrailIdentity,epoch:sourceEpoch,key:trailKey(),trail:ensureTrail(),focus:A.snapshot?.()}),
+ write:({marks,review}={})=>{const key=trailKey(),old=ensureTrail();if(!key||!old||!['EMPTY','READY'].includes(old.storageState))return old;const next=FieldSourceTrail.write({...old,marks:marks??old.marks,review:review??old.review});syncMarkUi(A.snapshot?.());window.dispatchEvent(new Event('readfield-review-change'));return next},
+ seek:(start,scale='SENT')=>{if(jsonTree)JP.click();A.stop?.();A.restore?.({scale,char_index:start});},
+ text:()=>{if(jsonTree)JP.click();return A.snapshot?.()}
+});
 </script><script type="module">
 import {createFieldPulse,transportDescriptor} from '../lib/field-pulse.js';
 const aperture=document.querySelector('#docAperture'),button=document.querySelector('#pulseSync'),pulseState=document.querySelector('#pulseState'),viewButton=document.querySelector('#focusView'),workModeLabel=document.querySelector('#workModeLabel'),workModeStatus=document.querySelector('#workModeStatus');
@@ -530,4 +537,4 @@ aperture.addEventListener('aperture-focus',e=>{
   fieldPulse.publish('focus',{scale:snap.scale,index:snap.index,address:snap.address,sourceProgress:snap.source_progress,wpm:snap.wpm,playing:snap.playing,speaking:snap.speaking,label:snap.label});
 });
 applyView();setWorkMode(workMode);apply();paint();setInterval(paint,1000);
-</script><script src="../lib/readfield-controls.js"></script></body></html>
+</script><script src="../lib/readfield-review.js"></script><script src="../lib/readfield-controls.js?v=0.10.0"></script></body></html>
