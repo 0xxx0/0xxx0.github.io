@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-27T06:24:35.016Z",
+  "generated": "2026-10-27T07:26:35.113Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-27",
-  "commits_in_window": 9,
-  "git_commits_in_window": 49,
-  "telemetry_commits_in_window": 40,
-  "commits_total": 7024,
-  "branch_count": 1103,
+  "commits_in_window": 12,
+  "git_commits_in_window": 57,
+  "telemetry_commits_in_window": 45,
+  "commits_total": 7032,
+  "branch_count": 1104,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /sleeper/ladder/ (IMPLEMENT,VERIFY)",
-    "ladder 0.4.0: the note survives its own corner hold (a release is not a dismis"
+    "field index: register SLEEPER // LADDER 0.5.0 (IMPLEMENT, VERIFY)",
+    "sleeper/ladder 0.5.0 — the eight gates become the eight path factors, and the "
   ],
   "active_fronts": [
     {
