@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-27T09:30:35.602Z",
+  "generated": "2026-10-27T11:03:35.254Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-27",
-  "commits_in_window": 16,
-  "git_commits_in_window": 71,
-  "telemetry_commits_in_window": 55,
-  "commits_total": 7046,
+  "commits_in_window": 19,
+  "git_commits_in_window": 81,
+  "telemetry_commits_in_window": 62,
+  "commits_total": 7056,
   "branch_count": 1105,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "READFIELD: compact reading, human interpretation and folded review (#1027)",
-    "desk: refresh public field data + root git chronology"
+    "fi-mutation-contract: stamp /sleeper/ladder/ (IMPLEMENT, VERIFY)",
+    "ladder 0.6.0: the wave — a held line rides at its own pace, release at the las"
   ],
   "active_fronts": [
     {
