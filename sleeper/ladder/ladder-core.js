@@ -980,6 +980,12 @@
     r.verdict = tt <= plan.endMs + plan.windowMs ? 'sharp' : 'blown';
     return { ride: r, verdict: r.verdict, rewindToMs: null };
   }
+  function railOf(plan) {
+    // the sentence drawn as time: clause ticks, and the stretch where letting go
+    // is true. Pure, so the rail a proof sees is the rail the page draws.
+    return { ticks: plan.crestAt.slice(), windowFrom: plan.windowFrom, end: 1,
+      windowChars: Math.round((1 - plan.windowFrom) * plan.chars) };
+  }
   function ridePace(plan, releaseMs) {
     const actual = (Number(releaseMs) || 0) / plan.words;
     const delta = Math.max(-40, Math.min(40, (actual - plan.beatMs) * 0.04));
@@ -987,7 +993,7 @@
   }
 
   return Object.freeze({
-    version: '0.6.0',
+    version: '0.6.1',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
     PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, LEDGER_GAP,
     CUT_LADDER, WEATHERS, SEEN_AT, BREATH_STEP, BREATH_FAIL, ACT_KINDS,
@@ -997,7 +1003,7 @@
     gateKind, gateAdmits, riseMet, breathBudget, spendBreath, factorLine,
     floodFill, bfs, placeFactors, factorCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
-    waveOf, rideNew, rideAt, rideRelease, ridePace,
+    waveOf, rideNew, rideAt, rideRelease, ridePace, railOf,
     changedPx, syntheticPainting, PUNCT,
     FPV, fpvLayout, fpvRow, fpvPoint, fpvQuad, readingHead, wallFaces, openSides, SIDES,
   });

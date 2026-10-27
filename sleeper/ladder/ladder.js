@@ -72,7 +72,7 @@
   const LETGO_MS = 620;                              // one wrong thought, held until it goes
   const SPEECH_MS = 700;                             // one wrong speech, unsaid
   const STAY_MS = 2400;                              // one point, kept
-  const RIDE_MS = 1200;                              // hold past the decode = the line rides
+  const RIDE_MS = 950;                               // hold past the decode = the line rides
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 
@@ -96,7 +96,7 @@
     block: null,       // the edge the city just refused: {n, dir}
     note: false,       // the field note (a reveal, no chrome)
     pointers: 0,       // two fingers = the view; measured, never a button
-    // 0.6.0 — the wave: a held line rides at its own pace; release at the last arch
+    // 0.6.0 — the wave: a held line rides at its own pace; release at the end
     ride: null, rideTimer: 0, rides: {},
   };
   let W = 0, H = 0, dpr = 1;
@@ -156,6 +156,7 @@
       S.weather = C.weatherChain(S.field, S.moves);
       S.ledger = loadLedger();
       S.rides = S.ledger.rides || {};
+      S.taughtRide = !!S.ledger.taught;
       S.ledger.seq = S.ledger.seq || 0;
       paintProvenance();
       S.edgeMax = 0;
@@ -1046,6 +1047,10 @@
     for (const r of raw) {
       for (const l of wrapText(r, W - 26, size)) out.push(l);
     }
+    // before the first ride the strip says the one new gesture, then stops
+    if (!S.taughtRide && Object.keys(S.rides || {}).length === 0 && S.distance === 'ENTERED' && S.voice && S.voice.kind !== 'gate') {
+      out[0] = S.hold ? 'keep holding · the line rides' : 'hold · let go at the end';
+    }
     return out.slice(0, 3);
   }
   // the ride is drawn word by word: the sentence lights up at its own pace and
@@ -1067,6 +1072,9 @@
     }
     if (cur.length) lines.push(cur);
     const at = C.rideAt(r, p, r.t);
+    const mark = r.over ? { frac: r.markFrac, verdict: r.verdict }
+      : (r.markFrac != null ? { frac: r.markFrac, verdict: 'soft' } : null);
+    drawRail(Math.min(H - 8, y0 + 44), p, r.over ? null : at.frac, at.phase, mark);
     const shown = r.over ? words.length : at.i + 1;
     let wi = 0;
     const space = ctx.measureText(' ').width;
@@ -1082,8 +1090,8 @@
     }
     ctx.globalAlpha = 0.62; ctx.fillStyle = 'rgb(150,158,168)';
     const tail = r.over
-      ? (r.verdict === 'sharp' ? 'sharp · the line held' : r.verdict === 'blown' ? 'blown · past the moment' : 'lost · three times early')
-      : (at.phase === 'window' ? 'let go · the last arch' : 'hold · one breath');
+      ? (r.verdict === 'sharp' ? 'held · the end' : r.verdict === 'blown' ? 'late · past the end' : 'early · three times')
+      : (at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end');
     ctx.fillText(tail, 13, y0 + 2 * 13);
     ctx.restore();
   }
@@ -1097,6 +1105,12 @@
     // the strip hangs from the frame's own lower edge when the frame is small
     const d = S.field ? geoFor(S.distance).dst : null;
     const y0 = d ? Math.min(H - VOICE_H + 7, d.y + d.h + 11) : H - VOICE_H + 7;
+    // at rest the sentence already shows its shape: the rail is the mechanic.
+    // It reads the district you are standing in, not a hidden selection.
+    if (S.distance === 'ENTERED' && S.walker) {
+      const pl = planForCell(S.walker);
+      if (pl) drawRail(Math.min(H - 8, y0 + 44), pl, null, 'rest', null);
+    }
     for (let i = 0; i < lines.length; i++) {
       const emph = i === 0 && S.voice && S.voice.kind === 'gate';
       ctx.globalAlpha = i === 0 ? (emph ? 0.92 : 0.78) : 0.6;
@@ -1327,7 +1341,7 @@
       if (S.ride.t > p.endMs + p.windowMs + 300) {
         const out = C.rideRelease(S.ride, p, S.ride.t);
         S.ride = Object.assign(S.ride, out.ride);
-        say(['blown · the moment passed'], 'line', 5);
+        say(['late · past the end'], 'line', 5);
       } else live = true;
     }
     draw();
@@ -1779,7 +1793,11 @@
     // the district's weather, and the one you carried into it: the two halves of
     // the only mechanism on this page that is not about you
     const w = weatherFor(u.p), carry = S.weather ? S.weather.carry : null;
+    // first ride: the strip teaches the one gesture that is new, then goes back
+    // to being an instrument. No tutorial layer, no second glyph.
+    const teaching = !S.taughtRide && Object.keys(S.rides || {}).length === 0;
     return [
+      teaching ? (S.hold ? 'keep holding · the line rides' : 'hold · let go at the end') :
       (head ? 'reading head ' + head.i + '/' + head.of + ' of ¶' + (head.p + 1) + ' · ' : '') +
         '¶' + (u.p + 1) + ' ' + (d.chapter || '') + ' · ' + street + ' (' + cell.cx + ',' + cell.cy + ') · building ' + (u.s + 1) + '/' + (d.sentences || '?') + ' · room ' + (u.w + 1) +
         ' · material “' + (cell.material === ' ' ? 'blank' : cell.material) + '” · ' + (w || 'clear') + (carry && carry !== w ? ' (carried ' + carry + ' in)' : '') + ' · visits ' + visited,
@@ -1795,9 +1813,60 @@
   }
   function closeDecode() { S.decodeCell = null; draw(); }
 
+  // the rail: the sentence drawn as time. Always visible at ENTERED, so the
+  // shape of the ride is legible before anyone holds anything. Ticks are the
+  // clause marks; the brighter stretch is where letting go is true.
+  function planForCell(cell) {
+    if (!cell || !cell.unit || !S.source) return null;
+    const d = S.source.districts[cell.unit.p];
+    if (!d || !d.line) return null;
+    const k = 'p' + cell.unit.p;
+    if (!S.plans) S.plans = {};
+    if (!S.plans[k]) S.plans[k] = C.waveOf(d.line);
+    return S.plans[k];
+  }
+  function drawRail(y, plan, frac, phase, mark) {
+    const r = C.railOf(plan);
+    const x0 = 13, x1 = W - 13, w = x1 - x0;
+    ctx.save();
+    ctx.lineWidth = 1;
+    // the sentence's length
+    ctx.globalAlpha = 0.34; ctx.strokeStyle = 'rgb(200,208,218)';
+    ctx.beginPath(); ctx.moveTo(x0, y + 0.5); ctx.lineTo(x1, y + 0.5); ctx.stroke();
+    // the last clause: where a release is true. A faint band, not a highlight.
+    const wx = x0 + r.windowFrom * w;
+    ctx.globalAlpha = phase === 'window' ? 0.26 : 0.12;
+    ctx.fillStyle = 'rgb(214,220,228)';
+    ctx.fillRect(wx, y - 2, x1 - wx, 4);
+    ctx.globalAlpha = phase === 'window' ? 0.95 : 0.55;
+    ctx.beginPath(); ctx.moveTo(wx, y + 0.5); ctx.lineTo(x1, y + 0.5); ctx.stroke();
+    // one tick per clause mark, and the start of the track
+    ctx.globalAlpha = 0.55; ctx.strokeStyle = 'rgb(180,188,198)';
+    ctx.beginPath(); ctx.moveTo(x0, y - 3); ctx.lineTo(x0, y + 3); ctx.stroke();
+    for (let i = 0; i < r.ticks.length; i++) {
+      const x = x0 + r.ticks[i] * w;
+      ctx.beginPath(); ctx.moveTo(x, y - (i === r.ticks.length - 1 ? 4 : 2.5)); ctx.lineTo(x, y + 2); ctx.stroke();
+    }
+    // the playhead: where the line has arrived
+    if (frac != null) {
+      const x = x0 + Math.max(0, Math.min(1, frac)) * w;
+      ctx.globalAlpha = 0.95; ctx.strokeStyle = 'rgb(232,236,240)';
+      ctx.beginPath(); ctx.moveTo(x, y - 4); ctx.lineTo(x, y + 3); ctx.stroke();
+    }
+    // the mark a release leaves: solid sharp, open soft, double blown
+    if (mark && mark.frac != null) {
+      const x = x0 + Math.max(0, Math.min(1, mark.frac)) * w;
+      ctx.globalAlpha = 0.9; ctx.strokeStyle = 'rgb(232,236,240)';
+      if (mark.verdict === 'sharp') { ctx.beginPath(); ctx.moveTo(x, y - 3); ctx.lineTo(x, y + 3); ctx.stroke(); }
+      else if (mark.verdict === 'soft') { ctx.strokeRect(x - 1.5, y - 3, 3, 6); }
+      else { ctx.beginPath(); ctx.moveTo(x - 2, y - 3); ctx.lineTo(x - 2, y + 3); ctx.moveTo(x + 2, y - 3); ctx.lineTo(x + 2, y + 3); ctx.stroke(); }
+    }
+    ctx.restore();
+  }
+
   // ── 0.6.0 · the ride ──────────────────────────────────────────────────────
   // Holding a cell past the decode sets the district's own line riding at its
-  // own pace. Let go at the last arch. A ride spends no breath: breath is the
+  // own pace. Let go at the end. A ride spends no breath: breath is the
   // walk's stake; attention is the ride's.
   function startRide(cell) {
     if (!cell || !S.source || !cell.unit) return null;
@@ -1806,34 +1875,37 @@
     S.ride = { plan: C.waveOf(d.line), t: 0, t0: 0, misses: 0, over: false, verdict: null, p: cell.unit.p };
     S.decodeCell = null;
     S.drag.moved = true;                                // the hold already acted
+    wake();                                             // the ride needs frame time
     draw();
     return S.ride.plan;
   }
   function endRide() {
     if (!S.ride || S.ride.over) return null;
     const out = C.rideRelease(S.ride, S.ride.plan, S.ride.t);
-    S.ride = Object.assign(S.ride, out.ride);
+    const relFrac = Math.min(1, S.ride.t / S.ride.plan.endMs);
+    S.ride = Object.assign(S.ride, out.ride, { markFrac: relFrac });
     if (out.verdict === 'soft') {
       // the instrument bends: the line rewinds to the clause you were in
       S.ride.t0 = 0; S.ride.t = out.rewindToMs; S.ride.over = false; S.ride.verdict = null;
-      say(['soft · let go at the last arch'], 'line', 4);
+      say(['early · again from the clause'], 'line', 4);
     } else if (out.verdict === 'sharp') {
       S.rides[S.ride.p] = (S.rides[S.ride.p] || 0) + 1;
-      if (S.ledger) { S.ledger.rides = S.rides; saveLedger(); }
-      say(['sharp · “' + S.ride.plan.line + '”'], 'line', 7);
+      S.taughtRide = true;
+      if (S.ledger) { S.ledger.rides = S.rides; S.ledger.taught = true; saveLedger(); }
+      say(['held · the end'], 'line', 5);
     } else if (out.verdict === 'blown') {
-      say(['blown · held past the moment'], 'line', 5);
+      say(['late · past the end'], 'line', 5);
     } else if (out.verdict === 'lost') {
-      say(['lost · three times early'], 'line', 5);
+      say(['early · three times'], 'line', 5);
     }
     draw();
     return out.verdict;
   }
   function rideVoiceLines() {
     const r = S.ride, p = r.plan;
-    if (r.over) return [p.line, r.verdict === 'sharp' ? 'sharp · the line held' : (r.verdict === 'blown' ? 'blown · past the moment' : 'lost · three times early')];
+    if (r.over) return [p.line, r.verdict === 'sharp' ? 'held · the end' : (r.verdict === 'blown' ? 'late · past the end' : 'early · three times')];
     const at = C.rideAt(r, p, r.t);
-    return [p.line, at.phase === 'window' ? 'let go · the last arch' : 'hold · one breath'];
+    return [p.line, at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end'];
   }
 
   // ── pointer + keyboard (touch-first) ──────────────────────────────────────
@@ -2223,6 +2295,8 @@
     ride: () => (S.ride ? { p: S.ride.p, t: +S.ride.t.toFixed(1), over: S.ride.over, verdict: S.ride.verdict, misses: S.ride.misses, plan: S.ride.plan } : null),
     rideAt: () => (S.ride ? C.rideAt(S.ride, S.ride.plan, S.ride.t) : null),
     rides: () => JSON.parse(JSON.stringify(S.rides || {})),
+    taught: () => !!S.taughtRide,
+    rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowFrom.toFixed(4), ticks: pl.crestAt.map((c) => +c.toFixed(4)), words: pl.words } : null; },
     startRideAt: (n) => { const c = S.field && S.field.cells[n]; return c ? startRide(c) : null; },
     frameRect: () => { const g = geoFor(S.distance); return g && g.dst ? { x: g.dst.x, y: g.dst.y, w: g.dst.w, h: g.dst.h } : null; },
     fieldStats: () => S.field ? {

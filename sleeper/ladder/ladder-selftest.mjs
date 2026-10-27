@@ -702,6 +702,13 @@ section('20 · the wave (a held line rides at its own pace; release at the last 
     JSON.stringify(CORE.waveOf(lines[0])) === JSON.stringify(CORE.waveOf(lines[0])) &&
     CORE.waveOf(lines[0]).digest !== CORE.waveOf(lines[0].replace('a', 'e')).digest,
     'stable; one changed letter is a different score');
+  ok('W11 the rail is the sentence: ticks are its clause marks, the window its last clause',
+    (() => {
+      const p = CORE.waveOf('One, two; three: four — five. Six.');
+      const r = CORE.railOf(p);
+      return r.ticks.length === p.crestAt.length && r.ticks[r.ticks.length - 1] === 1 &&
+        r.windowFrom === p.windowFrom && r.windowChars > 0 && r.windowChars < p.chars;
+    })(), 'ticks = crestAt; window = last clause');
   ok('W10 the wave never touches breath (it is attention, not the walk’s stake)',
     !/breath/i.test(CORE.waveOf.toString() + CORE.rideRelease.toString() + CORE.ridePace.toString()),
     'no breath reference in the wave functions');
