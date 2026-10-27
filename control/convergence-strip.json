@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-27T07:57:35.610Z",
+  "generated": "2026-10-27T09:30:35.602Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,14 +9,14 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-27",
-  "commits_in_window": 14,
-  "git_commits_in_window": 62,
-  "telemetry_commits_in_window": 48,
-  "commits_total": 7037,
-  "branch_count": 1104,
+  "commits_in_window": 16,
+  "git_commits_in_window": 71,
+  "telemetry_commits_in_window": 55,
+  "commits_total": 7046,
+  "branch_count": 1105,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "sleeper/ladder 0.5.0 — correct the selftest breakdown and the gate-district no",
+    "READFIELD: compact reading, human interpretation and folded review (#1027)",
     "desk: refresh public field data + root git chronology"
   ],
   "active_fronts": [
