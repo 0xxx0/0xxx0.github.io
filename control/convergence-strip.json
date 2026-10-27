@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-27T00:12:32.299Z",
+  "generated": "2026-10-27T06:24:35.016Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-27",
-  "commits_in_window": 3,
-  "git_commits_in_window": 24,
-  "telemetry_commits_in_window": 21,
-  "commits_total": 6999,
-  "branch_count": 1102,
+  "commits_in_window": 9,
+  "git_commits_in_window": 49,
+  "telemetry_commits_in_window": 40,
+  "commits_total": 7024,
+  "branch_count": 1103,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
-    "calls: refresh (auto — answers changed)"
+    "fi-mutation-contract: stamp /sleeper/ladder/ (IMPLEMENT,VERIFY)",
+    "ladder 0.4.0: the note survives its own corner hold (a release is not a dismis"
   ],
   "active_fronts": [
     {
