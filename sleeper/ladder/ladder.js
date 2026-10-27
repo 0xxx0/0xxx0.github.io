@@ -1088,10 +1088,11 @@
         wi++;
       }
     }
-    ctx.globalAlpha = 0.62; ctx.fillStyle = 'rgb(150,158,168)';
+    ctx.fillStyle = r.over ? 'rgb(214,220,228)' : 'rgb(150,158,168)';
     const tail = r.over
-      ? (r.verdict === 'sharp' ? 'held · the end' : r.verdict === 'blown' ? 'late · past the end' : 'early · three times')
+      ? (r.verdict === 'sharp' ? 'held to the end' : r.verdict === 'blown' ? 'late · past the end' : 'early · three times')
       : (at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end');
+    ctx.globalAlpha = r.over ? 0.95 : 0.62;
     ctx.fillText(tail, 13, y0 + 2 * 13);
     ctx.restore();
   }
@@ -1892,7 +1893,7 @@
       S.rides[S.ride.p] = (S.rides[S.ride.p] || 0) + 1;
       S.taughtRide = true;
       if (S.ledger) { S.ledger.rides = S.rides; S.ledger.taught = true; saveLedger(); }
-      say(['held · the end'], 'line', 5);
+      say(['held to the end'], 'line', 5);
     } else if (out.verdict === 'blown') {
       say(['late · past the end'], 'line', 5);
     } else if (out.verdict === 'lost') {
@@ -1903,7 +1904,7 @@
   }
   function rideVoiceLines() {
     const r = S.ride, p = r.plan;
-    if (r.over) return [p.line, r.verdict === 'sharp' ? 'held · the end' : (r.verdict === 'blown' ? 'late · past the end' : 'early · three times')];
+    if (r.over) return [p.line, r.verdict === 'sharp' ? 'held to the end' : (r.verdict === 'blown' ? 'late · past the end' : 'early · three times')];
     const at = C.rideAt(r, p, r.t);
     return [p.line, at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end'];
   }
