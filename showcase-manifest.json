@@ -1736,7 +1736,7 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Read exact source text through scale, pace, voice, JSON structure and a compact wrist layout. READ, STRUCT and WRIST preserve the same source bytes and addressed character; tree selection changes the reading position. Local bytes remain session-only; LISTEN retains its own audio clock and native hosts retain effects.",
+      "role": "Read, annotate and review one exact source. Set a reading purpose, trace literal terms, attach interpretations or questions to revision-checked passages, and fold excerpts into a working conclusion. READ, STRUCT and WRIST retain the same source/cursor. Full local source stays session-only; bounded annotation quotes and notes persist device-locally with export. LISTEN retains its audio clock.",
       "index": {
         "updated_at": "2026-10-24T20:47:08+08:00",
         "work_modes": [
@@ -1748,7 +1748,7 @@
         "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
         "INTERPHASE 0.2 adapter: the existing Aperture cursor is exposed as shared address/focus state; no second text cursor",
         "PLAIN remains an explicit geometry-free performance fallback",
-        "FOCUS is the visible default and projects AXIAL address/aperture rings + Triangle center frame over the same cursor",
+        "FOCUS is the visible default; the compact reading ring shows source position, literal search occurrences and revision-checked human annotations over the same cursor",
         "MIN reduces the focus lens to ring + ORP/RSVP essentials",
         "LISTEN FIELD PULSE supplies clock/energy witness only; borrowed clock != borrowed authorship",
         "Glyph Atlas document handoff may carry the already-derived exact-source glyph witness without changing text identity",
@@ -1764,7 +1764,7 @@
         "session-local downloaded text/Markdown/JSON/CSV/log/YAML/source/SVG intake through the same RSVP/focus/voice/LOCI kernel",
         "task chains preserve the same cursor across SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN",
         "local-file epoch repair: explicit phone/file selection preempts stale repository source completion",
-        "device-local field-source-trail/v0.1 keeps bounded VISITED/MARKED continuity without storing source bytes or inferring completion",
+        "device-local field-source-trail/v0.1 keeps VISITED/MARKED continuity plus bounded exact annotation quotes, human notes and reading intent; no inferred understanding or completion",
         "RIDE LIVE return is EVIDENCE_ONLY; READFIELD re-hashes current bytes and requires exact native [start,end] before one cursor restore; stale/malformed return is zero-mutation",
         "0.8.6: exact JSON key/value spans, READ↔STRUCT selected-node continuity, shared WRIST engine/trail, SHA-256 checked handoff and exact cursor RETURN; no JSON source reserialization"
       ],

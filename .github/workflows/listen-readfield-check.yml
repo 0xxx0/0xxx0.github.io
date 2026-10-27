@@ -15,6 +15,9 @@ on:
       - 'lib/interphase-readfield.js'
       - 'lib/readfield-track-sync.js'
       - 'lib/readfield-track-sync.test.mjs'
+      - 'lib/readfield-review.js'
+      - 'lib/readfield-controls*'
+      - 'lib/read-trail.js'
       - '.github/workflows/listen-readfield-check.yml'
   push:
     branches: [master]
@@ -32,6 +35,9 @@ on:
       - 'tools/fold-bloom-first-use-browser-smoke.mjs'
       - 'lib/readfield-track-sync.js'
       - 'lib/readfield-track-sync.test.mjs'
+      - 'lib/readfield-review.js'
+      - 'lib/readfield-controls*'
+      - 'lib/read-trail.js'
       - '.github/workflows/listen-readfield-check.yml'
 permissions:
   contents: read
@@ -79,4 +85,15 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
         run: node tools/reading-continuity-smoke.mjs
+      - name: Prove human interpretation and exact source folding
+        env:
+          NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
+        run: |
+          node tools/reading-review-selftest.cjs
+          node tools/reading-review-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: readfield-review-captures
+          path: /tmp/readfield-review-captures/
 

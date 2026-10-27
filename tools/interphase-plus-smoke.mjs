@@ -220,7 +220,7 @@ async function continuumBrowserProof(){
    await load(raw);await page.evaluate(p=>InterphaseInstrument.importPacket(p),packet);await page.evaluate(()=>InterphaseInstrument.seek(42));await source();await ip('reader').click();
    await page.waitForFunction(()=>document.getElementById('docAperture')?.A?.raw);
    assert.equal(await page.locator('#docAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#docAperture').evaluate(x=>x.snapshot().char_index),42);
-   await page.locator('#walkLink').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.raw,raw);assert.equal((await snap()).links.length,1);
+   await page.locator('.rf-source-tools summary').click();await page.locator('#walkLink').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.raw,raw);assert.equal((await snap()).links.length,1);
    await ip('source').click();await ip('wrist').click();await page.waitForFunction(()=>document.getElementById('wristAperture')?.A?.raw);
    assert.equal(await page.locator('#wristAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#wristAperture').evaluate(x=>x.snapshot().char_index),42);
    await page.locator('#show').click();await page.locator('#interphase').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.hash,hash);assert.equal((await snap()).links.length,1);
