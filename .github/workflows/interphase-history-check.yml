@@ -85,6 +85,10 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
         run: node interphase/cross-door-smoke.mjs
+      - name: FIELD → DOOR → declared receipt → exact two-level RETURN
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+        run: node tools/field-door-entry-smoke.mjs
       - name: Durable workbench / mobile / protected import
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
