@@ -70,6 +70,9 @@ function create(raw){
   const text=f.en.toUpperCase()+' ('+f.pali+') — '+f.locator+'\n'+f.line.trim();
   return Object.freeze({index:i,key:f.key,name:f.en,pali:f.pali,act:f.act,locator:f.locator,
    excerpt:f.line.trim(),passage:text,question:QUESTIONS[i],
+   // MN 117: view, effort and mindfulness accompany the factors; these are
+   // editorial passages to compare, never automatic semantic links.
+   compareIndices:[0,5,6].filter(j=>j!==i),
    canonical:CANONICAL[i],references:REFERENCES[i].map(r=>({...r}))});
  });
  const text=entries.map(e=>e.passage).join('\n\n');
