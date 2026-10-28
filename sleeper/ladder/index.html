@@ -30,8 +30,8 @@
     font-size: 8.5px; letter-spacing: .02em; color: rgba(79,87,96,.52); line-height: 1.4;
   }
   #prov b { font-weight: 400; color: rgba(79,87,96,.72); }
-  #ladderRead { color: rgb(164,187,190); text-decoration: none; border-bottom: 1px solid rgba(164,187,190,.4); font-size: 10px; padding: 5px 7px; margin-left: 8px; white-space: nowrap; }
-  #ladderRead:focus-visible,#ladderRead:hover { color: #edce90; outline-color:#edce90; }
+  #prov[role="link"] { cursor: pointer; color: rgba(130,151,157,.85); }
+  #prov[role="link"]:focus-visible { outline: 1px solid #bdad84; outline-offset: -1px; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
@@ -41,7 +41,7 @@
     <canvas id="field" tabindex="0" aria-label="The ladder: a painting that resolves into a city built of Buddhadhamma. Tap to resolve, swipe to walk, tap a cell to read it. The eight gates are the eight path factors, in order: right view asks you to hold until the district's shape is legible; right thought, to let three wrong thoughts go; right speech, to say none of the four; right action and right livelihood ask one word of the text; right effort wants four steps; right mindfulness wants you back on ground you have walked; right concentration wants you still. Each step spends breath, and the walk ends when the breath does. Two fingers, or a held press on the distance corner, stand you inside the city; hold to raise the eye line. Hold the top-left corner for the field note."></canvas>
   </main>
 
-  <p id="prov">text · P. A. Payutto, <b>Buddhadhamma</b> (free online ed.) · buddhadhamma.github.io · retrieved 2026-10-25 (provenance loads with the source) <a id="ladderRead" href="../axis-score.html?read=1&amp;ladder=0" target="_blank" rel="noopener noreferrer" aria-label="Read and compare the current path factor in Threadwalk">READ SOURCE ↗</a></p>
+  <p id="prov" role="link" tabindex="0" aria-label="Read the current path factor in Threadwalk, opening a separate tab">text · P. A. Payutto, <b>Buddhadhamma</b> (free online ed.) · buddhadhamma.github.io · retrieved 2026-10-25 · TAP TO READ THE FACTOR ↗</p>
   <p class="sr" id="live" aria-live="polite"></p>
   <p class="sr" id="help">Tap the painting to resolve it into characters, tap again to enter the city. Swipe to walk, tap a cell to read its district, sentence, word and material, and hold to see where you stand in that district's own text order — a hairline ring whose seam is now. The eight gates are the eight path factors, in the doctrine's order from the text: right view, right thought, right speech, right action, right livelihood, right effort, right mindfulness, right concentration. Each gate says its factor, quotes the sentence the text gives that factor, and says what it asks. Five are acts: hold on the gate until the district's shape is legible (right view); hold each of the three wrong thoughts until it goes (right thought); say none of the four wrong speeches and keep off the ring (right speech); walk four steps in the district (right effort); go back onto ground you have walked (right mindfulness); stay still on one point (right concentration). Right action and right livelihood ask one word of the text's own sentence: three doors at the foot. Every step spends one breath, and the frame's top edge shows what is left; a failed gate spends three. When the breath runs out the walk ends where it stands, and nothing is given back inside a walk. The weather of each district is what you carried out of the last one. Walls are the painting's own strong edges, drawn by their faces; a refused step marks the edge that refused and names the sides still open. Two fingers on the field, or a held press on the distance corner, stand you inside the city looking north: the same cells in perspective, and holding raises the eye line. The distance corner again returns to the plan; two fingers again puts the eye away. Hold the top-left corner, or open #note, to read the field note. Tap the painting when it is recomposed to return.</p>
 
@@ -51,14 +51,18 @@
   <script src="ladder-core.js?v=0.6.3"></script>
   <script src="ladder.js?v=0.6.3"></script>
   <script>
-  // Read the gate at hand without modifying the walk or fabricating factor mastery.
+  // The EXISTING provenance strip acts as a reversible reading aperture.
+  // No extra element, no gate mutation; source opens in another tab.
   (function(){
-    const link=document.getElementById('ladderRead');
-    link.addEventListener('click',()=>{
+    const prov=document.getElementById('prov');
+    const open=()=>{
       const s=window.SleeperLadder?.state?.();
-      const gate=s?.gate?.i ?? s?.act?.i ?? s?.gates?.find(x=>!x.lit)?.i ?? 0;
-      link.href='../axis-score.html?read=1&ladder='+Math.max(0,Math.min(7,gate));
-    });
+      const i=s?.gate?.i ?? s?.act?.i ?? s?.gates?.find(x=>!x.lit)?.i ?? 0;
+      const url='../axis-score.html?read=1&ladder='+Math.max(0,Math.min(7,i));
+      window.open(url,'_blank','noopener,noreferrer');
+    };
+    prov.addEventListener('click',open);
+    prov.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
   })();
   </script>
 </body>
