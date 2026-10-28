@@ -21,6 +21,15 @@ const CANONICAL=[
 'https://buddhadhamma.github.io/path-factors-of-concentration.html'
 ];
 // Human-authored questions; NOT quotations or automatic conclusions.
+// Editorial navigation through the treatise's distinct explanatory tasks.
+// These questions are NOT excerpts, doctrinal quotations or generated proofs.
+const READING_MAP=[
+ {chapter:'Ch. 1',title:'Five Aggregates',lens:'COMPOSE',question:'What events and constituents make up this experience?',url:'https://buddhadhamma.github.io/five-aggregates.html'},
+ {chapter:'Ch. 3',title:'Three Characteristics',lens:'CHANGE',question:'What here is changing, unreliable, or not mine to command?',url:'https://buddhadhamma.github.io/three-characteristics.html'},
+ {chapter:'Ch. 4',title:'Dependent Origination',lens:'CONDITION',question:'What conditions gave rise to this reaction; which condition can cease?',url:'https://buddhadhamma.github.io/dependent-origination.html'},
+ {chapter:'Ch. 15',title:'Wise Reflection',lens:'DISCERN',question:'Where did observation become interpretation, attachment, or assumption?',url:'https://buddhadhamma.github.io/wise-reflection.html'},
+ {chapter:'Ch. 16–18',title:'Path Factors',lens:'PRACTISE',question:'What can be done skilfully, and which other factors support that action?',url:'https://buddhadhamma.github.io/path-factors.html'}
+];
 const QUESTIONS=[
 'What did you directly observe, and what have you inferred? Which condition would change the inference?',
 'What would happen if you followed this intention? Which alternative would reduce harm?',
@@ -87,5 +96,5 @@ function selectedIndex(x){
  if(!/^[0-7]$/.test(String(x)))throw Error('LADDER_FACTOR_INDEX_INVALID');
  return Number(x);
 }
-return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS});
+return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS,READING_MAP});
 });
