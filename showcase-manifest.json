@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-28T20:29:54+08:00",
+  "updated": "2026-10-28T21:45:26+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10811,10 +10811,11 @@
       "family": "FIELD / OPS",
       "role": "Append-only spine of shared reports and finds: the SG strange-notes map, the specimen's forensics, cool picks, and the day's folded reports. More added as analysis lands.",
       "index": {
-        "updated_at": "2026-10-22T19:56:04+08:00",
+        "updated_at": "2026-10-28T21:45:26+08:00",
         "work_modes": [
           "OPERATE",
-          "RESEARCH"
+          "RESEARCH",
+          "IMPLEMENT"
         ]
       }
     },
@@ -10830,10 +10831,11 @@
       "family": "FIELD / PLAY",
       "role": "The corpus as a walkable sonified field: 31 months x 24 hours of real message counts (424 cells) as a radial terrain. Move and each cell speaks (pitch = log count, volume = count); dwell and the hidden text — real messages — surfaces. Quiet at rest (terrain alpha ≤ 0.12, text hidden). Drag orbits the hour rings, scroll zooms the radius, r replays your gesture trace, e exports it as JSON. Named-prototype lineage: sleeper maze + Paint With Music + InkPainting variable brush + inkField gesture replay.",
       "index": {
-        "updated_at": "2026-10-22T19:56:04+08:00",
+        "updated_at": "2026-10-28T21:45:26+08:00",
         "work_modes": [
           "OPERATE",
-          "RESEARCH"
+          "RESEARCH",
+          "IMPLEMENT"
         ]
       }
     },
