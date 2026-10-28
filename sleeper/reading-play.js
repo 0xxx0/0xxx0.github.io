@@ -130,7 +130,7 @@ function render(){
    if(parallel){
     const example=element('details','bookMap');example.id='ladderBellParallel';
     example.append(element('summary','','BELL / SEE THIS FACTOR IN A SITUATION'));
-    const exampleText=DEMO.split('\\n\\n')[parallel.index];
+    const exampleText=DEMO.split(String.fromCharCode(10,10))[parallel.index];
     if(!exampleText)throw Error('BELL_EXAMPLE_SOURCE_MISSING');
     example.append(element('div','tiny','ORIGINAL FICTION · BELL PASSAGE '+(parallel.index+1)+'/8 · NOT A PAYUTTO QUOTE'));
     example.append(element('blockquote','quote',exampleText));
