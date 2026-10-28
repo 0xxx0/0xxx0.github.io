@@ -50,6 +50,16 @@ try{
   await page.mouse.click(ringRect.x+ringRect.width*.88,ringRect.y+ringRect.height*.5);
   const textAfter=(await page.evaluate(()=>document.getElementById('wristAperture').snapshot())).char_index;
   assert.notEqual(textAfter,textBefore,'ring perimeter addresses source position');
+  const exactTextTarget=await page.evaluate(()=>{
+   const host=document.getElementById('fullSource'),node=host.firstChild;
+   const index=node.textContent.indexOf('first value');
+   const range=document.createRange();range.setStart(node,index);range.setEnd(node,index+5);
+   const r=range.getBoundingClientRect();return{x:r.left+Math.min(4,r.width/3),y:r.top+r.height/2,start:index};
+  });
+  await page.mouse.click(exactTextTarget.x,exactTextTarget.y);
+  const clickedChar=await page.evaluate(()=>document.getElementById('wristAperture').snapshot().char_index);
+  assert.ok(clickedChar>=exactTextTarget.start&&clickedChar<=exactTextTarget.start+5,
+   'clicking the actual text enters its exact native source interval');
   await page.evaluate(c=>window.RSVPReader.seekChar(c),textBefore);
   await page.locator('main #next').click();const moved=await page.evaluate(()=>document.getElementById('wristAperture').snapshot());
   await page.reload();await page.waitForFunction(()=>document.getElementById('drawer').hidden&&document.getElementById('wristAperture').A);
