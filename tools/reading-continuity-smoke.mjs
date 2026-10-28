@@ -89,7 +89,7 @@ try{
    m.quote===authored.source.raw.slice(m.charIndex,m.endIndex)),'every mark is exact SHA/quote bound');
   await page.locator('#showMarks').click();
   assert.equal(await page.locator('#marksList li').count(),2,'stored work becomes a plain navigable source list');
-  await page.locator('#marksList li').first().locator('button').first().click();
+  await page.locator('#marksList li').first().locator('button').last().click();
   assert.equal(await page.locator('#marksShelf').isVisible(),false,'revisit returns to source, not a new reader');
   const selectedNote=await page.evaluate(()=>RSVPSourceInstrument.marks());
   assert.equal(selectedNote.bound,2);
