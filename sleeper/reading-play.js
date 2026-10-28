@@ -116,6 +116,15 @@ function render(){
  const advance=n=>{if(!n)return;move(n.id,T.neighbors(m,s).some(e=>e.id===n.id))};
  $('prev').disabled=!prev;$('next').disabled=!next;$('prev').onclick=()=>advance(prev);$('next').onclick=()=>advance(next);
  $('here').disabled=here;$('here').onclick=()=>move(focus.id,false);$('origin').disabled=s.focus===m.nodes[0].id;$('origin').onclick=home;
+ // MN 117 reading lead: view, effort and mindfulness interact with every factor.
+ // These inspect-only links do not confer an edge or claim that two passages agree.
+ if(ladderStudy){
+  const hereFactor=ladderStudy.entries[i];
+  for(const j of hereFactor.compareIndices){
+   const compare=ladderStudy.entries[j];
+   $('quickThreads').append(button('↝ '+String(j+1).padStart(2,'0')+' · COMPARE '+compare.name.toUpperCase(),()=>move(m.nodes[j].id,false),'echoQuick'));
+  }
+ }
  for(const e of candidates.slice(0,2)){const n=m.nodes.find(n=>n.id===e.id);if(!n)continue;const common=(e.common||[]).slice(0,2).join(' · ');$('quickThreads').append(button('↝ '+String(m.nodes.indexOf(n)+1).padStart(2,'0')+' · '+(common||'distant passage'),()=>move(n.id,false),'echoQuick'));}
  for(const e of candidates){const n=m.nodes.find(n=>n.id===e.id);if(!n)continue;const b=button('',()=>move(n.id,false),'echo');b.append(element('b','',e.label+' · '+(m.nodes.indexOf(n)+1)),element('span','',clean(n.text).slice(0,140)));$('echoList').append(b)}
  if(!candidates.length)$('echoList').append(element('p','empty','No distant lexical echoes. Continue reading.'));
