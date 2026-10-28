@@ -109,7 +109,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(!source)return;const saved=trail(),notes=authored(),open=notes.filter(m=>m.kind==='QUESTION'&&!m.resolved).length;
   el('review-count').textContent=notes.length+' notes · '+open+' open';
   if(document.activeElement!==el('purpose'))el('purpose').value=saved.review.purpose;
-  if(document.activeElement!==el('conclusion'))el('conclusion').value=saved.review.conclusion;
+  if(document.activeElement!==el('conclusion'))el('conclusion').value=saved.review.revision===source.hash?saved.review.conclusion:'';
   if(!el('review-fold').open)return;
   const list=el('review-items');list.replaceChildren();
   for(const m of notes){
@@ -123,8 +123,10 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   }
   if(!notes.length){const p=document.createElement('p');p.textContent='No authored interpretation. Hold a range and write one, or leave it empty.';list.append(p)}
   const unbound=saved.marks.length-notes.length;
-  el('review-law').textContent=unbound?unbound+' older/unbound marks are retained in READFIELD but excluded here.':
-   'Authored marks do not imply comprehension. Exact quote and revision travel with RETURN.';
+  const oldConclusion=!!saved.review.conclusion&&saved.review.revision!==source.hash;
+  el('review-law').textContent=(oldConclusion?'Working conclusion belongs to another or unbound revision; re-author before using it. ':'')+
+   (unbound?unbound+' older/unbound marks retained in READFIELD but excluded here.':
+   'Authored marks do not imply comprehension. Exact quote and revision travel with RETURN.');
  }
  function seek(c,{remember=false}={}){
   if(!source)return;ap.stop();if(remember){frames.push(frame());if(frames.length>64)frames.shift()}
@@ -338,7 +340,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  });
  const saveReview=()=>{if(!source)return;
   if(trailWritten(FieldSourceTrail.setReview(trailKey(),{
-   purpose:el('purpose').value.trim(),conclusion:el('conclusion').value.trim()
+   purpose:el('purpose').value.trim(),conclusion:el('conclusion').value.trim(),revision:source.hash
   }))){paint();status('Seeking and working RETURN saved to this source identity.')}
  };
  el('purpose').onchange=saveReview;el('conclusion').onchange=saveReview;
