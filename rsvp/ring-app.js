@@ -536,6 +536,7 @@ function seekRingEvent(e){
 el('stage').onclick=e=>{
  if(suppressClick){suppressClick=false;return}
  if(gate){const k=sectorFromEvent(e);if(k>=0)answer(k);return}
+ if(window.RSVPSourceInstrument?.pickRing?.(e))return;
  if(seekRingEvent(e))return;
  toggle();
 };
@@ -596,6 +597,7 @@ window.addEventListener('pagehide',()=>persist());
 // One native source/cursor bridge for the optional large-screen projection.
 // Its consumers may SEEK, never edit FieldAperture or author another clock.
 window.RSVPReader=Object.freeze({
+ key:()=>trailKey,
  source:()=>raw?{raw,hash:sourceHash,label,sourceAddress}:null,
  snapshot:()=>raw?snap():null,
  seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true}
