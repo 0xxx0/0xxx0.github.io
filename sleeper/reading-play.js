@@ -102,7 +102,7 @@ function render(){
  let candidates=suggestions.slice(0,3).map(e=>({id:e.id,label:'ECHO · '+e.common.join(' · ')}));
  if(!candidates.length)for(const n of m.nodes){if(n.id===focus.id||Math.abs(m.nodes.indexOf(n)-m.nodes.indexOf(focus))<2)continue;candidates.push({id:n.id,label:'DISTANT / inspect only'});if(candidates.length===3)break}
  $('app').innerHTML='<div class="top"><div class="identity"><i>回</i> SLEEPER <span class="tiny">/ READ</span></div><div class="actions"><button id="threadToggle">THREADS</button><details class="readingTools" id="readingTools"><summary>TOOLS</summary><div><button id="mySource">SOURCE</button><button id="saveWork">EXPORT WORK</button><button id="fullField">FIELD ↗</button></div></details><button id="exit">EXIT</button></div></div><div class="progress"><i id="fill"></i></div><div class="layout"><main class="page"><div class="tiny" id="title"></div><h1 id="readingTitle"></h1><div class="deck">Tap a sentence to hold evidence. Find an echo. Compare passages. Make a door the text earns.</div><div class="paper" id="paper"><div class="kicker" id="where"></div><div id="passage" class="passage"></div><div class="hint" id="hint"></div><div id="ladderContext"></div><div id="quickThreads" class="quick" aria-label="Source echoes"></div><div class="status" id="stateStatus" role="status"></div><div class="handle" id="actions"></div><div class="rsvp hidden" id="rsvp"><div class="tiny">RIDE / THIS PASSAGE</div><div class="rsvpword" id="rsvpword">✳</div><div class="controls"><button id="ridePlay">▶ RIDE</button><button id="rideReset">↶</button><label class="tiny">WPM <select id="rate"><option>180</option><option selected>260</option><option>360</option><option>480</option></select></label></div></div><div class="scrub"><span id="currentNumber"></span><input id="scrub" type="range" min="0" step="1" aria-label="Preview passage"><span id="totalNumber"></span></div><div class="rail" id="rail"></div></div></main><aside class="side" id="threadPane"><section><h2>01 / THREADS TO INSPECT</h2><div class="tiny">Lexical echo ≠ agreement</div><div id="echoList"></div></section><section class="compare"><h2>02 / TWO EXACT WITNESSES</h2><div id="compare"></div><div id="compareError" class="notice" role="status"></div></section><section><h2>03 / WHAT CHANGED?</h2><div id="payoff"></div></section><section><h2>RETURN / SAME SOURCE</h2><div id="return"></div></section></aside></div><div class="nextbar"><div class="left"><button id="prev">← PREV</button><button id="next" class="gold">NEXT →</button></div><div class="left"><button id="bottomThreads">THREADS</button><button id="here">HERE ↩</button><button id="origin">ORIGIN</button></div></div>';
- $('title').textContent=m.nodes.length+' PASSAGES · '+(workStoreState==='READY'?'SAVED ON THIS DEVICE':workStoreState==='BLOCKED'?'SESSION ONLY · DEVICE SAVE UNAVAILABLE':['CORRUPT','CONFLICT'].includes(workStoreState)?'SAVED WORK HELD · EXPORT CURRENT WORK':'LOCAL WORK');$('title').title='SOURCE SHA-256 '+m.sha256;$('readingTitle').textContent=m.meta.title; $('threadPane').classList.toggle('open',threadOpen);
+ $('title').textContent=m.nodes.length+' PASSAGES · '+workSaveLabel();$('title').title='SOURCE SHA-256 '+m.sha256;$('readingTitle').textContent=m.meta.title; $('threadPane').classList.toggle('open',threadOpen);
  if(apertureCarrier){
   const section=element('section',''),details=element('details','');
   details.append(element('summary','','HELD IN APERTURE · '+apertureCarrier.apertureOrigin.witnesses.length+' source ranges'));
@@ -284,7 +284,7 @@ function render(){
   if(comp){
    panel.append(element('div','tiny','INSPECTED PASSAGE '+(i+1)),element('blockquote','quote',quote(m,w)||'Now hold a sentence in the inspected passage.'));
    const relation=element('select');relation.id='relation';for(const value of ['questions','contrasts','supports']){const o=element('option','',value.toUpperCase());o.value=value;relation.append(o)}
-   const why=element('textarea');why.id='reason';why.maxLength=400;why.dataset.from=mark.id;why.dataset.to=node.id;why.dataset.source=m.sha256;why.placeholder='What changes when these two exact passages are read together? (12+ characters)';
+   const why=element('textarea');why.id='reason';why.maxLength=400;why.dataset.from=mark.id;why.dataset.to=node.id;why.dataset.source=m.sha256;why.placeholder='What changes when these two exact passages are read together? (12–400 characters)';
    const pending=composers.get(composerKey(mark.id,node.id));
    if(pending){why.value=pending.reason;relation.value=pending.relation}
    why.oninput=relation.onchange=()=>{captureComposer();scheduleSave()};
@@ -328,12 +328,13 @@ function resumeStored(){
  if(saved.state==='READY'){B.resume(saved.checkpoint);restoreComposers(saved.checkpoint)}
  else if(saved.state==='CORRUPT')error='Saved work held: '+saved.error;
 }
-function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{checkpointAperture();const label=$('title');if(label&&workStoreState==='READY')label.textContent=snap().model.nodes.length+' PASSAGES · SAVED ON THIS DEVICE'}catch(e){status('Work not saved: '+e.message)}},250)}
+function workSaveLabel(){return workStoreState==='READY'?'SAVED ON THIS DEVICE':workStoreState==='BLOCKED'?'SESSION ONLY · DEVICE SAVE UNAVAILABLE':['CORRUPT','CONFLICT'].includes(workStoreState)?'SAVED WORK HELD · EXPORT CURRENT WORK':'LOCAL WORK'}
+function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{checkpointAperture();const label=$('title');if(label)label.textContent=snap().model.nodes.length+' PASSAGES · '+workSaveLabel()}catch(e){status('Work not saved: '+e.message)}},250)}
 function checkpointAperture(){
  const m=snap().model;if(!m)return null;captureComposer();
  const cp={...B.checkpoint(),reading:{composers:[...composers.values()]},savedAt:Math.max(Date.now(),workBaseSavedAt+1),conflict:workStoreState==='CONFLICT'};
  const checkpoint=W?W.validate(m,cp):cp;
- if(W)try{workStoreState=W.write(m,checkpoint,localStorage,workBaseSavedAt).state;if(workStoreState==='READY')workBaseSavedAt=checkpoint.savedAt}catch(e){workStoreState='BLOCKED'}
+ if(W)try{const stored=W.write(m,checkpoint,localStorage,workBaseSavedAt);workStoreState=stored.state;if(workStoreState==='READY'){workBaseSavedAt=stored.checkpoint.savedAt;checkpoint.savedAt=workBaseSavedAt;checkpoint.conflict=false}}catch(e){workStoreState='BLOCKED'}
  if(workStoreState==='CONFLICT'){checkpoint.conflict=true;checkpoint.savedAt=workBaseSavedAt}
  if(apertureCarrier&&m.source===apertureCarrier.raw){
   apertureCarrier.threadwalkDraft=checkpoint;sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify(apertureCarrier));

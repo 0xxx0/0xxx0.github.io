@@ -58,7 +58,8 @@ try{
    if(h.snapshot().state.selection.length!==2||h.snapshot().state.focus.length!==2||h.snapshot().state.projection!=='RING')throw Error('native motion overwrote held set/projection');
   },ids);
   assert.deepEqual(await page.locator('#heldRanges blockquote').allTextContents(),held);
-  if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.locator('#lensWork').screenshot({path:path.join(process.env.SCREENSHOT_DIR,`source-cycle-lens-${width}.png`)});}
+  await page.locator('#scopes button').filter({hasText:'SENTENCE'}).click();
+  if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.locator('#lensWork').screenshot({path:path.join(process.env.SCREENSHOT_DIR,`source-cycle-lens-${width}.png`)});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`source-cycle-lens-full-${width}.png`)});}
   await page.locator('#dockReturn').click();await waitSource();await page.waitForFunction(()=>!new URLSearchParams(location.search).has('resume'));
   const back=await snap();assert.equal(back.source.raw,before.source.raw);assert.deepEqual(back.attention,before.attention);assert.deepEqual(back.links,before.links);assert.deepEqual(back.frames,before.frames);assert.equal(back.playing,false);assert.equal(await page.evaluate(()=>InterphaseInstrument.packet().annotations.length),1);
   await drawer();await ip('threadwalk').click();
@@ -93,6 +94,10 @@ try{
   await read.locator('#readingTools > summary').click();
   const downloadPromise=page.waitForEvent('download');await read.locator('#saveWork').click();const download=await downloadPromise;
   const workFile=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.equal(workFile.source.text,raw);assert.equal(workFile.checkpoint.draft.links.length,1);assert.equal(workFile.schema,'sleeper.threadwalk-work/v1');
+  await read.locator('#readingTools > summary').click();await read.locator('#mySource').click();
+  await read.locator('#newFile').setInputFiles({name:'saved-threadwalk-work.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(workFile))});
+  await page.waitForFunction(()=>document.querySelector('#readingPlay')?.shadowRoot?.getElementById('exit')&&SleeperReadingBridge.snapshot().session.links.length===1);
+  assert.equal(await page.evaluate(()=>Threadwalk.canReturn(SleeperReadingBridge.snapshot().session)),false,'work import does not award completed RETURN');
   const second=await context.newPage();await second.goto(base+'/sleeper/axis-score.html?read=1&src=/fold-bloom/listen/README.md');
   await second.waitForFunction(()=>window.SleeperReadingBridge?.snapshot()?.session?.links.length===1);
   assert.deepEqual(await second.evaluate(()=>SleeperReadingBridge.snapshot().session.links),draft.draft.links,'a fresh tab restores native work without the carrier');await second.close();
@@ -106,5 +111,8 @@ try{
  await page.addInitScript(()=>{if(location.pathname==='/fold-bloom/lens/'){const h=JSON.parse(sessionStorage.getItem('lens:handoff:v2'));h.text+='tamper';sessionStorage.setItem('lens:handoff:v2',JSON.stringify(h))}});
  await page.locator('[data-ip=lens]').click();await page.waitForFunction(()=>document.getElementById('dockTitle')?.textContent==='SOURCE HELD');
  assert.equal(await page.evaluate(()=>ScaleLensSpatialAPI.snapshot()),null);await context.close();
+ const dataContext=await browser.newContext(),dataPage=await dataContext.newPage();await dataPage.goto(base+'/fold-bloom/lens/');
+ await dataPage.waitForFunction(()=>window.ScaleLensSpatialAPI?.snapshot());
+ assert.equal(JSON.parse(await dataPage.locator('#sourcePreview').textContent()).id,'evt-001','default JSON source shows the selected native record');await dataContext.close();
  console.log('SOURCE CYCLE TAMPER PASS · mismatched source held before parsing; no sample substituted');
 }finally{await browser.close();server.close()}

@@ -27,8 +27,10 @@
  }
  function write(m,checkpoint,storage,expectedSavedAt=null){
   const cp=validate(m,checkpoint),before=read(m,storage);
-  if(cp.conflict)return{state:'CONFLICT',checkpoint:null,error:'Export this local branch before explicitly replacing saved work.'};
   if(before.state==='CORRUPT'||before.state==='BLOCKED')return before;
+  const content=x=>JSON.stringify({draft:x.draft,inspected:x.inspected,reading:x.reading});
+  if(before.state==='READY'&&content(before.checkpoint)===content(cp))return before;
+  if(cp.conflict)return{state:'CONFLICT',checkpoint:null,error:'Export this local branch before explicitly replacing saved work.'};
   if(expectedSavedAt!==null&&(before.checkpoint?.savedAt??0)!==expectedSavedAt)return{state:'CONFLICT',checkpoint:null,error:'Work changed in another tab; current work remains exportable.'};
   try{storage.setItem(key(m),JSON.stringify(cp));return{state:'READY',checkpoint:cp}}
   catch(e){return{state:'BLOCKED',checkpoint:null,error:e.message}}

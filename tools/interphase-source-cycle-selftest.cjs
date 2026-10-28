@@ -11,6 +11,16 @@ const context={crypto:webcrypto,TextEncoder,URL};vm.runInNewContext(engine,conte
  const graph=parser.parse(raw,'LISTEN README',true),atoms=graph.nodes.filter(n=>graph.leafIds.includes(n.id));
  for(const match of raw.matchAll(/\S/gu))assert(atoms.some(n=>n.provenance.offsetStart<=match.index&&n.provenance.offsetEnd>match.index),'Lens dropped source character '+match.index);
  assert.equal(new Set(atoms.map(n=>n.id)).size,atoms.length);
+ const projection=lensSource.slice(lensSource.indexOf('function visibleGroups('),lensSource.indexOf('function currentGroup('));vm.runInNewContext(projection+'\nthis.visible=visibleGroups;this.angle=sourceGroupAngle',parser);
+ const many=Array.from({length:2000},(_,i)=>({start:i,end:i})),windowed=parser.visible(many,1937);
+ assert.equal(windowed.length,180);assert(windowed.some(x=>x.i===1937));assert.equal(windowed[0].i,0);assert.equal(windowed.at(-1).i,1999);assert.equal(new Set(windowed.map(x=>x.i)).size,180);
+ assert(Math.abs(parser.angle(0,2000)-parser.angle(1999,2000))<Math.PI*2-.1,'source ends remain distinct across the ring gap');
+ const helper=lensSource.slice(lensSource.indexOf('function jsonSourceValue('),lensSource.indexOf('function sourcePreview('));vm.runInNewContext(helper+'\nthis.lookupJSON=jsonSourceValue',parser);
+ parser.graph=parser.parse('{"events":[{"id":"actual-record","ok":true}]}','source.json');
+ const record=parser.graph.nodes.find(n=>n.kind==='RECORD');assert.equal(parser.lookupJSON(record).value.id,'actual-record','JSON source view resolves the actual record rather than synthetic row numbers');
+ parser.graph=parser.parse('{"":2,"x":3}','object.json');const empty=parser.graph.nodes.find(n=>n.kind==='CELL'&&n.label==='');assert.equal(parser.lookupJSON(empty).value,2,'empty JSON pointer token preserved');
+ assert.equal(parser.lookupJSON({provenance:{pointer:'/unknown'}}).mapped,false,'unknown pointer never fabricates source evidence');
+
  console.log('LENS text parse:',atoms.length,'exact atoms cover Markdown lines without terminal punctuation');
  const m=await T.seal(T.createModel(raw,{title:'LISTEN README'}));
  assert.equal(m.source,raw);assert(m.nodes.length>2);console.log('LISTEN source:',m.nodes.length,'native passages');
@@ -43,7 +53,8 @@ const context={crypto:webcrypto,TextEncoder,URL};vm.runInNewContext(engine,conte
  const saved=W.read(m,storage);assert.equal(saved.state,'READY');assert.equal(saved.checkpoint.reading.composers[0].reason,checkpoint.reading.composers[0].reason);
  assert.throws(()=>T.artifact(m,T.resumeDraft(m,saved.checkpoint.draft)),/CROSSED_DOOR/);
  assert.equal(W.read(wrong,storage).state,'EMPTY','another revision does not inherit work');
- assert.equal(W.write(m,{...checkpoint,savedAt:11},storage,0).state,'CONFLICT','another tab cannot overwrite newer work');
+ assert.equal(W.write(m,{...checkpoint,savedAt:11},storage,0).state,'READY','passive reread of identical work is not a new revision');
+ const changedCheckpoint=JSON.parse(JSON.stringify(checkpoint));changedCheckpoint.reading.composers[0].reason+=' Changed.';changedCheckpoint.savedAt=11;assert.equal(W.write(m,changedCheckpoint,storage,0).state,'CONFLICT','another tab cannot overwrite newer work');
  assert.equal(W.read(m,storage).checkpoint.savedAt,10);
  const badComposer=JSON.parse(JSON.stringify(checkpoint));badComposer.reading.composers[0].to='unknown';assert.throws(()=>W.validate(m,badComposer),/COMPOSER/);
  records.set(W.key(m),'{broken');assert.equal(W.write(m,checkpoint,storage).state,'CORRUPT');assert.equal(records.get(W.key(m)),'{broken','corrupt work remains intact');
