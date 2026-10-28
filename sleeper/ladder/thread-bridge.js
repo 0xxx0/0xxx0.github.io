@@ -41,7 +41,7 @@ const REFERENCES=[
 [{id:'MN 10',label:'Four establishments of mindfulness',url:'https://suttacentral.net/mn10/en/sujato'},{id:'SN 12.2',label:'Contact, feeling, craving',url:'https://suttacentral.net/sn12.2/en/sujato'}],
 [{id:'MN 117',label:'Concentration and supports',url:'https://suttacentral.net/mn117/en/sujato'},{id:'MN 10',label:'Mindfulness in practice',url:'https://suttacentral.net/mn10/en/sujato'}]
 ];
-const ACTS=['see','letgo','silence','word','word','walk','recollect','stay'];
+const ACTS=['see','letgo','silence','word','word','walk','return','stay'];
 function validate(raw){
  if(!raw||raw.schema!==SCHEMA||raw.factors?.length!==8||!Array.isArray(raw.districts)||!raw.provenance||!raw.selection||!(/^[a-f0-9]{64}$/.test(raw.selection.sha256||'')))throw Error('LADDER_SOURCE_SLICE_INVALID');
  const indices=new Set(),keys=new Set();
