@@ -61,6 +61,17 @@ const BELL_MAP=[
  {phase:'RELEASE',lens:1,factor:1,question:'What changed when the hand opened? Which condition stayed the same?',sutta:{id:'MN 19',url:'https://suttacentral.net/mn19/en/sujato'}},
  {phase:'WISE REFLECTION',lens:3,factor:0,question:'Separate observation from interpretation; what would make you revise the interpretation?',sutta:{id:'MN 117',url:'https://suttacentral.net/mn117/en/sujato'}}
 ];
+// Intentional examples, not a one-to-one doctrinal equivalence.
+// Null means no Bell passage illustrates the factor well enough to assert one.
+const FACTOR_BELL_PIVOTS=[4,2,null,null,null,3,5,null];
+function bellForFactor(index){
+ if(!Number.isInteger(index)||index<0||index>=8)throw Error('FACTOR_INDEX_INVALID');
+ const at=FACTOR_BELL_PIVOTS[index];
+ if(at===null)return null;
+ const lens=bellLensAt(at);
+ if(lens.factor!==index)throw Error('BELL_FACTOR_ASSOCIATION_CHANGED');
+ return Object.freeze({index:at,...lens,authority:'EDITORIAL_CROSS_READING_ONLY'});
+}
 function bellLensAt(index){
  if(!Number.isInteger(index)||index<0||index>=BELL_MAP.length)throw Error('BELL_PASSAGE_INDEX_INVALID');
  const item=BELL_MAP[index],book=READING_MAP[item.lens];
@@ -110,5 +121,5 @@ function selectedIndex(x){
  if(!/^[0-7]$/.test(String(x)))throw Error('LADDER_FACTOR_INDEX_INVALID');
  return Number(x);
 }
-return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS,READING_MAP,BELL_MAP,bellLensAt});
+return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS,READING_MAP,BELL_MAP,bellLensAt,bellForFactor,FACTOR_BELL_PIVOTS});
 });

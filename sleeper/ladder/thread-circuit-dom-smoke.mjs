@@ -33,6 +33,12 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  const rd=await wait(()=>inner.contentDocument?.querySelector('#readingPlay')?.shadowRoot,'Threadwalk shadow');
  await wait(()=>rd.querySelector('#ladderContext')?.textContent?.includes('RIGHT VIEW'),'source projection');
  assert(rd.querySelector('#passage')?.textContent.includes('right view'),'factor line visible');
+ const example=rd.querySelector('#ladderBellParallel');
+ assert(example&&example.querySelector('a')?.getAttribute('href')?.includes('bellAt=4'),'right view has exact Bell inference cross-reading');
+ example.open=true;
+ assert(example.textContent.includes('gardener')&&example.textContent.includes('NOT A PAYUTTO QUOTE'),'original Bell passage and provenance shown');
+ assert(rd.querySelector('#rail')?.textContent.includes('RIGHT VIEW'),'number-only passage rail was not replaced by semantic factor labels');
+
  assert(rd.querySelector('#ladderContext')?.textContent.includes('ABRIDGED DERIVED SELECTION'),'rights and provenance boundary');
  assert(rd.querySelectorAll('#ladderContext a').length>=3,'book and canonical Sutta cross-references');
  assert(rd.querySelector('#ladderContext a').href.startsWith('https://buddhadhamma.github.io/'),'real book link');
