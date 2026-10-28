@@ -42,8 +42,17 @@ const REFERENCES=[
 [{id:'MN 117',label:'Concentration and supports',url:'https://suttacentral.net/mn117/en/sujato'},{id:'MN 10',label:'Mindfulness in practice',url:'https://suttacentral.net/mn10/en/sujato'}]
 ];
 const ACTS=['see','letgo','silence','word','word','walk','return','stay'];
+const SOURCE_SELECTION_SHA='52891ff29b442cbd51824c715f7a51206863916ef5dcd2384087b59380f8f7c6';
+const FACTOR_TABLE_HASH='ac14d49b';
+function sourceTableHash(rows){
+ const packet=JSON.stringify(rows.map(({i,key,en,pali,act,locator,line})=>({i,key,en,pali,act,locator,line})));
+ let h=2166136261;
+ for(let i=0;i<packet.length;i++){h^=packet.charCodeAt(i);h=Math.imul(h,16777619);}
+ return (h>>>0).toString(16).padStart(8,'0');
+}
 function validate(raw){
  if(!raw||raw.schema!==SCHEMA||raw.factors?.length!==8||!Array.isArray(raw.districts)||!raw.provenance||!raw.selection||!(/^[a-f0-9]{64}$/.test(raw.selection.sha256||'')))throw Error('LADDER_SOURCE_SLICE_INVALID');
+ if(raw.selection.sha256!==SOURCE_SELECTION_SHA||sourceTableHash(raw.factors)!==FACTOR_TABLE_HASH)throw Error('LADDER_SOURCE_PROJECTION_CHANGED');
  const indices=new Set(),keys=new Set();
  for(let i=0;i<8;i++){
   const f=raw.factors[i];
