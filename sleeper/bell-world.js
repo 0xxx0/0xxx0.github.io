@@ -1,10 +1,10 @@
 /* THE BELL / SLEEPER — an original, playable causal model.
-Source inspiration: Payutto, Buddhadhamma, Five Aggregates.
+Source inspiration: Payutto, Buddhadhamma, Ch. 4 / Dependent Origination (conditionality).
 Does not reproduce book text or claim that a playthrough proves doctrine. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else{root.SleeperBell=api;if(root.document)root.addEventListener('DOMContentLoaded',api.mount)}})(typeof globalThis!=='undefined'?globalThis:this,function(){
 'use strict';
 const TAU=2*Math.PI,clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-const SOURCE='https://buddhadhamma.github.io/five-aggregates.html';
+const SOURCE='https://buddhadhamma.github.io/dependent-origination.html';
 const grid=Array.from({length:17},()=>Array(25).fill(1));
 for(let x=1;x<=21;x++)grid[8][x]=0;
 for(let x=9;x<=21;x++)grid[3][x]=0;
@@ -55,7 +55,7 @@ function ghostProjection(s,width,height){
  }
  return out;
 }
-function exportState(s){return{schema:'sleeper.bell-conditions/v0.1',source:{url:SOURCE,passage:'Chapter 1 / Five Aggregates',bytesRedistributed:false},authority:'ORIGINAL_INTERACTIVE_MODEL_NOT_DOCTRINAL_PROOF',actions:{heard:s.heard,choice:s.choice,opened:s.opened,loops:s.loops,won:s.won},trajectory:s.history.map(p=>[+p.x.toFixed(2),+p.y.toFixed(2),p.choice,p.opened]),note:'One rule of this illustrative space changes while its stimulus remains.'}}
+function exportState(s){return{schema:'sleeper.bell-conditions/v0.1',source:{url:SOURCE,passage:'Chapter 4 / Dependent Origination',bytesRedistributed:false},authority:'ORIGINAL_INTERACTIVE_MODEL_NOT_DOCTRINAL_PROOF',actions:{heard:s.heard,choice:s.choice,opened:s.opened,loops:s.loops,won:s.won},trajectory:s.history.map(p=>[+p.x.toFixed(2),+p.y.toFixed(2),p.choice,p.opened]),note:'One rule of this illustrative space changes while its stimulus remains.'}}
 // Physical dial hit bands are source-of-truth, not a decorative label.
 // 40 / 90 * 107px = 47.6px mobile action diameter.
 function ringZone(radius){return radius>62?'TURN':radius>40?'REWIND':'CORE'}
@@ -86,7 +86,7 @@ root.innerHTML=[
 '<div id="bellText"><div id="bellPhase">01 / CONTACT</div><div id="bellHeading">A sound is ahead.</div><div id="bellNote"></div></div>',
 '<div id="bellAction"><p id="bellQuestion">CONTINUE → THE UPPER ROAD FOLDS. PRESS THE AXIS CORE TO CUT THE PULL.</p></div>',
 '<div id="bellControls"><div id="bellPad"><button data-drive="left" aria-label="Turn left">↶</button><button data-drive="forward" aria-label="Forward">↑</button><button data-drive="back" aria-label="Backward">↓</button><button data-drive="right" aria-label="Turn right">↷</button></div><div id="bellDialArea"><canvas id="bellRing" width="180" height="180" aria-label="Outer ring turns, inner ring rewinds, center cuts the pull when available. The APERTURE button changes view."></canvas><div>TURN · REWIND · CORE CUT</div></div></div>',
-'<div id="bellCover"><div id="bellCard"><div style="color:#f0c47e;letter-spacing:.16em">CHAPTER 1 / FIVE AGGREGATES / CASE STUDY</div><h1 id="bellCardTitle">THE BELL</h1><p id="bellCardText">You hear a bell. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk into this situation. A decision at the crossroads will change the reachable world. The bell itself will not change.</p><div class="row"><button class="gold" id="bellBegin">ENTER WORLD →</button><button id="bellBook">READ ORIGINAL CHAPTER ↗</button><button id="bellBefore" hidden>REWIND TO FORK</button><button id="bellSave" hidden>EXPORT TRACE</button></div><small>W/S walk · A/D turn · touch arrows · OUTER DIAL turns · INNER DIAL rewinds actual state · CORE cuts the pull at the fork · SPACE also cuts · APERTURE changes view.</small></div></div>',
+'<div id="bellCover"><div id="bellCard"><div style="color:#f0c47e;letter-spacing:.16em">CHAPTER 4 / CONDITIONALITY / ORIGINAL ILLUSTRATION</div><h1 id="bellCardTitle">THE BELL</h1><p id="bellCardText">You hear a bell. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk into this situation. A decision at the crossroads will change the reachable world. The bell itself will not change.</p><div class="row"><button class="gold" id="bellBegin">ENTER WORLD →</button><button id="bellBook">READ ORIGINAL CHAPTER ↗</button><button id="bellBefore" hidden>REWIND TO FORK</button><button id="bellSave" hidden>EXPORT TRACE</button></div><small>W/S walk · A/D turn · touch arrows · OUTER DIAL turns · INNER DIAL rewinds actual state · CORE cuts the pull at the fork · SPACE also cuts · APERTURE changes view.</small></div></div>',
 '</div>'
 ].join('');
 document.body.append(root);
