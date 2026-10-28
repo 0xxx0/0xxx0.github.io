@@ -17,7 +17,7 @@ async function enterInterphase(){
    const {hashText}=await import('../lib/id.js'),hash=await hashText(p.raw);if(p.hash&&p.hash!==hash)throw Error('Source revision mismatch.');
    const old=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null'),saved=old?.source?.hash===hash?old:null,focus=p.focus||{};
    const attention={...(saved?.attention||{view:'plain',query:'',wpm:260}),char:focus.char_index??focus.charIndex??saved?.attention?.char??0,wpm:focus.wpm??saved?.attention?.wpm??260};
-   if(saved)return api.importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',source:saved.source,attention,links:saved.links||[],marks:saved.marks||[],frames:saved.frames||[],returnTo:p.returnAddress});
+   if(saved)return api.importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',source:saved.source,attention,links:saved.links||[],doors:saved.doors||[],doorFrames:saved.doorFrames||[],marks:saved.marks||[],frames:saved.frames||[],returnTo:p.returnAddress});
    return api.load(p.raw,p.label,p.sourceAddress||'',{hash,attention,returnTo:p.returnAddress});
   }
  }

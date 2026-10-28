@@ -1,6 +1,7 @@
 import {hashText} from '../lib/id.js';
 import {esc,download} from '../lib/dom.js';
 const release=new URL(import.meta.url).search;
+const Door=await import('../lib/interphase-door.mjs'+release);
 const {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS,dialReading,dialChar,dialFraction,dialXY,dialArc}=await import('./navigation.mjs'+release);
 const scriptLoads=new Map();let catalogPromise;
 function sourceScript(path,key){
@@ -41,7 +42,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <p data-ip="review-law">Marks record authored interpretation, not comprehension. Exact quotes and revisions travel with RETURN.</p>
  </details>
  <div class="ip-row"><button data-ip="edit">EDIT THIS RANGE</button><button data-ip="undo" disabled>UNDO</button><button data-ip="redo" disabled>REDO</button></div>
- <details><summary>Connect two passages</summary><p>Hold a range, move to another, and name an interpretation. Both quotes and scopes stay attached.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
+ <details><summary>Connect passages or sources</summary><p>HOLD FIRST → open another exact source → CONNECT HERE. Follow only verified revisions and RETURN to the exact caller; interpretation is never proof.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
  <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a><a data-ip="glyphfield" href="/interphase/?legacy=1" hidden>◎ GLYPHFIELD ↗</a></div>
  <details><summary>Exact source / retained tools</summary><p data-ip="identity"></p><button data-ip="raw-open">SHOW EXACT RANGE</button><pre data-ip="raw" hidden></pre><div class="ip-doors" data-ip="more-ports"></div><p><a href="/interphase/?legacy=1">Ω / HISTORY / DAYLINE / AXIS ↗</a> · <a href="/?work=0">Native FIELD map ↗</a> · <a href="/interphase/SPEC.md">Specification ↗</a></p><p>Search is lexical. Links are interpretations. Native effects stay with their host. The exported RETURN carries the current revision, not the session undo stack.</p></details></section>
  <p class="ip-status" data-ip="status" role="status">Opening the source.</p>
@@ -55,11 +56,39 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <section class="ip-editor" data-ip="editor" hidden role="dialog" aria-modal="true" aria-label="Local source edit"><b data-ip="edit-range"></b><textarea data-ip="replacement" aria-label="Replacement source text" maxlength="100000"></textarea><div class="ip-row"><button data-ip="commit">COMMIT LOCAL EDIT</button><button data-ip="cancel">CANCEL</button></div><p>Only this exact range changes. Native source ownership stays unchanged.</p></section>`;
  target.append(root);
  const el=id=>root.querySelector(`[data-ip="${id}"]`);
- let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,pendingAnnotation=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
+ let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],doors=[],doorFrames=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,pendingAnnotation=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
  const snap=()=>ap?.snapshot(),char=()=>snap()?.char_index??0;
  const attention=()=>({char:char(),scope,view,wpm:snap()?.wpm||260,query});
  const frame=()=>({hash:source.hash,...attention()});
- const revision=()=>({source:{...source},attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),catalog,nativeRecord,activeRoute});
+ const end=()=>Door.endpoint({address:source.address,hash:source.hash,raw:source.raw,unit:at(model,char(),scope),scope},location.origin);
+ const caller=()=>({at:end(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),returnTo:source.returnTo});
+ async function verifyRemote(e){
+  if(!Door.endpointOK(e,location.origin))throw Error('Invalid source DOOR endpoint.');
+  const request=epoch,r=await fetch(e.address,{cache:'no-store'});if(!r.ok)throw Error('Source HTTP '+r.status);
+  const raw=await r.text();if(request!==epoch||disposed)throw Error('DOOR superseded by newer navigation.');
+  const hash=await hashText(raw);if(request!==epoch||disposed)throw Error('DOOR superseded by newer navigation.');
+  if(hash!==e.hash||raw.slice(e.start,e.end)!==e.quote)throw Error('DOOR revision/quote drift; caller unchanged.');
+  return raw;
+ }
+ async function goDoor(e,raw){
+  if(doorFrames.length>=Door.LIMITS.depth)throw Error('RETURN before crossing more sources.');
+  const previous=caller(),request=++epoch;
+  const result=await load(raw,e.address.split('/').at(-1),e.address,{request,hash:e.hash,attention:{...attention(),char:e.start,scope:e.scope,query:''},doorEndpoint:e});
+  if(!result)return;
+  doorFrames.push(previous);paint();persist(snap(),true);status('DOOR entered · RETURN restores caller.');
+ }
+ async function enterCitation(path){
+  const addr=Door.address(path,location.origin);if(!addr)throw Error('Source citation is not same-origin text.');
+  const request=epoch,r=await fetch(addr,{cache:'no-store'});if(!r.ok)throw Error('Cited source HTTP '+r.status);
+  const raw=await r.text();if(request!==epoch||disposed)throw Error('Cited source superseded.');
+  const hash=await hashText(raw);if(request!==epoch||disposed)throw Error('Cited source superseded.');
+  if(doorFrames.length>=Door.LIMITS.depth)throw Error('RETURN before crossing more sources.');
+  const previous=caller(),next=++epoch;
+  const result=await load(raw,addr.split('/').at(-1),addr,{request:next,hash});
+  if(!result)return;
+  doorFrames.push(previous);paint();persist(snap(),true);status('Cited source · literal link, no inferred claim.');
+ }
+ const revision=()=>({source:{...source},attention:attention(),links:structuredClone(links),doors:structuredClone(doors),doorFrames:structuredClone(doorFrames),marks:[...marks],frames:structuredClone(frames),catalog,nativeRecord,activeRoute});
  function checkpoint(){undo.push(revision());if(undo.length>16)undo.shift();redo=[]}
  function status(message,error=false){el('status').textContent=message;if(error)el('status').dataset.error='1';else delete el('status').dataset.error}
  // Geometry is permitted only for an explicitly held, current FIELD route.
@@ -83,7 +112,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(persistTimer){clearTimeout(persistTimer);persistTimer=null}lastPersist=now;
   const key=FieldSourceTrail.sourceKey({address:source.address,id:source.hash});
   FieldSourceTrail.record(key,{charIndex:s.char_index,address:s.address,scale:s.scale,wpm:s.wpm,progress:s.source_progress,focus:s.focus,via:'INTERPHASE'});
-  try{sessionStorage.setItem('interphase.continuum.v1',JSON.stringify({source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links,marks,frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo}))}
+  try{sessionStorage.setItem('interphase.continuum.v1',JSON.stringify({source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links,doors,doorFrames,marks,frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo}))}
   catch{if(!root.dataset.storage){root.dataset.storage='session-only';status('This source remains here; export RETURN to keep it.',true)}}
  }
  // SHARE READFIELD'S SOURCE TRAIL. One local authored record per exact SHA-256
@@ -180,7 +209,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   }
   el('label').textContent=source.label;el('range').textContent=`${level(model,scope).label} · ${u?.path||''} · ${u?.start??0}–${u?.end??0}`;
   el('scope').value=scope;el('scope-label').textContent=level(model,scope).label;el('position-label').textContent=`${Math.max(0,n.index+1)} / ${n.units.length}`;
-  el('wpm').value=s.wpm;el('play').textContent=s.playing?'Ⅱ PAUSE':'▶ READ';el('back').hidden=!frames.length&&!source.returnTo;
+  el('wpm').value=s.wpm;el('play').textContent=s.playing?'Ⅱ PAUSE':'▶ READ';el('back').hidden=!frames.length&&!doorFrames.length&&!source.returnTo;
   el('previous').disabled=!n.before;el('next').disabled=!n.after;
   for(const [id,node] of [['before',n.before],['after',n.after]]){const a=describe(model,node);el(id).disabled=!node;el(id).textContent=node?(a.title||a.body).slice(0,180):(id==='before'?'BEGINNING':'END')}
   const key=[source.hash,u?.path,u?.start,scope,query,view].join('|');
@@ -228,14 +257,30 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,85)}`;b.title='Authored interpretation with exact source quotes';
    b.onclick=()=>{frames.push(frame());if(frames.length>64)frames.shift();scope=door.destination.scope;seek(door.destination.start);status('Followed the '+door.type+' relation. RETURN restores the exact departure and scope.')};port(b);
   }
+  for(const d of doors.filter(d=>Door.linkOK(d,location.origin))){
+   const f=d.from.hash===source.hash&&d.from.address===source.address&&anchor>=d.from.start&&anchor<d.from.end;
+   const r=d.to.hash===source.hash&&d.to.address===source.address&&anchor>=d.to.start&&anchor<d.to.end;
+   if(!f&&!r)continue;
+   const e=f?d.to:d.from,b=document.createElement('button');b.className='ip-relation';
+   b.textContent='DOOR '+(f?'→ ':'← ')+d.type+' · '+e.address+' · '+e.quote.slice(0,50);
+   b.title='Exact revision and native range validated before source crossing';
+   b.onclick=run(async()=>goDoor(e,await verifyRemote(e)));port(b);
+  }
+  if(Door.address(source.address,location.origin)===source.address){
+   for(const path of Door.citations(source.raw,u,source.address,location.origin)){
+    const b=document.createElement('button');b.className='ip-relation';b.textContent='SOURCE ↗ '+path;
+    b.title='Literal source citation, not an inference';
+    b.onclick=run(()=>enterCitation(path));port(b);
+   }
+  }
   for(const action of nativeActions()){const a=document.createElement('a');a.href=action.target;a.textContent=(action.label||action.via||action.class||'OPEN')+' ↗';a.title='Native owner: '+(nativeRecord.field?.owner||'FIELD ROUTE');port(a)}
   if(source.returnTo){const a=document.createElement('a');a.href=source.returnTo;a.textContent='↩ CALLER';port(a)}
   el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:''].filter(Boolean).join(' · ');
   el('undo').disabled=!undo.length;el('redo').disabled=!redo.length;
   paintReview();
   const glyph=el('glyphfield');if(glyph){const href=glyphAddress();glyph.hidden=!href;if(href){glyph.href=href;glyph.title='Derived geometry for '+activeRoute+'; native source cursor is retained for RETURN';}}
-   el('identity').textContent=`${source.hash} · ${source.address||'held source'} · ${source.raw.length} characters · ${links.length} authored links`;
-  onFocus({id:source.hash,label:nativeRecord?.title||source.label,route:activeRoute,char:anchor,scope,scopeLabel:level(model,scope).label,view,playing:s.playing,index:n.index+1,count:n.units.length,back:frames.length||!!source.returnTo});
+   el('identity').textContent=`${source.hash} · ${source.address||'held source'} · ${source.raw.length} characters · ${links.length} local links · ${doors.length} cross-source links`;
+  onFocus({id:source.hash,label:nativeRecord?.title||source.label,route:activeRoute,char:anchor,scope,scopeLabel:level(model,scope).label,view,playing:s.playing,index:n.index+1,count:n.units.length,back:frames.length||doorFrames.length||!!source.returnTo});
   if(activeRoute&&activeRoute!==lastNotifiedRoute){lastNotifiedRoute=activeRoute;const hash=source.hash,href=activeRoute;queueMicrotask(()=>{if(source?.hash===hash&&activeRoute===href)onRoute(href)})}
  }
  async function prepare(raw,label,address,opt={}){
@@ -249,7 +294,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const candidate=document.createElement('field-aperture');candidate.hidden=true;candidate.setAttribute('headless','');candidate.setAttribute('aria-hidden','true');root.append(candidate);
   try{
    candidate.load(raw,{label,format:json?'TXT':'AUTO',scale:'WORD',wpm:opt.attention?.wpm||260,charIndex:opt.attention?.char??0});
-   const next=compile(raw,candidate.A,json,spans),defaultScope=next.kind==='JSON'?(Array.isArray(json.data)?'COLLECTION:$':'ROOT'):(next.levels.some(l=>l.id==='PARA')?'PARA':next.levels[0].id);
+   const next=compile(raw,candidate.A,json,spans);
+   if(opt.doorEndpoint){
+    const e=opt.doorEndpoint,units=next.levels.find(l=>l.id===e.scope)?.units;
+    Door.check(e,raw,hash,units,location.origin);
+   }
+   const defaultScope=next.kind==='JSON'?(Array.isArray(json.data)?'COLLECTION:$':'ROOT'):(next.levels.some(l=>l.id==='PARA')?'PARA':next.levels[0].id);
    const desired={char:focusChar(next,level(next,defaultScope).units[0]),scope:defaultScope,view,query:'',wpm:260,...opt.attention};
    if(opt.rebase&&!next.levels.some(l=>l.id===desired.scope))desired.scope=defaultScope;
    const a=validateAttention(next,desired),nextLinks=opt.links||[],nextMarks=opt.marks||[];
@@ -261,10 +311,10 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  async function load(raw,label,address='',opt={}){
   const request=opt.request??++epoch;if(request!==epoch||disposed)return;ap?.stop();
   const next=await prepare(raw,label,address,opt);if(request!==epoch||disposed){next.candidate.remove();return}
-  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=null;pendingAnnotation=null;bodyKey='';
+  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);doors=structuredClone(opt.doors??doors);doorFrames=structuredClone(opt.doorFrames??doorFrames);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=opt.preserveLink?pendingLink:null;pendingAnnotation=null;bodyKey='';
   ap.addEventListener('aperture-focus',()=>{paint();persist()});ap.selectChar(next.attention.char);ap.setWpm(next.attention.wpm);
   el('scope').innerHTML=model.levels.map(l=>`<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
-  el('find').value=query;el('link-end').disabled=true;el('link-note').textContent='';
+  el('find').value=query;el('link-end').disabled=!pendingLink;el('link-note').textContent=pendingLink?'First source held · CONNECT HERE':'';
   if(!opt.keepHistory){undo=[];redo=[]}
   loading=false;paint();persist(snap(),true);drawer(false);status(`${model.kind==='JSON'?'Structured source':'Exact source'} · ${model.words.length} units · ← → move · − + scope · READ`);
   return api.snapshot();
@@ -282,11 +332,19 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(!u||!/\.(json|txt|md|markdown|csv|log|ya?ml)$/i.test(u.pathname))throw Error('Use a same-origin text or JSON source.');
   const response=await fetch(u.pathname+u.search,{cache:'no-store'});if(!response.ok)throw Error('Source returned HTTP '+response.status);
   const raw=await response.text();if(request!==epoch||disposed)return;
-  return load(raw,u.pathname.split('/').at(-1),u.pathname+u.search,{request});
+  return load(raw,u.pathname.split('/').at(-1),u.pathname+u.search,{request,preserveLink:!!pendingLink});
  }
- async function restoreRevision(r){return load(r.source.raw,r.source.label,r.source.address,{...r.source,attention:r.attention,links:r.links,marks:r.marks,frames:r.frames,catalog:r.catalog,nativeRecord:r.nativeRecord,route:r.activeRoute,keepHistory:true})}
- function returnStep(){
-  const previous=frames.pop();
+ async function restoreRevision(r){return load(r.source.raw,r.source.label,r.source.address,{...r.source,attention:r.attention,links:r.links,doors:r.doors,doorFrames:r.doorFrames,marks:r.marks,frames:r.frames,catalog:r.catalog,nativeRecord:r.nativeRecord,route:r.activeRoute,keepHistory:true})}
+ async function returnStep(){
+   if(doorFrames.length){
+    const f=doorFrames.at(-1);
+    if(!Door.frameOK(f,location.origin))throw Error('Invalid DOOR RETURN frame.');
+    const raw=await verifyRemote(f.at),request=++epoch;
+    const result=await load(raw,f.label,f.at.address,{request,hash:f.at.hash,attention:f.attention,links:f.links,marks:f.marks,frames:f.frames,returnTo:f.returnTo,doorEndpoint:f.at});
+    if(!result)return;
+    doorFrames.pop();paint();persist(snap(),true);status('DOOR RETURN · exact source, scope and cursor.');return;
+   }
+   const previous=frames.pop();
   if(previous&&previous.hash===source.hash){scope=previous.scope;query=previous.query;view=previous.view;ap.setWpm(previous.wpm);seek(previous.char);status('Returned to the exact departure.');paint()}
   else if(source?.returnTo){persist(snap(),true);location.href=source.returnTo}
   else status('No earlier source context is held.');
@@ -295,7 +353,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const stored=trail(),r=stored.review;
   const review=r.revision===source.hash?{...r}:{purpose:r.purpose,terms:r.terms,conclusion:'',revision:source.hash};
   return{schema:'interphase.continuation/v1',source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},
-   attention:attention(),links:structuredClone(links),marks:[...marks],frames:frames.filter(f=>f.hash===source.hash).slice(-64),
+   attention:attention(),links:structuredClone(links),doors:structuredClone(doors),doorFrames:structuredClone(doorFrames),marks:[...marks],frames:frames.filter(f=>f.hash===source.hash).slice(-64),
    annotations:authored(),review,returnTo:source.returnTo,authority:'LOCAL_SOURCE_ONLY',
    residue:{undoFrames:undo.length,policy:'CURRENT_REVISION_ONLY; authored marks must match exact quote and hash; session undo is not transported; native ports resolve from current host'}};
  }
@@ -304,6 +362,9 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(!p||p.schema!=='interphase.continuation/v1'||p.authority!=='LOCAL_SOURCE_ONLY'||typeof p.source?.raw!=='string'||typeof p.source?.hash!=='string'||typeof p.source?.label!=='string'||typeof p.source?.address!=='string'||!p.attention||!Array.isArray(p.links)||!Array.isArray(p.marks)||!Array.isArray(p.frames)||p.frames.length>64)throw Error('Unsupported RETURN.');
   if(p.source.address&&!safePath(p.source.address))throw Error('Unsupported RETURN source address.');
   if(p.returnTo&&!safePath(p.returnTo))throw Error('Unsupported RETURN destination.');
+   const importedDoors=p.doors??[],importedFrames=p.doorFrames??[];
+   if(!Array.isArray(importedDoors)||importedDoors.length>Door.LIMITS.doors||importedDoors.some(d=>!Door.linkOK(d,location.origin)))throw Error('Invalid source DOOR.');
+   if(!Array.isArray(importedFrames)||importedFrames.length>Door.LIMITS.depth||importedFrames.some(f=>!Door.frameOK(f,location.origin)))throw Error('Invalid DOOR RETURN frames.');
   // Optional v1 extension; legacy RETURNs remain valid. Reject forged offsets,
   // source quotes, changed revisions, and surplus notes BEFORE changing the view.
   const incoming=p.annotations??[],incomingReview=p.review??null;
@@ -325,7 +386,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const prepared=await prepare(p.source.raw,p.source.label,p.source.address,{hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,returnTo:p.returnTo});
   try{validateAttention(prepared.model,p.attention);for(const f of p.frames){if(f.hash!==p.source.hash)throw Error('RETURN path revision mismatch.');validateAttention(prepared.model,f)}}finally{prepared.candidate.remove()}
   const live=p.source.address==='/showcase-manifest.json'?await manifest(true):null,current=live?.hash===p.source.hash;
-  const result=await load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,returnTo:p.returnTo});
+  const result=await load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,doors:importedDoors,doorFrames:importedFrames,returnTo:p.returnTo});
   if(result&&(incoming.length||incomingReview)){
    const applied=FieldSourceTrail.write({...existing,sourceKey:key,marks:[...merged.values()],
     review:incomingReview?{...existing.review,...incomingReview}:existing.review});
@@ -348,7 +409,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  el('previous').onclick=()=>walk(-1);el('next').onclick=()=>walk(1);el('before').onclick=()=>walk(-1);el('after').onclick=()=>walk(1);
  el('play').onclick=()=>{if(!ap)return;const s=snap();if(!s.playing&&s.index>=s.count-1)return status('End of source. Choose an earlier position to read again.');drawer(false);ap.toggleRSVP();paint()};
  el('widen').onclick=()=>zoom(-1);el('narrow').onclick=()=>zoom(1);el('scope').onchange=e=>setScope(e.target.value);el('wpm').onchange=e=>ap?.setWpm(e.target.value);
- el('back').onclick=returnStep;
+ el('back').onclick=run(returnStep);
  el('field').onclick=run(()=>loadRoute(route));
  el('path-form').onsubmit=run(e=>{e.preventDefault();return openPath(el('path').value)});
  el('load-paste').onclick=run(()=>load(el('paste').value,'Pasted source'));
@@ -391,11 +452,24 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  el('purpose').onchange=saveReview;el('conclusion').onchange=saveReview;
  el('review-save').onclick=saveReview;
  el('note-next').onclick=()=>{drawer(false);revisit()};
- el('link-start').onclick=()=>{if(!model)return;ap.stop();const u=at(model,char(),scope);pendingLink={hash:source.hash,span:{start:u.start,end:u.end,scope}};el('link-note').textContent='Held: '+source.raw.slice(u.start,Math.min(u.end,u.start+120));el('link-end').disabled=false;drawer(false);status('First range held. Move to another, then CONNECT HERE in SOURCE.')};
- el('link-end').onclick=run(()=>{
-  if(!pendingLink||pendingLink.hash!==source.hash)throw Error('The held range belongs to another revision.');
-  if(links.length>=128)throw Error('128 relation limit.');const u=at(model,char(),scope),r=relation(model,source.hash,pendingLink.span,{...u,scope},el('relation').value);
-  checkpoint();links.push(r);pendingLink=null;el('link-end').disabled=true;el('link-note').textContent='Connected with exact quotes and scopes.';paint();persist();drawer(false);status('Your '+r.type+' relation is now a reversible door.');
+ el('link-start').onclick=()=>{if(!model)return;ap.stop();const u=at(model,char(),scope);pendingLink={hash:source.hash,address:source.address,span:{start:u.start,end:u.end,scope},quote:source.raw.slice(u.start,u.end)};el('link-note').textContent='Held: '+source.raw.slice(u.start,Math.min(u.end,u.start+120));el('link-end').disabled=false;drawer(false);status('First range held. Move to another, then CONNECT HERE in SOURCE.')};
+ el('link-end').onclick=run(async()=>{
+  if(!pendingLink)throw Error('HOLD FIRST before connecting.');
+   const u=at(model,char(),scope),type=el('relation').value;
+   if(pendingLink.hash===source.hash&&pendingLink.address===source.address){
+    if(links.length>=128)throw Error('128 local link limit.');
+    const r=relation(model,source.hash,pendingLink.span,{...u,scope},type);
+    checkpoint();links.push(r);status('Same-source interpretation connected.');
+   }else{
+    if(doors.length>=Door.LIMITS.doors)throw Error('64 DOOR limit.');
+    const first={address:pendingLink.address,hash:pendingLink.hash,...pendingLink.span,quote:pendingLink.quote};
+    const d={type,from:first,to:end(),authority:'INTERPRETATION_ONLY'};
+    if(!Door.linkOK(d,location.origin))throw Error('DOOR needs two distinct versioned text/JSON addresses.');
+    await verifyRemote(first);
+    if(source.hash!==d.to.hash||pendingLink?.hash!==d.from.hash)throw Error('CONNECT superseded.');
+    checkpoint();doors.push(d);status('Cross-source interpretation connected.');
+   }
+   pendingLink=null;el('link-end').disabled=true;el('link-note').textContent='';paint();persist();drawer(false);
  });
  el('edit').onclick=()=>{if(!model)return;ap.stop();editing={hash:source.hash,span:{...at(model,char(),scope)}};el('replacement').value=model.raw.slice(editing.span.start,editing.span.end);el('edit-range').textContent=`LOCAL EDIT · ${editing.span.start}–${editing.span.end}`;el('editor').hidden=false;el('replacement').focus()};
  el('cancel').onclick=()=>{el('editor').hidden=true;editing=null};
@@ -474,7 +548,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  document.addEventListener('visibilitychange',visibility);window.addEventListener('pagehide',leaving);
  const api={
   root,load,loadRoute,openPath,seek,setScope,perspective,walk,packet,importPacket,command,stop:()=>ap?.stop(),refresh:paint,toggleSource:()=>drawer(el('drawer').hidden),returnStep,
-  snapshot:()=>source?{source:{raw:source.raw,hash:source.hash,label:source.label,address:source.address},attention:attention(),links:structuredClone(links),frames:structuredClone(frames),edits:undo.length,playing:snap()?.playing,nativeRoute:activeRoute}:null,
+  snapshot:()=>source?{source:{raw:source.raw,hash:source.hash,label:source.label,address:source.address},attention:attention(),links:structuredClone(links),doors:structuredClone(doors),doorFrames:structuredClone(doorFrames),frames:structuredClone(frames),edits:undo.length,playing:snap()?.playing,nativeRoute:activeRoute}:null,
   async resume(fallback=route){try{const p=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null');if(p?.source?.raw)return await importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',...p})}catch(error){status('Saved session held: '+error.message,true)}return loadRoute(fallback)},
   dispose(){disposed=true;++epoch;ap?.stop();if(persistTimer)clearTimeout(persistTimer);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('pagehide',leaving);root.remove()}
  };

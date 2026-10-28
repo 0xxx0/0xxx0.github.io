@@ -23,7 +23,7 @@ function startFieldWork(){
   }});
   // No host-level shadow view toggle. All views retain the same native source.
   get('fiParent').onclick=e=>{e.stopPropagation();native.closeEditor();api.toggleSource()};
-  get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep()};
+  get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep().catch(error=>{const s=host.querySelector('[data-ip=status]');if(s){s.textContent=error.message;s.dataset.error='1'}})};
   get('fiAddress').addEventListener('click',()=>api.stop());
   const input=get('fieldUrlInput');input.placeholder='Source /path · find · :note · :revisit · :return';
   input.addEventListener('input',e=>{if(native.active())e.stopImmediatePropagation()},true);

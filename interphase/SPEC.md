@@ -335,3 +335,12 @@ SEEK→author→revisit→RETURN, cross-reader note, forged RETURN rejection,
 reload, offline/cache-safe delivery and native OPEN/BACK. Mechanical
 passing does not prove usefulness: compare one real source journey
 against ordinary reading for exact recall and one actionable insight.
+
+
+## 2026-10-28 DOOR convergence contract (bounded, not a new view)
+
+Recovered requirement across ROOM / INTERPHASE / FIELD / Fold–Bloom / Sleeper / READFIELD / HOUSE / crew: **connect work without imposing another user interface or state owner.** The useful transfer is exact source address + SHA-256 revision + native source range + quote + human-authored relation + native RETURN. Source identity is not geometry; citations do not assert semantic truth; all host effects stay host-native. DOOR is a reusable pure validator in `lib/interphase-door.mjs`, driven by the existing continuum's HOLD/OPEN/CONNECT/RETURN and source citation ports. It preserves existing READ/WALK/DIAL, FIELD/GLYPHFIELD and READFIELD/WRIST handoffs.
+
+Task: take an actual dated Fold–Bloom thread index, enter its quoted INTERPHASE successor, mark/question one native range, return to the original source and caret; optionally author a cross-source relation and follow it back; export/import the existing continuation/v1 packet. Falsifiers: forged quote/hash, syntactically valid but non-native range, stale fetch race, disconnected RETURN, hidden RETURN, silent projection/effect escalation, or loss of authored reader marks. The two existing JSON contract artifacts and a historical Markdown index are regression fixtures. If navigation does not reduce work against an ordinary link, demote DOOR, not the native hosts. No claim of access to arbitrary private ChatGPT conversations; explicit source transfer remains necessary.
+
+Research transfer: W3C Web Annotation's TextQuote/TextPosition selectors support using exact quotations with positions as independent anchors, but its code-point character accounting differs from the continuum's UTF-16 offsets; no interoperable W3C format is claimed. RFC 6901 supplies JSON-value addressing if needed by a native JSON owner, not a second address parser here. No new registry, timeline, app launcher, queue or geometric reading is created.
