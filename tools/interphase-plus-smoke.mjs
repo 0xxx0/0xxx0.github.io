@@ -5,7 +5,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
- const stale=['/field-work.mjs?v=0.10.8-door1','/interphase/entry.mjs?v=0.10.8-door1','/interphase/continuum.mjs?v=0.10.8-door1','/interphase/navigation.mjs?v=0.10.8-door1','/interphase/continuum.css?v=0.10.8-door1','/field-work.mjs?v=0.10.8-circuit','/interphase/entry.mjs?v=0.10.8-circuit','/interphase/continuum.mjs?v=0.10.8-circuit','/field-work.css?v=0.10.8-circuit','/interphase/continuum.css?v=0.10.8-circuit','/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.2','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ const stale=['/field-work.mjs?v=0.10.10-witnessdoor','/interphase/entry.mjs?v=0.10.10-witnessdoor','/interphase/continuum.mjs?v=0.10.10-witnessdoor','/interphase/navigation.mjs?v=0.10.10-witnessdoor','/field-work.css?v=0.10.10-witnessdoor','/interphase/continuum.css?v=0.10.10-witnessdoor','/field-work.mjs?v=0.10.8-door1','/interphase/entry.mjs?v=0.10.8-door1','/interphase/continuum.mjs?v=0.10.8-door1','/interphase/navigation.mjs?v=0.10.8-door1','/interphase/continuum.css?v=0.10.8-door1','/field-work.mjs?v=0.10.8-circuit','/interphase/entry.mjs?v=0.10.8-circuit','/interphase/continuum.mjs?v=0.10.8-circuit','/field-work.css?v=0.10.8-circuit','/interphase/continuum.css?v=0.10.8-circuit','/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.2','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
  let delayBar=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
   if(prime&&stale.includes(req.url)){
@@ -37,10 +37,10 @@ async function continuumBrowserProof(){
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
-   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.10-witnessdoor'),'release key missing: '+file);
+   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.10-door2'),'release key missing: '+file);
   }
   await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
-  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.10-witnessdoor'));assert.deepEqual(cacheErrors,[]);
+  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.10-door2'));assert.deepEqual(cacheErrors,[]);
   await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
   // A real cold import can outlast the former 15-second reveal timeout.
   // The one-bar CSS must never strand native commands behind hidden regions.
