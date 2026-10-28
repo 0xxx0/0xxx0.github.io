@@ -109,4 +109,4 @@ requestAnimationFrame(sync);
 
 /* Root-only operator projection. Keep presentation loading beside the FIELD lens host,
    never inside the shared signal grammar. */
-if(typeof window!=='undefined'&&location.pathname==='/')import('./field-urlbar.js?v=0.10.8').catch(()=>{});
+if(typeof window!=='undefined'&&location.pathname==='/')import('./field-urlbar.js?v=0.10.8-door2').catch(()=>{});
