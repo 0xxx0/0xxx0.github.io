@@ -1093,7 +1093,7 @@
     // the release window: the one part of the ring that is bright before you reach it
     const wf = p.windowFrom || 0;
     ctx.beginPath(); ctx.arc(cx, cy, R, a0 + wf * TAU, a0 + TAU);
-    ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(232,238,244,0.50)'; ctx.stroke();
+    ctx.lineWidth = 4.5; ctx.strokeStyle = 'rgba(236,242,248,0.82)'; ctx.stroke();
     // progress
     ctx.beginPath(); ctx.arc(cx, cy, R, a0, a0 + Math.max(0.003, frac) * TAU);
     ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(240,245,250,0.95)'; ctx.stroke();
