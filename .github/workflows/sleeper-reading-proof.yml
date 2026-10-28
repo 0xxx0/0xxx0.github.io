@@ -17,6 +17,11 @@ on:
     paths:
       - 'sleeper/reading-play.js'
       - 'sleeper/axis-score.html'
+      - 'sleeper/ladder/index.html'
+      - 'sleeper/ladder/thread-bridge.js'
+      - 'sleeper/ladder/source-dhamma.json'
+      - 'tools/sleeper-ladder-thread-selftest.mjs'
+      - 'tools/sleeper-ladder-reading-smoke.mjs'
       - 'tools/sleeper-read-play-dom-smoke.mjs'
 permissions:
   contents: read
