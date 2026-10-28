@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T10:53:36.066Z",
+  "generated": "2026-10-28T11:24:36.293Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 100,
-  "git_commits_in_window": 164,
-  "telemetry_commits_in_window": 64,
-  "commits_total": 7256,
+  "commits_in_window": 101,
+  "git_commits_in_window": 168,
+  "telemetry_commits_in_window": 67,
+  "commits_total": 7260,
   "branch_count": 1124,
   "recent_commits": [
+    "RSVP / WRIST: exact full text and native LISTEN energy ring",
     "SLEEPER: source-bound Bell–LADDER distinction with falsifier",
-    "INTERPHASE: cache-coherent delivery of native DOOR on both existing entries",
-    "DOOR: couple existing FIELD WORK and INTERPHASE module tree to a fresh cache k"
+    "INTERPHASE: cache-coherent delivery of native DOOR on both existing entries"
   ],
   "active_fronts": [
     {
