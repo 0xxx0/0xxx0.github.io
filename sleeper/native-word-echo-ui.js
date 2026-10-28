@@ -86,9 +86,9 @@ function describe(){
  const phases={seek:'FIND THE WORD',return:'RETURN TO WHERE YOU STOOD',choice:'MEMORY HOLDS',seek2:'FIND IT AGAIN',return2:'RETURN AGAIN',done:'TWO REAL ROUTES'};
  $('eWhere').textContent=(phases[run.phase]||'WORD ECHO')+' · '+count+' / SAME WORLD';
  if(p){
-  const d=distance(game.player,p);
-  $('eDir').textContent=bearing(p);
-  $('eRange').textContent=d.toFixed(1)+' world units · route is never straight through a wall';
+  const d=distance(game.player,p),hop=E.nextHop(game,game.player,p);
+  $('eDir').textContent=hop?bearing(hop):'×';
+  $('eRange').textContent=hop?(hop.align?'ALIGN IN THIS CORRIDOR · ':hop.steps+' walkable steps · ')+d.toFixed(1)+' straight-line units':'NO OPEN ROUTE · inspect the native walls';
  }else{$('eDir').textContent='⌁';$('eRange').textContent='Your first route is now visible as a trace.'}
  if(run.phase==='choice'){
   $('eInstruction').textContent='Follow your former footsteps—or let the invitation end. Neither choice earns a Gate.';
