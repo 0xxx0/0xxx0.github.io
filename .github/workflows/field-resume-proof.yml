@@ -1,0 +1,25 @@
+name: field-resume-proof
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'field-bar-landing.css'
+      - 'tower/tower-section.css'
+      - 'tools/field-resume-proof.mjs'
+      - '.github/workflows/field-resume-proof.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  resume:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify script syntax and native resume behavior
+        run: |
+          node --check tools/field-resume-proof.mjs
+          node tools/field-resume-proof.mjs
