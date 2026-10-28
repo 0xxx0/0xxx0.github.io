@@ -61,6 +61,8 @@ jobs:
           node --check lib/readfield-controls.js
           node --check field-aperture.js
           node --check rsvp/reader.js
+          node --check rsvp/source-instrument.mjs
+          node --check tools/rsvp-listen-ring-smoke.mjs
           node --check tools/fold-bloom-first-use-browser-smoke.mjs
           node --check fold-bloom/listen/demo-tone.js
       - name: Prove first-use and source continuity contracts
@@ -85,6 +87,11 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
         run: node tools/reading-continuity-smoke.mjs
+      - name: Prove actual LISTEN waveform/glyph and full WRIST text
+        env:
+          NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
+          SCREENSHOT_DIR: /tmp/readfield-review-captures
+        run: node tools/rsvp-listen-ring-smoke.mjs
       - name: Prove human interpretation and exact source folding
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
