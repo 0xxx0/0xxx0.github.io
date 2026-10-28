@@ -427,7 +427,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
 <link rel="stylesheet" href="./field-bar-landing.css?v=0.2">
 
-<link rel="stylesheet" href="./tower/tower-section.css">
+<link rel="stylesheet" href="./tower/tower-section.css?v=0.2-circuit">
 </head>
 <body><main>
 <header>
@@ -1821,11 +1821,11 @@ window.FieldIndexReadModel=Object.freeze({
 <script type="module" src="./field-policy-trace.mjs"></script>
 <script src="./fovea-lens.js"></script>
 <script type="module" src="./field-instrument.mjs?v=0.10.6"></script>
-<script type="module" src="./field-work.mjs?v=0.10.7-source"></script>
+<script type="module" src="./field-work.mjs?v=0.10.8-circuit"></script>
 <script src="./field-bar-landing.js?v=0.3"></script>
 </main>
-<script src="./tower/tower-core.js"></script>
-<script src="./tower/tower-section.js"></script>
+<script src="./tower/tower-core.js?v=0.2-circuit"></script>
+<script src="./tower/tower-section.js?v=0.2-circuit"></script>
 <script>
 /* The tower is the index; the strip is one ring unrolled. Two laws here:
    1. MOUNT AFTER DATA. The host fills `latest` asynchronously; mounting on DOMContentLoaded
@@ -1855,6 +1855,18 @@ window.FieldIndexReadModel=Object.freeze({
     var d = e.detail || {};
     if (!d.axis || d.value == null) return;
     try { if (window.FieldAxisHold) window.FieldAxisHold(d.axis, d.value); } catch (_) {}
+  });
+  // Native FIELD owns the tuple in both directions. URLbar, glyph selection,
+  // restored history and instrument navigation re-orient the existing tower.
+  // A microtask follows the host commit; it never invents a second selection.
+  var syncQueued = false;
+  window.addEventListener('field-index:state', function () {
+    if (syncQueued) return;
+    syncQueued = true;
+    queueMicrotask(function () {
+      syncQueued = false;
+      try { if (window.LandingTower) window.LandingTower.sync(); } catch (_) {}
+    });
   });
 })();
 </script>

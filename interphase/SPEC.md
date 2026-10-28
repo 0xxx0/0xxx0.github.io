@@ -295,3 +295,43 @@ and supplies an evidence-grounded path to that instrument.
 
 The practical consequence is a task comparison and an action on the actual domain
 object. More diagrams, theories or successful transport checks cannot substitute.
+
+
+## Circuit invariant / source before symbol (28 October 2026)
+
+Borobudur is a constraint on traversal design, **not** a request for temple
+skin, achievement levels, invented Dharma classifications, or games. Its
+narrative galleries and higher open circular terraces suggest a useful
+interaction sequence: encounter exact source → traverse/revisit → interpret
+with authored evidence → return to the same address. UNESCO describes five
+square terraces beneath three circular platforms, with 72 openwork stupas
+(https://whc.unesco.org/en/list/592).
+
+Implementation owner map:
+
+- FIELD tower is four *existing* axes wrapped. No new index. Its gate must
+  equal the native FIELD selection after boot, bar HOLD, glyph selection,
+  ring TURN, history/RETURN and rebuild. Inverse tap resolves a real member
+  of its own ring; unwrapping preserves every source member in order.
+- READ/WALK/DIAL are views of one exact source and character coordinate.
+  Switching them is not ascent, comprehension or a completed task.
+- INTERPHASE SOURCE now exposes `SEEKING`, `NOTE/QUESTION/APPLIED`, working
+  `RETURN`, `:revisit` and `:note`. These share READFIELD's
+  `FieldSourceTrail`; they are not a fourth reading or a second store.
+- Authored interpretation requires an exact SHA-256 revision, interval and
+  matching quote. Old/unbound marks remain retained but excluded from claims
+  about current bytes. A working conclusion may be empty. No generated
+  comprehension score, progress badge, or fabricated witness.
+- Exported `interphase.continuation/v1` adds optional annotations/review;
+  legacy packets remain valid. Reject forged quotes/revisions and excessive
+  marks before mutating the source. Native effects are never imported.
+- The default phone landing still needs one viewport, one bar, one held
+  object and every CURRENT glyph. The tower is compact in folded mode;
+  `Aa` reveals words deliberately rather than resurrecting cards.
+
+**Promotion gate:** Chromium at 320/390/1280 proves tower↔FIELD inverse
+selection, direct ring addressing, READ/WALK/DIAL cursor conservation,
+SEEK→author→revisit→RETURN, cross-reader note, forged RETURN rejection,
+reload, offline/cache-safe delivery and native OPEN/BACK. Mechanical
+passing does not prove usefulness: compare one real source journey
+against ordinary reading for exact recall and one actionable insight.

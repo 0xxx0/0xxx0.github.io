@@ -105,6 +105,17 @@
     return -TAU * A.arcs[k].mid;
   }
 
+  // Inverse picking: a pointer position on the drawn ring resolves one
+  // source slot, including non-uniform support arcs. Clicking is direct
+  // selection; arrows still detent-step. No fabricated priority or angle.
+  function slotAtAngle(angle, weights, offset = 0) {
+    const A = arcs(weights);
+    const raw = (num(angle, GATE_ANGLE) - GATE_ANGLE - num(offset, 0)) / TAU;
+    const f = ((raw % 1) + 1) % 1;
+    const at = A.arcs.findIndex(a => f >= a.start - 1e-12 && f < a.start + a.span - 1e-12);
+    return at >= 0 ? at : A.n - 1;
+  }
+
   // --- geometry: lerp between strip coords and ring coords --------------
   // t=0 -> the strip (x along a line at cy), t=1 -> the ring (ellipse).
   // Same index, same identity, both ends — the correspondence morph.
@@ -436,6 +447,21 @@
       ok('arc spans sum to one turn', Math.abs(A.arcs.reduce((s, a) => s + a.span, 0) - 1) < 1e-12);
     }
 
+    // The inverse of a weighted ring is a real tap address, not left/right
+    // guesswork. Every slot, at every gate rotation, maps back to itself.
+    {
+      const w = [3, 40, 2, 9, 1, 17, 5];
+      let good = true;
+      for (let rot = 0; rot < w.length; rot++) {
+        const off = offsetFor(rot, w);
+        for (let i = 0; i < w.length; i++) {
+          const p = markPosWeighted(i, w, off, 1, {cx:150,cy:100,rx:110,ry:16});
+          if (slotAtAngle(p.angle, w, off) !== i) good = false;
+        }
+      }
+      ok('tap angle maps to exact weighted source slot', good);
+    }
+
     // 7 correspondence morph holds 1:1 at every frame
     {
       let good = true, detail = '';
@@ -529,7 +555,7 @@
     hash32, wrap, clamp,
     stripToRing, ringToStrip, wrapRoundtrip,
     step, gateIndex, settle,
-    weightOf, weightsOf, arcs, offsetFor,
+    weightOf, weightsOf, arcs, offsetFor, slotAtAngle,
     markPos, markPosWeighted,
     compose, identity, grating, glyph,
     normalizeAxes, familiesFromManifest, emptyModel,

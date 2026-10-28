@@ -4,7 +4,7 @@ async function enterInterphase(){
  if(q.get('legacy')==='1'){
   document.body.replaceChildren(template.content.cloneNode(true));
   for(const name of ['workbench','research','compositor','substrate']){const l=document.createElement('link');l.rel='stylesheet';l.href='./'+name+'.css';document.head.append(l)}
-  for(const src of ['/lib/document-structure.js','/lib/read-trail.js','/field-aperture.js?v=0.8.7'])await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.append(s)});
+  for(const src of ['/lib/document-structure.js','/lib/read-trail.js?v=review-2','/field-aperture.js?v=0.8.7'])await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.append(s)});
   await import('./app.mjs?v=0.10.0');await import('./substrate.mjs');await import('./compositor.mjs');return;
  }
  template.remove();

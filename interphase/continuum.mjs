@@ -10,7 +10,7 @@ function sourceScript(path,key){
 }
 async function dependencies(){
  await sourceScript('/lib/document-structure.js','FieldDocumentStructure');
- await sourceScript('/lib/read-trail.js','FieldSourceTrail');
+ await sourceScript('/lib/read-trail.js?v=review-2','FieldSourceTrail');
  await sourceScript('/field-aperture.js?v=0.8.7','FieldAperture');
  if(!document.querySelector('[data-interphase-continuum]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/interphase/continuum.css'+release;l.dataset.interphaseContinuum='';document.head.append(l)}
 }
@@ -29,6 +29,17 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <details><summary>Paste text / JSON</summary><textarea data-ip="paste" aria-label="Paste source" placeholder="Bring the actual source."></textarea><button data-ip="load-paste">OPEN PASTE</button></details>
  <form data-ip="find-form" class="ip-row"><input data-ip="find" type="search" maxlength="200" aria-label="Find words in source" placeholder="Find words · warp this reading"><button>FIND</button><button type="button" data-ip="clear">CLEAR</button></form>
  <div class="ip-row"><label>Scope <select data-ip="scope" aria-label="Scope"></select></label><label>WPM <input data-ip="wpm" type="number" min="60" max="6000" step="20" value="260" aria-label="Words per minute"></label><button data-ip="mark">MARK</button><button data-ip="marks">NEXT MARK</button></div>
+ <details class="ip-review" data-ip="review-fold"><summary>INTERPRET <output data-ip="review-count">0 authored marks</output></summary>
+ <label>SEEKING <input data-ip="purpose" maxlength="500" placeholder="What am I trying to understand?"></label>
+ <div class="ip-row"><button data-ip="note-capture">HOLD EXACT RANGE</button><span data-ip="note-target">Select a source range first.</span></div>
+ <div class="ip-row"><label>Kind <select data-ip="note-kind"><option>NOTE</option><option>QUESTION</option><option>APPLIED</option></select></label><label><input data-ip="note-resolved" type="checkbox"> resolved</label></div>
+ <label>MY READING <textarea data-ip="note-text" maxlength="500" rows="2" placeholder="What did I see, question, or use?"></textarea></label>
+ <div class="ip-row"><button data-ip="note-save">ATTACH</button><button data-ip="note-next">REVISIT NEXT</button></div>
+ <div class="ip-review-items" data-ip="review-items"></div>
+ <label>WORKING RETURN <textarea data-ip="conclusion" maxlength="2000" rows="2" placeholder="What do I take from this source? Empty is valid."></textarea></label>
+ <button data-ip="review-save">SAVE SEEKING / RETURN</button>
+ <p data-ip="review-law">Marks record authored interpretation, not comprehension. Exact quotes and revisions travel with RETURN.</p>
+ </details>
  <div class="ip-row"><button data-ip="edit">EDIT THIS RANGE</button><button data-ip="undo" disabled>UNDO</button><button data-ip="redo" disabled>REDO</button></div>
  <details><summary>Connect two passages</summary><p>Hold a range, move to another, and name an interpretation. Both quotes and scopes stay attached.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
  <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a></div>
@@ -44,7 +55,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <section class="ip-editor" data-ip="editor" hidden role="dialog" aria-modal="true" aria-label="Local source edit"><b data-ip="edit-range"></b><textarea data-ip="replacement" aria-label="Replacement source text" maxlength="100000"></textarea><div class="ip-row"><button data-ip="commit">COMMIT LOCAL EDIT</button><button data-ip="cancel">CANCEL</button></div><p>Only this exact range changes. Native source ownership stays unchanged.</p></section>`;
  target.append(root);
  const el=id=>root.querySelector(`[data-ip="${id}"]`);
- let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
+ let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,pendingAnnotation=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
  const snap=()=>ap?.snapshot(),char=()=>snap()?.char_index??0;
  const attention=()=>({char:char(),scope,view,wpm:snap()?.wpm||260,query});
  const frame=()=>({hash:source.hash,...attention()});
@@ -62,6 +73,60 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   FieldSourceTrail.record(key,{charIndex:s.char_index,address:s.address,scale:s.scale,wpm:s.wpm,progress:s.source_progress,focus:s.focus,via:'INTERPHASE'});
   try{sessionStorage.setItem('interphase.continuum.v1',JSON.stringify({source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links,marks,frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo}))}
   catch{if(!root.dataset.storage){root.dataset.storage='session-only';status('This source remains here; export RETURN to keep it.',true)}}
+ }
+ // SHARE READFIELD'S SOURCE TRAIL. One local authored record per exact SHA-256
+ // range; old revisions remain parked, never silently rebound to changed bytes.
+ function trailKey(){return source?FieldSourceTrail.sourceKey({address:source.address,id:source.hash}):''}
+ function trail(){return FieldSourceTrail.read(trailKey())}
+ function validNote(m,raw=source?.raw,hash=source?.hash){
+  return !!m&&m.revision===hash&&Number.isInteger(m.charIndex)&&Number.isInteger(m.endIndex)&&m.charIndex>=0&&
+   m.endIndex>m.charIndex&&m.endIndex<=raw.length&&m.quote===raw.slice(m.charIndex,m.endIndex)&&
+   ['NOTE','QUESTION','APPLIED'].includes(m.kind)&&typeof m.note==='string'&&!!m.note.trim()&&m.note.length<=500;
+ }
+ function authored(){return trail().marks.filter(m=>validNote(m)).sort((a,b)=>a.charIndex-b.charIndex)}
+ function trailWritten(updated){
+  if(updated.storageState==='READY')return true;
+  status('Interpretation not stored ('+updated.storageState+'). Source remains unchanged.',true);return false;
+ }
+ function holdAnnotation(m=null){
+  if(!source||!model)return;
+  const u=m?{start:m.charIndex,end:m.endIndex}:at(model,char(),scope);
+  if(!u||u.end<=u.start||u.end-u.start>12000)throw Error('Hold a range of at most 12,000 source characters.');
+  const quote=source.raw.slice(u.start,u.end);
+  pendingAnnotation={hash:source.hash,start:u.start,end:u.end,quote,scope:m?.scale||scope,id:m?.id||('review:'+source.hash+':'+u.start+':'+u.end)};
+  el('note-target').textContent=u.start+'–'+u.end+' · '+quote.slice(0,100)+(quote.length>100?'…':'');
+  el('note-text').value=m?.note||'';el('note-kind').value=m?.kind||'NOTE';el('note-resolved').checked=!!m?.resolved;
+  el('note-text').focus({preventScroll:true});
+ }
+ function revisit(){
+  if(!source)return;const notes=authored(),next=notes.find(m=>m.charIndex>char())||notes[0];
+  if(!next)return status('No exact authored marks for this source revision.');
+  seek(next.charIndex,{remember:true});
+  if(model.levels.some(l=>l.id===next.scale))setScope(next.scale);
+  status('Revisited '+next.kind+' at exact character '+next.charIndex+'. RETURN restores departure.');
+ }
+ function paintReview(){
+  if(!source)return;const saved=trail(),notes=authored(),open=notes.filter(m=>m.kind==='QUESTION'&&!m.resolved).length;
+  el('review-count').textContent=notes.length+' notes · '+open+' open';
+  if(document.activeElement!==el('purpose'))el('purpose').value=saved.review.purpose;
+  if(document.activeElement!==el('conclusion'))el('conclusion').value=saved.review.revision===source.hash?saved.review.conclusion:'';
+  if(!el('review-fold').open)return;
+  const list=el('review-items');list.replaceChildren();
+  for(const m of notes){
+   const line=document.createElement('div');line.className='ip-review-item';
+   const jump=document.createElement('button');jump.textContent=m.kind+(m.kind==='QUESTION'&&!m.resolved?' ○':'')+' · '+m.charIndex;
+   jump.title=m.quote;jump.onclick=()=>{drawer(false);seek(m.charIndex,{remember:true});status('Returned to authored range '+m.charIndex+'.')};
+   const edit=document.createElement('button');edit.textContent='EDIT';edit.onclick=()=>holdAnnotation(m);
+   const remove=document.createElement('button');remove.textContent='×';remove.setAttribute('aria-label','Remove interpretation at '+m.charIndex);
+   remove.onclick=()=>{if(trailWritten(FieldSourceTrail.setMarks(trailKey(),trail().marks.filter(x=>x.id!==m.id)))){paint();persist()}};
+   const phrase=document.createElement('span');phrase.textContent=m.note.slice(0,130);line.append(jump,edit,remove,phrase);list.append(line);
+  }
+  if(!notes.length){const p=document.createElement('p');p.textContent='No authored interpretation. Hold a range and write one, or leave it empty.';list.append(p)}
+  const unbound=saved.marks.length-notes.length;
+  const oldConclusion=!!saved.review.conclusion&&saved.review.revision!==source.hash;
+  el('review-law').textContent=(oldConclusion?'Working conclusion belongs to another or unbound revision; re-author before using it. ':'')+
+   (unbound?unbound+' older/unbound marks retained in READFIELD but excluded here.':
+   'Authored marks do not imply comprehension. Exact quote and revision travel with RETURN.');
  }
  function seek(c,{remember=false}={}){
   if(!source)return;ap.stop();if(remember){frames.push(frame());if(frames.length>64)frames.shift()}
@@ -137,6 +202,15 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    const a=dialXY(c/Math.max(1,source.raw.length-1),82),b=dialXY(c/Math.max(1,source.raw.length-1),87);
    return `<path d="M ${a.x} ${a.y} L ${b.x} ${b.y}" />`;
   }).join('');
+  // Interpretive marks share exact DIAL character coordinates; they cannot
+  // be mistaken for an inferred comprehension or completeness metric.
+  el('marks-ring').insertAdjacentHTML('beforeend',authored().map(m=>{
+   const p=dialXY(m.charIndex/Math.max(1,source.raw.length-1),78);
+   if(m.kind==='QUESTION'&&!m.resolved)return '<circle class="ip-review-question" cx="'+p.x+'" cy="'+p.y+'" r="3"/>';
+   if(m.kind==='APPLIED')return '<rect class="ip-review-applied" x="'+(p.x-2.5)+'" y="'+(p.y-2.5)+'" width="5" height="5"/>';
+   const q=dialXY(m.charIndex/Math.max(1,source.raw.length-1),85);
+   return '<path class="ip-review-note" d="M '+p.x+' '+p.y+' L '+q.x+' '+q.y+'"/>';
+  }).join(''));
   el('doors').replaceChildren();el('more-ports').replaceChildren();const port=node=>(el('doors').children.length<3?el('doors'):el('more-ports')).append(node);
   for(const door of relationDoors(model,source.hash,links,anchor)){
    const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,85)}`;b.title='Authored interpretation with exact source quotes';
@@ -146,6 +220,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(source.returnTo){const a=document.createElement('a');a.href=source.returnTo;a.textContent='↩ CALLER';port(a)}
   el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:''].filter(Boolean).join(' · ');
   el('undo').disabled=!undo.length;el('redo').disabled=!redo.length;
+  paintReview();
   el('identity').textContent=`${source.hash} · ${source.address||'held source'} · ${source.raw.length} characters · ${links.length} authored links`;
   onFocus({id:source.hash,label:nativeRecord?.title||source.label,route:activeRoute,char:anchor,scope,scopeLabel:level(model,scope).label,view,playing:s.playing,index:n.index+1,count:n.units.length,back:frames.length||!!source.returnTo});
   if(activeRoute&&activeRoute!==lastNotifiedRoute){lastNotifiedRoute=activeRoute;const hash=source.hash,href=activeRoute;queueMicrotask(()=>{if(source?.hash===hash&&activeRoute===href)onRoute(href)})}
@@ -173,7 +248,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  async function load(raw,label,address='',opt={}){
   const request=opt.request??++epoch;if(request!==epoch||disposed)return;ap?.stop();
   const next=await prepare(raw,label,address,opt);if(request!==epoch||disposed){next.candidate.remove();return}
-  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=null;bodyKey='';
+  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=null;pendingAnnotation=null;bodyKey='';
   ap.addEventListener('aperture-focus',()=>{paint();persist()});ap.selectChar(next.attention.char);ap.setWpm(next.attention.wpm);
   el('scope').innerHTML=model.levels.map(l=>`<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
   el('find').value=query;el('link-end').disabled=true;el('link-note').textContent='';
@@ -203,16 +278,48 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   else if(source?.returnTo){persist(snap(),true);location.href=source.returnTo}
   else status('No earlier source context is held.');
  }
- function packet(){return{schema:'interphase.continuation/v1',source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links:structuredClone(links),marks:[...marks],frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo,authority:'LOCAL_SOURCE_ONLY',residue:{undoFrames:undo.length,policy:'CURRENT_REVISION_ONLY; session undo is not transported; native ports are resolved from the current host, never imported'}}}
+ function packet(){
+  const stored=trail(),r=stored.review;
+  const review=r.revision===source.hash?{...r}:{purpose:r.purpose,terms:r.terms,conclusion:'',revision:source.hash};
+  return{schema:'interphase.continuation/v1',source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},
+   attention:attention(),links:structuredClone(links),marks:[...marks],frames:frames.filter(f=>f.hash===source.hash).slice(-64),
+   annotations:authored(),review,returnTo:source.returnTo,authority:'LOCAL_SOURCE_ONLY',
+   residue:{undoFrames:undo.length,policy:'CURRENT_REVISION_ONLY; authored marks must match exact quote and hash; session undo is not transported; native ports resolve from current host'}};
+ }
  async function importPacket(p){
   const request=++epoch;
   if(!p||p.schema!=='interphase.continuation/v1'||p.authority!=='LOCAL_SOURCE_ONLY'||typeof p.source?.raw!=='string'||typeof p.source?.hash!=='string'||typeof p.source?.label!=='string'||typeof p.source?.address!=='string'||!p.attention||!Array.isArray(p.links)||!Array.isArray(p.marks)||!Array.isArray(p.frames)||p.frames.length>64)throw Error('Unsupported RETURN.');
   if(p.source.address&&!safePath(p.source.address))throw Error('Unsupported RETURN source address.');
   if(p.returnTo&&!safePath(p.returnTo))throw Error('Unsupported RETURN destination.');
+  // Optional v1 extension; legacy RETURNs remain valid. Reject forged offsets,
+  // source quotes, changed revisions, and surplus notes BEFORE changing the view.
+  const incoming=p.annotations??[],incomingReview=p.review??null;
+  if(!Array.isArray(incoming)||incoming.length>64||incoming.some(m=>!validNote(m,p.source.raw,p.source.hash)||
+   typeof m.id!=='string'||!m.id||m.id.length>250||m.quote.length>12000))
+   throw Error('RETURN annotation quote or revision mismatch.');
+  if(new Set(incoming.map(m=>m.id)).size!==incoming.length)throw Error('Duplicate RETURN annotation identity.');
+  if(incomingReview!==null&&(!incomingReview||typeof incomingReview!=='object'||
+   ['purpose','terms','conclusion'].some(k=>typeof incomingReview[k]!=='string')||
+   incomingReview.purpose.length>500||incomingReview.terms.length>300||
+   incomingReview.conclusion.length>2000||incomingReview.revision!==p.source.hash))
+   throw Error('RETURN working conclusion revision mismatch.');
+  const key=FieldSourceTrail.sourceKey({address:p.source.address,id:p.source.hash});
+  const existing=FieldSourceTrail.read(key),merged=new Map(existing.marks.map(m=>[m.id,m]));
+  for(const m of incoming)merged.set(m.id,m);
+  if(merged.size>64)throw Error('64 authored marks retained. Export previous work before importing another RETURN.');
+  if((incoming.length||incomingReview)&&!['READY','EMPTY'].includes(existing.storageState))
+   throw Error('Cannot persist authored RETURN in this browser; source has not been changed.');
   const prepared=await prepare(p.source.raw,p.source.label,p.source.address,{hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,returnTo:p.returnTo});
   try{validateAttention(prepared.model,p.attention);for(const f of p.frames){if(f.hash!==p.source.hash)throw Error('RETURN path revision mismatch.');validateAttention(prepared.model,f)}}finally{prepared.candidate.remove()}
   const live=p.source.address==='/showcase-manifest.json'?await manifest(true):null,current=live?.hash===p.source.hash;
-  return load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,returnTo:p.returnTo});
+  const result=await load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,returnTo:p.returnTo});
+  if(result&&(incoming.length||incomingReview)){
+   const applied=FieldSourceTrail.write({...existing,sourceKey:key,marks:[...merged.values()],
+    review:incomingReview?{...existing.review,...incomingReview}:existing.review});
+   if(applied.storageState!=='READY')throw Error('Could not save authored RETURN; export the packet before leaving.');
+   paint();
+  }
+  return result;
  }
  el('source').onclick=()=>drawer(el('drawer').hidden);
  el('close').onclick=()=>{drawer(false);if(el('status').dataset.error)status('The held source is unchanged.')};
@@ -243,6 +350,34 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  el('raw-open').onclick=()=>{if(!model)return;const u=at(model,char(),scope);el('raw').textContent=model.raw.slice(u.start,u.end);el('raw').hidden=false};
  el('mark').onclick=()=>{if(!source)return;if(!marks.includes(char())&&marks.length<256){checkpoint();marks.push(char())}status('Marked this exact source position.');paint();persist()};
  el('marks').onclick=()=>{if(!source)return;const all=[...marks].sort((a,b)=>a-b);if(!all.length)return status('No marks in this source.');seek(all.find(c=>c>char())??all[0],{remember:true});drawer(false)};
+ // Source-owner controls; no parallel annotation database or dashboard.
+ el('review-fold').addEventListener('toggle',()=>{if(el('review-fold').open)paintReview()});
+ el('note-capture').onclick=run(()=>holdAnnotation());
+ el('note-save').onclick=run(()=>{
+  const p=pendingAnnotation;
+  if(!p)throw Error('HOLD an exact range first; the passage must not drift during authoring.');
+  if(!source||p.hash!==source.hash||source.raw.slice(p.start,p.end)!==p.quote)throw Error('The held annotation belongs to a different source revision.');
+  const note=el('note-text').value.trim();
+  if(!note)throw Error('Write your interpretation or question before attaching it.');
+  const saved=trail(),other=saved.marks.filter(m=>m.id!==p.id);
+  if(other.length>=64)throw Error('64 retained marks: export or remove one before adding another.');
+  const kind=el('note-kind').value;
+  const mark={id:p.id,revision:source.hash,address:source.address,quote:p.quote,
+   charIndex:p.start,endIndex:p.end,scale:p.scope,progress:p.start/Math.max(1,source.raw.length),
+   kind, note,resolved:kind==='QUESTION'&&el('note-resolved').checked,at:new Date().toISOString(),via:'INTERPHASE'};
+  if(trailWritten(FieldSourceTrail.setMarks(trailKey(),[...other,mark]))){
+   status('Exact authored '+kind.toLowerCase()+' attached to this source revision.');
+   paint();persist();
+  }
+ });
+ const saveReview=()=>{if(!source)return;
+  if(trailWritten(FieldSourceTrail.setReview(trailKey(),{
+   purpose:el('purpose').value.trim(),conclusion:el('conclusion').value.trim(),revision:source.hash
+  }))){paint();status('Seeking and working RETURN saved to this source identity.')}
+ };
+ el('purpose').onchange=saveReview;el('conclusion').onchange=saveReview;
+ el('review-save').onclick=saveReview;
+ el('note-next').onclick=()=>{drawer(false);revisit()};
  el('link-start').onclick=()=>{if(!model)return;ap.stop();const u=at(model,char(),scope);pendingLink={hash:source.hash,span:{start:u.start,end:u.end,scope}};el('link-note').textContent='Held: '+source.raw.slice(u.start,Math.min(u.end,u.start+120));el('link-end').disabled=false;drawer(false);status('First range held. Move to another, then CONNECT HERE in SOURCE.')};
  el('link-end').onclick=run(()=>{
   if(!pendingLink||pendingLink.hash!==source.hash)throw Error('The held range belongs to another revision.');
@@ -318,7 +453,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    el('find').value=input;el('find-form').dispatchEvent(new Event('submit',{cancelable:true}));return true;
   }
   const m=input.match(/^:([a-z]+)(?:\s+([\s\S]*))?$/i);if(!m){status('Unsupported source command.');return false}
-  const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
+  const name=m[1].toLowerCase(),actions={interpret:()=>{drawer(true);el('review-fold').open=true;paintReview()},note:()=>{drawer(true);el('review-fold').open=true;holdAnnotation()},revisit:()=>revisit(),source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
   if(!actions[name]){status('That move is not supported in this source. The native FIELD map is under SOURCE.');el('space').focus();return false}
   await actions[name]();if(name!=='source'&&el('drawer').hidden)el('space').focus();paint();return true;
  }

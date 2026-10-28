@@ -37,10 +37,10 @@ async function continuumBrowserProof(){
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
-   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.7-source'),'release key missing: '+file);
+   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.8-circuit'),'release key missing: '+file);
   }
   await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
-  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.7-source'));assert.deepEqual(cacheErrors,[]);
+  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.8-circuit'));assert.deepEqual(cacheErrors,[]);
   await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
   // A real cold import can outlast the former 15-second reveal timeout.
   // The one-bar CSS must never strand native commands behind hidden regions.
@@ -127,13 +127,46 @@ async function continuumBrowserProof(){
    const observations=requests.filter(p=>p==='/showcase-manifest.json').length;await page.evaluate(()=>InterphaseInstrument.importPacket(InterphaseInstrument.packet()));assert.ok(requests.filter(p=>p==='/showcase-manifest.json').length>observations,'RETURN resolves native ports from a fresh host source');
    await page.evaluate(()=>Promise.all([InterphaseInstrument.load('older source','old'),InterphaseInstrument.load('latest source wins','new')]));assert.equal((await snap()).source.raw,'latest source wins');
    await load(raw);const hash=(await snap()).source.hash,c=raw.indexOf('gate changes')+3;
+   // Same-source circuit: user-authored interpretation is neither synthetic
+   // progress nor another view. Exact quotes survive READ/WALK/DIAL/RETURN.
+   const circuitStart=(await snap()).attention.char;
+   await page.evaluate(c=>InterphaseInstrument.seek(c),raw.indexOf('Water flows'));
+   await source();await ip('review-fold').evaluate(n=>n.open=true);
+   await ip('purpose').fill('What follows from a closed gate?');
+   await ip('conclusion').fill('An observation changes what I can justify.');
+   await ip('review-save').click();
+   await ip('note-capture').click();
+   await ip('note-kind').selectOption('QUESTION');
+   await ip('note-text').fill('Does closing the gate redirect the flow?');
+   await ip('note-save').click();
+   const circuitPacket=await page.evaluate(()=>InterphaseInstrument.packet());
+   assert.equal(circuitPacket.annotations.length,1,'one authored source mark '+width);
+   assert.equal(circuitPacket.annotations[0].revision,hash,'note SHA-256 bound '+width);
+   assert.equal(circuitPacket.annotations[0].quote,raw.slice(circuitPacket.annotations[0].charIndex,circuitPacket.annotations[0].endIndex),'exact quote pinned '+width);
+   assert.equal(circuitPacket.annotations[0].kind,'QUESTION');
+   assert.equal(circuitPacket.review.revision,hash,'working conclusion SHA-256 bound '+width);
+   assert.equal(circuitPacket.review.purpose,'What follows from a closed gate?');
+   await close();
+   await page.evaluate(c=>InterphaseInstrument.seek(c),raw.length-2);
+   const circuitDeparture=(await snap()).attention.char;
+   await page.evaluate(()=>InterphaseInstrument.command(':revisit'));
+   assert.equal((await snap()).attention.char,circuitPacket.annotations[0].charIndex,'revisit authored passage '+width);
+   await page.evaluate(()=>InterphaseInstrument.returnStep());
+   assert.equal((await snap()).attention.char,circuitDeparture,'RETURN restores exact departure '+width);
+   const forgedCircuit=await page.evaluate(async p=>{p.annotations[0].quote='forged';try{await InterphaseInstrument.importPacket(p);return false}catch(e){return e.message}},structuredClone(circuitPacket));
+   assert.match(forgedCircuit,/annotation quote|revision mismatch/,'forged interpretation rejected');
+   assert.equal((await snap()).source.hash,hash);assert.equal((await snap()).attention.char,circuitDeparture);
+   const savedTrail=await page.evaluate(h=>FieldSourceTrail.read(FieldSourceTrail.sourceKey({id:h})),hash);
+   assert.equal(savedTrail.marks.filter(m=>m.revision===hash).length,1,'one shared READFIELD source trail '+width);
+   await page.evaluate(c=>InterphaseInstrument.seek(c),circuitStart);
    const firstPosition=(await snap()).attention.char,firstScope=(await snap()).attention.scope;
    assert.ok(firstPosition>=Number(await ip('local-slider').getAttribute('aria-valuemin'))&&firstPosition<=Number(await ip('local-slider').getAttribute('aria-valuemax')),'fresh source opens inside its actual held range');
    await ip('narrow').click();assert.notEqual((await snap()).attention.scope,firstScope,'the first + must narrow the source');assert.equal((await snap()).attention.char,firstPosition);
    await page.evaluate(()=>{InterphaseInstrument.setScope('PARA');InterphaseInstrument.seek(0)});
    assert.match(await ip('local-slider').getAttribute('aria-valuetext'),/outside this range/,'a caret in the heading is not a position inside the nearest paragraph');
    await page.evaluate(c=>{InterphaseInstrument.seek(c);InterphaseInstrument.setScope('SENT')},c);
-   await page.reload();await wait();assert.equal((await snap()).source.raw,raw,'reload retains a newly opened source');assert.equal((await snap()).attention.char,c);assert.equal((await snap()).attention.scope,'SENT');
+   await page.reload();await wait();assert.equal((await snap()).source.raw,raw,'reload retains a newly opened source');
+   assert.equal((await page.evaluate(()=>InterphaseInstrument.packet())).annotations.length,1,'authored interpretation survives reload '+width);assert.equal((await snap()).attention.char,c);assert.equal((await snap()).attention.scope,'SENT');
    await ip('held').evaluate(x=>x.dataset.identity='same');await ip('view-walk').click();
    assert.equal((await snap()).attention.view,'walk');assert.equal((await snap()).attention.char,c);assert.equal(await ip('held').getAttribute('data-identity'),'same');
    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,`walk-${width}.png`)})}
@@ -220,6 +253,8 @@ async function continuumBrowserProof(){
    await load(raw);await page.evaluate(p=>InterphaseInstrument.importPacket(p),packet);await page.evaluate(()=>InterphaseInstrument.seek(42));await source();await ip('reader').click();
    await page.waitForFunction(()=>document.getElementById('docAperture')?.A?.raw);
    assert.equal(await page.locator('#docAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#docAperture').evaluate(x=>x.snapshot().char_index),42);
+   await page.waitForFunction(()=>!!window.ReadfieldReview?.state);
+   assert.equal((await page.evaluate(()=>ReadfieldReview.state().marks.filter(m=>m.kind==='QUESTION').length)),1,'note shared with READFIELD '+width);
    await page.locator('.rf-source-tools summary').click();await page.locator('#walkLink').click();await wait();assert.equal((await snap()).attention.char,42);assert.equal((await snap()).source.raw,raw);assert.equal((await snap()).links.length,1);
    await ip('source').click();await ip('wrist').click();await page.waitForFunction(()=>document.getElementById('wristAperture')?.A?.raw);
    assert.equal(await page.locator('#wristAperture').evaluate(x=>x.A.raw),raw);assert.equal(await page.locator('#wristAperture').evaluate(x=>x.snapshot().char_index),42);

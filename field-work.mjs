@@ -25,7 +25,7 @@ function startFieldWork(){
   get('fiParent').onclick=e=>{e.stopPropagation();native.closeEditor();api.toggleSource()};
   get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep()};
   get('fiAddress').addEventListener('click',()=>api.stop());
-  const input=get('fieldUrlInput');input.placeholder='Source /path · find words · :walk · :dial · :return';
+  const input=get('fieldUrlInput');input.placeholder='Source /path · find · :note · :revisit · :return';
   input.addEventListener('input',e=>{if(native.active())e.stopImmediatePropagation()},true);
   input.addEventListener('keydown',e=>{
    if(e.key!=='Enter'||!native.active())return;e.preventDefault();e.stopImmediatePropagation();
