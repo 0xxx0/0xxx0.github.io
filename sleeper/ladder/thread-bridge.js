@@ -42,8 +42,25 @@ const REFERENCES=[
 [{id:'MN 117',label:'Concentration and supports',url:'https://suttacentral.net/mn117/en/sujato'},{id:'MN 10',label:'Mindfulness in practice',url:'https://suttacentral.net/mn10/en/sujato'}]
 ];
 const ACTS=['see','letgo','silence','word','word','walk','return','stay'];
+const READING_MAP=[
+ {chapter:'Ch. 1',title:'Five Aggregates',lens:'COMPOSE',question:'What events and constituents make up this experience?',url:'https://buddhadhamma.github.io/five-aggregates.html'},
+ {chapter:'Ch. 3',title:'Three Characteristics',lens:'CHANGE',question:'What here is changing, unreliable, or not mine to command?',url:'https://buddhadhamma.github.io/three-characteristics.html'},
+ {chapter:'Ch. 4',title:'Dependent Origination',lens:'CONDITION',question:'What conditions gave rise to this reaction; which condition can cease?',url:'https://buddhadhamma.github.io/dependent-origination.html'},
+ {chapter:'Ch. 15',title:'Wise Reflection',lens:'DISCERN',question:'Where did observation become interpretation, attachment, or assumption?',url:'https://buddhadhamma.github.io/wise-reflection.html'},
+ {chapter:'Ch. 16–18',title:'Path Factors',lens:'PRACTISE',question:'What can be done skilfully, and which other factors support that action?',url:'https://buddhadhamma.github.io/path-factors.html'}
+];
+const SOURCE_SELECTION_SHA='52891ff29b442cbd51824c715f7a51206863916ef5dcd2384087b59380f8f7c6';
+const FACTOR_TABLE_HASH='ac14d49b';
+function sourceTableHash(rows){
+ const payload=JSON.stringify(rows.map(({i,key,en,pali,act,locator,line})=>({i,key,en,pali,act,locator,line})));
+ let h=2166136261;
+ for(let i=0;i<payload.length;i++){h^=payload.charCodeAt(i);h=Math.imul(h,16777619)}
+ return (h>>>0).toString(16).padStart(8,'0')
+}
+
 function validate(raw){
  if(!raw||raw.schema!==SCHEMA||raw.factors?.length!==8||!Array.isArray(raw.districts)||!raw.provenance||!raw.selection||!(/^[a-f0-9]{64}$/.test(raw.selection.sha256||'')))throw Error('LADDER_SOURCE_SLICE_INVALID');
+ if(raw.selection.sha256!==SOURCE_SELECTION_SHA||sourceTableHash(raw.factors)!==FACTOR_TABLE_HASH)throw Error('LADDER_SOURCE_PROJECTION_CHANGED');
  const indices=new Set(),keys=new Set();
  for(let i=0;i<8;i++){
   const f=raw.factors[i];
@@ -61,6 +78,7 @@ function create(raw){
   const text=f.en.toUpperCase()+' ('+f.pali+') — '+f.locator+'\n'+f.line.trim();
   return Object.freeze({index:i,key:f.key,name:f.en,pali:f.pali,act:f.act,locator:f.locator,
    excerpt:f.line.trim(),passage:text,question:QUESTIONS[i],
+   compareIndices:[0,5,6].filter(j=>j!==i),
    canonical:CANONICAL[i],references:REFERENCES[i].map(r=>({...r}))});
  });
  const text=entries.map(e=>e.passage).join('\n\n');
@@ -75,5 +93,5 @@ function selectedIndex(x){
  if(!/^[0-7]$/.test(String(x)))throw Error('LADDER_FACTOR_INDEX_INVALID');
  return Number(x);
 }
-return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS});
+return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS,READING_MAP});
 });
