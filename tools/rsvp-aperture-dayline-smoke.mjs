@@ -27,7 +27,7 @@ try{
  await page.locator('#open').click();
  await page.waitForFunction(()=>window.RSVPSourceInstrument?.sourceLength()>100&&document.getElementById('drawer').hidden);
  const first=await page.evaluate(()=>RSVPReader.snapshot());
- const intro=await page.locator('.word').textContent();
+ const intro=await page.locator('#stage > .word').textContent();
  const scales=await page.evaluate(()=>document.getElementById('wristAperture').A.scales.map(x=>x.id));
  assert.ok(scales.includes('PARA')&&scales.includes('WORD'),'actual source scales are available');
  assert.equal(await page.locator('#apertureTicks .scope-tick').count(),scales.length,
@@ -44,7 +44,7 @@ try{
  const broad=await page.evaluate(()=>RSVPReader.snapshot());
  assert.equal(broad.scale,'PARA','inner ring manipulates actual native paragraph aperture');
  assert.equal(broad.char_index,first.char_index,'scale retains same UTF-16 source locus');
- assert.equal(await page.locator('.word').textContent(),intro,'foveal center stays the same word');
+ assert.equal(await page.locator('#stage > .word').textContent(),intro,'foveal center stays the same word');
  assert.equal(await page.locator('.scope-tick.active').count(),1,'native scope is visibly reflected by one tick');
  assert.match(await page.locator('#signalLabel').textContent(),/PARAGRAPH/);
  assert.ok(broad.span.end-broad.span.start>=first.span.end-first.span.start,'aperture broadens the same passage');
