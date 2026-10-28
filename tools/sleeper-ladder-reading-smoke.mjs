@@ -63,12 +63,13 @@ const button=(box,txt)=>[...box.querySelectorAll('button')].find(b=>b.textConten
  // The painting remains its own stateful owner, with a bounded source exit.
  await load('/sleeper/ladder/');
  const ld=f.contentDocument;
- await wait(()=>ld.getElementById('ladderRead'),'LADDER source link'); // Navigation remains available even before painting/image boot.
- const a=ld.getElementById('ladderRead');
- assert(a.target==='_blank','reader must not erase active LADDER walk');
- a.addEventListener('click',e=>e.preventDefault(),{capture:true});
+ await wait(()=>ld.getElementById('prov'),'LADDER existing provenance strip');
+ const a=ld.getElementById('prov');
+ assert(a.getAttribute('role')==='link'&&a.tabIndex===0,'source strip lacks keyboard link semantics');
+ let opened=null;
+ ld.defaultView.open=(url,target,features)=>{opened={url,target,features};return null};
  a.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}));
- assert(a.href.includes('axis-score.html?read=1&ladder='),'LADDER did not address reader');
+ assert(opened&&opened.url.includes('axis-score.html?read=1&ladder=')&&opened.target==='_blank','LADDER source aperture did not open reading source');
  out.textContent='PASS LADDER → THREADWALK · 8 source factors · 320/390/1280 · two exact witnesses · authored door · RETURN · painting exit';
 }catch(e){out.textContent='FAIL '+(e.stack||e)}})();
 </script>`;
