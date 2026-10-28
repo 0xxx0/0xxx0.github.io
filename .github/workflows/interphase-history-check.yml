@@ -95,6 +95,8 @@ jobs:
           SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
         run: node tools/interphase-plus-smoke.mjs
       - name: Cross-source DOOR and exact return
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
         run: node interphase/cross-door-smoke.mjs
       - name: Native FIELD / source release checks
         env:
