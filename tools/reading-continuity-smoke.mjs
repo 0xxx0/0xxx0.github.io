@@ -144,6 +144,27 @@ try{
   assert.equal(carried.open,1,'the authored question remains open in READFIELD');
   assert.equal(carried.stale,0,'same source quote and revision remain authoritative');
   assert.equal(await page.evaluate(()=>new URL(location.href).searchParams.get('src')),'/__reading_fixture.json','source address survives return');
+  // Same mutable path, new bytes: old last/visited cannot impersonate a
+  // revision-bound bookmark. Park source marks and start at a fresh locus.
+  const changed=raw.replace('first value','changed val');
+  await page.evaluate(async changed=>{
+   const hash=await (await import('/lib/id.js')).hashText(changed);
+   sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify({
+    raw:changed,label:'changed.json',hash,sourceAddress:'/__reading_fixture.json',returnAddress:'/docs/'
+   }));
+  },changed);
+  await page.goto(base+'/rsvp/?handoff=1');
+  await page.waitForFunction(()=>window.RSVPSourceInstrument?.marks().all===2);
+  assert.equal(await page.evaluate(()=>document.getElementById('wristAperture').snapshot().char_index),0,
+   'changed revision never restores an old exact cursor on the same mutable path');
+  assert.equal((await page.evaluate(()=>RSVPSourceInstrument.marks())).bound,0,
+   'old quotes are retained but become non-navigable');
+  assert.equal((await page.evaluate(()=>RSVPSourceInstrument.marks())).furthest,0,
+   'new revision does not inherit stale furthest-visited evidence');
+  await page.locator('#showMarks').click();
+  assert.equal(await page.locator('#marksList li.parked').count(),2);
+  assert.equal(await page.locator('#sourcePins .question').count(),0,
+   'stale SOURCE marks are not operative glyphs');
   assert.deepEqual(errors,[],'browser errors '+width);results.push({width,height,roundtrip:'PASS'});await context.close();
  }
  // Keep the existing native READ/RIDE return contract under the same real
