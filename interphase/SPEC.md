@@ -346,6 +346,64 @@ Task: take an actual dated Fold–Bloom thread index, enter its quoted INTERPHAS
 Research transfer: W3C Web Annotation's TextQuote/TextPosition selectors support using exact quotations with positions as independent anchors, but its code-point character accounting differs from the continuum's UTF-16 offsets; no interoperable W3C format is claimed. RFC 6901 supplies JSON-value addressing if needed by a native JSON owner, not a second address parser here. No new registry, timeline, app launcher, queue or geometric reading is created.
 
 
+## Source-glyph inverse / representation audit (28 October 2026)
+
+Audit was against **native work**, not visual novelty. A glyph is a lawful
+control when (1) its geometry can be derived from a current, source-owned
+object, (2) the operator can use its visible coordinate to address that same
+object, (3) its effects run through the native owner, (4) no information
+missing from the glyph becomes a fabricated claim, and (5) exact RETURN
+restores the previous focus/scope. This is the practical GetPut/PutGet
+discipline of bidirectional lenses and projectional editors, not an
+attempt to move native content into a new universal AST.
+
+| Surface | Actual representation | Existing lawful manipulation | Boundary |
+| --- | --- | --- | --- |
+| FIELD tower | Rings = native ROUTE/STATE/OPERATION/WORK MODE strips, weighted source members | Arc tap, turn, unwrap, reverse HOLD sync | Center moiré is an identity fingerprint, **not** evidence or a semantic code. Do not assign it invented meanings. |
+| GLYPHFIELD | Angle = explicitly declared action class; radius = parent-edge hop count; lines = declared relations | Native HOLD/recenter and exact-route RETURN | Unclassified source remains unplaced residue. Angular closeness is not similarity. |
+| INTERPHASE | Outer finite DIAL = source-character coordinate; inner DIAL = offset inside held native scope | SEEK, READ/WALK, exact RETURN and authored human links | DIAL's finite seam is meaningful; no cyclic wrap of text endpoints. |
+| READFIELD | Source-owned words, sections, selection and authored exact-range review | Tap review mark → original passage/edit, source revision checks | Marks are human observations, not inferred comprehension or score. |
+| ROOM / Foundry | DOM is the program; links/seams are declared adjacency; fold is a reversible projection | Native DOM operations and explicit witness | Do not flatten opaque host effects into invented geometry. |
+| FOLD/BLOOM / LISTEN | Media bytes → analyzed time/features → actual source/beat/phrase tape | Native source-time, RIDE and cross-view RETURN | Audio rhythm is not a route graph; shared notation does not grant shared authority. |
+
+**Concrete repaired gap:** INTERPHASE previously rendered author-created NOTE /
+QUESTION / APPLIED marks into DIAL but made the marks inert. It also kept
+authored source relations exclusively as prose buttons. These were *signs
+of work*, not controls over that work.
+
+The source-glyph inverse projects existing revision-verified READFIELD
+marks into exact source-span arcs with typed endpoints; authored
+`supports`, `contrasts`, `questions`, `explains` become line-style
+distinctions on links connecting **exact ranges**, never guessed semantic
+similarity. The visible ring glyph can be tapped or focused via keyboard.
+Selection uses the existing SEEK, retains an exact RETURN frame, and
+exposes the existing SOURCE editor. Dense nearly co-located marks cycle
+without merging their identities. Unsupported/unbound notes and
+relations remain explicit residue; the source drawer retains all work.
+No fourth reading view, additional store, automatic comprehension
+metric, or new landing control.
+
+### Falsifiers
+
+- Alter a note quote, SHA revision or source interval: it must not produce
+  a selectable glyph. A stale mark can remain parked in READFIELD but
+  must not be interpreted against changed bytes.
+- Place two notes at adjacent source positions: tapping the near-identical
+  glyph twice must reach both **distinct** exact positions.
+- Tap an authored relation from either end: the native reader must go to
+  the other exact end and RETURN to the departure, preserving scope.
+- Change READ/WALK/DIAL while holding the source: no cursor drift.
+  Blank DIAL sectors cannot manufacture notes or relations.
+- 320/390/1280px: no new cards, scrolling entry or duplicate title
+  controls. VIEW is never allowed to increase native authority.
+
+**Unsolved future work, explicitly demoted:** decoding the tower's
+moiré into structural evidence, general spatial ROOM transduction,
+automatic cross-domain meaning, and AI-generated interpretation.
+Those require real-source human comparative proof, not new colors or
+aesthetic glyph categories.
+
+
 ## DOOR: one native object, typed partial correspondence (28 October 2026)
 
 **Correction:** shipping a link validator without an ordinary FIELD entrance was insufficient. The root now exposes **DOOR ↗** beside whichever manifest route the operator actually holds. The same exact route is addressable from the sole URLbar as `:door /route/` or, after holding it, `:door`. When nothing is held, the source is the FIELD root, not a guessed priority head. At rest the glyph rail is an *alphabetically ordered CURRENT scope projection*; the URLbar's normal address search covers all manifest routes. Neither color, radial position nor curated CURRENT membership is a significance ranking.

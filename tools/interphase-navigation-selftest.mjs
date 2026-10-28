@@ -22,6 +22,35 @@ function navSelftest(){
  const r=N.relation(m,'hash',{...paras[1],scope:'PARA'},{...paras[2],scope:'PARA'},'questions');
  assert.equal(N.validRelation(m,'hash',r),true);assert.equal(N.validRelation(m,'other',r),false);assert.equal(N.validRelation(m,'hash',{...r,from:{...r.from,quote:'invented'}}),false);
  assert.equal(N.relationDoors(m,'hash',[r],paras[1].start)[0].destination.start,paras[2].start);
+ // A visible mark is a lawful source address, not a painted badge. The
+ // projection and its inverse must round-trip quoted, SHA-bound human work.
+ const hash='hash',mk=(id,start,kind='QUESTION')=>({
+  id,revision:hash,charIndex:start,endIndex:Math.min(raw.length,start+7),
+  quote:raw.slice(start,Math.min(raw.length,start+7)),kind,note:'Human-authored '+id,resolved:false
+ });
+ const firstMark=mk('near-a',c),nearMark=mk('near-b',c+1,'NOTE');
+ const projected=N.projectWitnesses(m,hash,[firstMark,nearMark,{...firstMark,id:'forged',quote:'NOT SOURCE'}],[r]);
+ assert.equal(projected.sourceLength,raw.length);
+ assert.equal(projected.notes.length,2);
+ assert.equal(projected.relations.length,1,'only declared and quote-verified source relations create chords');
+ assert.equal(projected.residue.unboundNotes,1,'forged marks remain explicit residue');
+ for(const e of projected.notes){
+  const resolved=N.witnessAddress(projected,raw,hash,e.id);
+  assert.equal(resolved.char,e.charIndex,'glyph → source char is exact');
+  assert.equal(resolved.quote,raw.slice(e.charIndex,e.endIndex),'source → glyph → source restores exact bytes');
+ }
+ const p=projected.notes[0].point,hit=N.witnessAtPoint(projected,p.x,p.y,{radius:19});
+ assert.ok(hit&&hit.candidates===2,'dense near-coincident notes must remain operable');
+ const cycled=N.witnessAtPoint(projected,p.x,p.y,{radius:19,previousId:hit.note.id});
+ assert.notEqual(cycled.note.id,hit.note.id,'repeated tap cycles through distinct real notes');
+ assert.equal(N.witnessAtPoint(projected,90,90,{radius:12}),null,'empty center is not a fabricated source mark');
+ assert.throws(()=>N.witnessAddress(projected,raw.slice(0,firstMark.charIndex)+'X'+raw.slice(firstMark.charIndex+1),hash,firstMark.id),/Unbound|changed/,'modified quote cannot resolve to old glyph');
+ assert.throws(()=>N.witnessAddress(projected,raw,'wrong-hash',firstMark.id),/revision/);
+ assert.equal(N.projectWitnesses(m,hash,[{...firstMark,revision:'old'}],[{...r,hash:'old'}]).notes.length,0);
+ assert.equal(N.projectWitnesses(m,hash,[{...firstMark,revision:'old'}],[{...r,hash:'old'}]).relations.length,0);
+ assert.deepEqual(projected.relations[0].from,r.from);
+ assert.deepEqual(projected.relations[0].to,r.to);
+ assert.equal(m.raw,raw,'projecting and choosing marks cannot mutate source');
  const attention={char:c,scope:'PARA',view:'walk',wpm:260,query:'gate'};
  assert.deepEqual(N.validateAttention(m,attention),attention);
  // The outer and inner dials have different coordinate laws, even while a
@@ -59,6 +88,6 @@ function navSelftest(){
  for(let i=0;i<10;i++){const next=N.zoomScope(j,focus,scope,1);if(next===scope)break;const inner=N.at(j,focus,next);assert.ok(inner.start>=span.start&&inner.end<=span.end&&inner.end-inner.start<span.end-span.start);scope=next;span=inner}
  const nested=model('# A\n\nOne.\n\n## B\n\nTwo.\n\n# C\n\nThree.');const b=N.at(nested,nested.raw.indexOf('Two'),'SECTION');assert.equal(b.key,'B');
  assert.equal(N.neighbors(nested,nested.raw.indexOf('Two'),'SECTION').after.key,'C');
- console.log('SOURCE LAWS PASS · native spans · GetPut / PutGet · Unicode · monotone scope · quoted relations · finite traversal · strict RETURN · two source-addressed dial coordinates');
+ console.log('SOURCE LAWS PASS · native spans · GetPut / PutGet · quoted source↔glyph inverse · dense witness cycling · typed relation coordinates · Unicode · monotone scope · finite traversal · strict RETURN');
 }
 navSelftest();

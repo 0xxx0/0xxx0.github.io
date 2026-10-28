@@ -54,6 +54,25 @@
 .ip-dot-absolute{fill:var(--ip-hot)}
 .ip-dot-local{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:2.5}
 .ip-axis [data-ip="marks-ring"]{fill:none;stroke:var(--ip-hot);stroke-width:1.4;opacity:.8;pointer-events:none}
+.ip-axis [data-ip="links-ring"]{fill:none;pointer-events:none}
+.ip-axis .ip-witness-span{stroke:var(--ip-hot);stroke-width:2.4;fill:none}
+.ip-axis .ip-witness-question{stroke-dasharray:4 3}
+.ip-axis .ip-witness-applied{stroke-width:3.5}
+.ip-axis .ip-witness-stroke{stroke-width:1.6}
+.ip-axis .ip-witness-note{fill:var(--ip-hot);stroke:none}
+.ip-axis .ip-review-question.is-resolved{fill:var(--ip-hot)}
+.ip-axis .ip-evidence-token:focus-visible{outline:none;stroke-width:3}
+.ip-axis .ip-link-line{stroke:var(--ip-mut);stroke-width:1.4;pointer-events:none}
+.ip-axis .ip-link-contrasts{stroke-dasharray:7 3}
+.ip-axis .ip-link-questions{stroke-dasharray:2 5}
+.ip-axis .ip-link-explains{stroke-dasharray:1 2;stroke-width:2}
+.ip-axis .ip-link-arrow{stroke:var(--ip-mut);stroke-width:1.6;fill:none;pointer-events:none}
+.ip-axis .ip-link-hit{stroke:transparent;stroke-width:16;pointer-events:stroke;fill:none;cursor:pointer}
+.ip-axis .ip-link-hit:focus-visible{stroke:var(--ip-hot);stroke-opacity:.2;stroke-width:16;outline:none}
+.ip-range .ip-witness-open{font:10px/1.15 ui-monospace,monospace;
+ max-width:38%;min-height:36px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ padding:6px 8px;border:1px solid var(--ip-hot);background:transparent;color:var(--ip-hot)}
+
 .ip-continuum[data-view="dial"] .ip-axis{padding:4px 0 10px}
 .ip-continuum[data-view="dial"] .ip-axis{gap:4px}
 .ip-continuum[data-view="dial"] .ip-axis svg{width:min(220px,calc(100vw - 96px));height:auto;max-height:220px}
@@ -92,3 +111,17 @@
 .ip-review [data-ip="review-count"]{font:10px ui-monospace,monospace;color:var(--ip-mut)}
 .ip-axis [data-ip="marks-ring"] .ip-review-question{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:1.6}
 .ip-axis [data-ip="marks-ring"] .ip-review-applied{fill:var(--ip-hot);stroke:none}
+
+.ip-continuum[data-view="dial"] .ip-space{
+ align-items:flex-end;padding-bottom:8px
+}
+/* DIAL is two simultaneous coordinates, not a wall of empty prose.
+   Retain the available source aperture in READ/WALK; only DIAL's held
+   passage becomes content-height while the finite ring stays in view. */
+.ip-continuum[data-view="dial"] .ip-scene{
+ height:auto;min-height:0;max-height:100%;flex:0 1 auto
+}
+.ip-continuum[data-view="dial"] .ip-held{
+ flex:0 1 auto;min-height:clamp(105px,15svh,145px);
+ max-height:min(35svh,340px);overflow:auto
+}
