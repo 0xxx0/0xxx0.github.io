@@ -47,6 +47,7 @@ ok(s.won,'exit reached via real movement');
 const out=B.exportState(s);
 eq(out.actions.won,true,'return witnesses enacted exit');
 eq(out.source.bytesRedistributed,false,'no third-party book bytes exported');
+eq(out.source.url,'https://buddhadhamma.github.io/dependent-origination.html','Bell causal illustration points to conditionality source, not aggregates inventory');
 ok(out.actions.loops>=1,'return witnesses the loop');
 B.rewind(s,fork);
 ok(s.choice===null&&!s.opened&&!s.won,'rewind restores branchable causal state');
