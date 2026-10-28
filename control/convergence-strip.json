@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T09:20:35.492Z",
+  "generated": "2026-10-28T09:51:36.164Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 39,
-  "git_commits_in_window": 94,
-  "telemetry_commits_in_window": 55,
-  "commits_total": 7175,
-  "branch_count": 1112,
+  "commits_in_window": 44,
+  "git_commits_in_window": 102,
+  "telemetry_commits_in_window": 58,
+  "commits_total": 7183,
+  "branch_count": 1117,
   "recent_commits": [
-    "SLEEPER: bridge Bell reading to cited Ladder factors without altering Threadwa",
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /sleeper/ladder/ (0.6.4 rail under the sentence, e"
+    "Confluence: six-family project map / current reducer (#1039)",
+    "FIELD: native tower binding and exact source-backed aperture"
   ],
   "active_fronts": [
     {
