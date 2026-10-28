@@ -26,3 +26,5 @@ jobs:
           node tools/sleeper-native-encounter-selftest.cjs
       - name: Real Chromium source selection to native city
         run: node tools/sleeper-source-aperture-smoke.mjs
+      - name: Native POV source focus, RSVP and falsifiable world return
+        run: node tools/sleeper-native-focus-smoke.mjs
