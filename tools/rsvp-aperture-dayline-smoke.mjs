@@ -48,6 +48,10 @@ try{
  assert.equal(await page.locator('.scope-tick.active').count(),1,'native scope is visibly reflected by one tick');
  assert.match(await page.locator('#signalLabel').textContent(),/PARAGRAPH/);
  assert.ok(broad.span.end-broad.span.start>=first.span.end-first.span.start,'aperture broadens the same passage');
+ if(process.env.SCREENSHOT_DIR){
+  fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
+  await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'rsvp-aperture-paragraph-390.png')});
+ }
  // Drag the outer source annulus: unlike playback, this is direct address manipulation.
  const coords=await page.evaluate(()=>{
   const r=document.querySelector('.orbit').getBoundingClientRect();
