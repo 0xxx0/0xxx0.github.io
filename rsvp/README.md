@@ -134,3 +134,51 @@ reload, native READFIELD review, and same-path changed-source demotion;
 existing LISTEN real MP3+text source, review/annotation and source
 identity suites. Subjective reading speed/recall and physical-device
 comfort still require human comparison.
+
+
+## 28 October · Aperture × Dayline source circuit
+
+This is a continuation **of** the source-bearings reader, not a new product
+or persistence layer.
+
+- Outer ring (angle) = exact native source address; drag/scrub changes the
+  underlying `FieldAperture` character, never a computed progress label.
+- Inner ring (angle by sector) = `FieldAperture.A.scales`. Each tick is one
+  *actual* scale available in the loaded text, not an invented ladder.
+  Selecting WORD / SENT / PARA / SECTION / DOC preserves the same exact
+  character. The foveal center stays on that word while the real source
+  passage is highlighted at the larger aperture. `[` / `]` also turns scale.
+- Source marks remain on the existing middle annulus, and the linear
+  rail remains their other exact representation. During an active recall
+  gate, the native gate remains authoritative; the 180px watch stays
+  ring-only with no extra scale hit targets.
+- `APPLIED` note → `↗ DAY` does **not** create a task. It saves the
+  source-bound annotation in existing `FieldSourceTrail`, then stages an
+  `atlas-dayline-handoff/v0.1` packet using the already installed native
+  Dayline FIELD bridge. A human must press `ADD TO DAY`. No automatic
+  classification of other notes, no priority assignment, no RUN activation,
+  no source-content alteration.
+- Dayline keeps its own local planning state, constraints, counterfactual
+  previews and RETURN receipts. The sourced task receives the original
+  UTF-16 interval, SHA revision, verbatim quote, and a direct READFIELD
+  link when the source lives at a same-origin file path. Local pasted text
+  stays a non-linkable hash reference. Its explicit `RETURN TO SOURCE`
+  survives acceptance, restoring the original session-local source/cursor.
+
+Interpretation: a single source has many lawful projections, but operations
+have different owners. **VIEW / SEEK** belongs to FieldAperture,
+**AUTHOR** to FieldSourceTrail, **ACT** to Dayline after the human chooses
+ADD, and **RETURN** restores the same source. No equivalence between text
+progress, understanding, task urgency or action completion is implied.
+
+Research donors: W3C Web Annotation quote/position selectors
+(`https://www.w3.org/TR/annotation-model/`), SuperMemo incremental read
+points and references, and Reader's source-bound highlights/review. Current
+implementation keeps its stricter SHA-bound exact original; migrating
+stale quotes by fuzzy text matching would misrepresent identity and is
+deliberately not implemented.
+
+Promotion proof: `tools/rsvp-aperture-dayline-selftest.mjs` and
+`tools/rsvp-aperture-dayline-smoke.mjs`, in addition to the complete
+existing 320/390/1280px READ/STRUCT/WRIST, 180px wrist, actual-MP3
+LISTEN handoff and FIELD release tests. Human study is still absent.

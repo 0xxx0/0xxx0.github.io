@@ -62,6 +62,10 @@ jobs:
           node --check field-aperture.js
           node --check rsvp/reader.js
           node --check rsvp/source-instrument.mjs
+          node --check rsvp/dayline-handoff.mjs
+          node --check tools/rsvp-aperture-dayline-selftest.mjs
+          node --check tools/rsvp-aperture-dayline-smoke.mjs
+          node --check atlas-dayline/field-bridge.js
           node --check tools/rsvp-listen-ring-smoke.mjs
           node --check tools/fold-bloom-first-use-browser-smoke.mjs
           node --check fold-bloom/listen/demo-tone.js
@@ -88,6 +92,13 @@ jobs:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
           SCREENSHOT_DIR: /tmp/readfield-review-captures
         run: node tools/reading-continuity-smoke.mjs
+      - name: Verify source-owned aperture and human-approved Dayline proposal
+        run: node tools/rsvp-aperture-dayline-selftest.mjs
+      - name: Verify radial scope, direct manipulation and exact Dayline RETURN in Chromium
+        env:
+          NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
+          SCREENSHOT_DIR: /tmp/readfield-review-captures
+        run: node tools/rsvp-aperture-dayline-smoke.mjs
       - name: Prove actual LISTEN waveform/glyph and full WRIST text
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules

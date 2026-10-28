@@ -4,10 +4,12 @@
 // A paired LISTEN descriptor adds an actual measured audio energy contour
 // and the original LISTEN glyph. It never invents audio for plain text.
 import {audioGlyphRepresentation} from '../fold-bloom/listen/audio-glyph.js';
+import {proposedDaylineHandoff} from './dayline-handoff.mjs';
 
 const $=id=>document.getElementById(id),ap=$('wristAperture');
 const FULL_LIMIT=180000,WINDOW_RADIUS=16000,SAMPLES=72,NS='http://www.w3.org/2000/svg';
 let raw='',hash='',textNode=null,start=0,end=0,region='',lastFollow=0,userScrollUntil=0,sourceMode='TEXT STRUCTURE';
+let scaleDrawKey='',scaleCaption='TEXT · STRUCTURE',scaleIndex=-1;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,Number(v)||0));
 const nums=x=>Array.isArray(x)&&x.length>=24&&x.length<=256&&x.every(v=>Number.isFinite(v)&&v>=0&&v<=1);
 function textContour(input){
@@ -47,15 +49,61 @@ function renderIdentity(){
   sourceMode='LISTEN ENERGY';drawContour(paired.energy,true);
   glyph.innerHTML=paired.original.svg;glyph.hidden=false;
   glyph.title='Native LISTEN source glyph · '+String(paired.name||'audio').slice(0,80);
-  tag.textContent='LISTEN · MEASURED ENERGY'+(paired.stage?' · '+paired.stage:'');
+  scaleCaption='LISTEN · MEASURED ENERGY'+(paired.stage?' · '+paired.stage:'');tag.textContent=scaleCaption;
   tag.title='Measured frame energy from LISTEN, not a PCM waveform; audio remains LISTEN-owned';
  }else{
   sourceMode='TEXT STRUCTURE';drawContour(textContour(raw),false);
   glyph.replaceChildren();glyph.hidden=true;
-  tag.textContent='TEXT · STRUCTURE';
+  scaleCaption='TEXT · STRUCTURE';tag.textContent=scaleCaption;
   tag.title='Punctuation / paragraph structure from source characters. No audio evidence is available.';
  }
  document.documentElement.dataset.rsvpSignal=paired?'listen-energy':'text-structure';
+}
+// AXIAL / Scale Lens contract: angle = exact source character; radius =
+// native FieldAperture scale. No new cursor, tokenizer or vocabulary.
+function nativeScales(){return ap.A?.scales||[]}
+function paintScale(){
+ const levels=nativeScales(),snapshot=window.RSVPReader?.snapshot?.();
+ const host=$('apertureTicks');if(!host||!levels.length||!snapshot)return;
+ const key=levels.map(x=>x.id).join('|');
+ if(key!==scaleDrawKey){
+  scaleDrawKey=key;host.replaceChildren();
+  const circle=document.createElementNS(NS,'circle');
+  for(const [k,v] of Object.entries({cx:60,cy:60,r:24.5,class:'scope-track'}))circle.setAttribute(k,String(v));
+  host.append(circle);
+  for(let i=0;i<levels.length;i++){
+   const angle=-Math.PI/2+2*Math.PI*(i+.5)/levels.length;
+   const x=r=>(60+Math.cos(angle)*r).toFixed(3),y=r=>(60+Math.sin(angle)*r).toFixed(3);
+   const line=document.createElementNS(NS,'line');
+   for(const [k,v] of Object.entries({x1:x(19),y1:y(19),x2:x(29),y2:y(29),
+    class:'scope-tick','data-scope-index':i}))line.setAttribute(k,String(v));
+   const label=document.createElementNS(NS,'title');label.textContent=levels[i].label||levels[i].id;line.append(label);
+   host.append(line);
+  }
+ }
+ const selected=levels.findIndex(x=>x.id===snapshot.scale);
+ if(scaleIndex!==selected){
+  scaleIndex=selected;
+  for(const line of host.querySelectorAll('.scope-tick'))line.classList.toggle('active',Number(line.dataset.scopeIndex)===selected);
+ }
+ $('signalLabel').textContent=scaleCaption+' · SCALE '+(snapshot.scale_label||snapshot.scale||'WORD').toUpperCase();
+ $('signalLabel').title='INNER RING / APERTURE: scale. OUTER RING: source position. TAP or DRAG. [ ] changes scale.';
+ $('stage').setAttribute('aria-label','Center: read or pause. Outer ring: seek source address. Inner ring: change native aperture scale. During a recall gate choose a word.');
+}
+function pickScale(e){
+ if(!raw||innerWidth<=240)return false;
+ const svg=document.querySelector('.orbit'),rect=svg?.getBoundingClientRect();
+ if(!rect?.width||!rect.height)return false;
+ const x=(e.clientX-rect.left)/rect.width*120,y=(e.clientY-rect.top)/rect.height*120;
+ const levels=nativeScales(),slot=window.RingView?.sectorAt?.(x,y,60,60,18,28,levels.length);
+ if(!Number.isInteger(slot)||slot<0)return false;
+ return window.RSVPReader?.setScale?.(slot)===true;
+}
+function turnScale(delta){
+ const levels=nativeScales();if(!levels.length)return false;
+ const current=levels.findIndex(x=>x.id===window.RSVPReader?.snapshot?.()?.scale);
+ const next=Math.max(0,Math.min(levels.length-1,current+delta));
+ return window.RSVPReader?.setScale?.(next)===true;
 }
 function renderSource(force=false,position=0){
  if(!raw)return;
@@ -82,8 +130,27 @@ function paintFocus(){
  const span=snap.span||{start:char,end:char+1};
  const a=clamp(span.start-start,0,textNode.length),b=clamp(span.end-start,a+1,textNode.length);
  const r=document.createRange();r.setStart(textNode,a);r.setEnd(textNode,b);
+ // Context ring has a broad native span, but foveal fixation remains the
+ // ACTUAL word under FieldAperture's same anchor. Scope and focus never
+ // become unrelated text objects or override the native cursor.
+ let word=r;
+ if(snap.kind==='TEXT'&&snap.scale!=='WORD'){
+  const words=ap.A?.scales?.find(x=>x.id==='WORD')?.units||[];
+  let lo=0,hi=words.length-1,found=null;
+  while(lo<=hi){
+   const mid=(lo+hi)>>1,u=words[mid];
+   if(char<u.start)hi=mid-1;else if(char>=Math.max(u.start+1,u.end))lo=mid+1;
+   else{found=u;break}
+  }
+  if(found){
+   word=document.createRange();
+   word.setStart(textNode,clamp(found.start-start,0,textNode.length));
+   word.setEnd(textNode,clamp(found.end-start,0,textNode.length));
+  }
+ }
  if(globalThis.CSS?.highlights&&globalThis.Highlight){
-  CSS.highlights.set('rsvp-exact-focus',new Highlight(r));
+  CSS.highlights.set('rsvp-aperture-scope',new Highlight(r));
+  CSS.highlights.set('rsvp-exact-focus',new Highlight(word));
  }
  // Only scroll to the word when it escapes the visible reading pane, and
  // yield to deliberate human scrolling. No jump every RSVP clock tick.
@@ -272,26 +339,53 @@ function makeEditor(mark=null){
  $('editKind').value=draft.kind;$('editResolved').checked=!!draft.resolved;
  $('editResolved').closest('label').hidden=draft.kind!=='QUESTION';
  $('editRemove').hidden=!mark;
+ $('editDayline').hidden=draft.kind!=='APPLIED';
  showStatus('Exact SHA-bound passage; original source is not edited.');
  $('editText').focus({preventScroll:true});
 }
 function closeEditor(){
  editing=null;$('readingEdit').hidden=true;showStatus('');
 }
-function saveEditor(){
- if(!editing)return;
+function draftEditor(){
+ if(!editing)return null;
  const note=$('editText').value.trim();
- if(!note)return showStatus('Write a note, question or application to save.');
- if(note.length>500)return showStatus('500 character limit.');
+ if(!note)return showStatus('Write a note, question or application to save.'),null;
+ if(note.length>500)return showStatus('500 character limit.'),null;
  const kind=$('editKind').value;
- if(!['NOTE','QUESTION','APPLIED'].includes(kind))return;
+ if(!['NOTE','QUESTION','APPLIED'].includes(kind))return null;
  const m={...editing,note,kind,resolved:kind==='QUESTION'&&$('editResolved').checked};
- if(!noteBound(m))return showStatus('Source changed: do not attach this note to other bytes.');
- const marks=allMarks.filter(x=>x.id!==m.id);
- marks.push(m);
- if(saveMarks(marks)){
+ if(!noteBound(m))return showStatus('Source changed: do not attach this note to other bytes.'),null;
+ return m;
+}
+function saveEditor(){
+ const m=draftEditor();if(!m)return;
+ if(saveMarks([...allMarks.filter(x=>x.id!==m.id),m])){
   selectedRange=null;closeEditor();if(shelfOpen)renderShelf();
  }
+}
+// A human APPLIED mark can become Dayline work, but never automatically.
+// Stage the source-exact packet; Dayline's native bridge still requires
+// an explicit ADD TO DAY click. A rejected packet leaves source untouched.
+function carryToDayline(){
+ const m=draftEditor();if(!m)return;
+ if(m.kind!=='APPLIED')return showStatus('Choose APPLIED for a proposed next action.');
+ const source=window.RSVPReader?.source();
+ let packet;try{
+  packet=proposedDaylineHandoff({
+   raw,hash,label:source?.label||'READING',
+   sourceAddress:source?.sourceAddress||'',mark:m
+  });
+ }catch(e){return showStatus(e.message)}
+ try{
+  sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));
+ }catch(e){return showStatus('Local handoff unavailable; the source is unchanged.')}
+ const updated=[...allMarks.filter(x=>x.id!==m.id),m];
+ if(!saveMarks(updated)){
+  try{sessionStorage.removeItem('atlas.dayline.handoff.v01')}catch(_){}
+  return;
+ }
+ selectedRange=null;closeEditor();
+ window.location.assign('/atlas-dayline/?live=1');
 }
 function removeEditor(){
  if(!editing)return;
@@ -375,7 +469,7 @@ function sync(){
   renderIdentity();selectedRange=null;closeEditor();shelfOpen=false;
   $('marksShelf').hidden=true;$('fullSource').hidden=false;refreshMarks();
  }
- paintFocus();
+ paintFocus();paintScale();
 }
 function seekTextClick(e){
  if(!raw||!textNode||e.target.closest('a,button'))return;
@@ -397,7 +491,11 @@ $('editSave').onclick=saveEditor;
 $('editRemove').onclick=removeEditor;
 $('editCancel').onclick=closeEditor;
 $('editReference').onclick=copyRef;
-$('editKind').onchange=()=>{$('editResolved').closest('label').hidden=$('editKind').value!=='QUESTION'};
+$('editDayline').onclick=carryToDayline;
+$('editKind').onchange=()=>{
+ $('editResolved').closest('label').hidden=$('editKind').value!=='QUESTION';
+ $('editDayline').hidden=$('editKind').value!=='APPLIED';
+};
 window.addEventListener('storage',e=>{
  if(e.key&&e.key===FieldSourceTrail.storageKey(sourceKey()))refreshMarks();
 });
@@ -411,4 +509,4 @@ sync();
 globalThis.RSVPSourceInstrument=Object.freeze({sync,mode:()=>sourceMode,sourceLength:()=>raw.length,
  currentWindow:()=>({start,end}),paired:()=>sourceMode==='LISTEN ENERGY',
  pin:pinHere,annotate:makeEditor,marks:()=>({bound:boundMarks.length,all:allMarks.length,state:trailState,furthest}),
- jumpMark,pickRing});
+ jumpMark,pickRing,pickScale,turnScale});

@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080c12">
 <title>THE RING · READFIELD / WRIST</title>
-<link rel="stylesheet" href="./ring.css?v=1.2-bearing">
+<link rel="stylesheet" href="./ring.css?v=1.3-aperture">
 </head><body>
 <main>
 <header><span class="path" id="label">PIN / LOCAL</span><span class="meta" id="speed">260 WPM</span></header>
@@ -19,6 +19,7 @@
 <circle class="sweep" id="sweep" cx="60" cy="7" r="1.9"/>
 <g id="marks"></g>
 <g id="sourcePins" aria-label="Source-anchored bookmarks and authored notes"></g>
+<g id="apertureTicks" aria-hidden="true"></g>
 </svg>
 <span class="axis"></span>
 <span class="listen-glyph" id="listenGlyph" hidden aria-hidden="true"></span>
@@ -30,7 +31,7 @@
 <section class="reading-field" id="readingField" aria-label="Full exact source and annotations">
 <div class="reading-heading"><span id="sourceExtent">LOAD A SOURCE TO READ</span><nav class="reading-actions" aria-label="Source actions"><button type="button" id="pinHere" title="Remember this exact position in the existing source trail">PIN</button><button type="button" id="noteHere" title="Annotate selected source text or the current word">NOTE</button><button type="button" id="showMarks" title="Show source-bound notes and bookmarks">MARKS <span id="markCount">0</span></button></nav></div>
 <div class="reading-pane"><div class="full-source" id="fullSource" tabindex="0" role="document" aria-label="Whole text with active source location; select a passage then choose NOTE"></div><section id="marksShelf" class="marks-shelf" hidden aria-label="Saved passages"><div id="marksStatus" class="marks-status" role="status"></div><ol id="marksList"></ol></section></div>
-<section class="reading-edit" id="readingEdit" hidden aria-label="Annotate exact source range"><div class="edit-top"><span id="editQuote" class="edit-quote"></span><button type="button" id="editCancel" title="Return to the source without saving">×</button></div><div class="edit-fields"><label>Kind <select id="editKind"><option>NOTE</option><option>QUESTION</option><option>APPLIED</option></select></label><label class="edit-resolve"><input id="editResolved" type="checkbox"> Resolved</label><textarea id="editText" maxlength="500" rows="2" placeholder="What did this passage make you notice, question, or decide?"></textarea></div><div class="edit-actions"><button type="button" id="editSave">SAVE</button><button type="button" id="editRemove" hidden>REMOVE</button><button type="button" id="editReference">COPY REF</button><output id="editStatus" role="status"></output></div></section></section>
+<section class="reading-edit" id="readingEdit" hidden aria-label="Annotate exact source range"><div class="edit-top"><span id="editQuote" class="edit-quote"></span><button type="button" id="editCancel" title="Return to the source without saving">×</button></div><div class="edit-fields"><label>Kind <select id="editKind"><option>NOTE</option><option>QUESTION</option><option>APPLIED</option></select></label><label class="edit-resolve"><input id="editResolved" type="checkbox"> Resolved</label><textarea id="editText" maxlength="500" rows="2" placeholder="What did this passage make you notice, question, or decide?"></textarea></div><div class="edit-actions"><button type="button" id="editSave">SAVE</button><button type="button" id="editRemove" hidden>REMOVE</button><button type="button" id="editReference">COPY REF</button><button type="button" id="editDayline" hidden title="Carry an APPLIED note as a proposed Dayline task; explicit ADD required">↗ DAY</button><output id="editStatus" role="status"></output></div></section></section>
 <footer>
 <div class="meter" id="meter" role="group" aria-label="Source position, furthest visited, and authored marks"><i id="visitFill" aria-hidden="true"></i><i id="fill" aria-hidden="true"></i><div id="markRail" aria-label="Saved source addresses"></div><span id="meterHint" class="sr">Tap this source rail to seek. Pins open exact authored source ranges; the dim extent is furthest visited, not reading completion.</span></div>
 <div class="status"><span id="position">NO SOURCE</span><span id="state">READY</span></div>
@@ -52,5 +53,5 @@
 </main>
 <p class="sr" id="runLive" aria-live="polite"></p>
 <field-aperture id="wristAperture" hidden inert aria-hidden="true"></field-aperture>
-<script src="/lib/document-structure.js"></script><script src="/lib/read-trail.js?v=0.2-bearing"></script><script src="/field-aperture.js?v=0.8.7"></script><script src="./ring-core.js"></script><script src="./ring-view.js"></script><script src="./ring-app.js?v=1.2-bearing"></script><script src="/lib/readfield-review.js"></script><script type="module" src="./source-instrument.mjs?v=1.2-bearing"></script>
+<script src="/lib/document-structure.js"></script><script src="/lib/read-trail.js?v=0.2-bearing"></script><script src="/field-aperture.js?v=0.8.7"></script><script src="./ring-core.js"></script><script src="./ring-view.js"></script><script src="./ring-app.js?v=1.3-aperture"></script><script src="/lib/readfield-review.js"></script><script type="module" src="./source-instrument.mjs?v=1.3-aperture"></script>
 </body></html>

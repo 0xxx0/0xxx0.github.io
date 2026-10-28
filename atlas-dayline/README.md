@@ -99,3 +99,26 @@ Atlas earns survival only when it reveals useful actionability, reorientation, b
   peer-reviewed sources; its rule list is the projection rules above).
 - Machine contract / address: `/atlas-dayline/` in `showcase-manifest.json`.
 - Release receipt: `/atlas-dayline/release.json`.
+
+
+## Explicit source-derived work: READFIELD / WRIST → Dayline
+
+One exact annotated `APPLIED` source range can propose one Dayline task
+through the already-existing `atlas.dayline.handoff.v01` session channel
+and the `?live=1` reality port. The source carries SHA-256 revision,
+UTF-16 interval, verbatim quoted passage, authored next action, and an
+optional `/docs/?src=…&ap_char=…` link. This is **provenance**, not task
+priority, schedule, or proof of comprehension.
+
+Only `ADD TO DAY` creates the task in canonical Dayline local storage.
+Nothing is added to RUN without Dayline's own explicit route operation.
+Clearing the packet does not change source/Dayline. After ADD, the visible
+`RETURN TO SOURCE` link retains the original session-local read point.
+The Dayline task cannot edit or delete the original annotation. A locally
+pasted text without a source file path has a hash reference rather than a
+fabricated navigable URL.
+
+This covers one meaningful cross-domain move, not automatic work
+extraction or a universal task/reading graph. A future source-wide
+inventory/priority queue requires a distinct migration and human
+adoption gate rather than enlarging the current shell.

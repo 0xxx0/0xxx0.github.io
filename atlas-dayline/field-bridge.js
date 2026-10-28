@@ -23,7 +23,14 @@ document.getElementById('utilityBar').insertAdjacentElement('afterend',panel);
 const phone=window.matchMedia('(max-width:760px)').matches;if(phone)panel.classList.add('fl-compact');
 const toggle=document.getElementById('flToggle');const syncToggle=()=>{if(toggle)toggle.textContent=panel.classList.contains('fl-compact')?'FIELD':'HIDE'};syncToggle();if(toggle)toggle.onclick=()=>{panel.classList.toggle('fl-compact');syncToggle()};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let current=null;const HANDOFF='atlas.dayline.handoff.v01';
+let current=null,lastHandoffReturn='';const HANDOFF='atlas.dayline.handoff.v01';
+function safeReturn(value){
+ try{
+  const u=new URL(String(value||''),location.origin);
+  return u.origin===location.origin&&['http:','https:'].includes(u.protocol)?
+   u.pathname+u.search+u.hash:'';
+ }catch{return ''}
+}
 function api(){if(!window.AtlasDayline)throw Error('Dayline bridge API unavailable');return window.AtlasDayline}
 function addButton(c,label='ADD'){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{api().addFieldTask(c);b.textContent='ADDED';b.disabled=true};return b}
 function row(c,gate=false){const d=document.createElement('div');d.className='fl-row'+(gate?' fl-gate':'');d.innerHTML='<div><strong>'+esc(c.title)+'</strong><p>'+esc(c.body)+'</p><span class="src">'+esc(c.sourceRef)+'</span></div>';const a=document.createElement('div');if(gate&&c.route){const l=document.createElement('a');l.href=c.route;l.textContent='OPEN';a.appendChild(l)}else a.appendChild(addButton(c));d.appendChild(a);return d}
@@ -31,13 +38,20 @@ function readHandoff(){try{const x=JSON.parse(sessionStorage.getItem(HANDOFF)||'
 function clearHandoff(){sessionStorage.removeItem(HANDOFF);renderHandoff()}
 function renderHandoff(){
  const host=document.getElementById('flHandoff'),h=readHandoff();host.textContent='';
- if(!h){host.innerHTML='<div class="fl-portbar"><span class="fl-meta">No pending handoff.</span><a href="/house/spatial/">HOUSE / SPACE ↗</a><a href="/shopping/">SHOPPING ↗</a><a href="/port/comms/">COMMS ↗</a></div>';return}
+ if(!h){
+  host.innerHTML='<div class="fl-portbar"><span class="fl-meta">No pending handoff.</span><a href="/house/spatial/">HOUSE / SPACE ↗</a><a href="/shopping/">SHOPPING ↗</a><a href="/port/comms/">COMMS ↗</a></div>';
+  if(lastHandoffReturn){
+   const back=document.createElement('a');back.href=lastHandoffReturn;
+   back.textContent='↶ RETURN TO SOURCE';host.querySelector('.fl-portbar').prepend(back);
+  }
+  return;
+ }
  const d=document.createElement('div');d.className='fl-row';const src=h.source||{},payload=h.payload||{},kind=String(h.kind||'').toUpperCase();
  const body=kind==='CONTEXT'?'Apply planning context: '+(payload.contexts||[]).join(' · '):(payload.task?.title||'Imported task');
  d.innerHTML='<div><strong>'+esc(kind+' / '+(src.label||src.object_id||src.route||'SOURCE'))+'</strong><p>'+esc(body)+'</p><span class="src">'+esc(src.route||'')+(src.address?' · '+esc(typeof src.address==='string'?src.address:JSON.stringify(src.address)):'')+'</span></div>';
  const a=document.createElement('div');
- const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||'',replacePrefix:payload.replacePrefix||''});else if(kind==='TASK')api().addFieldTask(payload.task||{});else throw Error('unsupported handoff kind');sessionStorage.removeItem(HANDOFF);renderHandoff();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
- a.appendChild(take);if(h.return_to){const back=document.createElement('a');back.href=h.return_to;back.textContent='BACK';a.appendChild(back)}const drop=document.createElement('button');drop.textContent='CLEAR';drop.onclick=clearHandoff;a.appendChild(drop);d.appendChild(a);host.appendChild(d)
+ const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||'',replacePrefix:payload.replacePrefix||''});else if(kind==='TASK')api().addFieldTask(payload.task||{});else throw Error('unsupported handoff kind');lastHandoffReturn=safeReturn(h.return_to);sessionStorage.removeItem(HANDOFF);renderHandoff();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
+ a.appendChild(take);if(safeReturn(h.return_to)){const back=document.createElement('a');back.href=safeReturn(h.return_to);back.textContent='BACK';a.appendChild(back)}const drop=document.createElement('button');drop.textContent='CLEAR';drop.onclick=clearHandoff;a.appendChild(drop);d.appendChild(a);host.appendChild(d)
 }
 const evList=v=>Array.isArray(v)?v:(typeof v==='string'?v.split(/\s*\u00b7\s*/).map(t=>t.trim()).filter(Boolean):[]);
 function render(){

@@ -217,6 +217,19 @@ function renderGates(){
   host.appendChild(t);
  }
 }
+// The central RSVP word stays a word while the surrounding native aperture
+// may be PARAGRAPH, SECTION or DOCUMENT. Use the same FieldAperture units.
+function anchoredWord(s){
+ if(!s||s.kind!=='TEXT'||s.scale==='WORD')return s?.focus||'φ';
+ const units=ap.A?.scales?.find(x=>x.id==='WORD')?.units||[];
+ let lo=0,hi=units.length-1,at=Number(s.char_index)||0;
+ while(lo<=hi){
+  const m=(lo+hi)>>1,u=units[m];
+  if(at<u.start)hi=m-1;else if(at>=Math.max(u.start+1,u.end))lo=m+1;
+  else return u.text||u.value||s.focus||'φ';
+ }
+ return units[Math.min(Math.max(lo,0),units.length-1)]?.text||s.focus||'φ';
+}
 function paintStrip(s){
  const strip=document.querySelector('.word'),before=el('before'),mark=el('mark'),after=el('after');
  if(!strip)return;
@@ -236,7 +249,7 @@ function paintStrip(s){
   return;
  }
  strip.classList.remove('gate');mark.style.width='';
- const parts=FieldAperture.orpParts((s&&s.focus)||'φ');
+ const parts=FieldAperture.orpParts(anchoredWord(s));
  before.textContent=parts.before;mark.textContent=parts.mark;after.textContent=parts.after;
 }
 function paintContext(s){
@@ -492,7 +505,7 @@ async function load(text,name,options={},request=++epoch){
  if(options.focus?.wpm!=null)wpm=options.focus.wpm;
  wpm=Math.min(6000,Math.max(60,Number(wpm)||260));
  resetRun();
- ap.load(raw,{label,format:'TXT',scale:'WORD',charIndex:char,wpm});loading=false;
+ ap.load(raw,{label,format:'TXT',scale:focus?.scale||'WORD',charIndex:char,wpm});loading=false;
  document.dispatchEvent(new CustomEvent('rsvp:source-loaded',{detail:{hash:sourceHash}}));
  // Source bytes remain session-only. Explicit incoming focus is consumed once;
  // reload resumes the shared trail rather than replaying an old handoff cursor.
@@ -537,16 +550,46 @@ el('stage').onclick=e=>{
  if(suppressClick){suppressClick=false;return}
  if(gate){const k=sectorFromEvent(e);if(k>=0)answer(k);return}
  if(window.RSVPSourceInstrument?.pickRing?.(e))return;
+ if(window.RSVPSourceInstrument?.pickScale?.(e))return;
  if(seekRingEvent(e))return;
  toggle();
 };
 /* Hold to decode (P14): the key is the ring's own vocabulary, raised over the ring.
    The hold never reaches the tap path — a revealed key must not also toggle playback. */
+let ringGesture=null;
+function polarBand(e){
+ const rect=document.querySelector('.orbit')?.getBoundingClientRect();
+ if(!rect?.width||!rect?.height)return null;
+ const dx=(e.clientX-rect.left-rect.width/2)/(rect.width/120),
+       dy=(e.clientY-rect.top-rect.height/2)/(rect.height/120),
+       r=Math.hypot(dx,dy);
+ if(r>=41&&r<=60)return 'address';
+ if(innerWidth>240&&r>=18&&r<=28)return 'aperture';
+ return null;
+}
 el('stage').addEventListener('pointerdown',e=>{
  if(gate)return;
  clearTimeout(holdTimer);
- holdTimer=setTimeout(()=>{suppressClick=true;showDecode()},520);
+ const zone=e.isPrimary&&e.button===0&&raw&&!(run&&!run.over)?polarBand(e):null;
+ ringGesture=zone?{id:e.pointerId,x:e.clientX,y:e.clientY,zone,moved:false}:null;
+ if(ringGesture)try{el('stage').setPointerCapture(e.pointerId)}catch(_){}
+ holdTimer=setTimeout(()=>{ringGesture=null;suppressClick=true;showDecode()},520);
 });
+el('stage').addEventListener('pointermove',e=>{
+ const g=ringGesture;if(!g||g.id!==e.pointerId)return;
+ if(!g.moved&&Math.hypot(e.clientX-g.x,e.clientY-g.y)<7)return;
+ g.moved=true;clearTimeout(holdTimer);
+ if(g.zone==='address')seekRingEvent(e);
+ else window.RSVPSourceInstrument?.pickScale?.(e);
+});
+el('stage').addEventListener('pointerup',e=>{
+ if(ringGesture?.id===e.pointerId){
+  if(ringGesture.moved)suppressClick=true;
+  ringGesture=null;
+  try{el('stage').releasePointerCapture(e.pointerId)}catch(_){}
+ }
+});
+
 const endHold=()=>{clearTimeout(holdTimer);if(decodeOpen)hideDecode()};
 el('stage').addEventListener('pointerup',endHold);
 el('stage').addEventListener('pointercancel',endHold);
@@ -584,6 +627,8 @@ window.addEventListener('keydown',e=>{
  if(e.code==='Space'){e.preventDefault();toggle()}
  else if(e.code==='ArrowLeft'){e.preventDefault();step(-1)}
  else if(e.code==='ArrowRight'){e.preventDefault();step(1)}
+ else if(e.key==='['){e.preventDefault();window.RSVPSourceInstrument?.turnScale?.(1)}
+ else if(e.key===']'){e.preventDefault();window.RSVPSourceInstrument?.turnScale?.(-1)}
  else if(e.code==='ArrowUp')adjust(wpm+20);
  else if(e.code==='ArrowDown')adjust(wpm-20);
 });
@@ -600,7 +645,11 @@ window.RSVPReader=Object.freeze({
  key:()=>trailKey,
  source:()=>raw?{raw,hash:sourceHash,label,sourceAddress}:null,
  snapshot:()=>raw?snap():null,
- seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true}
+ seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true},
+ setScale:index=>{
+  if(!raw||gate||(run&&!run.over)||!Number.isInteger(index)||index<0||index>=(ap.A?.scales?.length||0))return false;
+  ap.stop();ap.setScale(index);persist();return true;
+ }
 });
 window.RingApp={
  state,
