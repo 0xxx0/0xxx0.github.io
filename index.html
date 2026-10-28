@@ -425,9 +425,9 @@ html[data-field-words]:not([data-instrument="1"]) #fieldOmnibarKeys button[data-
 html[data-field-words]:not([data-instrument="1"]) #fieldWords{display:block;grid-column:5;grid-row:1;min-width:40px;min-height:44px;padding:6px;border:0;border-left:1px solid var(--line);background:transparent;color:var(--ink);font:14px/1 system-ui,sans-serif;cursor:pointer;}
 html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
-<link rel="stylesheet" href="./field-bar-landing.css?v=0.2-tower-sync-1">
+<link rel="stylesheet" href="./field-bar-landing.css?v=0.2">
 
-<link rel="stylesheet" href="./tower/tower-section.css">
+<link rel="stylesheet" href="./tower/tower-section.css?v=native-sync-1">
 </head>
 <body><main>
 <header>
@@ -1844,7 +1844,7 @@ window.FieldIndexReadModel=Object.freeze({
   function mountWhenReady() {
     if (mounted) return;
     if (members() > 6 || tries++ > 60) {
-      try { window.LandingTower.mount(host); mounted = true; }
+      try { window.LandingTower.mount(host, { compact: true }); mounted = true; }
       catch (e) { console.error('tower mount failed', e); }
       return;
     }

@@ -32,7 +32,7 @@ const results=[];
 try{
   // One-screen native FIELD entry: every CURRENT mark is visible, with no
   // duplicate named cards or invented source map. No scrolling to find heads.
-  for(const [width,height] of [[320,640],[390,844],[1280,800]]){
+  for(const [width,height] of [[320,568],[320,640],[390,844],[1280,800]]){
     const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce'});
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'/');
@@ -58,6 +58,9 @@ try{
         pageScroll:document.documentElement.scrollHeight-innerHeight};
     });
     const headN=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.filter(h=>h.route!=='/').length;
+    assert.equal(await page.locator('#tower').isVisible(),true,'native tower remains present '+width);
+    const centers=await page.locator('#tower .tw-ring').evaluateAll(ns=>ns.map(n=>{const r=n.getBoundingClientRect();return r.top+r.height/2}).sort((a,b)=>a-b));
+    assert.ok(centers.every((y,i)=>!i||y-centers[i-1]>=44),'native rings retain touch separation '+width);
     assert.equal(g.count,headN,'every CURRENT glyph rendered '+width);
     assert.equal(g.display,'grid','native glyph matrix, not labeled list '+width);
     assert.ok(g.rows>=1&&g.rows<=3,'all heads in <=3 rows '+width+' '+JSON.stringify(g));
@@ -131,7 +134,7 @@ try{
     await page.locator('#tower').waitFor({state:'visible'});
     await input.fill(':glyphs');await input.press('Enter');
     await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
-    assert.equal(await page.locator('#tower').isVisible(),false,'native glyph landing remains compact');
+    assert.equal(await page.locator('#tower').isVisible(),true,'existing native tower stays at the landing');
     assert.deepEqual(errors,[],'no landing script errors '+width);
     console.log('FIELD GLYPH ONE-SCREEN PASS '+width+'px · '+g.count+' accessible CURRENT marks / '+g.rows+' rows · HOLD, Aa, OPEN, BACK');
     if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'landing-glyphs-'+width+'.png')});}

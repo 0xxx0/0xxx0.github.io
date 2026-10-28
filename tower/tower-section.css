@@ -209,3 +209,9 @@ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) main:has(
   #tower h2 { font-size: 9.5px; letter-spacing: 0.12em; }
   #tower .tw-reading { font-size: 10px; }
 }
+
+/* Keep the native tower alongside all CURRENT glyphs on a phone. Four axis
+   centers remain 48 viewBox units apart; only debug captions leave the figure. */
+#tower[data-tower-compact="1"] .tw-stage{max-width:300px;margin-inline:auto}
+#tower[data-tower-compact="1"] :is(.tw-tag,.tw-fold){display:none}
+html[data-field-words="folded"] #tower[data-tower-compact="1"] :is(h2,.tw-reading){display:none}

@@ -3,8 +3,6 @@
    Aa reveals only the held object's existing detail in this projection.
    Native :work/:prove/:trace and instrument/reader own further depth.
    No replacement store, tool-picker, card renderer or action authority. */
-/* The existing AXIS command reveals the existing tower, not another home. */
-html[data-field-words][data-field-bar-pane="prove"]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar)>#tower{display:block!important}
 html[data-field-words]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar){
   width:min(850px,100%);margin:0 auto!important;
   padding:clamp(70px,19svh,184px) clamp(10px,2vw,20px) 16px!important;

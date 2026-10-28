@@ -83,8 +83,9 @@ native owner; rotating back to an already held route must not open it. An unheld
 native route stays explicitly unheld. Focus and unwrapped strips survive passive
 synchronization; stale animation cannot overrule a later native selection.
 
-The existing `:axis` command reveals the existing tower alongside its native proof
-region. Ordinary entry keeps the one-screen glyph landing. This is the bounded
+The existing tower remains on the landing alongside every CURRENT glyph. Its compact
+figure preserves ring separation; explanatory prose folds behind Aa. The existing
+`:axis` command still opens native proof/constraint depth. This is the bounded
 selection seam needed before the source→read→revisit→annotate→compress→RETURN task;
 it is not completion of that task or recovery of the original April ROOM runtime.
 The native FIELD browser journey checks both directions, unheld state, full-wrap

@@ -228,8 +228,9 @@
     inst.t = tower.rings.map(function () { return 1; });
     inst.focus = 0;
 
-    inst.layout = T.towerLayout(tower.rings, { w: VIEW_W });
-    inst.height = inst.layout.height;
+    inst.layout = T.towerLayout(tower.rings, inst.opt.compact ? { w: VIEW_W, gap: 48, topPad: 32 } : { w: VIEW_W });
+    inst.height = inst.opt.compact ? inst.layout.bottom + inst.layout.ry + 12 : inst.layout.height;
+    inst.el.setAttribute("data-tower-compact", inst.opt.compact ? "1" : "0");
     inst.tagY = inst.layout.bottom + inst.layout.ry + 30;
     inst.totalY = inst.tagY + 18;
 
