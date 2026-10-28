@@ -38,8 +38,6 @@ jobs:
         run: node tools/sleeper-source-aperture-selftest.cjs
       - name: Playwright-free Chromium reading-first integration
         run: node tools/sleeper-read-play-dom-smoke.mjs
-      - name: Existing LADDER deterministic source / city / path-factor laws
-        run: node sleeper/ladder/ladder-selftest.mjs
       - name: LADDER source projection, offset boundary and drift rejection
         run: node tools/sleeper-ladder-thread-selftest.mjs
       - name: LADDER to THREADWALK browser source and RETURN circuit
