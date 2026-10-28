@@ -220,7 +220,7 @@
       focus:s.focus,route:s.path.slice(),moves:s.moves.map(x=>({...x})),links:s.links.map(x=>({...x})),topology:s.links.map(l=>effect(m,s,l)),
       verification:{level:'STRUCTURAL_ONLY',semantic:'UNVERIFIED_USER_JUDGMENT',sourceBytes:'NOT_EMBEDDED',method:'EXACT_OFFSETS_AND_HASH'}};
   }
-  function restore(m,o){if(!o||o.schema!==SCHEMA||o.source?.hash!==m.hash||o.source?.sha256!==m.sha256||o.source?.characters!==m.source.length)throw Error('RETURN_SOURCE_MISMATCH');
+  function restoreState(m,o,draft=false){if(!o||o.schema!==(draft?'sleeper.threadwalk-draft/v0.1':SCHEMA)||o.source?.hash!==m.hash||o.source?.sha256!==m.sha256||o.source?.characters!==m.source.length)throw Error('RETURN_SOURCE_MISMATCH');
     let s=blank(m);const keys=ids(m);
     if(!Array.isArray(o.route)||o.route.length<1||o.route.length>10000||o.route[0]!==m.nodes[0].id)throw Error('RETURN_ROUTE_INVALID');
     if(o.route[o.route.length-1]!==o.focus||!keys.has(o.focus))throw Error('RETURN_FOCUS_INVALID');
@@ -241,11 +241,35 @@
       if(e.via==='ORDER'&&!m.edges.some(x=>x.kind==='ORDER'&&((x.a===from&&x.b===id)||(x.a===id&&x.b===from)))||!['COMMITTED','ORDER'].includes(e.via))throw Error('RETURN_ROUTE_DISCONNECTED');
     }
     s={...s,focus:o.focus,path:replay,moves:o.moves.map(x=>({...x})),selected:null,future:[]};
-    if(!canReturn(s))throw Error('RETURN_REQUIRES_CROSSED_DOOR_AND_ORIGIN');
-    if(JSON.stringify(o.topology)!==JSON.stringify(s.links.map(l=>effect(m,s,l))))throw Error('RETURN_TOPOLOGY_TAMPERED');return s;
+    if(!draft&&!canReturn(s))throw Error('RETURN_REQUIRES_CROSSED_DOOR_AND_ORIGIN');
+    if(JSON.stringify(o.topology)!==JSON.stringify(s.links.map(l=>effect(m,s,l))))throw Error('RETURN_TOPOLOGY_TAMPERED');
+    if(draft){
+      if(o.selected!==null&&!keys.has(o.selected))throw Error('DRAFT_SELECTION_INVALID');
+      if(!o.witnesses||Array.isArray(o.witnesses)||typeof o.witnesses!=='object'||Object.keys(o.witnesses).length>m.nodes.length)throw Error('DRAFT_WITNESSES_INVALID');
+      const witnesses={};for(const [id,c] of Object.entries(o.witnesses)){
+        if(c.node!==id)throw Error('DRAFT_WITNESS_INVALID');
+        const ix=evidenceChoices(m,id).findIndex(e=>e.start===c.start&&e.end===c.end);
+        if(ix<0||c.quoteHash!==hash(m.source.slice(c.start,c.end)))throw Error('DRAFT_WITNESS_TAMPERED');
+        witnesses[id]=cite(m,blank(m),id,ix).witnesses[id];
+      }
+      const future=o.future||[];
+      if(!Array.isArray(future)||future.length>m.nodes.length*4)throw Error('DRAFT_REDO_INVALID');
+      let links=s.links.slice();for(const record of future){
+        links.push(record.link);
+        restoreState(m,{...o,links,route:record.path,moves:record.moves,focus:record.focus,future:[],topology:links.map(l=>effect(m,{...s,links},l))},true);
+      }
+      s={...s,selected:o.selected,witnesses,future:JSON.parse(JSON.stringify(future))};
+    }
+    return s;
   }
+  function restore(m,o){return restoreState(m,o,false)}
+  function draft(m,s){
+    if(!m.sha256||m.hash!==s.sourceHash)throw Error('DRAFT_SOURCE_MISMATCH');
+    return{schema:'sleeper.threadwalk-draft/v0.1',source:{hash:m.hash,sha256:m.sha256,characters:m.source.length},focus:s.focus,route:s.path.slice(),moves:s.moves.map(x=>({...x})),links:s.links.map(x=>({...x})),topology:s.links.map(l=>effect(m,s,l)),selected:s.selected,witnesses:{...s.witnesses},future:JSON.parse(JSON.stringify(s.future))};
+  }
+  function resumeDraft(m,o){return restoreState(m,o,true)}
   function orp(s){const a=Array.from(s),idx=Math.max(0,Math.min(a.length-1,Math.round((a.length-1)*.35)));return[a.slice(0,idx).join(''),a[idx]||'',a.slice(idx+1).join('')]}
-  return Object.freeze({SCHEMA,hash,words,segments,createModel,seal,validURL,blank,neighbors,suggestions,move,select,commit,undo,redo,hasCrossed,canReturn,evidenceChoices,cite,routeHome,distanceBetween,effect,artifact,restore,orp});
+  return Object.freeze({SCHEMA,hash,words,segments,createModel,seal,validURL,blank,neighbors,suggestions,move,select,commit,undo,redo,hasCrossed,canReturn,evidenceChoices,cite,routeHome,distanceBetween,effect,artifact,restore,draft,resumeDraft,orp});
 });
 
 </script>
@@ -551,13 +575,20 @@ return Object.freeze({SCALES,tokensOf,createScore,atChar,axis,seek,zoom,setScale
     undo(){session=T.undo(session);render();},
     redo(){session=T.redo(session);render();},
     returnArtifact(){return T.artifact(model,session);},
+    checkpoint(){return{draft:T.draft(model,session),inspected};},
+    resume(checkpoint){
+      if(!n(checkpoint?.inspected))throw Error('DRAFT_INSPECTION_INVALID');
+      const restored=T.resumeDraft(model,checkpoint.draft);
+      session=restored;inspected=checkpoint.inspected;render();
+    },
     originStep(){const path=T.routeHome(model,session);if(path.length>1)navigate(path[1]);},
     showField(){setMode('read');$('#sourceMode').classList.add('hidden');$('#returnMode').classList.add('hidden');$('#work').classList.remove('hidden');}
   });
 })();
 </script>
 <script src="./ladder/thread-bridge.js"></script>
-<script src="./reading-play.js"></script>
+<script src="./threadwalk-work.js?v=work-1"></script>
+<script src="./reading-play.js?v=work-first-2"></script>
 <script src="./bell-world.js"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@ async function dependencies(){
  await sourceScript('/lib/document-structure.js','FieldDocumentStructure');
  await sourceScript('/lib/read-trail.js?v=review-2','FieldSourceTrail');
  await sourceScript('/field-aperture.js?v=0.8.7','FieldAperture');
+ await sourceScript('/lens-state.js','LensState');
  if(!document.querySelector('[data-interphase-continuum]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/interphase/continuum.css'+release;l.dataset.interphaseContinuum='';document.head.append(l)}
 }
 function safePath(value){if(!value)return '';try{const u=new URL(value,location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch{return ''}}
@@ -43,7 +44,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  </details>
  <div class="ip-row"><button data-ip="edit">EDIT THIS RANGE</button><button data-ip="undo" disabled>UNDO</button><button data-ip="redo" disabled>REDO</button></div>
  <details><summary>Connect passages or sources</summary><p>HOLD FIRST → open another exact source → CONNECT HERE. Follow only verified revisions and RETURN to the exact caller; interpretation is never proof.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
- <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a><a data-ip="glyphfield" href="/interphase/?legacy=1" hidden>◎ GLYPHFIELD ↗</a></div>
+ <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a><button data-ip="lens">SCALE LENS ↗</button><button data-ip="threadwalk">THREADWALK ↗</button><a data-ip="glyphfield" href="/interphase/?legacy=1" hidden>◎ GLYPHFIELD ↗</a></div>
  <details><summary>Exact source / retained tools</summary><p data-ip="identity"></p><button data-ip="raw-open">SHOW EXACT RANGE</button><pre data-ip="raw" hidden></pre><div class="ip-doors" data-ip="more-ports"></div><p><a href="/interphase/?legacy=1">Ω / HISTORY / DAYLINE / AXIS ↗</a> · <a href="/?work=0">Native FIELD map ↗</a> · <a href="/interphase/SPEC.md">Specification ↗</a></p><p>Search is lexical. Links are interpretations. Native effects stay with their host. The exported RETURN carries the current revision, not the session undo stack.</p></details></section>
  <p class="ip-status" data-ip="status" role="status">Opening the source.</p>
  <div class="ip-space" id="ip-source-space" data-ip="space" tabindex="0" aria-label="Source space. Left/right move, up widens scope, down narrows scope, space reads."><div class="ip-scene">
@@ -137,7 +138,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   pendingAnnotation={hash:source.hash,start:u.start,end:u.end,quote,scope:m?.scale||scope,id:m?.id||('review:'+source.hash+':'+u.start+':'+u.end)};
   el('note-target').textContent=u.start+'–'+u.end+' · '+quote.slice(0,100)+(quote.length>100?'…':'');
   el('note-text').value=m?.note||'';el('note-kind').value=m?.kind||'NOTE';el('note-resolved').checked=!!m?.resolved;
-  el('note-text').focus({preventScroll:true});
+  el('note-text').focus({preventScroll:true});el('note-text').scrollIntoView({block:'nearest'});
  }
  function revisit(){
   if(!source)return;const notes=authored(),next=notes.find(m=>m.charIndex>char())||notes[0];
@@ -277,7 +278,13 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    ' explicit relations. Tap an authored mark to revisit, follow a relation chord, or use the source band to seek. The gap separates first and last character.');
   const active=witness.notes.find(n=>anchor>=n.charIndex&&anchor<n.endIndex);
   const button=el('witness-open');
-  button.hidden=!active;
+  button.hidden=false;button.disabled=false;
+  if(!active){
+   const range=at(model,anchor,scope);button.dataset.witnessId='';button.disabled=range.end-range.start>12000;
+   button.textContent=button.disabled?'NARROW TO ANNOTATE':'ANNOTATE';button.title='Attach your interpretation to this exact source range.';
+   button.setAttribute('aria-label','Annotate the current range at characters '+range.start+'–'+range.end);
+   button.onclick=run(()=>{drawer(true);el('review-fold').open=true;holdAnnotation()});
+  }
   if(active&&(rebuild||button.dataset.witnessId!==active.id)){
    button.dataset.witnessId=active.id;
    button.textContent=(active.kind==='QUESTION'?(active.resolved?'●':'○'):active.kind==='APPLIED'?'■':'│')+' '+active.kind;
@@ -588,6 +595,29 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   persist(snap(),true);location.href=destination;
  }
  el('reader').onclick=run(e=>{e.preventDefault();handoff('/docs/?handoff=1')});el('wrist').onclick=run(e=>{e.preventDefault();handoff('/rsvp/?handoff=1')});
+ // Continue the existing source in its native instruments. The source checkpoint
+ // remains here; a child owns its own operations and cannot award caller effects.
+ async function excursion(destination){
+  if(!source||model.kind!=='TEXT')throw Error('Open a text or Markdown work for this excursion. JSON keeps its native structural aperture.');
+  const limit=destination==='threadwalk'?100000:250000;
+  if(source.raw.length>limit)throw Error(`This native instrument accepts at most ${limit} characters. Source held here; nothing truncated.`);
+  if(destination==='threadwalk'&&source.raw.normalize('NFC')!==source.raw)throw Error('Threadwalk normalizes this Unicode source. Exact-range excursion held here.');
+  ap.stop();const p=packet(),s=snap(),u=new URL(location.href),range=at(model,char(),scope);
+  u.searchParams.set('resume',source.hash);
+  const origin={schema:'source-aperture-excursion/v1',revision:source.hash,anchor:char(),scope,range:{start:range.start,end:range.end,quote:source.raw.slice(range.start,range.end)},returnAddress:u.pathname+u.search+u.hash};
+  const witnesses=[...links.flatMap(l=>[l.from,l.to]).filter(e=>e.source===undefined||e.source===source.address),origin.range];
+  const seen=new Set();origin.witnesses=witnesses.filter(e=>Number.isInteger(e.start)&&Number.isInteger(e.end)&&e.end>e.start&&e.end-e.start<=12000&&source.raw.slice(e.start,e.end)===e.quote).filter(e=>{const k=e.start+':'+e.end;if(seen.has(k))return false;seen.add(k);return true}).slice(0,16).map(e=>({start:e.start,end:e.end,quote:e.quote}));
+  const before=JSON.parse(sessionStorage.getItem('rsvp.handoff.v1')||'null');
+  const carrier={raw:source.raw,label:source.label,hash:source.hash,sourceAddress:source.address,focus:s,returnAddress:origin.returnAddress,apertureOrigin:origin};
+  if(before?.hash===source.hash&&before.threadwalkDraft)carrier.threadwalkDraft=before.threadwalkDraft;
+  // Both writes must succeed before navigation. Existing pagehide persistence
+  // keeps the same source/cursor; the opaque native draft travels only as cargo.
+  sessionStorage.setItem('interphase.continuum.v1',JSON.stringify(p));
+  if(destination==='lens')LensState.storeHandoff({objectId:source.hash,address:source.address||source.hash,focusId:source.hash+':'+char(),aperture:{level:scope,range:`${range.start}:${range.end}`},projection:'TEXT',returnAddress:origin.returnAddress,sourceRefs:[source.address].filter(Boolean),meta:{title:source.label,apertureOrigin:origin}},{text:source.raw,title:source.label});
+  else sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify(carrier));
+  location.href=destination==='lens'?'/fold-bloom/lens/?aperture=1':'/sleeper/axis-score.html?read=1&aperture=1';
+ }
+ el('lens').onclick=run(()=>excursion('lens'));el('threadwalk').onclick=run(()=>excursion('threadwalk'));
  let drag=null;
  function enterWitness(note){
   if(!source||!witness||note.sourceHash!==source.hash)return;

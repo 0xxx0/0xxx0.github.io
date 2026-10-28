@@ -37,10 +37,10 @@ async function continuumBrowserProof(){
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
-   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.10-door2'),'release key missing: '+file);
+   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.12-use'),'release key missing: '+file);
   }
   await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
-  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.10-door2'));assert.deepEqual(cacheErrors,[]);
+  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.12-use'));assert.deepEqual(cacheErrors,[]);
   await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
   // A real cold import can outlast the former 15-second reveal timeout.
   // The one-bar CSS must never strand native commands behind hidden regions.

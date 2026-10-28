@@ -5,6 +5,96 @@ Status: corrective continuation, 2026-10-25 (Singapore). The operator explicitly
 mechanical evidence, not acceptance. This document replaces the 0.10 product target;
 the exact earlier spec and implementations remain in Git.
 
+## 28 October: make the retained instrument usable
+
+Continuation of #1040, not another route or replacement reader. The operator asks
+for usability across the retained instrument and conditional integration of
+Borrowed Garden. The working source/range and previously authored interpretation
+remain the object throughout. Default depth must expose a real action on that
+object before showing ids, schemas and laboratory representations.
+
+- Aperture: the held range exposes ANNOTATE directly. Existing marks still open
+  their own native editor; notes retain exact quote/hash/range and glyph meanings.
+  Overlarge ranges ask for narrower scope. Opening the editor reveals its input.
+- Scale Lens: source, actual scope, traversal and held comparisons precede the
+  folded inspector. TOOLS retains source import, graph addresses, other domains,
+  relations, provenance, spatial projection and the shared route adapter. No
+  native control or route is deleted. Text's primary scope choices use the actual
+  word/sentence/paragraph/document ancestry; wheel and drag use those choices.
+- Threadwalk: primary reading / threads / return remain outside TOOLS. Device-local
+  native work is stored by exact SHA-256, without copying source bytes into that
+  store. Witnesses, links, path, inspected passage, redo and pending reasons are
+  validated against the same native model before resuming. Another revision gets
+  another record. Corrupt/quota/conflicting writes are explicit and preserve the
+  stored work. EXPORT WORK / SOURCE file import round-trip source + draft as an
+  explicitly unfinished work file; the completed RETURN gate remains unchanged.
+
+Borrowed Garden identity is now grounded: Yongneng Conan Cheong, *In a Borrowed
+Garden: A Rhizomatic Theory of Transnational Tibetan Art*, Wesleyan, 2012; catalog
+https://www.wesleyan.edu/art/arthist/honors_in_art_history/Completed%20Honors%20Projects1.html.
+This is distinct from the existing FOLD//BLOOM GARDEN/Ecology excursion. The catalog
+and departmental honors guidance verify bibliography, not thesis arguments. A
+bounded search of the institutional catalog, web, named files and connected stores
+has not recovered its primary text. No thesis excerpt, invented theory, or garden
+UI is imported. The earlier “bounded presentation / unbounded reference” account
+remains our prior critical reconstruction, not a close reading. Stop this retrieval
+pass here; reopen on a new source pointer, rather than let the search delay usable
+work or turn a metaphor into software authority.
+
+The cross-host browser task now also requires direct exact annotation, folded
+Lens depth with reachable native tools, genuine paragraph expansion, pending-reason
+return, per-revision device resume in a new tab, and a portable work export. Keep
+source/semantic/proof boundaries intact. Device persistence does not establish a
+cloud library or comprehension. Inspect 320/390/1280 captures before promotion.
+
+## 28 October: aperture / Scale Lens / Threadwalk continuation candidate
+
+The operator also rejected the READFIELD review wrapper (#1027). Its green
+annotation tests establish mechanics, not that it recovered the better instrument.
+The wrapper survives as a utility/donor; do not call it the accepted product.
+The strongest selected continuation is the existing aperture, Scale Lens and
+Threadwalk. The September READFIELD↔Lens migration was a **proposal**, not evidence
+that distant pins, nested focus and exact return had already shipped together.
+`recovery/axial/state-transform-v0.3/` preserves a stronger state/transform control
+ancestor; it is not substituted for native text/graph operations in this slice.
+
+This candidate exercises one actual work (`fold-bloom/listen/README.md`): hold two
+source ranges in the native aperture, inspect both in Scale Lens while scope and
+focus move, return exactly, author a Threadwalk connection with two witnesses,
+leave it unfinished, and resume it. Existing source and session carriers own the
+state. No new route, iframe shell or source database is introduced. Secondary
+excursions stay in the existing Source drawer. JSON keeps its native structure;
+text/Markdown is the bounded cross-host slice.
+
+Changes: Lens resolves and reads the requested graph node, rejects unknown nodes,
+restores native scope/focus atomically, and leaves explicit held sets/projections
+alone when native controls move. Frozen caller quotes remain visible alongside
+its existing source window. The ring no longer assigns arbitrary hash hues or
+radial jitter: a white outline means focus; dot size means atom count. Threadwalk
+checkpoints exact witnesses, reasoned links, route, inspection and redo under its
+own draft validator. Its completed RETURN still requires a crossed door and a
+return to origin. The existing aperture checkpoint restores bytes, char, scope,
+view, WPM, held relations and local return frames, with playback paused.
+
+Bounds and remaining debt: Lens accepts 250,000 characters; Threadwalk accepts
+100,000 characters and 48 native segments. Threadwalk normalizes NFC, so this
+exact-range excursion rejects non-NFC source rather than changing offsets. A
+whitespace/unmapped anchor stays exact in the held caller range; it does not become
+a fabricated graph atom or traversed passage. The session carrier holds one
+Threadwalk work, not a durable multi-document library. Uncommitted composer text,
+keyboard focus and context scroll are not yet restored. Lens TEXT's coarse window
+labels are not proven linguistic scales; this ingress initially uses its real
+DATADISC ancestry. This does not complete the September migration or establish
+human usefulness. Do not promote another layout on the strength of these checks.
+
+Verification: `tools/interphase-source-cycle-selftest.cjs` tests the actual LISTEN
+source, addressed Lens reads/held sets, exact Threadwalk draft/redo, tamper rejection
+and the unchanged strict RETURN gate. `tools/interphase-source-cycle-smoke.mjs`
+exercises the full native round trip at 320/390/1280px and captures Lens/Threadwalk.
+The browser result belongs to the exact candidate head; it must be inspected
+before a claim of working continuity. Publication and operator acceptance remain
+separate from mechanical verification.
+
 ## Refined request
 
 Recover the actual Code-folder prototypes, images and FU/INTERPHASE lineage. Restore
