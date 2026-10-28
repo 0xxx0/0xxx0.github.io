@@ -606,7 +606,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody">
-      <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
+      <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apCue" id="apCue" role="status"><b id="apCueKind">SOURCE</b><span id="apCueText">Choose a route</span></div><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
       <p id="apRole">Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.</p>
       <div class="apFlow" id="apFlow" aria-label="Held object continuation">
         <div class="apNext"><span class="apFlowK">NEXT</span><div class="capMoves" id="capMoves"></div></div>
@@ -1329,7 +1329,27 @@ function renderRunDock(){
  $('runDockWitness').innerHTML='<b>WITNESS</b> '+esc($('capWitness')?.textContent||'—');
  $('runDockForecast').innerHTML='<b>FORECAST</b> '+esc($('capForecast')?.textContent||'—');
 }
+/* A task cue, not a second task database. Exact CURRENT ownership beats
+   manifest capability. Never project a parent HEAD's NEXT onto a child route. */
+function heldCue(r){
+ if(!r)return{kind:'SELECT',text:'Choose one exact glyph to resume work',source:'FIELD'};
+ const h=(current?.current_heads||[]).find(x=>x.route===r.href);
+ const n=h?.next_executable;
+ if(typeof n?.objective==='string'&&n.objective.trim()){
+  const state=String(n.state||'').toUpperCase(),completed=/SHIPPED|DONE|COMPLETE|CLOSED|OBSERVE_ONLY/.test(state);
+  return{kind:completed?'STATUS':'NEXT',text:n.objective.trim(),source:'CURRENT.json · '+(n.state||'NEXT')};
+ }
+ const verb=String(r.contract?.transforms?.verb||r.role||'').trim();
+ return{kind:'DOES',text:verb||'No declared capability text; inspect this source',source:'showcase-manifest.json · '+r.href};
+}
+function renderHeldCue(r){
+ const c=heldCue(r),el=$('apCue'),k=$('apCueKind'),txt=$('apCueText');
+ if(!el||!k||!txt)return;
+ k.textContent=c.kind;txt.textContent=c.text;el.title=c.source+' · '+c.text;
+ el.dataset.cueSource=c.kind==='NEXT'||c.kind==='STATUS'?'CURRENT':'MANIFEST';
+}
 function renderAperture(){
+ renderHeldCue(focus);
  const seen=$('apSeen'),residue=$('focusResidue');
  if(!focus){
   const impossible=currentMatches().length===0;
