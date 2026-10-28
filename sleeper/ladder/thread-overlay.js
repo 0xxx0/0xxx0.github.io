@@ -9,6 +9,7 @@ let overlay=null,frame=null,active=null,ready=false;
 const css=document.createElement('style');
 css.textContent=[
  '#ladderOverlay{position:fixed;inset:0;z-index:4000;background:#07131c}',
+ '#ladderOverlay[hidden]{display:none!important}',
  '#ladderFrame{width:100%;height:100%;border:0;display:block}',
  '#ladderClose{position:absolute;z-index:2;top:52px;right:8px;min-height:40px;padding:8px 12px;border:1px solid #697e88;background:#0a1c26;color:#f0d093;font:12px ui-monospace,monospace;cursor:pointer}',
  '#ladderClose:focus-visible{outline:2px solid #f0d093}'
@@ -28,14 +29,23 @@ function label(){
  foot.title='READ '+L.factor(n).en+' ('+L.factor(n).locator+') · return to the same walk';
 }
 function close(){
- if(!overlay)return false;
- const node=overlay;overlay=null;frame=null;active=null;
- node.remove();
+ if(!overlay||overlay.hidden)return false;
+ // Preserve the exact reader frame: closing LADDER must not erase a held
+ // source sentence, an unfinished comparison, or a reversible authored door.
+ // The native painting/city is still the authority for all Gate proofs.
+ overlay.hidden=true;overlay.setAttribute('aria-hidden','true');
+ try{frame?.contentWindow?.postMessage({schema:'sleeper.ladder-reader-pause/v1'},location.origin)}catch(_){}
  foot.focus();label();
  return true;
 }
 function open(){
- const n=nextFactor();if(n===null||overlay)return;
+ const n=nextFactor();if(n===null)return;
+ if(overlay){
+  if(!overlay.hidden)return;
+  overlay.hidden=false;overlay.removeAttribute('aria-hidden');
+  overlay.querySelector('#ladderClose')?.focus();
+  return;
+ }
  active={factor:n,before:L.state()};
  overlay=document.createElement('div');overlay.id='ladderOverlay';overlay.setAttribute('role','dialog');
  overlay.setAttribute('aria-label','Threadwalk source projection');overlay.setAttribute('aria-modal','true');
@@ -52,7 +62,7 @@ window.addEventListener('message',e=>{
  if(e.data?.schema==='sleeper.ladder-reader-close/v1')close();
 });
 window.addEventListener('keydown',e=>{
- if(e.key==='Escape'&&overlay){e.preventDefault();close();}
+ if(e.key==='Escape'&&overlay&&!overlay.hidden){e.preventDefault();close();}
 });
 L.ready.then(s=>{
  if(s?.error){foot.title='SOURCE GAP / READER UNAVAILABLE';return;}
@@ -60,7 +70,7 @@ L.ready.then(s=>{
 }).catch(()=>{foot.title='SOURCE GAP / READER UNAVAILABLE';});
 foot.addEventListener('pointerenter',label);foot.addEventListener('focus',label);
 window.SleeperLadderRead=Object.freeze({
- current:nextFactor,isOpen:()=>!!overlay,close,
+ current:nextFactor,isOpen:()=>!!overlay&&!overlay.hidden,close,
  before:()=>active?.before||null
 });
 })();
