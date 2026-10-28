@@ -26,7 +26,7 @@ try{
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/?focus=%2Ffold-bloom%2F');
   await page.waitForFunction(()=>window.FieldBarLanding?.view?.()==='browse'&&window.FieldIndexReadModel?.snapshot?.().routes.length>0,null,{timeout:30000});
-  const expected=await page.evaluate(()=>{const s=window.FieldIndexReadModel.snapshot();return{all:s.routes.length,heads:s.heads.length}});
+  const expected=await page.evaluate(()=>{const s=window.FieldIndexReadModel.snapshot();return{all:s.routes.length,heads:s.heads.filter(h=>h!=='/'&&s.routes.some(r=>r.href===h)).length}});
   assert.equal(await page.locator('#feedRail .feedChip').count(),expected.heads,'resting glyphs must be CURRENT subset');
   const scope=page.locator('#feedRail .feedScopeToggle');
   assert.equal(await scope.isVisible(),true,'ALL scope must be reachable in one-screen glyph rail');
