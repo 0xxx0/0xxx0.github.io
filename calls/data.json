@@ -1,32 +1,10 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-28T04:23:24+08:00",
+ "generated_at": "2026-10-28T15:53:24+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
- "open": [
-  {
-   "id": "money-topup",
-   "title": "Credits — the wall",
-   "options": [
-    {
-     "k": "A",
-     "t": "Top up Nous",
-     "eff": "paid quality routes back on (primary lane)"
-    },
-    {
-     "k": "B",
-     "t": "Top up OpenRouter",
-     "eff": "fallback/spare lane funded"
-    },
-    {
-     "k": "C",
-     "t": "Stay free-only",
-     "eff": "$0 spend; I optimize for free models"
-    }
-   ]
-  }
- ],
+ "open": [],
  "called": {
   "purge": {
    "id": "purge",
@@ -139,6 +117,13 @@
    "pick_label": "Later",
    "note": "",
    "ts": "2026-10-25T01:39:17"
+  },
+  "money-topup": {
+   "id": "money-topup",
+   "pick": "A",
+   "pick_label": "Top up Nous",
+   "note": "",
+   "ts": "2026-10-28T15:53:00"
   },
   "six-0817-retire": {
    "id": "six-0817-retire",

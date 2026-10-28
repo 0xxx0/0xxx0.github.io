@@ -38,10 +38,6 @@ html[data-field-words][data-field-bar-pane="trace"]:not([data-instrument="1"]) m
 html[data-field-words][data-field-bar-pane="trace"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#statusFold,
 html[data-field-words][data-field-bar-pane="map"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#statusFold{display:block!important}
 html[data-field-words][data-field-bar-pane]:not([data-field-bar-pane="none"]):not([data-instrument="1"]) main:has(> #fieldUrlBar){padding-top:clamp(12px,4svh,40px)!important}
-/* 320px viewport proof: TOWER was an active 449px flow child despite the
-   compact-page hide rule. Suppress it only in BROWSE; its native view survives. */
-html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar)>#tower{display:none!important}
-
 html[data-field-words][data-field-bar-pane]:not([data-field-bar-pane="none"]):not([data-instrument="1"]) #axialLatest{margin-top:8px!important}
 html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #axialLatest > :not(#aperture){display:none!important}
 html[data-field-words][data-field-bar-pane="work"]:not([data-instrument="1"]) #axialLatest>#workDepth,

@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-28T04:23:24+08:00",
+  "updated": "2026-10-28T15:53:25+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10436,7 +10436,7 @@
       "family": "FIELD / OPS",
       "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers via one-tap Telegram deep links, fold receipts. Projection of sovereign-node/corpus/calls/calls.json; regenerate with scripts/build-calls.py.",
       "index": {
-        "updated_at": "2026-10-28T04:23:24+08:00",
+        "updated_at": "2026-10-28T15:53:25+08:00",
         "work_modes": [
           "OPERATE",
           "IMPLEMENT",
