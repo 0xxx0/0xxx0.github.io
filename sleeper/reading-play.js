@@ -149,7 +149,7 @@ function render(){
    // source identities. This cannot move the Threadwalk cursor or open a gate.
    const carry=element('div','bookMap');
    carry.id='bellCarry';
-   carry.append(element('div','tiny','HOLD / CHECK / CARRY · SAME BELL PASSAGE'));
+   carry.append(element('div','tiny','BELL ↔ LADDER / HOLD · CHECK · CARRY'));
    const witness=s.witnesses[node.id];
    if(witness)carry.append(element('blockquote','quote',quote(m,witness)));
    else carry.append(element('p','notice','First tap an exact Bell sentence above. The Ladder excerpt cannot stand in for Bell evidence.'));
