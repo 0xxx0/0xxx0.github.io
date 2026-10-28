@@ -278,16 +278,48 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   else if(source?.returnTo){persist(snap(),true);location.href=source.returnTo}
   else status('No earlier source context is held.');
  }
- function packet(){return{schema:'interphase.continuation/v1',source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links:structuredClone(links),marks:[...marks],frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo,authority:'LOCAL_SOURCE_ONLY',residue:{undoFrames:undo.length,policy:'CURRENT_REVISION_ONLY; session undo is not transported; native ports are resolved from the current host, never imported'}}}
+ function packet(){
+  const stored=trail(),r=stored.review;
+  const review=r.revision===source.hash?{...r}:{purpose:r.purpose,terms:r.terms,conclusion:'',revision:source.hash};
+  return{schema:'interphase.continuation/v1',source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},
+   attention:attention(),links:structuredClone(links),marks:[...marks],frames:frames.filter(f=>f.hash===source.hash).slice(-64),
+   annotations:authored(),review,returnTo:source.returnTo,authority:'LOCAL_SOURCE_ONLY',
+   residue:{undoFrames:undo.length,policy:'CURRENT_REVISION_ONLY; authored marks must match exact quote and hash; session undo is not transported; native ports resolve from current host'}};
+ }
  async function importPacket(p){
   const request=++epoch;
   if(!p||p.schema!=='interphase.continuation/v1'||p.authority!=='LOCAL_SOURCE_ONLY'||typeof p.source?.raw!=='string'||typeof p.source?.hash!=='string'||typeof p.source?.label!=='string'||typeof p.source?.address!=='string'||!p.attention||!Array.isArray(p.links)||!Array.isArray(p.marks)||!Array.isArray(p.frames)||p.frames.length>64)throw Error('Unsupported RETURN.');
   if(p.source.address&&!safePath(p.source.address))throw Error('Unsupported RETURN source address.');
   if(p.returnTo&&!safePath(p.returnTo))throw Error('Unsupported RETURN destination.');
+  // Optional v1 extension; legacy RETURNs remain valid. Reject forged offsets,
+  // source quotes, changed revisions, and surplus notes BEFORE changing the view.
+  const incoming=p.annotations??[],incomingReview=p.review??null;
+  if(!Array.isArray(incoming)||incoming.length>64||incoming.some(m=>!validNote(m,p.source.raw,p.source.hash)||
+   typeof m.id!=='string'||!m.id||m.id.length>250||m.quote.length>12000))
+   throw Error('RETURN annotation quote or revision mismatch.');
+  if(new Set(incoming.map(m=>m.id)).size!==incoming.length)throw Error('Duplicate RETURN annotation identity.');
+  if(incomingReview!==null&&(!incomingReview||typeof incomingReview!=='object'||
+   ['purpose','terms','conclusion'].some(k=>typeof incomingReview[k]!=='string')||
+   incomingReview.purpose.length>500||incomingReview.terms.length>300||
+   incomingReview.conclusion.length>2000||incomingReview.revision!==p.source.hash))
+   throw Error('RETURN working conclusion revision mismatch.');
+  const key=FieldSourceTrail.sourceKey({address:p.source.address,id:p.source.hash});
+  const existing=FieldSourceTrail.read(key),merged=new Map(existing.marks.map(m=>[m.id,m]));
+  for(const m of incoming)merged.set(m.id,m);
+  if(merged.size>64)throw Error('64 authored marks retained. Export previous work before importing another RETURN.');
+  if((incoming.length||incomingReview)&&!['READY','EMPTY'].includes(existing.storageState))
+   throw Error('Cannot persist authored RETURN in this browser; source has not been changed.');
   const prepared=await prepare(p.source.raw,p.source.label,p.source.address,{hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,returnTo:p.returnTo});
   try{validateAttention(prepared.model,p.attention);for(const f of p.frames){if(f.hash!==p.source.hash)throw Error('RETURN path revision mismatch.');validateAttention(prepared.model,f)}}finally{prepared.candidate.remove()}
   const live=p.source.address==='/showcase-manifest.json'?await manifest(true):null,current=live?.hash===p.source.hash;
-  return load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,returnTo:p.returnTo});
+  const result=await load(p.source.raw,p.source.label,p.source.address,{request,catalog:current?live:null,trusted:current,hash:p.source.hash,attention:p.attention,links:p.links,marks:p.marks,frames:p.frames,returnTo:p.returnTo});
+  if(result&&(incoming.length||incomingReview)){
+   const applied=FieldSourceTrail.write({...existing,sourceKey:key,marks:[...merged.values()],
+    review:incomingReview?{...existing.review,...incomingReview}:existing.review});
+   if(applied.storageState!=='READY')throw Error('Could not save authored RETURN; export the packet before leaving.');
+   paint();
+  }
+  return result;
  }
  el('source').onclick=()=>drawer(el('drawer').hidden);
  el('close').onclick=()=>{drawer(false);if(el('status').dataset.error)status('The held source is unchanged.')};
