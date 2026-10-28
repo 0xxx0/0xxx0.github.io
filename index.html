@@ -1531,16 +1531,22 @@ async function loadCachedTouches(){
 }
 function renderFeed(){
  const currentRoutes=(current?.current_heads||[]).map(h=>routeMap().get(h.route)).filter(r=>r&&r.href&&r.href!=='/');
- const xs=feedScope==='HEADS'?[...currentRoutes].sort((a,b)=>(a.title||a.href).localeCompare(b.title||b.href)):latest.slice(0,latestLimit),parts=[];let lastDay='';
+ const xs=feedScope==='HEADS'?[...currentRoutes].sort((a,b)=>(a.title||a.href).localeCompare(b.title||b.href)):feedScope==='ALL'?[...routes].sort((a,b)=>(a.title||a.href).localeCompare(b.title||b.href)):latest.slice(0,latestLimit),parts=[];let lastDay='';
+ // A scope switch lives inside the compact glyph rail, where the legacy ALL
+ // button is hidden. CURRENT is editorial attention, never rank or authority.
+ if(feedScope==='HEADS'||feedScope==='ALL'){
+  const all=feedScope==='HEADS',caption=all?'ALL '+routes.length+' ROUTES':'CURRENT '+currentRoutes.length+' HEADS';
+  parts.push('<button type="button" class="feedScopeToggle" data-scope="'+(all?'ALL':'HEADS')+'" aria-label="Show '+esc(caption)+'" title="'+esc(caption)+' · same native route set, no ranking">'+(all?'∞':'中')+'</button>');
+ }
  // The rail's slice moves with scope and ALL, so its tags come from the slice it is drawing:
  // two chips on this rail can never share a mark, whatever the scope.
  const feedTags=computeMarkTags(xs);
  const scope=$('feedScope'),all=$('moreLatest'),hint=$('feedInstruction'),rail=$('feedRail');
  if(scope){scope.textContent=feedScope==='HEADS'?'RECENT':'CURRENT HEADS';scope.title=feedScope==='HEADS'?'Show recent route touches; recency is not priority':'Show addressable CURRENT heads; order is not priority';scope.setAttribute('aria-pressed',feedScope==='HEADS'?'true':'false')}
  if(all){all.hidden=feedScope==='HEADS';if(feedScope==='HEADS')all.textContent='ALL'}
- if(hint)hint.textContent=feedScope==='HEADS'?'CURRENT HEADS · choose one to hold; held head opens on second tap':'RECENT · route chronology, not priority · select to hold; held route opens on second tap';
- if(rail)rail.setAttribute('aria-label',feedScope==='HEADS'?'Addressable CURRENT heads; order is not priority':'Recently touched routes; recency is not priority');
- if($('feedMeta'))$('feedMeta').textContent=feedScope==='HEADS'?xs.length+' addressable CURRENT heads · order is not rank · '+routeGitDrift():xs.length+' shown · '+routes.length+' addressed · '+routeGitDrift();
+ if(hint)hint.textContent=feedScope==='HEADS'?'CURRENT SUBSET · '+xs.length+' of '+routes.length+' · not priority':feedScope==='ALL'?'ALL '+routes.length+' ADDRESSED ROUTES · alphabetic, not priority':'RECENT · route chronology, not priority · select to hold; held route opens on second tap';
+ if(rail)rail.setAttribute('aria-label',feedScope==='HEADS'?'Curated CURRENT subset, not priority; select ALL to expose every address':feedScope==='ALL'?'All manifest routes in alphabetical order, not priority':'Recently touched routes; recency is not priority');
+ if($('feedMeta'))$('feedMeta').textContent=feedScope==='HEADS'?xs.length+' of '+routes.length+' CURRENT · curated, not rank · '+routeGitDrift():xs.length+' of '+routes.length+' routes · order is not rank · '+routeGitDrift();
  if(!xs.length)parts.push('<span class="feedEmpty">'+(feedScope==='HEADS'?'No addressable CURRENT heads.':'No addressed routes available.')+' <a href="./control/">Read CURRENT →</a></span>');
  for(const r of xs){
    const d=shortDay(r.index?.updated_at||'');
@@ -1549,6 +1555,7 @@ function renderFeed(){
    parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt><span class="feedName">'+esc(r.title||r.href)+'</span></button>');
  }
  rail.innerHTML=parts.join('');
+ rail.querySelector('.feedScopeToggle')?.addEventListener('click',e=>{feedScope=e.currentTarget.dataset.scope;renderFeed()});
  rail.querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,feedScope==='HEADS'?'HEADS':'LATEST')});
  applyFocusSignal();renderSyncLine();try{updateStatusRail()}catch(_){}
 }
