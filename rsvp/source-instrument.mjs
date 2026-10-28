@@ -86,7 +86,7 @@ function paintScale(){
   scaleIndex=selected;
   for(const line of host.querySelectorAll('.scope-tick'))line.classList.toggle('active',Number(line.dataset.scopeIndex)===selected);
  }
- $('signalLabel').textContent=scaleCaption+' · '+(snapshot.scale_label||snapshot.scale||'WORD').toUpperCase();
+ $('signalLabel').textContent=scaleCaption+' · SCALE '+(snapshot.scale_label||snapshot.scale||'WORD').toUpperCase();
  $('signalLabel').title='INNER RING / APERTURE: scale. OUTER RING: source position. TAP or DRAG. [ ] changes scale.';
  $('stage').setAttribute('aria-label','Center: read or pause. Outer ring: seek source address. Inner ring: change native aperture scale. During a recall gate choose a word.');
 }
