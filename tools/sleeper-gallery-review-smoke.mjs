@@ -64,6 +64,7 @@ try{
     await page.locator('.rf-source-tools > summary').click();
     await page.locator('#returnLink').click();
     await page.waitForURL('**/sleeper/archive/#fields');
+    await page.waitForFunction(()=>document.querySelectorAll('#fields .review-link').length===10);
     assert.equal(await page.locator('#fields .review-link').count(),10,'return preserved the ten-field gallery');
     assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
     samples.push({width,field:title,revision:before.revision,marks:1,returned:true});
