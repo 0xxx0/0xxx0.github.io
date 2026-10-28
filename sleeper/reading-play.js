@@ -25,6 +25,25 @@ let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=f
 let bellComparison=null,bellCarry=null,ladderProjectionPromise=null;
 // In-memory, exact-source-bound drafts: never copy an interpretation to a new quote.
 const bellDrafts=new Map(),doorDrafts=new Map();
+// This is a reading lens, not a Gate, quiz, or claim that the eight path
+// factors are completed one after another. Payutto Ch. 12 explicitly rejects
+// that interpretation; MN 117 describes the supporting work of the triad.
+const PATH_SUPPORT=Object.freeze({
+ view:'VIEW / What does this exact line distinguish? Which part is stated, and which part are you inferring?',
+ effort:'EFFORT / What is one skillful response to begin, abandon, or sustain? Make it concrete enough to try.',
+ mindfulness:'MINDFULNESS / What would you observe next? What would cause you to reconsider the response?'
+});
+const FACTOR_MODEL_LIMITS=Object.freeze([
+ 'Holding a district in view models attention; it is not by itself right view.',
+ 'Releasing marks models a change of intention; it does not establish renunciation.',
+ 'Keeping off a ring is not the whole of truthful, timely, beneficial speech.',
+ 'A missing-word exercise cannot demonstrate right conduct toward living beings.',
+ 'A vocabulary check cannot demonstrate an ethical means of livelihood.',
+ 'Walking four steps is a mnemonic, not the cultivation of wholesome qualities.',
+ 'Retracing a path exercises recall; it does not establish mindfulness in lived experience.',
+ 'Holding still models stability; it does not establish meditative concentration.'
+]);
+let supportMode='view';
 const bellDraftKey=(m,node,w,factor)=>[m.sha256,node.id,w?.start,w?.end,w?.quoteHash,factor].join('|');
 const doorDraftKey=(m,marked,node,s)=>[m.sha256,marked.id,s.witnesses[marked.id]?.quoteHash,node.id,s.witnesses[node.id]?.quoteHash].join('|');
 async function compareLadder(index){
@@ -118,6 +137,31 @@ function render(){
   if(entry){
    context.append(element('div','tiny','LADDER / '+(entry.index+1)+'/8 · '+entry.name.toUpperCase()+' · '+entry.locator));
    context.append(element('p','notice','ATTEND: '+entry.question));
+   // Three simultaneous supports, applied to the SAME held source witness.
+   // None of these buttons mutates the Ladder walker or Threadwalk path.
+   const support=element('div','bookMap');support.id='pathSupport';
+   support.append(element('div','tiny','ONE INTEGRATED PATH / THREE SUPPORTS · NOT EIGHT LEVELS'));
+   const supportButtons=element('div','quick'),prompt=element('p','notice');prompt.id='supportPrompt';
+   function showSupport(mode){
+    supportMode=mode;prompt.textContent=PATH_SUPPORT[mode];
+    for(const b of supportButtons.querySelectorAll('button')){
+     const active=b.dataset.mode===mode;
+     b.setAttribute('aria-pressed',String(active));
+     b.style.borderColor=active?'#e6c17d':'#47646b';
+    }
+   }
+   for(const [mode,label] of [['view','VIEW · DISTINGUISH'],['effort','EFFORT · RESPOND'],['mindfulness','MINDFULNESS · RECHECK']]){
+    const control=button(label,()=>showSupport(mode),'ghost');control.dataset.mode=mode;
+    supportButtons.append(control);
+   }
+   support.append(supportButtons,prompt);
+   support.append(element('p','tiny',w?'ANCHOR / HELD SOURCE '+w.start+'–'+w.end:'ANCHOR / TAP AN EXACT SENTENCE ABOVE'));
+   support.append(element('p','tiny','MODEL LIMIT / '+FACTOR_MODEL_LIMITS[i]));
+   const meaning=element('a','tiny','PAYUTTO CH. 12 / WHY THE FACTORS WORK TOGETHER ↗');
+   meaning.href='https://buddhadhamma.github.io/introduction-to-the-middle-way.html';
+   meaning.target='_blank';meaning.rel='noopener noreferrer';support.append(meaning);
+   showSupport(supportMode);
+   context.append(support);
    context.append(element('p','tiny','ABRIDGED DERIVED SELECTION · SOURCE OFFSETS ARE FOR THIS SELECTION · NO GATE PROOF'));
    const refs=element('div','quick');
    const chapter=element('a','', 'PAYUTTO CHAPTER ↗');chapter.href=entry.canonical;chapter.rel='noopener';chapter.target='_blank';refs.append(chapter);
