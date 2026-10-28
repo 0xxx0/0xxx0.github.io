@@ -99,6 +99,15 @@ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #aperture
 }
 @media(prefers-reduced-motion:reduce){html[data-field-bar-pane] #fieldUrlBar *{scroll-behavior:auto!important}}
 
+/* One reversible scope action among native glyphs, never another representation. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedScopeToggle{
+ display:grid;place-items:center;min-height:44px;height:100%;padding:4px;cursor:pointer;
+ border:1px dashed var(--cool);background:transparent;color:var(--cool);
+ font:750 17px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedScopeToggle:focus-visible{
+ outline:2px solid var(--gold);outline-offset:1px;
+}
 /* One contextual DOOR replaces a concealed action cluster. CURRENT is a scope,
    never a privilege assigned to its glyphs. */
 html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #aperture .apActions{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
