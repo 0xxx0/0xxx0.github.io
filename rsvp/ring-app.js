@@ -645,7 +645,11 @@ window.RSVPReader=Object.freeze({
  key:()=>trailKey,
  source:()=>raw?{raw,hash:sourceHash,label,sourceAddress}:null,
  snapshot:()=>raw?snap():null,
- seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true}
+ seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true},
+ setScale:index=>{
+  if(!raw||gate||(run&&!run.over)||!Number.isInteger(index)||index<0||index>=(ap.A?.scales?.length||0))return false;
+  ap.stop();ap.setScale(index);persist();return true;
+ }
 });
 window.RingApp={
  state,
