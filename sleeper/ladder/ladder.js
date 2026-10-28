@@ -1076,9 +1076,15 @@
     }
     if (cur.length) lines.push(cur);
     const at = C.rideAt(r, p, r.t);
-    const mark = r.over ? { frac: r.markFrac, verdict: r.verdict }
-      : (r.markFrac != null ? { frac: r.markFrac, verdict: 'soft' } : null);
-    drawRail(Math.min(H - 8, y0 + 44), p, r.over ? null : at.frac, at.phase, mark);
+    // a soft release rewinds the line over the same 700 ms it takes to say so:
+    // the playhead walks back to the clause, the strip names the miss, and the
+    // ride resumes from there — no silent jump back.
+    const rewind = r.rewindUntil ? (r.rewindU || 0) : null;
+    const headFrac = r.over ? null : (rewind != null
+      ? r.rewindFrom + (r.rewindTo - r.rewindFrom) * rewind : at.charFrac);
+    const mark = r.over ? { frac: r.markChar, verdict: r.verdict }
+      : (r.markChar != null ? { frac: r.markChar, verdict: 'soft' } : null);
+    drawRail(Math.min(H - 8, y0 + 44), p, headFrac, r.rewindUntil ? 'rewind' : at.phase, mark);
     const space = ctx.measureText(' ').width;
     if (r.over) {
       // the news first: what the release was, then the sentence it came from
@@ -1100,16 +1106,18 @@
       for (let k = 0; k < Math.min(2, lines.length); k++) {
         let x = 13;
         for (const w of lines[k]) {
-          ctx.globalAlpha = wi < shown ? 0.95 : 0.26;
+          ctx.globalAlpha = r.rewindUntil ? 0.26 : (wi < shown ? 0.95 : 0.26);
           ctx.fillStyle = 'rgb(214,220,228)';
           ctx.fillText(w, x, y0 + k * 13);
           x += ctx.measureText(w).width + space;
           wi++;
         }
       }
-      ctx.globalAlpha = at.phase === 'window' ? 0.92 : 0.62;
-      ctx.fillStyle = at.phase === 'window' ? 'rgb(232,236,240)' : 'rgb(150,158,168)';
-      ctx.fillText(at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end', 13, y0 + 2 * 13);
+      const notice = r.rewindUntil ? 'early · again from the clause'
+        : (at.phase === 'window' ? 'let go · the end' : 'keep holding · let go at the end');
+      ctx.globalAlpha = r.rewindUntil ? 0.96 : (at.phase === 'window' ? 0.92 : 0.62);
+      ctx.fillStyle = (r.rewindUntil || at.phase === 'window') ? 'rgb(232,236,240)' : 'rgb(150,158,168)';
+      ctx.fillText(notice, 13, y0 + 2 * 13);
     }
     ctx.restore();
   }
@@ -1351,12 +1359,25 @@
       S.refuse.phase = Math.floor((ts - S.refuse.t0) / 90);
       if (S.refuse.phase >= 3) S.refuse = null; else live = true;
     }
-    // the ride runs on frame time; a throttled tab pauses it, it cannot skip it
+    // the ride runs on frame time; a throttled tab pauses it, it cannot skip it.
+    // a soft release pauses the clock for the 700 ms rewind, then resumes from
+    // the clause — the notice and the playhead share the same interval.
     if (S.ride && !S.ride.over) {
-      if (!S.ride.t0) S.ride.t0 = ts - S.ride.t;
-      S.ride.t = ts - S.ride.t0;
+      if (S.ride.rewindUntil) {
+        if (S.ride.rewindStart == null) S.ride.rewindStart = ts;
+        S.ride.rewindUntil = S.ride.rewindStart + C.WAVE_REWIND;
+        S.ride.rewindU = Math.min(1, Math.max(0, (ts - S.ride.rewindStart) / C.WAVE_REWIND));
+        if (ts >= S.ride.rewindUntil) {
+          S.ride.rewindUntil = 0;
+          S.ride.t0 = ts - S.ride.t;
+          S.ride.markChar = null;
+        }
+      } else {
+        if (!S.ride.t0) S.ride.t0 = ts - S.ride.t;
+        S.ride.t = ts - S.ride.t0;
+      }
       const p = S.ride.plan;
-      if (S.ride.t > p.endMs + p.windowMs + 300) {
+      if (!S.ride.rewindUntil && S.ride.t > p.endMs + p.windowMs + 300) {
         const out = C.rideRelease(S.ride, p, S.ride.t);
         S.ride = Object.assign(S.ride, out.ride);
         say(['late · past the end'], 'line', 5);
@@ -1892,7 +1913,7 @@
     if (!d || !d.line) return null;
     S.ride = { plan: C.waveOf(d.line), t: 0, t0: 0, misses: 0, over: false, verdict: null, p: cell.unit.p };
     S.decodeCell = null;
-    S.drag.moved = true;                                // the hold already acted
+    if (S.drag) S.drag.moved = true;                    // the hold already acted (probes may have no drag)
     wake();                                             // the ride needs frame time
     draw();
     return S.ride.plan;
@@ -1900,12 +1921,15 @@
   function endRide() {
     if (!S.ride || S.ride.over) return null;
     const out = C.rideRelease(S.ride, S.ride.plan, S.ride.t);
-    const relFrac = Math.min(1, S.ride.t / S.ride.plan.endMs);
-    S.ride = Object.assign(S.ride, out.ride, { markFrac: relFrac });
+    const relAt = C.rideAt(S.ride, S.ride.plan, S.ride.t);
+    S.ride = Object.assign(S.ride, out.ride, { markChar: relAt.charFrac });
     if (out.verdict === 'soft') {
-      // the instrument bends: the line rewinds to the clause you were in
+      // the instrument bends: the line rewinds to the clause you were in, and
+      // the strip says so while the playhead walks back
+      const toAt = C.rideAt(S.ride, S.ride.plan, out.rewindToMs);
       S.ride.t0 = 0; S.ride.t = out.rewindToMs; S.ride.over = false; S.ride.verdict = null;
-      say(['early · again from the clause'], 'line', 4);
+      S.ride.rewindFrom = relAt.charFrac; S.ride.rewindTo = toAt.charFrac;
+      S.ride.rewindStart = null; S.ride.rewindU = 0; S.ride.rewindUntil = 1;
     } else if (out.verdict === 'sharp') {
       S.rides[S.ride.p] = (S.rides[S.ride.p] || 0) + 1;
       S.taughtRide = true;
@@ -1922,8 +1946,9 @@
   function rideVoiceLines() {
     const r = S.ride, p = r.plan;
     if (r.over) return [p.line, r.verdict === 'sharp' ? 'held to the end' : (r.verdict === 'blown' ? 'late · past the end' : 'early · three times')];
+    if (r.rewindUntil) return [p.line, 'early · again from the clause'];
     const at = C.rideAt(r, p, r.t);
-    return [p.line, at.phase === 'window' ? 'let go · the end' : 'hold · let go at the end'];
+    return [p.line, at.phase === 'window' ? 'let go · the end' : 'keep holding · let go at the end'];
   }
 
   // ── pointer + keyboard (touch-first) ──────────────────────────────────────
@@ -2315,8 +2340,14 @@
     rides: () => JSON.parse(JSON.stringify(S.rides || {})),
     taught: () => !!S.taughtRide,
     redraw: () => { draw(); return true; },
-    rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowFrom.toFixed(4), ticks: pl.crestAt.map((c) => +c.toFixed(4)), words: pl.words } : null; },
+    rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowCharFrom.toFixed(4), ticks: pl.tickChars.map((c) => +c.toFixed(4)), words: pl.words, chars: pl.chars } : null; },
     startRideAt: (n) => { const c = S.field && S.field.cells[n]; return c ? startRide(c) : null; },
+    rideState: () => S.ride ? {
+      t: Math.round(S.ride.t), over: !!S.ride.over, verdict: S.ride.verdict, misses: S.ride.misses,
+      rewind: !!S.ride.rewindUntil, rewindU: +(S.ride.rewindU || 0).toFixed(3),
+      markChar: S.ride.markChar == null ? null : +S.ride.markChar.toFixed(4),
+      phase: C.rideAt(S.ride, S.ride.plan, S.ride.t).phase,
+    } : null,
     frameRect: () => { const g = geoFor(S.distance); return g && g.dst ? { x: g.dst.x, y: g.dst.y, w: g.dst.w, h: g.dst.h } : null; },
     fieldStats: () => S.field ? {
       cutQ: S.field.cutQ, cut: +S.field.cut.toFixed(5), walkable: S.field.walkable, reachable: S.field.reachable,

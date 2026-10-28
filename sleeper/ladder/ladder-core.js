@@ -943,14 +943,24 @@
       WAVE_BASE * Math.min(1.4, Math.max(0.8, cpw / WAVE_CPW)))));
     const marks = [];
     toks.forEach((t, i) => { if (/[,;:—–]$/.test(t)) marks.push(i); });
+    const wordLens = toks.map((t) => t.length);
+    const cum = []; let acc = 0;
+    for (const len of wordLens) { cum.push(acc); acc += len; }
     const last = marks.length ? marks[marks.length - 1] : -1;
     // the final clause, but never earlier than three words before the end
     const from = Math.max(marks.length ? (last + 1) / n : 1, (n - WAVE_LOOK) / n);
     const crestAt = marks.map((i) => (i + 1) / n).concat([1]);
+    // the rail is the sentence: a mark sits under the character that makes it,
+    // and the window starts at the first character of its first word. Word
+    // fractions stay above for time; these are the drawn positions.
+    const tickChars = marks.map((i) => (cum[i] + wordLens[i]) / chars).concat([1]);
+    const windowFrom = Math.min(1, from);
+    const windowWord = Math.min(n - 1, Math.ceil(windowFrom * n));
+    const windowCharFrom = cum[windowWord] / chars;
     return {
       line: text, words: n, chars, charsPerWord: +cpw.toFixed(2),
       beatMs: beat, endMs: n * beat, windowMs: WAVE_CLOSE,
-      windowFrom: Math.min(1, from), crestAt, marks,
+      windowFrom, windowCharFrom, tickChars, cum, wordLens, crestAt, marks,
       digest: hash32('wave|' + text).toString(16).padStart(8, '0'),
     };
   }
@@ -961,7 +971,10 @@
     let phase = 'reading';
     if (tt >= plan.windowFrom * plan.endMs) phase = 'window';
     if (tt > plan.endMs + plan.windowMs) phase = 'after';
-    return { phase, t: tt, frac, i: Math.min(plan.words - 1, Math.floor(frac * plan.words)) };
+    const i = Math.min(plan.words - 1, Math.floor(frac * plan.words));
+    const intra = Math.max(0, Math.min(1, frac * plan.words - i));
+    const charFrac = plan.chars > 0 ? (plan.cum[i] + intra * plan.wordLens[i]) / plan.chars : 0;
+    return { phase, t: tt, frac, charFrac, i };
   }
   function rideRelease(ride, plan, t) {
     const r = { t: ride.t, misses: ride.misses, over: ride.over, verdict: ride.verdict };
@@ -981,10 +994,11 @@
     return { ride: r, verdict: r.verdict, rewindToMs: null };
   }
   function railOf(plan) {
-    // the sentence drawn as time: clause ticks, and the stretch where letting go
-    // is true. Pure, so the rail a proof sees is the rail the page draws.
-    return { ticks: plan.crestAt.slice(), windowFrom: plan.windowFrom, end: 1,
-      windowChars: Math.round((1 - plan.windowFrom) * plan.chars) };
+    // the sentence drawn as time: clause ticks sit under their characters, and
+    // the stretch where letting go is true starts at the first character of the
+    // final clause. Pure, so the rail a proof sees is the rail the page draws.
+    return { ticks: plan.tickChars.slice(), windowFrom: plan.windowCharFrom, end: 1,
+      windowChars: Math.round((1 - plan.windowCharFrom) * plan.chars) };
   }
   function ridePace(plan, releaseMs) {
     const actual = (Number(releaseMs) || 0) / plan.words;
@@ -993,7 +1007,7 @@
   }
 
   return Object.freeze({
-    version: '0.6.3',
+    version: '0.6.4',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
     PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, LEDGER_GAP,
     CUT_LADDER, WEATHERS, SEEN_AT, BREATH_STEP, BREATH_FAIL, ACT_KINDS,
@@ -1003,7 +1017,7 @@
     gateKind, gateAdmits, riseMet, breathBudget, spendBreath, factorLine,
     floodFill, bfs, placeFactors, factorCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
-    waveOf, rideNew, rideAt, rideRelease, ridePace, railOf,
+    waveOf, rideNew, rideAt, rideRelease, ridePace, railOf, WAVE_REWIND,
     changedPx, syntheticPainting, PUNCT,
     FPV, fpvLayout, fpvRow, fpvPoint, fpvQuad, readingHead, wallFaces, openSides, SIDES,
   });

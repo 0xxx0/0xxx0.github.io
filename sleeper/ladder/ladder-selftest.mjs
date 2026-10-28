@@ -702,13 +702,28 @@ section('20 · the wave (a held line rides at its own pace; release at the last 
     JSON.stringify(CORE.waveOf(lines[0])) === JSON.stringify(CORE.waveOf(lines[0])) &&
     CORE.waveOf(lines[0]).digest !== CORE.waveOf(lines[0].replace('a', 'e')).digest,
     'stable; one changed letter is a different score');
-  ok('W11 the rail is the sentence: ticks are its clause marks, the window its last clause',
+  ok('W11 the rail is the sentence: ticks sit under their characters, the window starts at its first character',
     (() => {
       const p = CORE.waveOf('One, two; three: four — five. Six.');
       const r = CORE.railOf(p);
-      return r.ticks.length === p.crestAt.length && r.ticks[r.ticks.length - 1] === 1 &&
-        r.windowFrom === p.windowFrom && r.windowChars > 0 && r.windowChars < p.chars;
-    })(), 'ticks = crestAt; window = last clause');
+      return r.ticks.length === p.tickChars.length && r.ticks[r.ticks.length - 1] === 1 &&
+        r.ticks.every((c, i) => (i === 0 ? c > 0 : c > r.ticks[i - 1])) &&
+        r.windowFrom === p.windowCharFrom && r.windowChars > 0 && r.windowChars < p.chars;
+    })(), 'ticks = character positions; window = first character of the clause');
+  ok('W12 a character tick is not the word fraction it replaces',
+    (() => {
+      const p = CORE.waveOf('Extraordinarily, two three four five six seven.');
+      return Math.abs(p.tickChars[0] - p.crestAt[0]) > 0.02 &&
+        p.tickChars[0] === p.wordLens[0] / p.chars;
+    })(), 'the comma sits after the long word, not after 1/7 of the words');
+  ok('W13 the playhead is a character position and lands at 1',
+    (() => {
+      const p = CORE.waveOf('One, two; three: four — five. Six.');
+      const a = CORE.rideAt(CORE.rideNew(), p, 0).charFrac;
+      const b = CORE.rideAt(CORE.rideNew(), p, Math.round(p.endMs / 2)).charFrac;
+      const c = CORE.rideAt(CORE.rideNew(), p, p.endMs).charFrac;
+      return a === 0 && b > 0 && b < 1 && Math.abs(c - 1) < 1e-9;
+    })(), '0 -> 1 across the line');
   ok('W10 the wave never touches breath (it is attention, not the walk’s stake)',
     !/breath/i.test(CORE.waveOf.toString() + CORE.rideRelease.toString() + CORE.ridePace.toString()),
     'no breath reference in the wave functions');
