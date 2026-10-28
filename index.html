@@ -833,7 +833,12 @@ function syncAxialURL(){
 function applyInitialAxial(){
  const state=INIT.get('ax_state'),op=INIT.get('ax_op'),mode=INIT.get('ax_mode'),href=INIT.get('focus');
  if(state)axisState.state=state;if(op)axisState.operation=op;if(mode)axisState.mode=mode;
- const r=href&&routeMap().get(href),nativeView=INIT.get('instrument')==='1'||INIT.get('work')==='0'||INIT.get('work')==='1';focus=r||(nativeView?null:((current?.current_heads||[]).map(h=>routeMap().get(h.route)).find(x=>x&&x.href!=='/'))||latest.find(x=>x.href!=='/')||null);
+ const r=href&&routeMap().get(href),nativeView=INIT.get('instrument')==='1'||INIT.get('work')==='0'||INIT.get('work')==='1';
+ // The source owner has one explicit NEXT address. Prefer it over manifest
+ // order on cold landing only; never infer a target from prose or recency.
+ const declaredNext=current?.next_single_action?.target_route;
+ const nextRoute=typeof declaredNext==='string'?routeMap().get(declaredNext):null;
+ focus=r||(nativeView?null:(nextRoute||((current?.current_heads||[]).map(h=>routeMap().get(h.route)).find(x=>x&&x.href!=='/'))||latest.find(x=>x.href!=='/')||null));
  // A named focus must not override an explicitly addressed AXIAL aperture.
  // Otherwise reload converts a multi-route filter into the focused route's singleton tuple.
  if(r&&!['ax_state','ax_op','ax_mode'].some(k=>INIT.has(k))){
@@ -1332,6 +1337,10 @@ function renderRunDock(){
    manifest capability. Never project a parent HEAD's NEXT onto a child route. */
 function heldCue(r){
  if(!r)return{kind:'SELECT',text:'Choose one exact glyph to resume work',source:'FIELD'};
+ const declared=current?.next_single_action;
+ if(declared?.target_route===r.href&&typeof declared.instruction==='string'&&declared.instruction.trim()){
+  return{kind:'NEXT',text:declared.instruction.trim(),source:'CURRENT.json · next_single_action · dated '+(current.updated||'unknown')};
+ }
  const h=(current?.current_heads||[]).find(x=>x.route===r.href);
  const n=h?.next_executable;
  if(typeof n?.objective==='string'&&n.objective.trim()){
