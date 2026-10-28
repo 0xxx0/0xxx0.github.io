@@ -37,6 +37,8 @@ eq(DoorEntry.urlFor('https://evil.example'),'','no external DOOR route');
 eq(DoorEntry.urlFor('/house/?bad=1'),'','no query smuggling into native route');
 ok(U.COMMANDS.some(c=>c.id==='door'&&!c.nav),'DOOR is dynamic native address, never static route command');
 
+const declaredRoutes=JSON.parse(fs.readFileSync(new URL('../showcase-manifest.json',import.meta.url),'utf8')).routes;
+for(const r of declaredRoutes)ok(!!DoorEntry.urlFor(r.href),'all declared routes must have DOOR: '+r.href);
 const routes=[
  {href:'/zeta/',title:'Zeta',kind:'hub',operation:'ROUTE',state:'ACTIVE',index:{updated_at:'2026-10-06T10:00:00Z'}},
  {href:'/alpha/',title:'Alpha',kind:'hub',operation:'ROUTE',state:'ACTIVE',index:{updated_at:'2026-01-01T10:00:00Z'}},
