@@ -267,10 +267,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    b.onclick=run(async()=>goDoor(e,await verifyRemote(e)));port(b);
   }
   if(Door.address(source.address,location.origin)===source.address){
-   for(const path of Door.citations(source.raw,u,source.address,location.origin)){
-    const b=document.createElement('button');b.className='ip-relation';b.textContent='SOURCE ↗ '+path;
-    b.title='Literal source citation, not an inference';
-    b.onclick=run(()=>enterCitation(path));port(b);
+   for(const ref of Door.references(source.raw,u,source.address,location.origin)){
+    const b=document.createElement('button');b.className='ip-relation';
+    b.textContent=ref.kind+' ↗ '+ref.path.split('/').at(-1);
+    b.title=ref.kind+' · '+ref.path+' · explicitly declared in this exact source range, not inferred';
+    b.setAttribute('aria-label',ref.kind+' source: '+ref.path);
+    b.onclick=run(()=>enterCitation(ref.path));port(b);
    }
   }
   for(const action of nativeActions()){const a=document.createElement('a');a.href=action.target;a.textContent=(action.label||action.via||action.class||'OPEN')+' ↗';a.title='Native owner: '+(nativeRecord.field?.owner||'FIELD ROUTE');port(a)}
@@ -319,12 +321,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   loading=false;paint();persist(snap(),true);drawer(false);status(`${model.kind==='JSON'?'Structured source':'Exact source'} · ${model.words.length} units · ← → move · − + scope · READ`);
   return api.snapshot();
  }
- async function loadRoute(href){
+ async function loadRoute(href,options={}){
   const request=++epoch;ap?.stop();const m=await manifest();if(request!==epoch||disposed)return;
   const index=m.data.routes.findIndex(r=>r.href===href);if(index<0)throw Error('Unknown FIELD route.');
   const range=m.routeSpans.find(r=>r.routeIndex===index);if(!range)throw Error('FIELD source range unavailable.');
   const readable=m.spans.find(n=>n.path===range.path+'.role')||m.spans.find(n=>n.path===range.path+'.title')||range;
-  const result=await load(m.raw,'FIELD','/showcase-manifest.json',{request,catalog:m,trusted:true,route:href,attention:{scope:'COLLECTION:$.routes',char:readable.contentStart??readable.start}});
+  const result=await load(m.raw,'FIELD','/showcase-manifest.json',{request,catalog:m,trusted:true,route:href,returnTo:options.returnTo||'',attention:{scope:'COLLECTION:$.routes',char:readable.contentStart??readable.start}});
   if(result)route=href;return result;
  }
  async function openPath(value){
