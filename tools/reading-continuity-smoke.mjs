@@ -61,13 +61,60 @@ try{
   assert.ok(clickedChar>=exactTextTarget.start&&clickedChar<=exactTextTarget.start+5,
    'clicking the actual text enters its exact native source interval');
   await page.evaluate(c=>window.RSVPReader.seekChar(c),textBefore);
+  // PIN is a source-bound object. The rail, source glyph, and READFIELD
+  // review must all resolve the SAME quote, SHA and UTF-16 interval.
+  await page.locator('#pinHere').click();
+  assert.equal(await page.locator('#markCount').textContent(),'1','PIN creates one source-bound mark');
+  assert.equal(await page.locator('#markRail button').count(),1,'bookmark maps to actual linear source address');
+  assert.equal(await page.locator('#sourcePins [class=note]').count(),1,'the same bookmark appears on radial source map');
+  await page.evaluate(at=>{
+   const host=document.getElementById('fullSource'),t=host.firstChild,r=document.createRange();
+   r.setStart(t,at);r.setEnd(t,at+'first value'.length);
+   const sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);
+   host.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:7,isPrimary:true}));
+  },raw.indexOf('first value'));
+  await page.locator('#noteHere').click();
+  assert.match(await page.locator('#editQuote').textContent(),/first value/,'actual selected phrase is editable');
+  await page.locator('#editKind').selectOption('QUESTION');
+  await page.locator('#editText').fill('Does this word change the recorded meaning?');
+  await page.locator('#editSave').click();
+  assert.equal(await page.locator('#markCount').textContent(),'2','annotated question is shared with bookmark');
+  assert.equal(await page.locator('#sourcePins .question').count(),1,'question is source-positioned in the same ring');
+  const authored=await page.evaluate(()=>{
+   const key=RSVPReader.key(),all=FieldSourceTrail.read(key).marks,source=RSVPReader.source();
+   return {all,source};
+  });
+  assert.equal(authored.all.length,2);
+  assert.ok(authored.all.every(m=>m.revision===authored.source.hash&&
+   m.quote===authored.source.raw.slice(m.charIndex,m.endIndex)),'every mark is exact SHA/quote bound');
+  await page.locator('#showMarks').click();
+  assert.equal(await page.locator('#marksList li').count(),2,'stored work becomes a plain navigable source list');
+  await page.locator('#marksList li').first().locator('button').first().click();
+  assert.equal(await page.locator('#marksShelf').isVisible(),false,'revisit returns to source, not a new reader');
+  const selectedNote=await page.evaluate(()=>RSVPSourceInstrument.marks());
+  assert.equal(selectedNote.bound,2);
+  if(width===390&&process.env.SCREENSHOT_DIR){
+   fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
+   await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'rsvp-bearing-390.png')});
+  }
+  await page.locator('#editCancel').click();
+  await page.evaluate(c=>window.RSVPReader.seekChar(c),textBefore);
   await page.locator('main #next').click();const moved=await page.evaluate(()=>document.getElementById('wristAperture').snapshot());
   await page.reload();await page.waitForFunction(()=>document.getElementById('drawer').hidden&&document.getElementById('wristAperture').A);
   assert.equal(await page.evaluate(()=>document.getElementById('wristAperture').snapshot().char_index),moved.char_index,'shared trail survives reload');
+  await page.waitForFunction(()=>window.RSVPSourceInstrument?.marks().bound===2);
+  assert.equal(await page.locator('#markRail button').count(),2,'source-bound pins survive WRIST reload');
   await page.locator('main #show').click();await page.locator('#readfield').click();await page.waitForURL('**/docs/**');
   await page.waitForFunction(()=>document.documentElement.dataset.readfieldHandoff==='focus-restored');
   const returned=await page.evaluate(()=>document.getElementById('docAperture').snapshot());
   assert.equal(returned.char_index,moved.char_index);assert.equal(await page.locator('#text').textContent(),raw);
+  const carried=await page.evaluate(()=>{
+   const src=ReadfieldSource.snapshot(),review=ReadfieldReviewModel.interpret(src);
+   return {bound:review.marks.length,open:review.open,stale:review.unbound,marks:review.marks};
+  });
+  assert.equal(carried.bound,2,'READFIELD sees the same two source-bound marks after return');
+  assert.equal(carried.open,1,'the authored question remains open in READFIELD');
+  assert.equal(carried.stale,0,'same source quote and revision remain authoritative');
   assert.equal(await page.evaluate(()=>new URL(location.href).searchParams.get('src')),'/__reading_fixture.json','source address survives return');
   assert.deepEqual(errors,[],'browser errors '+width);results.push({width,height,roundtrip:'PASS'});await context.close();
  }
