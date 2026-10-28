@@ -63,7 +63,7 @@ const button=(box,txt)=>[...box.querySelectorAll('button')].find(b=>b.textConten
  // The painting remains its own stateful owner, with a bounded source exit.
  await load('/sleeper/ladder/');
  const ld=f.contentDocument;
- await wait(()=>ld.getElementById('ladderRead')&&ld.defaultView.SleeperLadder,'LADDER source link');
+ await wait(()=>ld.getElementById('ladderRead'),'LADDER source link'); // Navigation remains available even before painting/image boot.
  const a=ld.getElementById('ladderRead');
  assert(a.target==='_blank','reader must not erase active LADDER walk');
  a.addEventListener('click',e=>e.preventDefault(),{capture:true});
