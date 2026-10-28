@@ -4,10 +4,12 @@
 // A paired LISTEN descriptor adds an actual measured audio energy contour
 // and the original LISTEN glyph. It never invents audio for plain text.
 import {audioGlyphRepresentation} from '../fold-bloom/listen/audio-glyph.js';
+import {proposedDaylineHandoff} from './dayline-handoff.mjs';
 
 const $=id=>document.getElementById(id),ap=$('wristAperture');
 const FULL_LIMIT=180000,WINDOW_RADIUS=16000,SAMPLES=72,NS='http://www.w3.org/2000/svg';
 let raw='',hash='',textNode=null,start=0,end=0,region='',lastFollow=0,userScrollUntil=0,sourceMode='TEXT STRUCTURE';
+let scaleDrawKey='',scaleCaption='TEXT · STRUCTURE',scaleIndex=-1;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,Number(v)||0));
 const nums=x=>Array.isArray(x)&&x.length>=24&&x.length<=256&&x.every(v=>Number.isFinite(v)&&v>=0&&v<=1);
 function textContour(input){
@@ -47,15 +49,61 @@ function renderIdentity(){
   sourceMode='LISTEN ENERGY';drawContour(paired.energy,true);
   glyph.innerHTML=paired.original.svg;glyph.hidden=false;
   glyph.title='Native LISTEN source glyph · '+String(paired.name||'audio').slice(0,80);
-  tag.textContent='LISTEN · MEASURED ENERGY'+(paired.stage?' · '+paired.stage:'');
+  scaleCaption='LISTEN · ENERGY'+(paired.stage?' · '+paired.stage:'');tag.textContent=scaleCaption;
   tag.title='Measured frame energy from LISTEN, not a PCM waveform; audio remains LISTEN-owned';
  }else{
   sourceMode='TEXT STRUCTURE';drawContour(textContour(raw),false);
   glyph.replaceChildren();glyph.hidden=true;
-  tag.textContent='TEXT · STRUCTURE';
+  scaleCaption='TEXT · STRUCTURE';tag.textContent=scaleCaption;
   tag.title='Punctuation / paragraph structure from source characters. No audio evidence is available.';
  }
  document.documentElement.dataset.rsvpSignal=paired?'listen-energy':'text-structure';
+}
+// AXIAL / Scale Lens contract: angle = exact source character; radius =
+// native FieldAperture scale. No new cursor, tokenizer or vocabulary.
+function nativeScales(){return ap.A?.scales||[]}
+function paintScale(){
+ const levels=nativeScales(),snapshot=window.RSVPReader?.snapshot?.();
+ const host=$('apertureTicks');if(!host||!levels.length||!snapshot)return;
+ const key=levels.map(x=>x.id).join('|');
+ if(key!==scaleDrawKey){
+  scaleDrawKey=key;host.replaceChildren();
+  const circle=document.createElementNS(NS,'circle');
+  for(const [k,v] of Object.entries({cx:60,cy:60,r:24.5,class:'scope-track'}))circle.setAttribute(k,String(v));
+  host.append(circle);
+  for(let i=0;i<levels.length;i++){
+   const angle=-Math.PI/2+2*Math.PI*(i+.5)/levels.length;
+   const x=r=>(60+Math.cos(angle)*r).toFixed(3),y=r=>(60+Math.sin(angle)*r).toFixed(3);
+   const line=document.createElementNS(NS,'line');
+   for(const [k,v] of Object.entries({x1:x(19),y1:y(19),x2:x(29),y2:y(29),
+    class:'scope-tick','data-scope-index':i}))line.setAttribute(k,String(v));
+   const label=document.createElementNS(NS,'title');label.textContent=levels[i].label||levels[i].id;line.append(label);
+   host.append(line);
+  }
+ }
+ const selected=levels.findIndex(x=>x.id===snapshot.scale);
+ if(scaleIndex!==selected){
+  scaleIndex=selected;
+  for(const line of host.querySelectorAll('.scope-tick'))line.classList.toggle('active',Number(line.dataset.scopeIndex)===selected);
+ }
+ $('signalLabel').textContent=scaleCaption+' · '+(snapshot.scale_label||snapshot.scale||'WORD').toUpperCase();
+ $('signalLabel').title='INNER RING / APERTURE: scale. OUTER RING: source position. TAP or DRAG. [ ] changes scale.';
+ $('stage').setAttribute('aria-label','Center: read or pause. Outer ring: seek source address. Inner ring: change native aperture scale. During a recall gate choose a word.');
+}
+function pickScale(e){
+ if(!raw||innerWidth<=240)return false;
+ const svg=document.querySelector('.orbit'),rect=svg?.getBoundingClientRect();
+ if(!rect?.width||!rect.height)return false;
+ const x=(e.clientX-rect.left)/rect.width*120,y=(e.clientY-rect.top)/rect.height*120;
+ const levels=nativeScales(),slot=window.RingView?.sectorAt?.(x,y,60,60,18,28,levels.length);
+ if(!Number.isInteger(slot)||slot<0)return false;
+ return window.RSVPReader?.setScale?.(slot)===true;
+}
+function turnScale(delta){
+ const levels=nativeScales();if(!levels.length)return false;
+ const current=levels.findIndex(x=>x.id===window.RSVPReader?.snapshot?.()?.scale);
+ const next=Math.max(0,Math.min(levels.length-1,current+delta));
+ return window.RSVPReader?.setScale?.(next)===true;
 }
 function renderSource(force=false,position=0){
  if(!raw)return;
@@ -375,7 +423,7 @@ function sync(){
   renderIdentity();selectedRange=null;closeEditor();shelfOpen=false;
   $('marksShelf').hidden=true;$('fullSource').hidden=false;refreshMarks();
  }
- paintFocus();
+ paintFocus();paintScale();
 }
 function seekTextClick(e){
  if(!raw||!textNode||e.target.closest('a,button'))return;
@@ -411,4 +459,4 @@ sync();
 globalThis.RSVPSourceInstrument=Object.freeze({sync,mode:()=>sourceMode,sourceLength:()=>raw.length,
  currentWindow:()=>({start,end}),paired:()=>sourceMode==='LISTEN ENERGY',
  pin:pinHere,annotate:makeEditor,marks:()=>({bound:boundMarks.length,all:allMarks.length,state:trailState,furthest}),
- jumpMark,pickRing});
+ jumpMark,pickRing,pickScale,turnScale});
