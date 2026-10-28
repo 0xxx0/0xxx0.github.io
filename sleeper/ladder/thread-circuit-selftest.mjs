@@ -37,6 +37,21 @@ for(let i=0;i<8;i++){
 }
 for(const value of ['-1','8','4.5','a','1x',''])if(value!=='')assert.throws(()=>b.selectedIndex(value),/INDEX_INVALID/);
 test(b.selectedIndex('')===0,'blank factor maps to first');
+test(b.BELL_MAP.length===8,'Bell original study eight source-specific attention prompts');
+for(let i=0;i<8;i++){
+ const x=b.bellLensAt(i),factor=p.entries[x.factor],book=b.READING_MAP[x.lens];
+ test(x.book.url===book.url&&/^https:\/\/buddhadhamma\.github\.io\//.test(x.book.url),'Bell chapter '+i+' links to documented Payutto chapter');
+ test(factor&&factor.name.length>3&&x.question.length>35,'Bell question '+i+' maps to real Ladder factor');
+ test(/^https:\/\/suttacentral\.net\//.test(x.sutta.url),'Bell Sutta cross-reference '+i);
+}
+for(const bad of [-1,8,1.5,'0',null])assert.throws(()=>b.bellLensAt(bad),/BELL_PASSAGE_INDEX_INVALID/);
+const ladderHTML=fs.readFileSync(new URL('index.html',path),'utf8');
+test(!/^(<<<<<<<|=======|>>>>>>>)/m.test(ladderHTML),'Ladder HTML contains no unresolved merge conflict');
+test((ladderHTML.match(/<script src="thread-overlay\.js/g)||[]).length===1,'exactly one live Ladder reader aperture');
+const readerJS=fs.readFileSync(new URL('../reading-play.js',path),'utf8');
+test(readerJS.includes('async function compareLadder(')&&readerJS.includes('current.model?.sha256!==sha')&&readerJS.includes('COMPARISON_POSITION_CHANGED'),'Bell comparison checks source identity and position before showing excerpt');
+test(readerJS.includes('m.source===DEMO')&&readerJS.includes('LADDER_FACTOR_MISMATCH'),'Bell editorial mapping only allowed for original demo and validated factors');
+
 const bad=structuredClone(raw);bad.factors[6].act='recollect';
 assert.throws(()=>b.create(bad),/LADDER_FACTOR_INVALID_6|LADDER_SOURCE_PROJECTION_CHANGED/);n++;
 const bad2=structuredClone(raw);bad2.factors[0].line='word';
