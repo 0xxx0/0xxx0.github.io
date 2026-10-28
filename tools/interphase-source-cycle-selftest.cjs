@@ -7,10 +7,16 @@ const context={crypto:webcrypto,TextEncoder,URL};vm.runInNewContext(engine,conte
  const raw=fs.readFileSync('fold-bloom/listen/README.md','utf8');
  const lensSource=fs.readFileSync('fold-bloom/lens/studio-v12.js','utf8');
  const functions=lensSource.split('\n').filter(l=>/^function (hash|h36|ptr|scalar|inferField|csvRows|builder|addTable|intakeLineage|bindIntakeIdentity|parseSource)\(/.test(l)).join('\n');
- const parser={};vm.runInNewContext(functions+'\nthis.parse=parseSource',parser);
+ const native={window:{},HTMLElement:class{},customElements:{get:()=>false,define(){}},TextEncoder,Intl};native.globalThis=native;vm.runInNewContext(fs.readFileSync('field-aperture.js','utf8'),native);
+ const parser={FieldAperture:native.window.FieldAperture};vm.runInNewContext(functions+'\nthis.parse=parseSource',parser);
  const graph=parser.parse(raw,'LISTEN README',true),atoms=graph.nodes.filter(n=>graph.leafIds.includes(n.id));
  for(const match of raw.matchAll(/\S/gu))assert(atoms.some(n=>n.provenance.offsetStart<=match.index&&n.provenance.offsetEnd>match.index),'Lens dropped source character '+match.index);
  assert.equal(new Set(atoms.map(n=>n.id)).size,atoms.length);
+ const versionText='Read v0.1 in stream-lens.js. Then ask another question.';
+ const versionGraph=parser.parse(versionText,'version.txt',true),sentences=versionGraph.nodes.filter(n=>n.kind==='ROW').map(n=>versionText.slice(n.provenance.offsetStart,n.provenance.offsetEnd));
+ assert(sentences[0].includes('v0.1 in stream-lens.js.'),'Lens borrows the actual aperture sentence segmenter, preserving decimal versions and filenames');
+ assert.equal(versionGraph.source.parser,'field-aperture-sentences/v1');
+
  const projection=lensSource.slice(lensSource.indexOf('function visibleGroups('),lensSource.indexOf('function currentGroup('));vm.runInNewContext(projection+'\nthis.visible=visibleGroups;this.angle=sourceGroupAngle',parser);
  const many=Array.from({length:2000},(_,i)=>({start:i,end:i})),windowed=parser.visible(many,1937);
  assert.equal(windowed.length,180);assert(windowed.some(x=>x.i===1937));assert.equal(windowed[0].i,0);assert.equal(windowed.at(-1).i,1999);assert.equal(new Set(windowed.map(x=>x.i)).size,180);

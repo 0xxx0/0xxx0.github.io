@@ -20,7 +20,11 @@ object before showing ids, schemas and laboratory representations.
   folded inspector. TOOLS retains source import, graph addresses, other domains,
   relations, provenance, spatial projection and the shared route adapter. No
   native control or route is deleted. Text's primary scope choices use the actual
-  word/sentence/paragraph/document ancestry; wheel and drag use those choices.
+  word/sentence/paragraph/document ancestry; wheel and drag use those choices. Sentence
+  segmentation borrows the existing aperture kernel; decimal versions and filenames
+  stay intact. Text graph ids carry that parser lineage, while canonical source
+  SHA-256 and character addresses remain unchanged. The bounded ring view keeps
+  its active group visible and discloses sampled groups instead of losing late focus.
 - Threadwalk: primary reading / threads / return remain outside TOOLS. Device-local
   native work is stored by exact SHA-256, without copying source bytes into that
   store. Witnesses, links, path, inspected passage, redo and pending reasons are
