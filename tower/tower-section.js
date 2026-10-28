@@ -79,7 +79,16 @@
     if (typeof window.FieldAxes !== 'function') return null;
     var raw;
     try { raw = window.FieldAxes(); } catch (e) { return null; }
-    var m = T.normalizeAxes(raw, { source: 'field-axes' });
+    // The host owns the selected tuple. Wrapping a strip must carry its held
+    // value, not silently initialize each ring to slot zero.
+    var held = null;
+    try { held = typeof window.FieldAxisSelection === 'function' ? window.FieldAxisSelection() : null; }
+    catch (_) { held = null; }
+    var axes = raw.map(function (a) {
+      var value = held && Object.prototype.hasOwnProperty.call(held, a.key) ? held[a.key] : null;
+      return value == null ? a : Object.assign({}, a, { selected: value });
+    });
+    var m = T.normalizeAxes(axes, { source: 'field-axes' });
     return (m && m.families.length) ? m : null;
   }
 
@@ -243,6 +252,47 @@
       source: model.source, rings: tower.rings.length, total: model.totalMembers,
       folded: tower.folded.count, degraded: inst.degraded, note: inst.note,
     });
+  }
+
+  // Inverse of landing-tower:turn. An address-bar HOLD, a glyph tap, BACK,
+  // a restored filter, or a native map selection must re-orient the SAME rings.
+  // Never mutate FIELD here, manufacture a selection, or animate an external
+  // change. One data-derived ring view; no second store and no second clock.
+  function syncFromHost(inst) {
+    if (!inst || !inst.ready || inst.model.source !== 'field-axes') return inst ? snapshot(inst) : null;
+    var m = fieldModel();
+    if (!m) return snapshot(inst);
+    var same = m.families.length === inst.tower.rings.length &&
+      m.families.every(function (f, i) {
+        var ring = inst.tower.rings[i];
+        return ring.key === f.key && ring.count === f.count &&
+          ring.members.every(function (item, j) { return item.key === f.members[j].key; });
+      });
+    if (!same) {
+      // The native index changed: rebuild from the native axes, retaining the
+      // newly declared member order instead of preserving an obsolete drawing.
+      applyModel(inst, m);
+      return snapshot(inst);
+    }
+    var changed = false;
+    m.families.forEach(function (f, i) {
+      var k = T.gateIndex(f.selected, Math.max(1, f.count));
+      if (inst.rot[i] !== k) {
+        inst.rot[i] = k;
+        inst.offset[i] = T.offsetFor(k, inst.tower.rings[i].weights);
+        inst.offsetF[i] = inst.offset[i];
+        changed = true;
+      }
+    });
+    if (changed) {
+      if (inst.anim) {
+        inst.anim.cancelled = true;
+        if (inst.anim.id && window.cancelAnimationFrame) window.cancelAnimationFrame(inst.anim.id);
+        inst.anim = null;
+      }
+      draw(inst);
+    }
+    return snapshot(inst);
   }
 
   function setReading(inst, source) {
@@ -692,6 +742,7 @@
     mount: function (el, opts) { return mount(el, opts); },
     state: function () { return current ? snapshot(current) : { mounted: false, version: VERSION }; },
     turn: function (n, ring) { return current ? turnOn(current, n, ring) : null; },
+    sync: function () { return current ? syncFromHost(current) : null; },
     unwrap: function (ring) { return current ? unwrapOn(current, ring) : null; },
     selftest: function () {
       return current ? selftestOn(current) : { pass: 0, fail: 0, total: 0, arms: [], note: 'nothing mounted' };
