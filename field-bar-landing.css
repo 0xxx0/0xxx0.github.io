@@ -99,6 +99,22 @@ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #aperture
 }
 @media(prefers-reduced-motion:reduce){html[data-field-bar-pane] #fieldUrlBar *{scroll-behavior:auto!important}}
 
+/* Explicit ALL is a bounded aperture, never a 218-tile takeover of the root. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail[data-scope="ALL"]{max-height:min(66svh,480px);overflow-y:auto;overscroll-behavior:contain;align-content:start}
+/* One reversible scope action among native glyphs, never another representation. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedScopeToggle{
+ display:grid;place-items:center;min-height:44px;height:100%;padding:4px;cursor:pointer;
+ border:1px dashed var(--cool);background:transparent;color:var(--cool);
+ font:750 17px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedScopeToggle:focus-visible{
+ outline:2px solid var(--gold);outline-offset:1px;
+}
+/* One contextual DOOR replaces a concealed action cluster. CURRENT is a scope,
+   never a privilege assigned to its glyphs. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #aperture .apActions{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apOpen{display:inline-flex!important;align-items:center;justify-content:center;min-height:42px;padding:8px 6px;white-space:nowrap}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apDoor{display:inline-flex!important;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:8px 6px;white-space:nowrap;color:var(--cool);border:1px solid var(--cool);text-decoration:none;min-height:42px}
 /* Aa never resurrects the tall legacy card/grid on the compact entry.
    It opens one clipped, source-owned held reading; further detail remains
    available through :work, :prove, :trace, and native views. */

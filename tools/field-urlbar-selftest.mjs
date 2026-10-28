@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const U=require('../field-urlbar.js');
+const DoorEntry=require('../lib/field-door-entry.js');
+
 
 const fail=[];
 const ok=(value,label)=>{if(!value)fail.push(label)};
@@ -16,7 +18,7 @@ eq(U.parse('@').mode,'HEADS','HEADS prefix');eq(U.parse('^').mode,'RISE','RISE p
 // Regression: before this repair a leading command with an address was fuzzy
 // search, so Enter ran nothing. Explicit unresolved targets now fail closed.
 for(const [q,id,target] of [
- [':work','work',''],[':work /house/','work','/house/'],
+ [':door','door',''],[':door /house/','door','/house/'],[':work','work',''],[':work /house/','work','/house/'],
  [':open /house/','open','/house/'],['/house/ :prove','prove','/house/'],
  [':axis','axis',''],[':turn','turn',''],[':plain','plain','']]){
  const p=U.parse(q);eq(p.mode,'COMMAND',q+' mode');
@@ -29,6 +31,14 @@ eq(U.parseCommand(':open /house/').style,'leading','single parser accepts leadin
 ok(U.COMMANDS.every(c=>typeof c.id==='string'&&c.label&&c.glyph),'every command has identity/label/glyph');
 eq(new Set(U.COMMANDS.map(c=>c.glyph)).size,U.COMMANDS.length,'one unique glyph per command');
 
+eq(DoorEntry.urlFor('/house/'),'/interphase/?route=%2Fhouse%2F&return=%2F%3Ffocus%3D%252Fhouse%252F','typed DOOR carries exact route + FIELD caller');
+eq(DoorEntry.urlFor('/'),'/interphase/?route=%2F&return=%2F','unselected DOOR is canonical FIELD root, not arbitrary current head');
+eq(DoorEntry.urlFor('https://evil.example'),'','no external DOOR route');
+eq(DoorEntry.urlFor('/house/?bad=1'),'','no query smuggling into native route');
+ok(U.COMMANDS.some(c=>c.id==='door'&&!c.nav),'DOOR is dynamic native address, never static route command');
+
+const declaredRoutes=JSON.parse(fs.readFileSync(new URL('../showcase-manifest.json',import.meta.url),'utf8')).routes;
+for(const r of declaredRoutes)ok(!!DoorEntry.urlFor(r.href),'all declared routes must have DOOR: '+r.href);
 const routes=[
  {href:'/zeta/',title:'Zeta',kind:'hub',operation:'ROUTE',state:'ACTIVE',index:{updated_at:'2026-10-06T10:00:00Z'}},
  {href:'/alpha/',title:'Alpha',kind:'hub',operation:'ROUTE',state:'ACTIVE',index:{updated_at:'2026-01-01T10:00:00Z'}},
@@ -65,7 +75,7 @@ const instrumentCSS=fs.readFileSync(new URL('../field-instrument.css',import.met
 const omni=fs.readFileSync(new URL('../field-omnibar.js',import.meta.url),'utf8');
 ok(!urlbar.includes('/v1/runs'),'public URLbar must not call Hermes Runs API directly');
 ok(!signal.includes('field-urlbar'),'shared signal grammar must remain presentation-free');
-ok(lens.includes("import('./field-urlbar.js?v=0.10.8')"),'root FIELD lens host must mount the URLbar projection');
+ok(lens.includes("import('./field-urlbar.js?v=0.10.8-door2')"),'root FIELD lens host must mount the URLbar projection');
 ok(urlbar.includes("if(text(currentParsed.query)&&!target){flash('Exact route required');return}"),'explicit command target cannot silently fall back to held object');
 ok(instrument.includes("if(parsed.mode==='COMMAND')"),'instrument must delegate typed commands to shared parser');
 ok(instrument.includes("turn:()=>{if(!enabled)return false;command('turn');return true}"),'camera turn is callable, unavailable when plain');

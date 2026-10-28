@@ -425,7 +425,7 @@ html[data-field-words]:not([data-instrument="1"]) #fieldOmnibarKeys button[data-
 html[data-field-words]:not([data-instrument="1"]) #fieldWords{display:block;grid-column:5;grid-row:1;min-width:40px;min-height:44px;padding:6px;border:0;border-left:1px solid var(--line);background:transparent;color:var(--ink);font:14px/1 system-ui,sans-serif;cursor:pointer;}
 html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
-<link rel="stylesheet" href="./field-bar-landing.css?v=0.2">
+<link rel="stylesheet" href="./field-bar-landing.css?v=0.3">
 
 <link rel="stylesheet" href="./tower/tower-section.css?v=0.2-circuit">
 </head>
@@ -614,7 +614,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
         <div class="apForecast"><span class="apFlowK">FORECAST</span><span class="capForecast" id="capForecast">—</span></div>
       </div>
     </div>
-    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apSeen" hidden title="Browser-local orientation only; does not change FIELD truth.">SEEN</button></div>
+    <div class="apActions"><a class="door" id="apDoor" href="/interphase/?route=%2F&return=%2F" aria-label="DOOR: inspect exact source and connected works; RETURN restores FIELD" title="Enter this route’s exact source and declared connections, with RETURN">DOOR ↗</a><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apSeen" hidden title="Browser-local orientation only; does not change FIELD truth.">SEEN</button></div>
   </div>
   <details class="workDepth" id="workDepth">
     <summary><b>DEPTH / WORK</b><span id="workDepthMeta">hold one CURRENT head</span></summary>
@@ -728,6 +728,7 @@ button.onclick=()=>{const open=root.dataset.fieldWords!=='open';words(open);cons
 <script src="./lib/interphase-glyph.js"></script>
 <script src="./lib/project-head-glyph.js"></script>
 <script src="./lib/interphase-carrier.js"></script>
+<script src="./lib/field-door-entry.js?v=1"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -1334,14 +1335,16 @@ function renderAperture(){
   const impossible=currentMatches().length===0;
   $('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);
   $('apMeta').textContent=impossible?'NO EXACT INTERSECTION':'CURRENT / SELECT ONE';$('apMeta').className=impossible?'apMeta noMatch':'apMeta';
-  $('apTitle').textContent=impossible?'No route matches this tuple':'FIELD';
+  $('apTitle').textContent=impossible?'No route matches this tuple':(current?.current_heads||[]).filter(h=>h.route!=='/'&&routeMap().has(h.route)).length+' CURRENT + FIELD root / '+routes.length+' routes';
   $('apPath').textContent=impossible?[axisState.state,axisState.operation,axisState.mode].join(' × '):(current?.current_heads||[]).length+' retained · choose an address below · order is not rank';
   $('apProjection').textContent=impossible?'ADJUST ONE AXIS OR RESET':'SOURCE → HOLD → TURN → TRACE → RETURN';
   $('apRole').textContent=impossible?'Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.':'Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.';
-  $('apOpen').removeAttribute('href');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderHeldContinuation();renderWorkDepth();return;
+  $('apOpen').removeAttribute('href');$('apDoor').href=window.FieldDoorEntry.urlFor('/');if(seen)seen.hidden=true;if(residue){residue.hidden=true;residue.textContent=''}renderHeldContinuation();renderWorkDepth();return;
  }
  ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';
- const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';
+ $('apDoor').href=window.FieldDoorEntry.urlFor(focus.href);
+  $('apDoor').title='DOOR · '+focus.href+' · exact manifest source → declared connections → RETURN';
+  const hg=heldGlyph(focus);$('apGlyph').innerHTML=hg.svg;$('apGlyph').dataset.projectHead=hg.summary?'1':'0';
  $('apGlyph').title=hg.summary?('CURRENT HEAD · '+hg.summary.operations.join(' · ')+' · evidence '+hg.summary.evidenceCount+' · residue '+hg.summary.residueCount):'';
  const owner=capabilityForFocus()?.owner||'FIELD ROUTE';$('apMeta').textContent=[focus.state||'—',opOf(focus),owner].filter(Boolean).join(' / ');$('apTitle').textContent=focus.title||focus.href;
  $('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');
@@ -1528,16 +1531,23 @@ async function loadCachedTouches(){
 }
 function renderFeed(){
  const currentRoutes=(current?.current_heads||[]).map(h=>routeMap().get(h.route)).filter(r=>r&&r.href&&r.href!=='/');
- const xs=feedScope==='HEADS'?currentRoutes:latest.slice(0,latestLimit),parts=[];let lastDay='';
+ const xs=feedScope==='HEADS'?[...currentRoutes].sort((a,b)=>(a.title||a.href).localeCompare(b.title||b.href)):feedScope==='ALL'?[...routes].sort((a,b)=>(a.title||a.href).localeCompare(b.title||b.href)):latest.slice(0,latestLimit),parts=[];let lastDay='';
+ // A scope switch lives inside the compact glyph rail, where the legacy ALL
+ // button is hidden. CURRENT is editorial attention, never rank or authority.
+ if(feedScope==='HEADS'||feedScope==='ALL'){
+  const all=feedScope==='HEADS',caption=all?'ALL '+routes.length+' ROUTES':'CURRENT '+currentRoutes.length+' HEADS';
+  parts.push('<button type="button" class="feedScopeToggle" data-scope="'+(all?'ALL':'HEADS')+'" aria-label="Show '+esc(caption)+'" title="'+esc(caption)+' · same native route set, no ranking">'+(all?'∞':'中')+'</button>');
+ }
  // The rail's slice moves with scope and ALL, so its tags come from the slice it is drawing:
  // two chips on this rail can never share a mark, whatever the scope.
  const feedTags=computeMarkTags(xs);
  const scope=$('feedScope'),all=$('moreLatest'),hint=$('feedInstruction'),rail=$('feedRail');
  if(scope){scope.textContent=feedScope==='HEADS'?'RECENT':'CURRENT HEADS';scope.title=feedScope==='HEADS'?'Show recent route touches; recency is not priority':'Show addressable CURRENT heads; order is not priority';scope.setAttribute('aria-pressed',feedScope==='HEADS'?'true':'false')}
  if(all){all.hidden=feedScope==='HEADS';if(feedScope==='HEADS')all.textContent='ALL'}
- if(hint)hint.textContent=feedScope==='HEADS'?'CURRENT HEADS · choose one to hold; held head opens on second tap':'RECENT · route chronology, not priority · select to hold; held route opens on second tap';
- if(rail)rail.setAttribute('aria-label',feedScope==='HEADS'?'Addressable CURRENT heads; order is not priority':'Recently touched routes; recency is not priority');
- if($('feedMeta'))$('feedMeta').textContent=feedScope==='HEADS'?xs.length+' addressable CURRENT heads · order is not rank · '+routeGitDrift():xs.length+' shown · '+routes.length+' addressed · '+routeGitDrift();
+ if(hint)hint.textContent=feedScope==='HEADS'?'CURRENT SUBSET · '+xs.length+' of '+routes.length+' · not priority':feedScope==='ALL'?'ALL '+routes.length+' ADDRESSED ROUTES · alphabetic, not priority':'RECENT · route chronology, not priority · select to hold; held route opens on second tap';
+ if(rail)rail.dataset.scope=feedScope;
+ if(rail)rail.setAttribute('aria-label',feedScope==='HEADS'?'Curated CURRENT subset, not priority; select ALL to expose every address':feedScope==='ALL'?'All manifest routes in alphabetical order, not priority':'Recently touched routes; recency is not priority');
+ if($('feedMeta'))$('feedMeta').textContent=feedScope==='HEADS'?xs.length+' of '+routes.length+' CURRENT · curated, not rank · '+routeGitDrift():xs.length+' of '+routes.length+' routes · order is not rank · '+routeGitDrift();
  if(!xs.length)parts.push('<span class="feedEmpty">'+(feedScope==='HEADS'?'No addressable CURRENT heads.':'No addressed routes available.')+' <a href="./control/">Read CURRENT →</a></span>');
  for(const r of xs){
    const d=shortDay(r.index?.updated_at||'');
@@ -1546,6 +1556,7 @@ function renderFeed(){
    parts.push('<button class="feedChip fieldSignalBar '+(focus?.href===r.href?'on':'')+'" data-field-signal="'+esc(signal)+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20,feedTags.get(r.href))+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r,{tag:feedTags.get(r.href)}):'')+'</tt><span class="feedName">'+esc(r.title||r.href)+'</span></button>');
  }
  rail.innerHTML=parts.join('');
+ rail.querySelector('.feedScopeToggle')?.addEventListener('click',e=>{feedScope=e.currentTarget.dataset.scope;renderFeed()});
  rail.querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,feedScope==='HEADS'?'HEADS':'LATEST')});
  applyFocusSignal();renderSyncLine();try{updateStatusRail()}catch(_){}
 }
@@ -1823,7 +1834,7 @@ window.FieldIndexReadModel=Object.freeze({
 </script>
 <script src="./lib/interphase-field.js"></script>
 <script>queueMicrotask(()=>{try{renderAperture()}catch(_){}})</script>
-<script src="./field-lens.js?v=0.10.8"></script>
+<script src="./field-lens.js?v=0.10.8-door2"></script>
 <script src="./lens-focus-ring.js"></script>
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>

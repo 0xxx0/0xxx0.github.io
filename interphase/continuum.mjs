@@ -61,7 +61,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  const attention=()=>({char:char(),scope,view,wpm:snap()?.wpm||260,query});
  const frame=()=>({hash:source.hash,...attention()});
  const end=()=>Door.endpoint({address:source.address,hash:source.hash,raw:source.raw,unit:at(model,char(),scope),scope},location.origin);
- const caller=()=>({at:end(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),returnTo:source.returnTo});
+ const caller=()=>({at:end(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),route:activeRoute,returnTo:source.returnTo});
  async function verifyRemote(e){
   if(!Door.endpointOK(e,location.origin))throw Error('Invalid source DOOR endpoint.');
   const request=epoch,r=await fetch(e.address,{cache:'no-store'});if(!r.ok)throw Error('Source HTTP '+r.status);
@@ -345,10 +345,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    b.onclick=run(async()=>goDoor(e,await verifyRemote(e)));port(b);
   }
   if(Door.address(source.address,location.origin)===source.address){
-   for(const path of Door.citations(source.raw,u,source.address,location.origin)){
-    const b=document.createElement('button');b.className='ip-relation';b.textContent='SOURCE ↗ '+path;
-    b.title='Literal source citation, not an inference';
-    b.onclick=run(()=>enterCitation(path));port(b);
+   for(const ref of Door.references(source.raw,u,source.address,location.origin)){
+    const b=document.createElement('button');b.className='ip-relation';
+    b.textContent=ref.kind+' ↗ '+ref.path.split('/').at(-1);
+    b.title=ref.kind+' · '+ref.path+' · explicitly declared in this exact source range, not inferred';
+    b.setAttribute('aria-label',ref.kind+' source: '+ref.path);
+    b.onclick=run(()=>enterCitation(ref.path));port(b);
    }
   }
   for(const action of nativeActions()){const a=document.createElement('a');a.href=action.target;a.textContent=(action.label||action.via||action.class||'OPEN')+' ↗';a.title='Native owner: '+(nativeRecord.field?.owner||'FIELD ROUTE');port(a)}
@@ -399,12 +401,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   loading=false;paint();persist(snap(),true);drawer(false);status(`${model.kind==='JSON'?'Structured source':'Exact source'} · ${model.words.length} units · ← → move · − + scope · READ`);
   return api.snapshot();
  }
- async function loadRoute(href){
+ async function loadRoute(href,options={}){
   const request=++epoch;ap?.stop();const m=await manifest();if(request!==epoch||disposed)return;
   const index=m.data.routes.findIndex(r=>r.href===href);if(index<0)throw Error('Unknown FIELD route.');
   const range=m.routeSpans.find(r=>r.routeIndex===index);if(!range)throw Error('FIELD source range unavailable.');
   const readable=m.spans.find(n=>n.path===range.path+'.role')||m.spans.find(n=>n.path===range.path+'.title')||range;
-  const result=await load(m.raw,'FIELD','/showcase-manifest.json',{request,catalog:m,trusted:true,route:href,attention:{scope:'COLLECTION:$.routes',char:readable.contentStart??readable.start}});
+  const result=await load(m.raw,'FIELD','/showcase-manifest.json',{request,catalog:m,trusted:true,route:href,returnTo:options.returnTo||'',attention:{scope:'COLLECTION:$.routes',char:readable.contentStart??readable.start}});
   if(result)route=href;return result;
  }
  async function openPath(value){
@@ -419,8 +421,19 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    if(doorFrames.length){
     const f=doorFrames.at(-1);
     if(!Door.frameOK(f,location.origin))throw Error('Invalid DOOR RETURN frame.');
-    const raw=await verifyRemote(f.at),request=++epoch;
-    const result=await load(raw,f.label,f.at.address,{request,hash:f.at.hash,attention:f.attention,links:f.links,marks:f.marks,frames:f.frames,returnTo:f.returnTo,doorEndpoint:f.at});
+    const raw=await verifyRemote(f.at),before=epoch;
+    let catalogForReturn=null,nativeRoute=null;
+    if(f.route){
+     if(f.at.address!=='/showcase-manifest.json')throw Error('DOOR caller route has the wrong source.');
+     const m=await manifest(true);
+     if(before!==epoch||disposed)throw Error('DOOR RETURN superseded.');
+     const routeIndex=m.data.routes.findIndex(r=>r.href===f.route);
+     const routeSpan=m.routeSpans.find(s=>s.routeIndex===routeIndex);
+     if(m.hash!==f.at.hash||!routeSpan||routeSpan.start!==f.at.start||routeSpan.end!==f.at.end)throw Error('DOOR caller route/span mismatch.');
+     catalogForReturn=m;nativeRoute=f.route;
+    }
+    const request=++epoch;
+    const result=await load(raw,f.label,f.at.address,{request,hash:f.at.hash,attention:f.attention,links:f.links,marks:f.marks,frames:f.frames,returnTo:f.returnTo,doorEndpoint:f.at,catalog:catalogForReturn,trusted:!!catalogForReturn,route:nativeRoute});
     if(!result)return;
     doorFrames.pop();paint();persist(snap(),true);status('DOOR RETURN · exact source, scope and cursor.');return;
    }

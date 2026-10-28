@@ -135,6 +135,11 @@ async function execute(command,href,reason='operator'){
  }
  // M4 · route commands are registry DATA — plain address or copy, never a new
  // API/route and never a secret: the bar addresses, the host executes.
+ if(cmd==='door'){
+  const address=window.FieldDoorEntry?.urlFor(target);
+  if(!address){status('DOOR needs an exact held route','bad');return}
+  emit({command:cmd,target:address,reason});location.assign(address);return;
+ }
  if(entry?.nav){emit({command:cmd,target:entry.nav,reason});location.assign(entry.nav);return}
  if(entry?.copy){const ok=await copyText(entry.copy,cmd.toUpperCase()+' URL COPIED');if(ok)emit({command:cmd,target:entry.copy,reason});syncAddress();return}
  if(cmd==='root'){emit({command:cmd,target:'/',reason});location.assign('/');return}

@@ -66,6 +66,7 @@ const COMMANDS=Object.freeze([
  {id:'desk',glyph:'工',label:'DESK',hint:'work desk',keywords:'workspace hermes desktop',nav:'/desk/'},
  {id:'reader',glyph:'☰',label:'READER',hint:'archive reader route',keywords:'archive local reader',nav:'/reader/'},
  {id:'glyphs',glyph:'▦',label:'GLYPHS',hint:'native FIELD addressed-head strip (reversible selection)',keywords:'browse current heads route tiles strip'},
+ {id:'door',glyph:'⌑',label:'DOOR',hint:'enter exact held source → declared works → RETURN',keywords:'cross threads project context connect evidence citation',aliases:['connect']},
  {id:'source',glyph:'▧',label:'SOURCE',hint:'open actual text, JSON or file in existing FIELD reader',keywords:'paste upload file source text import',nav:'/?work=1&source=1'},
  {id:'walk',glyph:'↬',label:'WALK',hint:'traverse exact source neighbors and links',keywords:'interphase threadwalk read source navigation',nav:'/?work=1&view=walk'},
  {id:'dial',glyph:'◍',label:'DIAL',hint:'navigate whole source and scope with one cursor',keywords:'ring axis aperture source position',nav:'/?work=1&view=dial'},
@@ -507,6 +508,7 @@ html[data-theme="light"] .fieldUrlBar{background:color-mix(in srgb,var(--bg) 94%
   if(entry?.nav){win.location.assign(entry.nav);return}
   if(entry?.copy){copy(entry.copy).then(ok=>flash(ok?rid.toUpperCase()+' URL COPIED':'COPY FAILED'));return}
   if(rid==='help'){showHelp();return}
+   if(rid==='door'){const address=win.FieldDoorEntry?.urlFor(target||focusHref||'/');if(!address){flash('Exact route required');return}win.location.assign(address);return}
   switch(rid){
    case'hold':win.FieldZUI?.close?.('urlbar');break;
    case'work':win.FieldZUI?.open?.('WORK','urlbar');break;
