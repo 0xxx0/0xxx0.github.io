@@ -80,7 +80,7 @@ test(reader.includes('LADDER_SOURCE_REJECTED')&&reader.includes('LADDER_SOURCE_H
 const overlay=fs.readFileSync(new URL('thread-overlay.js',path),'utf8');
 test(overlay.includes('e.origin!==location.origin')&&overlay.includes('e.source!==frame.contentWindow'),'close requires same-origin same-frame');
 test(overlay.includes('overlay.hidden=true')&&overlay.includes('overlay.hidden=false')&&overlay.includes('#ladderOverlay[hidden]'),'Ladder reader is temporarily hidden, not destroyed');
-test(!overlay.includes('node.remove()')&&!overlay.includes('frame=null'),'Ladder reader source and comparison drafts must survive close/reopen');
+test(!overlay.includes('node.remove()')&&!overlay.includes('overlay=null;frame=null'),'Ladder reader source and comparison drafts must survive close/reopen');
 test(overlay.includes("sleeper.ladder-reader-pause/v1"),'Ladder pauses reading audio when hidden');
 test(reader.includes("e.source!==window.parent")&&reader.includes("e.origin!==location.origin")&&reader.includes("sleeper.ladder-reader-pause/v1"),'reader accepts pause only from same-origin parent');
 const native=fs.readFileSync(new URL('ladder.js',path),'utf8');
