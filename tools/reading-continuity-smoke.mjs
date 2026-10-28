@@ -40,6 +40,17 @@ try{
   assert.equal(wrist.char_index,start.char_index);assert.equal(wrist.focus,start.focus);assert.equal(wrist.wpm,start.wpm);
   assert.equal(await page.evaluate(()=>document.getElementById('wristAperture').A.raw),raw);
   assert.equal(await page.locator('#label').textContent(),'$.a.b');
+  await page.waitForFunction(()=>window.RSVPSourceInstrument?.sourceLength()===document.getElementById('wristAperture').A.raw.length);
+  assert.equal(await page.locator('#fullSource').textContent(),raw,'phone WRIST keeps whole exact source visible');
+  assert.equal(await page.locator('#sourceContour line').count(),72,'source ring encodes actual text structure');
+  assert.equal(await page.locator('#signalLabel').textContent(),'TEXT · STRUCTURE','no fabricated audio waveform');
+  assert.equal(await page.locator('#readingField').isVisible(),true,'phone offers large reading alongside RSVP');
+  const textBefore=(await page.evaluate(()=>document.getElementById('wristAperture').snapshot())).char_index;
+  const ringRect=await page.locator('svg.orbit').boundingBox();
+  await page.mouse.click(ringRect.x+ringRect.width*.88,ringRect.y+ringRect.height*.5);
+  const textAfter=(await page.evaluate(()=>document.getElementById('wristAperture').snapshot())).char_index;
+  assert.notEqual(textAfter,textBefore,'ring perimeter addresses source position');
+  await page.evaluate(c=>window.RSVPReader.seekChar(c),textBefore);
   await page.locator('main #next').click();const moved=await page.evaluate(()=>document.getElementById('wristAperture').snapshot());
   await page.reload();await page.waitForFunction(()=>document.getElementById('drawer').hidden&&document.getElementById('wristAperture').A);
   assert.equal(await page.evaluate(()=>document.getElementById('wristAperture').snapshot().char_index),moved.char_index,'shared trail survives reload');
@@ -72,6 +83,8 @@ try{
  await page.goto(base+'/rsvp/');await page.locator('#file').setInputFiles({name:'local.json',mimeType:'application/json',buffer:Buffer.from(raw)});
  await page.waitForFunction(()=>document.getElementById('drawer').hidden);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),180);
+ assert.equal(await page.locator('#readingField').isVisible(),false,'180px watch retains compact ring-only projection');
+ assert.equal(await page.locator('#sourceContour line').count(),72,'watch ring retains real source contour');
  for(const id of ['prev','play','next','show']){
   const r=await page.locator('main #'+id).boundingBox();assert.ok(r.x>=0&&r.y>=0&&r.x+r.width<=180.5&&r.y+r.height<=180.5,'unreachable wrist control '+id);
  }
