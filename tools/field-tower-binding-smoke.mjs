@@ -52,10 +52,11 @@ const done=(ok,x)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);
  svg.dispatchEvent(new (W().KeyboardEvent)('keydown',{key:'ArrowUp',bubbles:true,cancelable:true}));
  rec.keyboard={before:beforeKey,after:api.state().focusKey,selectionStable:JSON.stringify(selection())===preSelection};
  api.bind('operation');
+ const expectedNativeTuple=JSON.stringify(selection()),expectedLive=read().live,expectedFocus=read().focus;
  const actualUrl=W().location.href,oldApi=api;
  frame.src=actualUrl;
  await wait(()=>W().LandingTower?.state?.().source==='field-axes'&&W().LandingTower!==oldApi,'reentry');
- rec.reload={bound:W().LandingTower.state().focusKey,aperture:W().LandingTower.state().witness,native:W().FieldIndexReadModel.aperture()};
+ rec.reload={bound:W().LandingTower.state().focusKey,aperture:W().LandingTower.state().witness,native:W().FieldIndexReadModel.aperture(),tuple:W().FieldAxisSelection()};
  rec.width390=D().documentElement.scrollWidth-D().documentElement.clientWidth;
  frame.style.width='320px';await sleep(250);
  rec.width320=D().documentElement.scrollWidth-D().documentElement.clientWidth;
@@ -72,6 +73,7 @@ const done=(ok,x)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);
    rec.hoverBind==='operation'&&rec.hoverNoChange&&rec.routeBind==='route'&&rec.sharedAfterRoute==='operation'&&rec.sharedAfterState==='state'&&
    rec.sync.gate==='ANY'&&rec.sync.host==='ANY'&&rec.sync.bind==='state'&&rec.keyboard.selectionStable&&rec.keyboard.after!==rec.keyboard.before&&
    rec.reload.bound==='operation'&&rec.reload.aperture?.live===rec.reload.native.live&&
+   rec.reload.native.live===expectedLive&&rec.reload.native.focus===expectedFocus&&JSON.stringify(rec.reload.tuple)===expectedNativeTuple&&
    rec.width390<=1&&rec.width320<=1&&rec.width1280<=1&&rec.nativeAxial==='operation';
  done(pass,rec);
 }catch(e){done(false,{...rec,error:String(e?.stack||e)})}})();
