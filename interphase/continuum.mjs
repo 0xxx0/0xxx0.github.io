@@ -2,7 +2,7 @@ import {hashText} from '../lib/id.js';
 import {esc,download} from '../lib/dom.js';
 const release=new URL(import.meta.url).search;
 const Door=await import('../lib/interphase-door.mjs'+release);
-const {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS,dialReading,dialChar,dialFraction,dialXY,dialArc}=await import('./navigation.mjs'+release);
+const {compile,at,level,containing,neighbors,describe,focusChar,zoomScope,patch,relation,validRelation,relationDoors,validateAttention,charIn,clamp,MAX_BYTES,RELATIONS,dialReading,dialChar,dialFraction,dialXY,dialArc,projectWitnesses,witnessAtPoint,witnessAddress}=await import('./navigation.mjs'+release);
 const scriptLoads=new Map();let catalogPromise;
 function sourceScript(path,key){
  if(globalThis[key])return Promise.resolve();
@@ -48,15 +48,15 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <p class="ip-status" data-ip="status" role="status">Opening the source.</p>
  <div class="ip-space" id="ip-source-space" data-ip="space" tabindex="0" aria-label="Source space. Left/right move, up widens scope, down narrows scope, space reads."><div class="ip-scene">
  <article class="ip-passage ip-before"><button data-ip="before" aria-label="Previous source range"></button></article>
- <article class="ip-passage ip-held" data-ip="held"><div class="ip-range"><span data-ip="range"></span><button data-ip="back" hidden>↶ RETURN</button></div><h1 data-ip="title"></h1><div class="ip-word" aria-hidden="true"><span data-ip="word-before"></span><b data-ip="word-mark"></b><span data-ip="word-after"></span></div><div class="ip-body" data-ip="body"></div><p class="ip-residue" data-ip="residue"></p><div class="ip-doors" data-ip="doors"></div></article>
+ <article class="ip-passage ip-held" data-ip="held"><div class="ip-range"><span data-ip="range"></span><button data-ip="back" hidden>↶ RETURN</button><button class="ip-witness-open" data-ip="witness-open" hidden aria-label="Edit the authored interpretation at this exact range"></button></div><h1 data-ip="title"></h1><div class="ip-word" aria-hidden="true"><span data-ip="word-before"></span><b data-ip="word-mark"></b><span data-ip="word-after"></span></div><div class="ip-body" data-ip="body"></div><p class="ip-residue" data-ip="residue"></p><div class="ip-doors" data-ip="doors"></div></article>
  <article class="ip-passage ip-after"><button data-ip="after" aria-label="Next source range"></button></article>
  </div></div>
- <div class="ip-axis"><button data-ip="widen" aria-label="Widen scope">−</button><svg data-ip="ring" viewBox="0 0 180 180" role="group" aria-label="Source dial: outside is the whole source, inside is the held range. The gap separates beginning and end."><g data-ip="absolute-slider" role="slider" tabindex="0" aria-label="Whole source position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><path class="ip-track" d="${dialArc(0,1)}"/><circle class="ip-dot ip-dot-absolute" data-ip="absolute-dot" r="6"/></g><g data-ip="local-slider" role="slider" tabindex="0" aria-label="Position inside held range" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><path class="ip-scope-track" d="${dialArc(0,1,33)}"/><circle class="ip-dot ip-dot-local" data-ip="local-dot" r="4"/></g><path class="ip-window" data-ip="window"/><g data-ip="marks-ring" aria-hidden="true"></g><text x="90" y="82" text-anchor="middle" data-ip="scope-label"></text><text x="90" y="102" text-anchor="middle" data-ip="position-label"></text></svg><button data-ip="narrow" aria-label="Narrow scope">+</button></div>
+ <div class="ip-axis"><button data-ip="widen" aria-label="Widen scope">−</button><svg data-ip="ring" viewBox="0 0 180 180" role="group" aria-label="Source dial: outside is the whole source, inside is the held range. The gap separates beginning and end."><g data-ip="absolute-slider" role="slider" tabindex="0" aria-label="Whole source position" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><path class="ip-track" d="${dialArc(0,1)}"/><circle class="ip-dot ip-dot-absolute" data-ip="absolute-dot" r="6"/></g><g data-ip="local-slider" role="slider" tabindex="0" aria-label="Position inside held range" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><path class="ip-scope-track" d="${dialArc(0,1,33)}"/><circle class="ip-dot ip-dot-local" data-ip="local-dot" r="4"/></g><path class="ip-window" data-ip="window"/><g data-ip="links-ring" aria-label="Authored source relations"></g><g data-ip="marks-ring" aria-label="Source markers and authored interpretation"></g><text x="90" y="82" text-anchor="middle" data-ip="scope-label"></text><text x="90" y="102" text-anchor="middle" data-ip="position-label"></text></svg><button data-ip="narrow" aria-label="Narrow scope">+</button></div>
  <nav class="ip-transport" aria-label="Traversal"><button data-ip="previous" aria-label="Previous">←</button><button data-ip="play">▶ READ</button><button data-ip="next" aria-label="Next">→</button></nav>
  <section class="ip-editor" data-ip="editor" hidden role="dialog" aria-modal="true" aria-label="Local source edit"><b data-ip="edit-range"></b><textarea data-ip="replacement" aria-label="Replacement source text" maxlength="100000"></textarea><div class="ip-row"><button data-ip="commit">COMMIT LOCAL EDIT</button><button data-ip="cancel">CANCEL</button></div><p>Only this exact range changes. Native source ownership stays unchanged.</p></section>`;
  target.append(root);
  const el=id=>root.querySelector(`[data-ip="${id}"]`);
- let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],doors=[],doorFrames=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,pendingAnnotation=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
+ let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],doors=[],doorFrames=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,pendingAnnotation=null,editing=null,witness=null,lastWitnessPick=null,witnessDrawKey='',witnessLinkKey='',epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
  const snap=()=>ap?.snapshot(),char=()=>snap()?.char_index??0;
  const attention=()=>({char:char(),scope,view,wpm:snap()?.wpm||260,query});
  const frame=()=>({hash:source.hash,...attention()});
@@ -199,6 +199,97 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const actions=(native||nativeRecord.field?.exit_paths?.filter(x=>String(x.status).toUpperCase()==='AVAILABLE'&&x.target)||[]).slice(0,3);
   return actions.length?actions:nativeRecord.href!=='/'?[{label:'OPEN',target:nativeRecord.href,authority:'NAVIGATION_ONLY'}]:[];
  }
+ // Same authored objects form the text controls, ring shapes and hit targets.
+ // Projection never grants edit rights. Only native SOURCE/SEEK is invoked.
+ const svgNS='http://www.w3.org/2000/svg';
+ function svgNode(tag,attrs={},label=null){
+  const n=document.createElementNS(svgNS,tag);
+  for(const [key,value] of Object.entries(attrs))n.setAttribute(key,String(value));
+  if(label!==null)n.textContent=label;
+  return n;
+ }
+ function paintWitness(anchor){
+  const saved=trail(),key=source.hash+'|'+JSON.stringify([marks,saved.marks,links]);
+  const rebuild=!witness||key!==witnessDrawKey;
+  const layer=el('marks-ring'),relationsLayer=el('links-ring');
+  if(rebuild){
+   witness=projectWitnesses(model,source.hash,saved.marks,links);
+   witnessDrawKey=key;witnessLinkKey='';
+   layer.replaceChildren();
+   layer.setAttribute('data-witness-count',String(witness.notes.length));
+   relationsLayer.setAttribute('data-witness-count',String(witness.relations.length));
+  for(const c of marks){
+   const a=dialXY(c/Math.max(1,source.raw.length-1),82),b=dialXY(c/Math.max(1,source.raw.length-1),87);
+   layer.append(svgNode('path',{class:'ip-raw-mark','d':'M '+a.x+' '+a.y+' L '+b.x+' '+b.y}));
+  }
+  for(const note of witness.notes){
+   const g=svgNode('g',{'class':'ip-evidence-token','data-witness-id':note.id,
+    role:'button',tabindex:'0','aria-label':note.kind+' at character '+note.charIndex+': '+note.note.slice(0,140)});
+   g.append(svgNode('title',{},note.kind+' · '+note.charIndex+':'+note.endIndex+' · '+note.note));
+   // The arc's length is the exact marked source span. A glyph that could
+   // silently move independent of its quote would not be a lawful projection.
+   const arcStart=note.start,arcEnd=note.end;
+   if(arcEnd-arcStart>0.003)g.append(svgNode('path',{
+    class:'ip-witness-span ip-witness-'+note.kind.toLowerCase(),
+    d:dialArc(arcStart,arcEnd,78)
+   }));
+   const p=note.point,q=dialXY(note.start,86);
+   g.append(svgNode('path',{class:'ip-witness-stroke',
+    d:'M '+p.x+' '+p.y+' L '+q.x+' '+q.y}));
+   if(note.kind==='QUESTION')g.append(svgNode('circle',{class:'ip-review-question'+(note.resolved?' is-resolved':''),
+     cx:p.x,cy:p.y,r:4}));
+   else if(note.kind==='APPLIED')g.append(svgNode('rect',{class:'ip-review-applied',
+    x:p.x-3,y:p.y-3,width:6,height:6}));
+   else g.append(svgNode('circle',{class:'ip-witness-note',cx:p.x,cy:p.y,r:2}));
+   layer.append(g);
+  }
+  }
+  // Only authored links, not an embedding/similarity graph. Dense relation
+  // sets have explicit residue in SOURCE rather than an illegible hairball.
+  const selected=witness.relations.filter(e=>anchor>=e.from.start&&anchor<e.from.end||
+   anchor>=e.to.start&&anchor<e.to.end);
+  const shown=[...new Set([...selected,...witness.relations])].slice(0,8);
+  const linkKey=shown.map(edge=>witness.relations.indexOf(edge)).join(',');
+  if(rebuild||linkKey!==witnessLinkKey){
+   relationsLayer.replaceChildren();
+   witnessLinkKey=linkKey;
+  for(const edge of shown){
+   const i=witness.relations.indexOf(edge),dx=edge.b.x-edge.a.x,dy=edge.b.y-edge.a.y;
+   const length=Math.max(.01,Math.hypot(dx,dy)),ux=dx/length,uy=dy/length;
+   const group=svgNode('g',{'class':'ip-link-token','data-witness-link':i});
+   group.append(svgNode('title',{},edge.type+' · '+edge.from.quote.slice(0,100)+' → '+edge.to.quote.slice(0,100)));
+   const d='M '+edge.a.x+' '+edge.a.y+' L '+edge.b.x+' '+edge.b.y;
+   group.append(svgNode('path',{class:'ip-link-line ip-link-'+edge.type,d}));
+   group.append(svgNode('path',{class:'ip-link-hit',d,role:'button',tabindex:'0',
+    'aria-label':edge.type+' relation from '+edge.from.start+' to '+edge.to.start+
+     '. Enter follows exact source, RETURN restores departure'}));
+   const tip=edge.b;
+   group.append(svgNode('path',{class:'ip-link-arrow',d:
+    'M '+(tip.x-ux*5-uy*3)+' '+(tip.y-uy*5+ux*3)+
+    ' L '+tip.x+' '+tip.y+
+    ' L '+(tip.x-ux*5+uy*3)+' '+(tip.y-uy*5-ux*3)}));
+   relationsLayer.append(group);
+  }
+  relationsLayer.dataset.hiddenRelations=String(witness.relations.length-shown.length);
+  }
+  if(rebuild)el('ring').setAttribute('aria-label','Source dial: outside is exact whole-source character position; inside is native scope. '+
+   witness.notes.length+' revision-bound authored marks and '+witness.relations.length+
+   ' explicit relations. Tap an authored mark to revisit, follow a relation chord, or use the source band to seek. The gap separates first and last character.');
+  const active=witness.notes.find(n=>anchor>=n.charIndex&&anchor<n.endIndex);
+  const button=el('witness-open');
+  button.hidden=!active;
+  if(active&&(rebuild||button.dataset.witnessId!==active.id)){
+   button.dataset.witnessId=active.id;
+   button.textContent=(active.kind==='QUESTION'?(active.resolved?'●':'○'):active.kind==='APPLIED'?'■':'│')+' '+active.kind;
+   button.title=active.note;
+   button.setAttribute('aria-label','Edit '+active.kind.toLowerCase()+' at character '+active.charIndex+': '+active.note);
+   button.onclick=()=>{
+    const original=trail().marks.find(n=>n.id===active.id);
+    if(!original||!validNote(original))return status('Authored source revision changed. Mark is not editable here.',true);
+    drawer(true);el('review-fold').open=true;holdAnnotation(original);
+   };
+  }
+ }
  function paint(){
   if(!model||!ap||disposed||loading)return;
   const s=snap(),anchor=s.char_index,n=neighbors(model,anchor,scope,query),u=n.current,d=describe(model,u);
@@ -238,20 +329,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   }
   el('local-dot').setAttribute('opacity',dial.span.start<=anchor&&anchor<dial.span.end?'1':'.3');
   el('window').setAttribute('d',dialArc(...dial.window,78));
-  // Exact marks appear at source coordinates, never at ordinal ring slots.
-  el('marks-ring').innerHTML=marks.map(c=>{
-   const a=dialXY(c/Math.max(1,source.raw.length-1),82),b=dialXY(c/Math.max(1,source.raw.length-1),87);
-   return `<path d="M ${a.x} ${a.y} L ${b.x} ${b.y}" />`;
-  }).join('');
-  // Interpretive marks share exact DIAL character coordinates; they cannot
-  // be mistaken for an inferred comprehension or completeness metric.
-  el('marks-ring').insertAdjacentHTML('beforeend',authored().map(m=>{
-   const p=dialXY(m.charIndex/Math.max(1,source.raw.length-1),78);
-   if(m.kind==='QUESTION'&&!m.resolved)return '<circle class="ip-review-question" cx="'+p.x+'" cy="'+p.y+'" r="3"/>';
-   if(m.kind==='APPLIED')return '<rect class="ip-review-applied" x="'+(p.x-2.5)+'" y="'+(p.y-2.5)+'" width="5" height="5"/>';
-   const q=dialXY(m.charIndex/Math.max(1,source.raw.length-1),85);
-   return '<path class="ip-review-note" d="M '+p.x+' '+p.y+' L '+q.x+' '+q.y+'"/>';
-  }).join(''));
+  paintWitness(anchor);
   el('doors').replaceChildren();el('more-ports').replaceChildren();const port=node=>(el('doors').children.length<3?el('doors'):el('more-ports')).append(node);
   for(const door of relationDoors(model,source.hash,links,anchor)){
    const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,85)}`;b.title='Authored interpretation with exact source quotes';
@@ -275,7 +353,9 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   }
   for(const action of nativeActions()){const a=document.createElement('a');a.href=action.target;a.textContent=(action.label||action.via||action.class||'OPEN')+' ↗';a.title='Native owner: '+(nativeRecord.field?.owner||'FIELD ROUTE');port(a)}
   if(source.returnTo){const a=document.createElement('a');a.href=source.returnTo;a.textContent='↩ CALLER';port(a)}
-  el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:''].filter(Boolean).join(' · ');
+  const hiddenWitnessLinks=Math.max(0,Number(el('links-ring').dataset.hiddenRelations||0));
+  const witnessResidue=view==='dial'?[witness?.residue.unboundNotes?`${witness.residue.unboundNotes} revision-unbound marks retained in SOURCE`:'',witness?.residue.unboundRelations?`${witness.residue.unboundRelations} unsupported links retained in SOURCE`:'',hiddenWitnessLinks?`${hiddenWitnessLinks} other authored links retained in SOURCE`:'']:[];
+  el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:'',...witnessResidue].filter(Boolean).join(' · ');
   el('undo').disabled=!undo.length;el('redo').disabled=!redo.length;
   paintReview();
   const glyph=el('glyphfield');if(glyph){const href=glyphAddress();glyph.hidden=!href;if(href){glyph.href=href;glyph.title='Derived geometry for '+activeRoute+'; native source cursor is retained for RETURN';}}
@@ -311,7 +391,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  async function load(raw,label,address='',opt={}){
   const request=opt.request??++epoch;if(request!==epoch||disposed)return;ap?.stop();
   const next=await prepare(raw,label,address,opt);if(request!==epoch||disposed){next.candidate.remove();return}
-  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);doors=structuredClone(opt.doors??doors);doorFrames=structuredClone(opt.doorFrames??doorFrames);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=opt.preserveLink?pendingLink:null;pendingAnnotation=null;bodyKey='';
+  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);doors=structuredClone(opt.doors??doors);doorFrames=structuredClone(opt.doorFrames??doorFrames);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=opt.preserveLink?pendingLink:null;pendingAnnotation=null;lastWitnessPick=null;witness=null;witnessDrawKey='';witnessLinkKey='';bodyKey='';
   ap.addEventListener('aperture-focus',()=>{paint();persist()});ap.selectChar(next.attention.char);ap.setWpm(next.attention.wpm);
   el('scope').innerHTML=model.levels.map(l=>`<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
   el('find').value=query;el('link-end').disabled=!pendingLink;el('link-note').textContent=pendingLink?'First source held · CONNECT HERE':'';
@@ -496,6 +576,36 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  }
  el('reader').onclick=run(e=>{e.preventDefault();handoff('/docs/?handoff=1')});el('wrist').onclick=run(e=>{e.preventDefault();handoff('/rsvp/?handoff=1')});
  let drag=null;
+ function enterWitness(note){
+  if(!source||!witness||note.sourceHash!==source.hash)return;
+  const exact=witnessAddress(witness,source.raw,source.hash,note.id);
+  const original=trail().marks.find(m=>m.id===note.id);
+  seek(exact.char,{remember:true});
+  if(original?.scale&&model.levels.some(l=>l.id===original.scale))setScope(original.scale);
+  status(note.kind+' · '+note.note.slice(0,150)+' · RETURN restores the exact departure.');
+ }
+ function followWitnessLink(index){
+  const edge=witness?.relations[index];
+  if(!edge||edge.sourceHash!==source?.hash||!validRelation(model,source.hash,edge.relation))return;
+  const now=char(),target=now>=edge.from.start&&now<edge.from.end?edge.to:
+   now>=edge.to.start&&now<edge.to.end?edge.from:edge.to;
+  seek(target.start,{remember:true});setScope(target.scope);
+  status('Authored '+edge.type+' relation · character '+target.start+'. RETURN restores source and scope.');
+ }
+ function pickWitness(p){
+  const exact=witnessAtPoint(witness,p.x+90,p.y+90,{
+   radius:19,previousId:lastWitnessPick&&lastWitnessPick.hash===source.hash&&
+    Date.now()-lastWitnessPick.time<1400&&Math.hypot(p.x-lastWitnessPick.x,p.y-lastWitnessPick.y)<8?
+     lastWitnessPick.id:null
+  });
+  if(!exact)return false;
+  lastWitnessPick={hash:source.hash,x:p.x,y:p.y,id:exact.note.id,time:Date.now()};
+  enterWitness(exact.note);
+  if(exact.candidates>1)status('Authored '+exact.note.kind+' · '+exact.candidates+
+   ' nearby exact ranges. Tap again to cycle; RETURN restores departure.');
+  return true;
+ }
+
  const ringPoint=e=>{const r=el('ring').getBoundingClientRect(),x=(e.clientX-r.left)*180/r.width-90,y=(e.clientY-r.top)*180/r.height-90;return{x,y,r:Math.hypot(x,y)}};
  function ringMove(e){
   if(!drag||e.pointerId!==drag.id)return;
@@ -505,13 +615,35 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   paint();persist();
  }
  el('ring').onpointerdown=e=>{
-  if(!e.isPrimary||e.button!==0)return;
-  if(!model)return;const p=ringPoint(e),band=p.r>=51&&p.r<=87?'absolute':p.r>=15&&p.r<51?'local':null;
-  if(!band||dialFraction(p.x,p.y,18)===null)return;ap.stop();frames.push(frame());if(frames.length>64)frames.shift();
+  if(!e.isPrimary||e.button!==0||!model)return;
+  const p=ringPoint(e),relationToken=e.target.closest?.('[data-witness-link]');
+  if(relationToken){
+   const idx=Number(relationToken.getAttribute('data-witness-link'));
+   e.preventDefault();e.stopPropagation();followWitnessLink(idx);return;
+  }
+  // Inverse of the glyph projection. Near-colliding authored marks cycle,
+  // rather than losing their exact source addresses behind overlapping pixels.
+  if(p.r>58&&p.r<98&&pickWitness(p)){
+   e.preventDefault();e.stopPropagation();return;
+  }
+  const band=p.r>=51&&p.r<=87?'absolute':p.r>=15&&p.r<51?'local':null;
+  if(!band||dialFraction(p.x,p.y,18)===null)return;
+  ap.stop();frames.push(frame());if(frames.length>64)frames.shift();
   el(band+'-slider').focus({preventScroll:true});
   drag={id:e.pointerId,scope,origin:char(),band};
   el('ring').setPointerCapture(e.pointerId);ringMove(e);
  };
+ el('ring').addEventListener('keydown',e=>{
+  if(!['Enter',' '].includes(e.key)||!model)return;
+  const noteId=e.target.closest?.('[data-witness-id]')?.getAttribute('data-witness-id');
+  if(noteId){
+   const note=witness?.notes.find(n=>n.id===noteId);
+   if(note){e.preventDefault();e.stopPropagation();enterWitness(note)}
+   return;
+  }
+  const linkIndex=e.target.closest?.('[data-witness-link]')?.getAttribute('data-witness-link');
+  if(linkIndex!=null){e.preventDefault();e.stopPropagation();followWitnessLink(Number(linkIndex))}
+ },true);
  el('ring').onpointermove=ringMove;el('ring').onpointerup=e=>{drag=null;try{el('ring').releasePointerCapture(e.pointerId)}catch{}};el('ring').onpointercancel=()=>{drag=null};
  for(const band of ['absolute','local'])el(band+'-slider').onkeydown=e=>{
   if(!model||!['ArrowLeft','ArrowRight','ArrowDown','ArrowUp','Home','End','PageDown','PageUp'].includes(e.key))return;
