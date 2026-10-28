@@ -262,7 +262,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    group.append(svgNode('path',{class:'ip-link-line ip-link-'+edge.type,d}));
    group.append(svgNode('path',{class:'ip-link-hit',d,role:'button',tabindex:'0',
     'aria-label':edge.type+' relation from '+edge.from.start+' to '+edge.to.start+
-     +(edge.relation.warrant?'. Authored reason: '+edge.relation.warrant:'')+'. Enter follows exact source, RETURN restores departure'}));
+     (edge.relation.warrant?'. Authored reason: '+edge.relation.warrant:'')+'. Enter follows exact source, RETURN restores departure'}));
    const tip=edge.b;
    group.append(svgNode('path',{class:'ip-link-arrow',d:
     'M '+(tip.x-ux*5-uy*3)+' '+(tip.y-uy*5+ux*3)+
