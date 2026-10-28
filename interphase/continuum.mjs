@@ -61,7 +61,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  const attention=()=>({char:char(),scope,view,wpm:snap()?.wpm||260,query});
  const frame=()=>({hash:source.hash,...attention()});
  const end=()=>Door.endpoint({address:source.address,hash:source.hash,raw:source.raw,unit:at(model,char(),scope),scope},location.origin);
- const caller=()=>({at:end(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),returnTo:source.returnTo});
+ const caller=()=>({at:end(),label:source.label,attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),route:activeRoute,returnTo:source.returnTo});
  async function verifyRemote(e){
   if(!Door.endpointOK(e,location.origin))throw Error('Invalid source DOOR endpoint.');
   const request=epoch,r=await fetch(e.address,{cache:'no-store'});if(!r.ok)throw Error('Source HTTP '+r.status);
@@ -341,8 +341,19 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    if(doorFrames.length){
     const f=doorFrames.at(-1);
     if(!Door.frameOK(f,location.origin))throw Error('Invalid DOOR RETURN frame.');
-    const raw=await verifyRemote(f.at),request=++epoch;
-    const result=await load(raw,f.label,f.at.address,{request,hash:f.at.hash,attention:f.attention,links:f.links,marks:f.marks,frames:f.frames,returnTo:f.returnTo,doorEndpoint:f.at});
+    const raw=await verifyRemote(f.at),before=epoch;
+    let catalogForReturn=null,nativeRoute=null;
+    if(f.route){
+     if(f.at.address!=='/showcase-manifest.json')throw Error('DOOR caller route has the wrong source.');
+     const m=await manifest(true);
+     if(before!==epoch||disposed)throw Error('DOOR RETURN superseded.');
+     const routeIndex=m.data.routes.findIndex(r=>r.href===f.route);
+     const routeSpan=m.routeSpans.find(s=>s.routeIndex===routeIndex);
+     if(m.hash!==f.at.hash||!routeSpan||routeSpan.start!==f.at.start||routeSpan.end!==f.at.end)throw Error('DOOR caller route/span mismatch.');
+     catalogForReturn=m;nativeRoute=f.route;
+    }
+    const request=++epoch;
+    const result=await load(raw,f.label,f.at.address,{request,hash:f.at.hash,attention:f.attention,links:f.links,marks:f.marks,frames:f.frames,returnTo:f.returnTo,doorEndpoint:f.at,catalog:catalogForReturn,trusted:!!catalogForReturn,route:nativeRoute});
     if(!result)return;
     doorFrames.pop();paint();persist(snap(),true);status('DOOR RETURN · exact source, scope and cursor.');return;
    }
