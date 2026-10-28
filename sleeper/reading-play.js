@@ -21,7 +21,7 @@ const host=document.createElement('div');host.id='readingPlay';host.setAttribute
 dom.innerHTML='<style>'+style+bookMapCSS+'</style><div id="app"></div>';
 document.body.append(host);const $=id=>dom.getElementById(id);
 let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=false,threadOpen=false,ladderLesson=null;
-let bellComparison=null,ladderProjectionPromise=null;
+let bellComparison=null,bellCarry=null,ladderProjectionPromise=null;
 async function compareLadder(index){
  const state=snap(),at=state.inspected,sha=state.model?.sha256;
  if(!sha||state.model.source!==DEMO)throw Error('BELL_SOURCE_CHANGED');
@@ -36,7 +36,7 @@ async function compareLadder(index){
  if(current.model?.sha256!==sha||current.inspected!==at)throw Error('COMPARISON_POSITION_CHANGED');
  const factor=projection.entries[expected.factor];
  if(!factor||factor.index!==expected.factor)throw Error('LADDER_FACTOR_MISMATCH');
- bellComparison=Object.freeze({sha,at,index,factor});
+ bellComparison=Object.freeze({sha,at,index,factor,selectionSha256:projection.originalSelectionSha256});
  render();
  return bellComparison;
 }
@@ -51,7 +51,7 @@ function quote(m,w){return w?m.source.slice(w.start,w.end):'';}
 function paintEchoText(button,value,terms){let cursor=0;for(const match of value.matchAll(/[\p{L}\p{N}]+/gu)){const start=match.index,word=match[0];if(start>cursor)button.append(document.createTextNode(value.slice(cursor,start)));button.append(terms.has(word.toLowerCase())?element('mark','echoWord',word):document.createTextNode(word));cursor=start+word.length;}if(cursor<value.length)button.append(document.createTextNode(value.slice(cursor)));}
 function holdAt(id,choice){action(()=>{B.hold(id,choice);if(!snap().session.selected)B.mark(id)})}
 function clean(s){return text(s).replace(/\s+/g,' ').trim();}
-async function load(source,title,url='',keepLadder=false){stop();error='';bellComparison=null;if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
+async function load(source,title,url='',keepLadder=false){stop();error='';bellComparison=null;bellCarry=null;if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
 function home(){stop();action(()=>{const m=snap().model;let cap=m.nodes.length+2;while(cap-->0){const s=snap().session,path=T.routeHome(m,s);if(path.length<=1)break;B.originStep()}B.inspect(m.nodes[0].id);});}
 function result(){action(()=>{const obj=B.returnArtifact(),json=JSON.stringify(obj,null,2);const url=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='threadwalk-'+obj.source.hash+'-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});}
 function play(){
@@ -145,6 +145,59 @@ function render(){
     const a=element('a','',name+' ↗');a.href=url;a.target='_blank';a.rel='noopener noreferrer';frame.append(a,document.createTextNode(' · '));
    }
    context.append(frame);
+   // The only transfer is a human-authored comparison with TWO visibly distinct
+   // source identities. This cannot move the Threadwalk cursor or open a gate.
+   const carry=element('div','bookMap');
+   carry.id='bellCarry';
+   carry.append(element('div','tiny','BELL ↔ LADDER / HOLD · CHECK · CARRY'));
+   const witness=s.witnesses[node.id];
+   if(witness)carry.append(element('blockquote','quote',quote(m,witness)));
+   else carry.append(element('p','notice','First tap an exact Bell sentence above. The Ladder excerpt cannot stand in for Bell evidence.'));
+   const claim=element('textarea');claim.id='bellClaim';
+   claim.placeholder='What does this Bell sentence suggest when read with the Path factor? Your interpretation, not the book\'s verdict.';
+   claim.setAttribute('aria-label','Your cross-source interpretation');
+   claim.maxLength=300;
+   const check=element('textarea');check.id='bellCheck';
+   check.placeholder='What would you notice, try, or check that might change your interpretation?';
+   check.setAttribute('aria-label','A test or alternative reading');
+   check.maxLength=240;
+   const existing=bellCarry&&bellCarry.bell?.sourceSha256===m.sha256&&bellCarry.bell.passageIndex===i&&bellCarry.ladder.factorIndex===e.index&&w&&bellCarry.bell.span.quoteHash===w.quoteHash&&bellCarry.bell.span.start===w.start&&bellCarry.bell.span.end===w.end?bellCarry:null;
+   if(existing){claim.value=existing.interpretation;check.value=existing.check;}
+   carry.append(element('p','notice','VIEW: distinguish what the quote says. EFFORT: propose a different reading or action. MINDFULNESS: name what would make you revise it. These are practice prompts, not certified attainment.'));
+   carry.append(claim,check);
+   const save=button(existing?'REVISE CARRY':'CARRY THIS DISTINCTION',()=>{
+    const held=snap().session.witnesses[node.id];
+    if(!held||held.node!==node.id){status('HOLD_EXACT_BELL_SENTENCE_FIRST');return;}
+    const excerpt=m.source.slice(held.start,held.end);
+    if(T.hash(excerpt)!==held.quoteHash){status('BELL_SOURCE_WITNESS_CHANGED');return;}
+    const interpretation=claim.value.trim(),recheck=check.value.trim();
+    if(interpretation.length<12||interpretation.length>300){status('INTERPRETATION_NEEDS_12_TO_300_CHARACTERS');return;}
+    if(recheck.length<8||recheck.length>240){status('CHECK_NEEDS_8_TO_240_CHARACTERS');return;}
+    if(bellComparison?.sha!==m.sha256||bellComparison?.at!==node.id){status('CROSS_SOURCE_POSITION_CHANGED');return;}
+    bellCarry=Object.freeze({
+      schema:'sleeper.bell-ladder-carry/v1',
+      authority:'USER_INTERPRETATION_NOT_SEMANTIC_OR_GATE_PROOF',
+      bell:{sourceSha256:m.sha256,passageIndex:i,span:{start:held.start,end:held.end,node:held.node,quoteHash:held.quoteHash},exactQuote:excerpt},
+      ladder:{selectionSha256:bellComparison.selectionSha256,factorIndex:e.index,name:e.name,locator:e.locator,abridgedExcerpt:e.excerpt,canonical:e.canonical},
+      interpretation,check:recheck,
+      parallel:{id:lesson.sutta.id,url:lesson.sutta.url},
+      verification:'BELL_EXACT_WITNESS / LADDER_VERIFIED_DERIVED_SLICE / INTERPRETATION_UNVERIFIED'
+    });
+    status('CARRIED · two source identities retained; no gate or Threadwalk route changed');
+    render();
+   },'gold');
+   save.id='saveBellCarry';
+   save.disabled=!witness;
+   carry.append(save);
+   if(existing){
+    carry.append(element('p','notice','CARRIED · Bell SHA256 '+existing.bell.sourceSha256.slice(0,12)+' / Ladder selection SHA256 '+existing.ladder.selectionSha256.slice(0,12)+'. Full sources are not embedded; only these two excerpts are carried.'));
+    const exportButton=button('EXPORT CARRY JSON ↓',()=>{
+      const json=JSON.stringify(existing,null,2),url=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');
+      a.href=url;a.download='sleeper-bell-ladder-carry.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    },'ghost');
+    exportButton.id='exportBellCarry';carry.append(exportButton);
+   }
+   context.append(carry);
   }
   const map=document.createElement('details');map.className='bookMap';
   map.append(element('summary','','BOOK MAP / WHAT IS WORTH READING'));
