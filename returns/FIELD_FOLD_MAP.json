@@ -1,13 +1,13 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-28T09:01:01.839Z",
- "returns_total": 303,
+ "generated": "2026-10-28T09:50:17.433Z",
+ "returns_total": 304,
  "raw_distinct_states": 115,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
  "phase_distribution": {
   "SOURCE": 0,
-  "HOLD": 97,
+  "HOLD": 98,
   "RETURN": 148,
   "RESIDUE": 58
  },
@@ -389,7 +389,7 @@
   },
   {
    "state": "IMPLEMENTED_CANDIDATE",
-   "count": 13
+   "count": 14
   },
   {
    "state": "MERGED_VERIFIED",
@@ -2812,6 +2812,13 @@
    "why": "landed (settled/complete/aligned end-state)"
   },
   {
+   "file": "SIX_FAMILY_PROJECT_MAP_2026-10-28.json",
+   "raw": "IMPLEMENTED_CANDIDATE",
+   "phase": "HOLD",
+   "verified": false,
+   "why": "candidate / in flight, not landed"
+  },
+  {
    "file": "SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
    "raw": "",
    "phase": "RESIDUE",
@@ -3142,7 +3149,7 @@
     },
     "mismatches": [
      "phase_distribution.SOURCE: receipt 49 vs map 0",
-     "phase_distribution.HOLD: receipt 94 vs map 97",
+     "phase_distribution.HOLD: receipt 94 vs map 98",
      "phase_distribution.RETURN: receipt 135 vs map 148",
      "phase_distribution.RESIDUE: receipt 7 vs map 58",
      "verified_flagged: receipt 95 vs map 73"
