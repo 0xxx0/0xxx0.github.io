@@ -22,5 +22,5 @@ assert.ok(linkOK(link,'https://example.org'),'source warrants are allowed withou
 assert.ok(linkOK({...link,warrant:undefined},'https://example.org'),'old DOOR packets import');
 assert.equal(linkOK({...link,warrant:3},'https://example.org'),false);
 assert.equal(linkOK({...link,warrant:'X'.repeat(321)},'https://example.org'),false);
-assert.ok(linkOK({...link,to:{...second,quote:'fabricated'}},'https://example.org'),'structural check cannot certify remote bytes; separate revision check must do that');
+assert.ok(linkOK({...link,to:{...second,quote:'X'.repeat(b.length)}},'https://example.org'),'structural check cannot certify remote bytes; separate revision check must do that');
 console.log('INTERPHASE WARRANT SELFTEST PASS · bounded authored reasons, independent readings, legacy compatibility, unchanged authority');
