@@ -3,6 +3,7 @@
 (function(){
 'use strict';
 const query=new URLSearchParams(location.search);
+const hostedByLadder=query.get('ladderHost')==='1'&&window.parent!==window;
 if(query.get('bell')!=='1'&&query.get('read')!=='1')return;
 const B=window.SleeperReadingBridge,T=window.Threadwalk;if(!B||!T)return;
 const DEMO=[
@@ -46,6 +47,15 @@ async function compareLadder(index){
 }
 const snap=()=>B.snapshot(),text=s=>String(s??'');
 function stop(){clearTimeout(timer);timer=null;playing=false;try{speechSynthesis.cancel()}catch(_){}}
+// A LADDER projection is hidden rather than torn down. Keep the exact source
+// session alive while halting timed reading and speech behind the painting.
+window.addEventListener('message',e=>{
+ if(window.parent===window||e.source!==window.parent||e.origin!==location.origin)return;
+ if(e.data?.schema==='sleeper.ladder-reader-pause/v1'){
+  stop();
+  const b=$('ridePlay');if(b)b.textContent='▶ RIDE';
+ }
+});
 function element(tag,className,value){const e=document.createElement(tag);if(className)e.className=className;if(value!==undefined)e.textContent=value;return e;}
 function button(label,handler,className){const b=element('button',className,label);b.type='button';b.onclick=handler;return b;}
 function status(msg){error=msg;if($('stateStatus'))$('stateStatus').textContent=msg;if($('compareError'))$('compareError').textContent=msg;}
@@ -312,10 +322,10 @@ function render(){
  $('threadToggle').onclick=toggleThreads;$('bottomThreads').onclick=toggleThreads;
  $('mySource').onclick=()=>{sourceOpen=true;render()};
  $('fullField').onclick=()=>{stop();B.showField();host.style.display='none';document.body.style.overflow=''};
- $('exit').textContent=ladderLesson?'↩ LADDER':'EXIT';$('exit').onclick=()=>{stop();if(ladderLesson)return closeLadder();location.assign('./')};
+ $('exit').textContent=ladderLesson||hostedByLadder?'↩ LADDER':'EXIT';$('exit').onclick=()=>{stop();if(ladderLesson||hostedByLadder)return closeLadder();location.assign('./')};
  let touchX=null;p.ontouchstart=e=>{touchX=e.touches.length===1?e.touches[0].clientX:null};p.ontouchend=e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(dx)>110){const n=dx<0?next:prev;if(n)advance(n)}};
 }
-dom.addEventListener('keydown',e=>{if(sourceOpen||['INPUT','TEXTAREA','SELECT'].includes(dom.activeElement?.tagName))return;const {model,session}=snap();if(!model)return;const i=model.nodes.findIndex(n=>n.id===session.focus);if(['ArrowRight','ArrowLeft'].includes(e.key)){const n=model.nodes[i+(e.key==='ArrowRight'?1:-1)];if(n){e.preventDefault();move(n.id,true)}}if(e.key==='Escape'){stop();if(ladderLesson){closeLadder();return}B.showField();host.style.display='none';document.body.style.overflow=''}});
+dom.addEventListener('keydown',e=>{if(sourceOpen||['INPUT','TEXTAREA','SELECT'].includes(dom.activeElement?.tagName))return;const {model,session}=snap();if(!model)return;const i=model.nodes.findIndex(n=>n.id===session.focus);if(['ArrowRight','ArrowLeft'].includes(e.key)){const n=model.nodes[i+(e.key==='ArrowRight'?1:-1)];if(n){e.preventDefault();move(n.id,true)}}if(e.key==='Escape'){stop();if(ladderLesson||hostedByLadder){closeLadder();return}B.showField();host.style.display='none';document.body.style.overflow=''}});
 
 function closeLadder(){
  if(window.parent!==window)window.parent.postMessage({schema:'sleeper.ladder-reader-close/v1'},location.origin);
