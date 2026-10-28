@@ -177,14 +177,27 @@ function render(){
  $('scrub').max=m.nodes.length-1;$('scrub').value=i;$('currentNumber').textContent=String(i+1).padStart(2,'0');$('totalNumber').textContent=m.nodes.length+' passages';
  $('scrub').onchange=e=>move(m.nodes[+e.target.value].id,false);
  m.nodes.forEach((n,j)=>{const b=button(String(j+1).padStart(2,'0'),()=>move(n.id,false),n.id===s.focus?'here':n.id===node.id?'preview':'');b.title='Inspect '+(j+1);$('rail').append(b)});
- const advance=n=>{if(!n)return;move(n.id,T.neighbors(m,s).some(e=>e.id===n.id))};
+ // Looking ahead is not a move. PREV/NEXT may traverse source order only
+ // when the currently displayed passage is the committed reading position.
+ const advance=n=>{if(!n)return;move(n.id,here&&T.neighbors(m,s).some(e=>e.id===n.id))};
  $('prev').disabled=!prev;$('next').disabled=!next;$('prev').onclick=()=>advance(prev);$('next').onclick=()=>advance(next);
  $('here').disabled=here;$('here').onclick=()=>move(focus.id,false);$('origin').disabled=s.focus===m.nodes[0].id;$('origin').onclick=home;
  if(ladderLesson){
   const entry=ladderLesson.entries[i];
-  if(entry)for(const j of entry.compareIndices){
-   const other=ladderLesson.entries[j];
-   $('quickThreads').append(button('↝ '+(j+1)+' · '+other.name.toUpperCase(),()=>move(m.nodes[j].id,false),'echoQuick'));
+  if(entry){
+   // MN 117 treats these factors as continually supporting one another,
+   // not three extra Gates. Inspecting a factor never travels or earns proof.
+   const lead=element('a','tiny','MN 117 · VIEW / EFFORT / MINDFULNESS ↗');
+   lead.href='https://suttacentral.net/mn117/en/sujato';
+   lead.target='_blank';lead.rel='noopener noreferrer';
+   $('quickThreads').append(lead);
+   const names={0:'VIEW · DISCERN',5:'EFFORT · ADJUST',6:'MINDFULNESS · CHECK'};
+   for(const j of entry.compareIndices){
+    const other=ladderLesson.entries[j];
+    const jump=button('↝ '+(j+1)+' · '+names[j],()=>move(m.nodes[j].id,false),'echoQuick');
+    jump.title='Inspect '+other.name+' in the same source; no Gate proof or inferred agreement';
+    $('quickThreads').append(jump);
+   }
   }
  }
  for(const e of candidates.slice(0,2)){const n=m.nodes.find(n=>n.id===e.id);if(!n)continue;const common=(e.common||[]).slice(0,2).join(' · ');$('quickThreads').append(button('↝ '+String(m.nodes.indexOf(n)+1).padStart(2,'0')+' · '+(common||'distant passage'),()=>move(n.id,false),'echoQuick'));}
