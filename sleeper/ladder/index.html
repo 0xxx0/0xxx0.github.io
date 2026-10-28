@@ -31,6 +31,7 @@
   }
   #prov b { font-weight: 400; color: rgba(79,87,96,.72); }
   #prov[role="link"] { cursor: pointer; color: rgba(130,151,157,.85); }
+  #prov[role="link"]::after { content: " · READ FACTOR ↗"; color: rgb(164,187,190); border-bottom: 1px solid rgba(164,187,190,.4); }
   #prov[role="link"]:focus-visible { outline: 1px solid #bdad84; outline-offset: -1px; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
