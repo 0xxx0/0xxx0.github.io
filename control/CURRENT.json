@@ -987,7 +987,6 @@
   ],
   "next_single_action": {
     "id": "witness-dayline",
-    "target_route": "/dayline/",
     "instruction": "Rotate the day's lines into /dayline/ and witness the result on phone. RETURN the observed fit/friction. STOP before wiring the air-instrument sensor loop; that is a fresh SOURCE/HOLD after RETURN."
   },
   "downstream": {
