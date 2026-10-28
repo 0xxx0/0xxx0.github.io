@@ -48,15 +48,56 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  rd.querySelector('#next').click();
  await wait(()=>rd.querySelector('#where')?.textContent.includes('2 / 8'),'real source navigation');
  assert(same(stable(L.state()),before),'reading has not moved walker, spent breath, lit Gate or changed witness');
+ // A real RIDE is paused when the painting comes back; the same read frame
+ // and its exact source witnesses remain alive across multiple returns.
+ rd.querySelector('#actions button:nth-child(2)').click();
+ const ride=rd.querySelector('#ridePlay');assert(ride,'RIDE control available');
+ ride.click();assert(ride.textContent.includes('PAUSE'),'RIDE actually started');
  rd.querySelector('#exit').click();
- await wait(()=>!d.querySelector('#ladderOverlay'),'source-to-Ladder return message');
- assert(same(stable(L.state()),before),'same native walk after close');
+ await wait(()=>d.querySelector('#ladderOverlay')?.hidden,'reader hidden by source-to-Ladder return');
+ await wait(()=>ride.textContent.includes('RIDE'),'reader RIDE paused on hidden frame');
+ assert(same(stable(L.state()),before),'native walker and Gate proofs unchanged by reading');
+
  read.click();
- await wait(()=>!!d.querySelector('#ladderOverlay'),'reopen');
+ await wait(()=>!d.querySelector('#ladderOverlay')?.hidden,'reopen same view');
+ assert(d.querySelector('#ladderFrame')===inner,'reader frame identity preserved');
+ assert(rd.querySelector('#where')?.textContent.includes('2 / 8'),'reader position survived return');
+ rd.querySelector('#rail button:first-child').click();
+ await wait(()=>rd.querySelector('#where')?.textContent.includes('1 / 8'),'inspect the original witness again');
+ assert(rd.querySelector('#passage button.held'),'held exact witness survived painting return');
  d.querySelector('#ladderClose').click();
- assert(!d.querySelector('#ladderOverlay'),'explicit close works');
- assert(same(stable(L.state()),before),'reversible close');
- out.textContent='PASS Ladder → source-exact abridged Threadwalk → same Ladder / 320,390,1280 / original law unchanged';
+ assert(d.querySelector('#ladderOverlay')?.hidden,'explicit close hides source aperture');
+ read.click();
+ assert(d.querySelector('#ladderFrame')===inner,'repeated open reuses same frame');
+ d.querySelector('#ladderClose').click();
+ assert(same(stable(L.state()),before),'painting law unchanged after repeated reading');
+
+ // Native 0.6.5 trigger: three early releases on one cited sentence,
+ // not a test-only assignment to the Bell switch.
+ // FAR has no walker yet. Pick a real cited source cell through the public
+ // native startRideAt API; never inject or set the loop flag directly.
+ let plan=null;
+ for(let candidate=0;candidate<32&&!plan;candidate++)plan=L.startRideAt(candidate);
+ assert(plan&&Number.isInteger(plan.words)&&plan.words>=1,'real sentence score engaged');
+ const canvas=d.querySelector('#world')||d.querySelector('canvas');
+ assert(canvas,'native painting canvas available');
+ for(let k=0;k<3;k++)canvas.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:40+k}));
+ assert(L.loop(),'three actual early releases enter the native Bell loop');
+ bridge.refresh();
+ assert(read.textContent.includes('THE LOOP'),'native condition changes the only source aperture');
+ read.click();
+ const bellFrame=d.querySelector('#ladderFrame');
+ assert(bellFrame&&bellFrame!==inner,'Bell gets a different source frame');
+ assert(bellFrame.src.includes('bell=1')&&bellFrame.src.includes('ladderHost=1'),'Bell knows it must return to Ladder');
+ const bellDoc=await wait(()=>bellFrame.contentDocument?.querySelector('#readingPlay')?.shadowRoot,'Bell reader');
+ await wait(()=>bellDoc.querySelector('#passage')?.textContent.includes('bell'),'Bell reading study loaded');
+ assert(!bellDoc.querySelector('#ladderContext')?.textContent?.includes('ABRIDGED DERIVED SELECTION'),'Bell never masquerades as Payutto');
+ bellDoc.querySelector('#exit').click();
+ await wait(()=>d.querySelector('#ladderOverlay')?.hidden,'Bell reader returns to same painting');
+ const afterBell=stable(L.state());
+ assert(afterBell.breath===before.breath&&same(afterBell.walker,before.walker),'reading Bell does not spend breath or move native walker');
+ // Other world state may differ only because the real THREE MISSES enacted the loop.
+ out.textContent='PASS Ladder ↔ retained Threadwalk ↔ native Bell loop / exact witness, RIDE pause, 320/390/1280 / Gate law unchanged';
 }catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
 </script>`;
 const server=http.createServer((req,res)=>{

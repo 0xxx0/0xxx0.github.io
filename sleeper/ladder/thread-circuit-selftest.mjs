@@ -79,7 +79,12 @@ test(reader.includes("query.has('ladderFactor')")&&reader.includes('LADDER_PROJE
 test(reader.includes('LADDER_SOURCE_REJECTED')&&reader.includes('LADDER_SOURCE_HTTP_'),'source failures are explicit');
 const overlay=fs.readFileSync(new URL('thread-overlay.js',path),'utf8');
 test(overlay.includes('e.origin!==location.origin')&&overlay.includes('e.source!==frame.contentWindow'),'close requires same-origin same-frame');
-test(overlay.includes('node.remove()')&&overlay.includes('frame=null'),'return tears down the entire reader overlay');
+test(overlay.includes('const frames={read:null,bell:null}')&&overlay.includes("key=bell?'bell':'read'"),'Ladder maintains separate Bell and Path reading sessions');
+test(overlay.includes('overlay.hidden=true')&&overlay.includes('overlay.hidden=false')&&overlay.includes('#ladderOverlay[hidden]'),'reader display is reversible with no iframe teardown');
+test(!overlay.includes('node.remove()')&&!overlay.includes('overlay=null;frame=null'),'reader is not destroyed when returning to painting');
+test(overlay.includes('sleeper.ladder-reader-pause/v1'),'hidden reader stops timed playback');
+test(reader.includes('hostedByLadder')&&reader.includes("e.source!==window.parent")&&reader.includes("e.origin!==location.origin"),'Bell uses authenticated parent return/pause without impersonating a Gate');
+test(reader.includes('sleeper.ladder-reader-pause/v1'),'reader actually handles the pause instruction');
 const native=fs.readFileSync(new URL('ladder.js',path),'utf8');
 test(!native.includes('thread-bridge.js'),'native Ladder law remains independent');
 console.log('LADDER ↔ THREADWALK '+n+' assertions PASS / source offsets, eight factors, native separation, authored door + RETURN');
