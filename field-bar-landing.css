@@ -99,6 +99,8 @@ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #aperture
 }
 @media(prefers-reduced-motion:reduce){html[data-field-bar-pane] #fieldUrlBar *{scroll-behavior:auto!important}}
 
+/* Explicit ALL is a bounded aperture, never a 218-tile takeover of the root. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail[data-scope="ALL"]{max-height:min(66svh,480px);overflow-y:auto;overscroll-behavior:contain;align-content:start}
 /* One reversible scope action among native glyphs, never another representation. */
 html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedScopeToggle{
  display:grid;place-items:center;min-height:44px;height:100%;padding:4px;cursor:pointer;
