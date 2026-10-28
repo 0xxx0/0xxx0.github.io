@@ -344,3 +344,30 @@ Recovered requirement across ROOM / INTERPHASE / FIELD / Fold–Bloom / Sleeper 
 Task: take an actual dated Fold–Bloom thread index, enter its quoted INTERPHASE successor, mark/question one native range, return to the original source and caret; optionally author a cross-source relation and follow it back; export/import the existing continuation/v1 packet. Falsifiers: forged quote/hash, syntactically valid but non-native range, stale fetch race, disconnected RETURN, hidden RETURN, silent projection/effect escalation, or loss of authored reader marks. The two existing JSON contract artifacts and a historical Markdown index are regression fixtures. If navigation does not reduce work against an ordinary link, demote DOOR, not the native hosts. No claim of access to arbitrary private ChatGPT conversations; explicit source transfer remains necessary.
 
 Research transfer: W3C Web Annotation's TextQuote/TextPosition selectors support using exact quotations with positions as independent anchors, but its code-point character accounting differs from the continuum's UTF-16 offsets; no interoperable W3C format is claimed. RFC 6901 supplies JSON-value addressing if needed by a native JSON owner, not a second address parser here. No new registry, timeline, app launcher, queue or geometric reading is created.
+
+
+## DOOR: one native object, typed partial correspondence (28 October 2026)
+
+**Correction:** shipping a link validator without an ordinary FIELD entrance was insufficient. The root now exposes **DOOR ↗** beside whichever manifest route the operator actually holds. The same exact route is addressable from the sole URLbar as `:door /route/` or, after holding it, `:door`. When nothing is held, the source is the FIELD root, not a guessed priority head. At rest the glyph rail is an *alphabetically ordered CURRENT scope projection*; the URLbar's normal address search covers all manifest routes. Neither color, radial position nor curated CURRENT membership is a significance ranking.
+
+### Minimal mathematical object
+
+A working object is **O = (owner, address, revision, native_range, attention, authority)**. An ordinary glyph, ring, list, plain reading or room is a partial projection `P_i(O)`, never a second owner. Equality of drawing, glyph or position does not imply equality of object or next native action.
+
+DOOR is a **typed partial correspondence**, not an equivalence relation or bidirectional data-sync engine:
+
+- `CITE : (source, exact authored reference) → (source, verified bytes)` is a navigable document edge, with no claim that the cited document supports or agrees with the caller.
+- `INTERPRET : (source A, hash A, native span A, quote A) × relation × (source B, hash B, native span B, quote B)` is a human-authored `supports | contrasts | questions | explains` relation. The labels are *claims by a reader*, not machine proof.
+- `RETURN : (caller frame, current source) ⇀ caller frame` restores the original source, selection, scope, cursor and source continuation only if the source revision and native span still validate. It is a history inverse of **navigation**, not an inverse of the meaning of the edge.
+
+The arrow is defined only where its typed preconditions hold. A missing address, changed hash, quote mismatch, unsupported file, unverified native range, external host, depth overflow or absent host permission is a **STOP**, not a guessed transition. Authored links can be navigated in either direction but neither direction transfers effect authority. `view/interpretation ≤ native host authority`; no DOOR operation modifies source bytes, executes host effects, or infers equality.
+
+This follows the useful discipline of *well-behaved lenses* without claiming a full lens where none exists. The relevant round-trip obligations are **GetPut** (a projection unchanged must not alter its source) and **PutGet** (a permitted native update is reflected in its reading), with domain-specific failure outside supported updates. DOOR's actual implemented obligation is narrower: **select same route → source-enter → cite/return → exact route and attention restored**, or fail closed. No total bidirectional view-update law, functorial composition, or equivalence across HOUSE geometry, Sleeper Gate proof, audio clocks and text passages is claimed.
+
+### Executable falsifiers
+
+`tools/field-urlbar-selftest.mjs` checks all manifest addresses (including HTML and SVG), rejects external/query/traversal addresses, and proves the route→source→caller URL invariant. `tools/interphase-door-selftest.mjs` checks canonical source hashes, native quotes, typed receipt/contract/return declarations and unavailable/foreign references. `tools/field-door-entry-smoke.mjs` tests root FIELD at 320px and 390px → held Fold/Bloom → declared receipt → exact source RETURN → exact FIELD selection. Old same-source and cross-source browser suites still gate promotion.
+
+Research foundations: [bidirectional transformations / lenses](https://doi.org/10.1145/2213556.2213568) and [W3C Web Annotation](https://www.w3.org/TR/annotation-model/) inform the contract; local UTF-16 native text offsets are **not** asserted interoperable with those formats. The operational test is whether the human can recover relevant work with fewer actions and no context loss than a plain link. Source citations and glyph selection must remain useful when the richer projection is turned off.
+
+**Conversation boundary:** private ChatGPT threads are not automatically present in this public GitHub source system. No private conversation, medical record or unreviewed source should be published to make DOOR appear comprehensive. A conversation becomes addressable only through an explicitly authorised, privacy-appropriate source or a local continuation owned by its native system.
