@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T11:55:35.706Z",
+  "generated": "2026-10-28T12:26:34.950Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 104,
-  "git_commits_in_window": 174,
-  "telemetry_commits_in_window": 70,
-  "commits_total": 7266,
-  "branch_count": 1127,
+  "commits_in_window": 111,
+  "git_commits_in_window": 184,
+  "telemetry_commits_in_window": 73,
+  "commits_total": 7276,
+  "branch_count": 1130,
   "recent_commits": [
-    "RSVP / READFIELD: exact source bearings, mark/annotation inverse and revision-",
-    "FIELD: source-backed held cue and reduced projection clutter",
-    "SLEEPER: preserve source-bound reading drafts and compare Bell continuations"
+    "desk: refresh public field data + root git chronology",
+    "fi-mutation-contract: stamp /sleeper/ladder/ (0.6.6 RSVP ring, hold repair, Be",
+    "ladder 0.6.6: the ride becomes a ring — RSVP word at the focal point, clause t"
   ],
   "active_fronts": [
     {
