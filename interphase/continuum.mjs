@@ -111,7 +111,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(!force&&now-lastPersist<interval){if(!persistTimer)persistTimer=setTimeout(()=>{persistTimer=null;persist(snap(),true)},interval-(now-lastPersist));return}
   if(persistTimer){clearTimeout(persistTimer);persistTimer=null}lastPersist=now;
   const key=FieldSourceTrail.sourceKey({address:source.address,id:source.hash});
-  FieldSourceTrail.record(key,{charIndex:s.char_index,address:s.address,scale:s.scale,wpm:s.wpm,progress:s.source_progress,focus:s.focus,via:'INTERPHASE'});
+  FieldSourceTrail.record(key,{charIndex:s.char_index,address:s.address,scale:s.scale,wpm:s.wpm,progress:s.source_progress,focus:s.focus,revision:source.hash,via:'INTERPHASE'});
   try{sessionStorage.setItem('interphase.continuum.v1',JSON.stringify({source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links,doors,doorFrames,marks,frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo}))}
   catch{if(!root.dataset.storage){root.dataset.storage='session-only';status('This source remains here; export RETURN to keep it.',true)}}
  }
