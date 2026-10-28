@@ -117,6 +117,41 @@ async function continuumBrowserProof(){
    await sourceTab.goto(base+'/?work=1&source=1');
    await sourceTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.raw&&document.querySelector('[data-ip=drawer]')?.hidden===false);
    await sourceTab.close();
+   // Exact native FIELD route → derived GLYPHFIELD → same byte-addressed source.
+   if(width===390){
+    const glyphTab=await context.newPage();
+    try{
+     await glyphTab.goto(base+'/interphase/?route=%2Fdocs%2F');
+     await glyphTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.nativeRoute==='/docs/');
+     const held=await glyphTab.evaluate(()=>window.InterphaseInstrument.snapshot());
+     await glyphTab.locator('[data-ip=source]').click();
+     const link=glyphTab.locator('[data-ip=glyphfield]');
+     assert.equal(await link.isVisible(),true,'exact FIELD route exposes derived glyph');
+     assert.equal(await link.getAttribute('href'),'/interphase/?legacy=1&route=%2Fdocs%2F#substrate');
+     await link.click();
+     await glyphTab.waitForFunction(()=>document.body.dataset.interphaseMode==='SUBSTRATE'&&document.querySelector('.substrate-shell')?.dataset.mapping==='FIELD_FOLD_MAP',null,{timeout:20000}).catch(async error=>{
+       const state=await glyphTab.evaluate(()=>({href:location.href,ready:!!window.InterphaseWorkbench,mode:document.body.dataset.interphaseMode,rail:document.getElementById('railId')?.textContent,content:document.getElementById('surfaceBody')?.textContent.slice(0,250)})).catch(()=>({href:glyphTab.url()}));
+       throw Error('GLYPH REENTRY '+JSON.stringify(state)+' '+error.message);
+      });
+     assert.equal((await glyphTab.locator('#railId').textContent()).trim(),'route:/docs/','glyph keeps held object');
+     const backLink=glyphTab.locator('[data-substrate-return]');
+     assert.equal(await backLink.count(),1,'addressed glyph exposes a single RETURN to its original source');
+     await backLink.click();
+     await glyphTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.hash);
+     const back=await glyphTab.evaluate(()=>window.InterphaseInstrument.snapshot());
+     assert.equal(back.source.hash,held.source.hash,'glyph RETURN retains exact source');
+     assert.equal(back.attention.char,held.attention.char,'glyph RETURN retains byte cursor');
+     assert.equal(back.nativeRoute,'/docs/','glyph RETURN preserves native route');
+     await glyphTab.evaluate(()=>window.InterphaseInstrument.load('outside manifest','pasted source'));
+     await glyphTab.waitForFunction(()=>window.InterphaseInstrument.snapshot()?.source?.raw==='outside manifest');
+     assert.equal(await glyphTab.evaluate(()=>window.InterphaseInstrument.command(':glyph')),false,'local source must not invent geometry');
+     assert.match(await glyphTab.locator('[data-ip=status]').textContent(),/requires an exact FIELD route/);
+     await glyphTab.locator('[data-ip=source]').click();
+     assert.equal(await glyphTab.locator('[data-ip=glyphfield]').isVisible(),false,'local source cannot claim native route');
+     console.log('GLYPH BRIDGE PASS: exact route → glyph → character RETURN; local source refusal');
+    }finally{await glyphTab.close()}
+   }
+
    await page.goto(base+'/?work=1');await wait();await page.waitForFunction(()=>document.querySelector('.fieldUrlFrame').getBoundingClientRect().height<=50);
    let s=await snap();assert.equal(s.source.address,'/showcase-manifest.json');assert.equal(s.attention.scope,'COLLECTION:$.routes');assert.ok(JSON.parse(s.source.raw).routes.length>=200);
    assert.equal(await page.locator('#interphaseWorkspace iframe').count(),0);assert.equal(await page.locator('.ip-continuum field-aperture').count(),1);

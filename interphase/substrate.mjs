@@ -31,7 +31,7 @@ if(body&&modes){
     const rt=fold?.routes,map=rt?.operation_class_map;
     if(fold?.schema!=='field-fold/v2'||!rt||rt.routes_total!==routes.length||!map||typeof map!=='object')return null;
     const raw=[...new Set(routes.map(r=>String(r?.operation??'').trim()).filter(Boolean))];
-    if(raw.some(op=>!Object.prototype.hasOwnProperty.call(map,op)||!ACTION_KERNEL.includes(String(map[op]||'').trim())))return null;
+    if(raw.some(op=>!Object.prototype.hasOwnProperty.call(map,op)||!([...ACTION_KERNEL,'OTHER'].includes(String(map[op]||'').trim()))))return null;
     return map;
   }
   function selectedMember(model){
@@ -44,6 +44,17 @@ if(body&&modes){
     const edges=model.edges.map(e=>`<g class="declared-edge"><line x1="${(e.a.x*100).toFixed(3)}" y1="${(e.a.y*100).toFixed(3)}" x2="${(e.b.x*100).toFixed(3)}" y2="${(e.b.y*100).toFixed(3)}"/>${e.count>1?`<text x="${(((e.a.x+e.b.x)/2)*100).toFixed(3)}" y="${(((e.a.y+e.b.y)/2)*100).toFixed(3)}">×${e.count}</text>`:''}</g>`).join('');
     return `<svg class="substrate-guide" viewBox="0 0 100 100" aria-hidden="true"><g class="distance-rings">${rings}</g><g class="operation-sectors">${sectors}</g><g class="declared-edges">${edges}</g></svg>`;
   }
+  // Re-enter the source only when the existing continuum holds a local
+  // addressed continuation. The source owner verifies bytes on resume.
+  function returnableSource(){
+    try{
+      const p=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null');
+      return p?.source?.address==='/showcase-manifest.json'&&
+        typeof p.source.hash==='string'&&!!p.source.hash&&
+        typeof p.source.raw==='string'&&p.source.raw.length>0&&
+        Number.isInteger(p.attention?.char)&&p.attention.char>=0;
+    }catch{return false}
+  }
   function renderModel(model,record,fold){
     const focus={record,href:record.href,relation:'FOCUS'};
     const nodes=model.groups.map(g=>{
@@ -55,7 +66,7 @@ if(body&&modes){
     const readout=chosen?`<span><b>${esc(chosen.item.record.title||chosen.item.href)}</b><small>${esc(chosen.item.href)} · ${esc(chosen.item.rawOperation)} → ${esc(chosen.group.operation)} · ${chosen.group.distance} hop${chosen.group.distance===1?'':'s'} · ${esc(chosen.item.relation)}</small></span><a class="btn hot" href="${hrefFor(chosen.item.record)}">HOLD / RECENTER</a>`:`<span><b>SEMANTIC CURSOR</b><small>tap a glyph · repeated tap cycles exact-coordinate collisions · ${model.placedCount}/${model.visibleCount} placed</small></span>`;
     const unplaced=model.unplaced.length?`<div class="substrate-residue" title="No position is invented when the explicit operation fold lacks a class.">RESIDUE · ${model.unplaced.length} unplaced · operation fold has no lawful class</div>`:'';
     const generated=String(fold?.generated||'').replace('T',' ').replace(/\.\d+Z$/,'Z');
-    body.innerHTML=`<section class="substrate-shell" data-hops="${model.maxHops}" data-mapping="${esc(model.mapping)}"><div class="substrate-law"><span>ANGLE = FIELD FOLD action class</span><span>RADIUS = parent-edge hops</span><span>LINE = declared parent edge</span><button type="button" id="substrateDepth">DEPTH ${model.maxHops} / 3</button></div><div class="substrate-stage" tabindex="0" aria-label="Semantic substrate. Angle uses the explicit FIELD FOLD action class. Radius encodes exact parent-edge hops from the held route. Parent lines only appear when declared in the manifest. Sector adjacency is mnemonic, not similarity.">${guide(model)}<div class="substrate-focus" style="left:50%;top:50%;--node-size:88px"><span class="substrate-glyph">${glyphFor(focus,0)}</span><span class="substrate-node-mark">⊙</span></div>${nodes}</div><div class="substrate-readout" aria-live="polite">${readout}</div>${unplaced}<div class="instrument-caption">GLYPHFIELD · 71 raw operation verbs → explicit 6-class read-only fold · sector order is mnemonic, never similarity · collisions aggregate · fold ${esc(generated)}</div></section>`;
+    body.innerHTML=`<section class="substrate-shell" data-hops="${model.maxHops}" data-mapping="${esc(model.mapping)}"><div class="substrate-law"><span>ANGLE = FIELD FOLD action class</span><span>RADIUS = parent-edge hops</span><span>LINE = declared parent edge</span><button type="button" id="substrateDepth">DEPTH ${model.maxHops} / 3</button>${returnableSource()?'<a class="btn" data-substrate-return href="/interphase/" title="Return to the held source and character" aria-label="Return to held source and character">↶</a>':''}</div><div class="substrate-stage" tabindex="0" aria-label="Semantic substrate. Angle uses the explicit FIELD FOLD action class. Radius encodes exact parent-edge hops from the held route. Parent lines only appear when declared in the manifest. Sector adjacency is mnemonic, not similarity.">${guide(model)}<div class="substrate-focus" style="left:50%;top:50%;--node-size:88px"><span class="substrate-glyph">${glyphFor(focus,0)}</span><span class="substrate-node-mark">⊙</span></div>${nodes}</div><div class="substrate-readout" aria-live="polite">${readout}</div>${unplaced}<div class="instrument-caption">GLYPHFIELD · ${Object.keys(fold?.routes?.operation_class_map||{}).length} raw operation verbs → six warranted classes + explicit OTHER residue · sector order is mnemonic, never similarity · collisions aggregate · fold ${esc(generated)}</div></section>`;
     body.querySelectorAll('[data-substrate-group]').forEach(b=>b.onclick=()=>{
       const key=b.dataset.substrateGroup,g=model.groups.find(x=>x.key===key);if(!g)return;
       if(selectedKey===key&&g.items.length>1)memberAt.set(key,((memberAt.get(key)||0)+1)%g.items.length);selectedKey=key;renderModel(model,record,fold);
@@ -82,6 +93,14 @@ if(body&&modes){
   new MutationObserver(()=>render()).observe(document.body,{attributes:true,attributeFilter:['data-interphase-mode']});
   const rail=document.querySelector('#railId');if(rail)new MutationObserver(()=>{if(document.body.dataset.interphaseMode==='SUBSTRATE')render()}).observe(rail,{childList:true,characterData:true,subtree:true});
   if(location.hash==='#substrate'){
-    let attempts=0;const enter=()=>{attempts++;if(currentId()&&currentId()!=='loading source'){modeButton.click();return}if(attempts<12)setTimeout(enter,50)};setTimeout(enter,0);
+    // The host installs controls asynchronously. A fixed retry window can miss
+    // the exact-route handoff on a slow device; use the real host readiness edge.
+    const enter=()=>{
+      if(!window.InterphaseWorkbench?.setMode)return;
+      document.removeEventListener('interphase:ready',enter);
+      window.InterphaseWorkbench.setMode('SUBSTRATE');
+    };
+    document.addEventListener('interphase:ready',enter);
+    enter();
   }
 }
