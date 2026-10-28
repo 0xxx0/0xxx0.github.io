@@ -27,6 +27,12 @@ check('all eight excerpts copied directly from the shipped projection',()=>{
   for(const ref of e.references)assert.match(ref.url,/^https:\/\/suttacentral\.net\//);
  }
 });
+check('five linked book lenses are explicit editorial navigation',()=>{
+ assert.equal(B.READING_MAP.length,5);
+ assert.deepEqual(B.READING_MAP.map(x=>x.lens),['COMPOSE','CHANGE','CONDITION','DISCERN','PRACTISE']);
+ assert.deepEqual(B.READING_MAP.map(x=>x.chapter),['Ch. 1','Ch. 3','Ch. 4','Ch. 15','Ch. 16–18']);
+ for(const stage of B.READING_MAP){assert.match(stage.url,/^https:\/\/buddhadhamma\.github\.io\//);assert.ok(stage.question.includes('?'));}
+});
 check('only exact valid factor indices',()=>{
  assert.equal(B.selectedIndex('0'),0);assert.equal(B.selectedIndex('7'),7);
  for(const x of ['-1','8','NaN','2.4','__proto__'])assert.throws(()=>B.selectedIndex(x),/FACTOR_INDEX_INVALID/);
