@@ -225,6 +225,8 @@ async function continuumBrowserProof(){
    assert.equal((await snap()).source.hash,hash);assert.equal((await snap()).attention.char,circuitDeparture);
    const savedTrail=await page.evaluate(h=>FieldSourceTrail.read(FieldSourceTrail.sourceKey({id:h})),hash);
    assert.equal(savedTrail.marks.filter(m=>m.revision===hash).length,1,'one shared READFIELD source trail '+width);
+   assert.equal(savedTrail.last.revision,hash,'INTERPHASE last visited coordinate is SHA-bound '+width);
+   assert.equal(savedTrail.furthestRevision,hash,'INTERPHASE furthest visited extent is SHA-bound '+width);
    await page.evaluate(c=>InterphaseInstrument.seek(c),circuitStart);
    const firstPosition=(await snap()).attention.char,firstScope=(await snap()).attention.scope;
    assert.ok(firstPosition>=Number(await ip('local-slider').getAttribute('aria-valuemin'))&&firstPosition<=Number(await ip('local-slider').getAttribute('aria-valuemax')),'fresh source opens inside its actual held range');
