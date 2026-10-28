@@ -49,7 +49,7 @@ function renderIdentity(){
   sourceMode='LISTEN ENERGY';drawContour(paired.energy,true);
   glyph.innerHTML=paired.original.svg;glyph.hidden=false;
   glyph.title='Native LISTEN source glyph · '+String(paired.name||'audio').slice(0,80);
-  scaleCaption='LISTEN · ENERGY'+(paired.stage?' · '+paired.stage:'');tag.textContent=scaleCaption;
+  scaleCaption='LISTEN · MEASURED ENERGY'+(paired.stage?' · '+paired.stage:'');tag.textContent=scaleCaption;
   tag.title='Measured frame energy from LISTEN, not a PCM waveform; audio remains LISTEN-owned';
  }else{
   sourceMode='TEXT STRUCTURE';drawContour(textContour(raw),false);
