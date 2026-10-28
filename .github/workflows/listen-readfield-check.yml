@@ -97,6 +97,7 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
         run: |
+          node tools/reading-trail-revision-selftest.cjs
           node tools/reading-review-selftest.cjs
           node tools/reading-review-smoke.mjs
       - uses: actions/upload-artifact@v4
