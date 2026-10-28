@@ -1,0 +1,41 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "SIX_FAMILY_PROJECT_MAP_2026-10-28",
+  "date": "2026-10-28",
+  "object": "CONFLUENCE / SIX-FAMILY PROJECT MAP",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "authority": "NONE / DERIVED ORIENTATION",
+  "source_refs": [
+    "/control/CURRENT.json",
+    "/control/QUEUE.json",
+    "/showcase-manifest.json",
+    "/control/confluence/PROJECT_MAP.md",
+    "/interphase/SPEC.md",
+    "/returns/READFIELD_SHARED_CURSOR_2026-10-24.json",
+    "/returns/DAYLINE_ZERO_HUNT_FLOW_040_2026-10-02.json",
+    "/returns/COMMS_EXACT_TRANSPORT_RELEASE_2026-10-03.json"
+  ],
+  "delta": [
+    "Refreshed the six-family map from current 2026-10-28 repo truth instead of the stale October 24 FIELD baseline.",
+    "Made repo activity ≠ attention explicit: recent Sleeper/GLYPHFIELD work remains visible evidence while CURRENT alone owns NOW.",
+    "Updated HOLD to FIELD/INTERPHASE 0.10.6 and merged exact-source GLYPHFIELD RETURN.",
+    "Updated PATH to READFIELD 0.8.6 plus current Sleeper/Threadwalk/Bell/Ladder inspect-only reading work.",
+    "Kept TRANSFORM calculation-only and EXPERIENCE shipped/not-NOW.",
+    "Kept WORLD LOOPS as the sole active family and corrected the execution sequence to Dayline → phone witness → RETURN → STOP before any fresh sensor-loop work.",
+    "Kept RECOVERY on-demand only.",
+    "Surfaced the six-card reducer inside the existing Confluence page; no new route, project registry, backlog, priority source or execution front.",
+    "Reconciled during preparation after the native FIELD tower/source-witness binding landed on master; HOLD now stops at empirical use rather than naming that repair as candidate work."
+  ],
+  "active_front": "air-instrument",
+  "active_move": "/dayline/ → rotate today's lines → phone witness → RETURN → STOP → re-read CURRENT",
+  "invariants": [
+    "CURRENT owns NOW and NEXT.",
+    "Visibility, recent commits, open PRs and candidate branches do not activate a family.",
+    "No dependency edge increases authority.",
+    "Candidate support and calculation do not imply permission or effect.",
+    "Recovery activates only for an exact blocker.",
+    "RETURN closes one move and forces replan."
+  ],
+  "next": "Use the Dayline phone-witness move. Do not authorize the sensor loop from this map; re-read CURRENT after RETURN.",
+  "stop": "If this map begins carrying independent state, priority or backlog, delete that state and re-derive it from CURRENT/native evidence."
+}
