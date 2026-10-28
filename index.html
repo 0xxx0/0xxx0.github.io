@@ -1305,15 +1305,19 @@ function renderHeldContinuation(){
  // Opening the held owner is not equivalent to choosing its first exit.
  // Root glyph second-tap already uses this exact route; the primary action must
  // commute with that gesture. Other available exit paths remain secondary.
- const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,2):[],open=$('apOpen');
- const primaryForecastMove={id:'OPEN_HELD',label:'OPEN',authority:'NAVIGATION',target:href,reversibility:'EXACT_RETURN'};
- open.textContent='OPEN →';open.href=href;bindHeldForecast(open,primaryForecastMove);
+ const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');let primaryForecastMove=null;
  if(nativeActions.length){
-  $('capMoves').innerHTML=nativeActions.map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
-  [...$('capMoves').querySelectorAll('.capMove')].forEach((el,i)=>bindHeldForecast(el,nativeActions[i]));
+  const [primary,...rest]=nativeActions;primaryForecastMove=primary;
+  open.textContent=primary.label+' →';open.href=primary.target;bindHeldForecast(open,primary);
+  $('capMoves').innerHTML=rest.slice(0,2).map(a=>'<a class="capMove" href="'+esc(a.target)+'">'+esc(a.label)+'</a>').join('');
+  [...$('capMoves').querySelectorAll('.capMove')].forEach((el,i)=>bindHeldForecast(el,rest[i]));
  }else{
-  if(heldDaylineAllowed())$('capMoves').innerHTML='<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>';
-  else $('capMoves').innerHTML='<button class="capMove" data-cap-copy>COPY HANDOFF</button>';
+  const primary={id:'OPEN_HELD',label:n?'DO / OPEN':'OPEN',authority:'NAVIGATION',target:href,reversibility:'EXACT_RETURN'};primaryForecastMove=primary;
+  open.textContent=n?'DO / OPEN →':'OPEN →';open.href=href;bindHeldForecast(open,primary);
+  const extras=[];
+  if(heldDaylineAllowed())extras.push('<button class="capMove" data-cap-dayline>INTERPHASE → DAYLINE</button>');
+  else extras.push('<button class="capMove" data-cap-copy>COPY HANDOFF</button>');
+  $('capMoves').innerHTML=extras.join('');
   const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn){copyBtn.onclick=copyHeldAction;const local=()=>{$('capForecast').textContent='LOCAL_COPY · COMMIT CLIPBOARD · TARGET LOCAL · REV OVERWRITE'};copyBtn.onmouseenter=local;copyBtn.onfocus=local;copyBtn.ontouchstart=local}
   const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn){daylineBtn.onclick=handoffHeldToDayline;bindHeldForecast(daylineBtn,{id:'ADOPT_DAYLINE',label:'INTERPHASE → DAYLINE',authority:'OFFER',target:'/dayline/',reversibility:'RECEIVER_ACCEPTS_THEN_RETURN'})}
  }
