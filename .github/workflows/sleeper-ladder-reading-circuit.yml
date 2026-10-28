@@ -1,0 +1,44 @@
+name: sleeper-ladder-reading-circuit
+on:
+  pull_request:
+    paths:
+      - 'sleeper/ladder/**'
+      - 'sleeper/reading-play.js'
+      - 'sleeper/axis-score.html'
+      - '.github/workflows/sleeper-ladder-reading-circuit.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'sleeper/ladder/**'
+      - 'sleeper/reading-play.js'
+      - 'sleeper/axis-score.html'
+permissions:
+  contents: read
+jobs:
+  reader:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Native LADDER laws (allow only the pre-existing unpublished corpus fixture)
+        shell: bash
+        run: |
+          if node sleeper/ladder/ladder-selftest.mjs > /tmp/ladder-laws.log 2>&1; then
+            tail -n 8 /tmp/ladder-laws.log
+          else
+            grep 'FAIL ' /tmp/ladder-laws.log || true
+            failures=$(grep -c '^FAIL ' /tmp/ladder-laws.log || true)
+            if [ "$failures" != "1" ] || ! grep -Fq 'FAIL the shipped file still IS the derivation' /tmp/ladder-laws.log; then
+              cat /tmp/ladder-laws.log
+              exit 1
+            fi
+            echo 'KNOWN BASELINE: private full Buddhadhamma corpus is absent on CI; the source derivation arm cannot pass.'
+            tail -n 4 /tmp/ladder-laws.log
+          fi
+      - name: Existing THREADWALK evidence, source and return circuit
+        run: node sleeper/ladder/thread-circuit-selftest.mjs
+      - name: Browser source projection and exact same walk RETURN
+        run: node sleeper/ladder/thread-circuit-dom-smoke.mjs

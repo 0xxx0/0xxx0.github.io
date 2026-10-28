@@ -19,7 +19,7 @@ const style=':host{position:fixed;inset:0;z-index:100001;display:block;overflow:
 const host=document.createElement('div');host.id='readingPlay';host.setAttribute('aria-label','SLEEPER reading experience');const dom=host.attachShadow({mode:'open'});
 dom.innerHTML='<style>'+style+'</style><div id="app"></div>';
 document.body.append(host);const $=id=>dom.getElementById(id);
-let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=false,threadOpen=false;
+let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=false,threadOpen=false,ladderLesson=null;
 const snap=()=>B.snapshot(),text=s=>String(s??'');
 function stop(){clearTimeout(timer);timer=null;playing=false;try{speechSynthesis.cancel()}catch(_){}}
 function element(tag,className,value){const e=document.createElement(tag);if(className)e.className=className;if(value!==undefined)e.textContent=value;return e;}
@@ -31,7 +31,7 @@ function quote(m,w){return w?m.source.slice(w.start,w.end):'';}
 function paintEchoText(button,value,terms){let cursor=0;for(const match of value.matchAll(/[\p{L}\p{N}]+/gu)){const start=match.index,word=match[0];if(start>cursor)button.append(document.createTextNode(value.slice(cursor,start)));button.append(terms.has(word.toLowerCase())?element('mark','echoWord',word):document.createTextNode(word));cursor=start+word.length;}if(cursor<value.length)button.append(document.createTextNode(value.slice(cursor)));}
 function holdAt(id,choice){action(()=>{B.hold(id,choice);if(!snap().session.selected)B.mark(id)})}
 function clean(s){return text(s).replace(/\s+/g,' ').trim();}
-async function load(source,title,url=''){stop();error='';try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
+async function load(source,title,url='',keepLadder=false){stop();error='';if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
 function home(){stop();action(()=>{const m=snap().model;let cap=m.nodes.length+2;while(cap-->0){const s=snap().session,path=T.routeHome(m,s);if(path.length<=1)break;B.originStep()}B.inspect(m.nodes[0].id);});}
 function result(){action(()=>{const obj=B.returnArtifact(),json=JSON.stringify(obj,null,2);const url=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='threadwalk-'+obj.source.hash+'-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});}
 function play(){
@@ -69,7 +69,7 @@ function render(){
  const suggestions=T.suggestions(m,{...s,focus:node.id}).filter(e=>e.id!==node.id);
  let candidates=suggestions.slice(0,3).map(e=>({id:e.id,label:'ECHO · '+e.common.join(' · ')}));
  if(!candidates.length)for(const n of m.nodes){if(n.id===focus.id||Math.abs(m.nodes.indexOf(n)-m.nodes.indexOf(focus))<2)continue;candidates.push({id:n.id,label:'DISTANT / inspect only'});if(candidates.length===3)break}
- $('app').innerHTML='<div class="top"><div class="identity"><i>回</i> SLEEPER <span class="tiny">/ READ</span></div><div class="actions"><button id="threadToggle">THREADS</button><button id="mySource">MY TEXT</button><button id="fullField">FIELD ↗</button><button id="exit">EXIT</button></div></div><div class="progress"><i id="fill"></i></div><div class="layout"><main class="page"><div class="tiny" id="title"></div><h1 id="readingTitle"></h1><div class="deck">Tap a sentence to hold evidence. Find an echo. Compare passages. Make a door the text earns.</div><div class="paper" id="paper"><div class="kicker" id="where"></div><div id="passage" class="passage"></div><div class="hint" id="hint"></div><div id="quickThreads" class="quick" aria-label="Source echoes"></div><div class="status" id="stateStatus" role="status"></div><div class="handle" id="actions"></div><div class="rsvp hidden" id="rsvp"><div class="tiny">RIDE / THIS PASSAGE</div><div class="rsvpword" id="rsvpword">✳</div><div class="controls"><button id="ridePlay">▶ RIDE</button><button id="rideReset">↶</button><label class="tiny">WPM <select id="rate"><option>180</option><option selected>260</option><option>360</option><option>480</option></select></label></div></div><div class="scrub"><span id="currentNumber"></span><input id="scrub" type="range" min="0" step="1" aria-label="Preview passage"><span id="totalNumber"></span></div><div class="rail" id="rail"></div></div></main><aside class="side" id="threadPane"><section><h2>01 / THREADS TO INSPECT</h2><div class="tiny">Lexical echo ≠ agreement</div><div id="echoList"></div></section><section class="compare"><h2>02 / TWO EXACT WITNESSES</h2><div id="compare"></div><div id="compareError" class="notice" role="status"></div></section><section><h2>03 / WHAT CHANGED?</h2><div id="payoff"></div></section><section><h2>RETURN / SAME SOURCE</h2><div id="return"></div></section></aside></div><div class="nextbar"><div class="left"><button id="prev">← PREV</button><button id="next" class="gold">NEXT →</button></div><div class="left"><button id="bottomThreads">THREADS</button><button id="here">HERE ↩</button><button id="origin">ORIGIN</button></div></div>';
+ $('app').innerHTML='<div class="top"><div class="identity"><i>回</i> SLEEPER <span class="tiny">/ READ</span></div><div class="actions"><button id="threadToggle">THREADS</button><button id="mySource">MY TEXT</button><button id="fullField">FIELD ↗</button><button id="exit">EXIT</button></div></div><div class="progress"><i id="fill"></i></div><div class="layout"><main class="page"><div class="tiny" id="title"></div><h1 id="readingTitle"></h1><div class="deck">Tap a sentence to hold evidence. Find an echo. Compare passages. Make a door the text earns.</div><div class="paper" id="paper"><div class="kicker" id="where"></div><div id="passage" class="passage"></div><div class="hint" id="hint"></div><div id="ladderContext"></div><div id="quickThreads" class="quick" aria-label="Source echoes"></div><div class="status" id="stateStatus" role="status"></div><div class="handle" id="actions"></div><div class="rsvp hidden" id="rsvp"><div class="tiny">RIDE / THIS PASSAGE</div><div class="rsvpword" id="rsvpword">✳</div><div class="controls"><button id="ridePlay">▶ RIDE</button><button id="rideReset">↶</button><label class="tiny">WPM <select id="rate"><option>180</option><option selected>260</option><option>360</option><option>480</option></select></label></div></div><div class="scrub"><span id="currentNumber"></span><input id="scrub" type="range" min="0" step="1" aria-label="Preview passage"><span id="totalNumber"></span></div><div class="rail" id="rail"></div></div></main><aside class="side" id="threadPane"><section><h2>01 / THREADS TO INSPECT</h2><div class="tiny">Lexical echo ≠ agreement</div><div id="echoList"></div></section><section class="compare"><h2>02 / TWO EXACT WITNESSES</h2><div id="compare"></div><div id="compareError" class="notice" role="status"></div></section><section><h2>03 / WHAT CHANGED?</h2><div id="payoff"></div></section><section><h2>RETURN / SAME SOURCE</h2><div id="return"></div></section></aside></div><div class="nextbar"><div class="left"><button id="prev">← PREV</button><button id="next" class="gold">NEXT →</button></div><div class="left"><button id="bottomThreads">THREADS</button><button id="here">HERE ↩</button><button id="origin">ORIGIN</button></div></div>';
  $('title').textContent='SOURCE '+m.sha256.slice(0,12)+' · '+m.nodes.length+' PASSAGES';$('readingTitle').textContent=m.meta.title; $('threadPane').classList.toggle('open',threadOpen);
  $('fill').style.width=((i+1)/m.nodes.length*100)+'%';
  $('where').textContent=(here?'HERE':'INSPECT / NOT TRAVERSED')+' · '+(i+1)+' / '+m.nodes.length+' · CHAR '+node.start+'–'+node.end;
@@ -77,6 +77,21 @@ function render(){
  const heldText=comp?quote(m,s.witnesses[mark.id]):'';
  const sourceTerms=heldText?T.words(heldText):new Set(),visibleTerms=T.words(node.text);
  const echoTerms=new Set([...sourceTerms].filter(term=>visibleTerms.has(term)));
+ 
+ const context=$('ladderContext');
+ if(ladderLesson){
+  const entry=ladderLesson.entries[i];
+  if(entry){
+   context.append(element('div','tiny','LADDER / '+(entry.index+1)+'/8 · '+entry.name.toUpperCase()+' · '+entry.locator));
+   context.append(element('p','notice','ATTEND: '+entry.question));
+   context.append(element('p','tiny','ABRIDGED DERIVED SELECTION · SOURCE OFFSETS ARE FOR THIS SELECTION · NO GATE PROOF'));
+   const refs=element('div','quick');
+   const chapter=element('a','', 'PAYUTTO CHAPTER ↗');chapter.href=entry.canonical;chapter.rel='noopener';chapter.target='_blank';refs.append(chapter);
+   for(const ref of entry.references){const a=element('a','',ref.id+' ↗');a.href=ref.url;a.title=ref.label;a.rel='noopener';a.target='_blank';refs.append(a);}
+   const bell=element('a','','BELL / CONDITIONS ↗');bell.href='./axis-score.html?bell=1';bell.target='_blank';bell.rel='noopener';refs.append(bell);
+   context.append(refs);
+  }
+ }
  const p=$('passage');for(const [j,e] of choices.entries()){
   const exact=m.source.slice(e.start,e.end);
   const b=button(exact,()=>holdAt(node.id,j),'sentence'+(w&&w.start===e.start&&w.end===e.end?' held':''));
@@ -127,12 +142,30 @@ function render(){
  $('threadToggle').onclick=toggleThreads;$('bottomThreads').onclick=toggleThreads;
  $('mySource').onclick=()=>{sourceOpen=true;render()};
  $('fullField').onclick=()=>{stop();B.showField();host.style.display='none';document.body.style.overflow=''};
- $('exit').onclick=()=>{stop();location.assign('./')};
+ $('exit').textContent=ladderLesson?'↩ LADDER':'EXIT';$('exit').onclick=()=>{stop();if(ladderLesson)return closeLadder();location.assign('./')};
  let touchX=null;p.ontouchstart=e=>{touchX=e.touches.length===1?e.touches[0].clientX:null};p.ontouchend=e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(dx)>110){const n=dx<0?next:prev;if(n)advance(n)}};
 }
-dom.addEventListener('keydown',e=>{if(sourceOpen||['INPUT','TEXTAREA','SELECT'].includes(dom.activeElement?.tagName))return;const {model,session}=snap();if(!model)return;const i=model.nodes.findIndex(n=>n.id===session.focus);if(['ArrowRight','ArrowLeft'].includes(e.key)){const n=model.nodes[i+(e.key==='ArrowRight'?1:-1)];if(n){e.preventDefault();move(n.id,true)}}if(e.key==='Escape'){stop();B.showField();host.style.display='none';document.body.style.overflow=''}});
+dom.addEventListener('keydown',e=>{if(sourceOpen||['INPUT','TEXTAREA','SELECT'].includes(dom.activeElement?.tagName))return;const {model,session}=snap();if(!model)return;const i=model.nodes.findIndex(n=>n.id===session.focus);if(['ArrowRight','ArrowLeft'].includes(e.key)){const n=model.nodes[i+(e.key==='ArrowRight'?1:-1)];if(n){e.preventDefault();move(n.id,true)}}if(e.key==='Escape'){stop();if(ladderLesson){closeLadder();return}B.showField();host.style.display='none';document.body.style.overflow=''}});
+
+function closeLadder(){
+ if(window.parent!==window)window.parent.postMessage({schema:'sleeper.ladder-reader-close/v1'},location.origin);
+ else location.assign('./ladder/');
+}
 async function start(){
  document.body.style.overflow='hidden';
+ if(query.has('ladderFactor')){
+  try{
+   if(query.get('read')!=='1'||!window.SleeperLadderThread)throw Error('LADDER_READER_UNAVAILABLE');
+   const index=SleeperLadderThread.selectedIndex(query.get('ladderFactor'));
+   const response=await fetch('./ladder/source-dhamma.json',{cache:'no-store'});
+   if(!response.ok)throw Error('LADDER_SOURCE_HTTP_'+response.status);
+   const projection=SleeperLadderThread.create(await response.json());
+   await load(projection.text,projection.title,'',true);
+   if(!snap().model||snap().model.nodes.length!==8)throw Error('LADDER_PROJECTION_MISMATCH');
+   ladderLesson=projection;B.inspect(snap().model.nodes[index].id);render();
+  }catch(e){ladderLesson=null;error='LADDER_SOURCE_REJECTED · '+(e.message||e);sourceOpen=true;render();}
+  return;
+ }
  if(query.get('src')&&query.get('read')==='1'){
   let attempts=0;const poll=()=>{if(snap().model){sourceOpen=false;render();return}if(attempts++>50){error='SOURCE_NOT_LOADED / use MY TEXT';sourceOpen=true;render();return}setTimeout(poll,100)};poll();return;
  }
