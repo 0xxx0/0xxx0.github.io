@@ -61,6 +61,7 @@ try{
     await page.waitForFunction(()=>ReadfieldReview.state().marks.length===1);
     assert.equal(await page.evaluate(()=>ReadfieldSource.snapshot().revision),before.revision,'review survives reload on same exact revision');
     assert.equal(await page.locator('#returnLink').getAttribute('href'),'/sleeper/archive/#fields');
+    await page.locator('.rf-source-tools > summary').click();
     await page.locator('#returnLink').click();
     await page.waitForURL('**/sleeper/archive/#fields');
     assert.equal(await page.locator('#fields .review-link').count(),10,'return preserved the ten-field gallery');
