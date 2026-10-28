@@ -37,4 +37,16 @@ assert.ok(D.citations(md,scope,file,origin).includes(b));
 assert.deepEqual(D.citations('[successor](../INTERPHASE_SUCCESSOR.json)',{start:0,end:43},file,origin),[b]);
 assert.deepEqual(D.citations('[outside](https://evil.example/outside.md)',{start:0,end:42},file,origin),[]);
 assert.deepEqual(D.citations('plain reference /other.md',{start:0,end:25},a,origin),[]);
+
+const declared=JSON.stringify({href:'/sleeper/',receipt:'/returns/SLEEPER_SYSTEM_FOLD_2026-09-27.json',
+ latest_return:'/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json',
+ contract:'/house/contract.json',field:{exit_paths:[
+  {status:'AVAILABLE',via:'/control/INTERPHASE_SUCCESSOR.json'},
+  {status:'PARKED',via:'/control/PARKED.json'}]}});
+const refs=D.references(declared,{start:0,end:declared.length},'/showcase-manifest.json',origin);
+assert.deepEqual(refs.map(r=>r.kind),['RECEIPT','RETURN','CONTRACT','EXIT']);
+assert.ok(!refs.some(r=>r.path.includes('PARKED')));
+assert.deepEqual(D.citations(declared,{start:0,end:declared.length},'/showcase-manifest.json',origin),refs.map(r=>r.path));
+const remote=JSON.stringify({receipt:'https://evil.example/secret.json'});
+assert.deepEqual(D.references(remote,{start:0,end:remote.length},a,origin),[]);
 console.log('INTERPHASE DOOR CORE PASS · exact 2 canonical JSON revisions · source citation from historical Fold/Bloom · no effects or forged ranges');
