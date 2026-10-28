@@ -65,10 +65,16 @@ try{
     assert.ok(g.namesHidden&&g.namesRetained,'words hidden visually, source names remain accessible '+width);
     const first=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.find(h=>h.route!=='/').route;
     assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,first,'held CURRENT source exact '+width);
+    await page.waitForFunction(()=>window.LandingTower?.state()?.ready&&window.LandingTower.state().source==='field-axes');
+    const initialTower=await page.evaluate(()=>({selection:FieldAxisSelection(),tower:LandingTower.state()}));
+    assert.equal(initialTower.tower.rings.find(r=>r.key==='route').gate,initialTower.selection.route,'ring gate reflects native CURRENT on boot '+width);
+    assert.deepEqual(initialTower.tower.composition.parts,initialTower.tower.rings.map(r=>r.gate),'composition is exact visible tuple '+width);
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
     assert.equal(await page.locator('html').getAttribute('data-field-bar-pane'),'browse','select keeps every glyph visible '+width);
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'same native held object '+width);
     assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,'/house/');
+    await page.waitForFunction(()=>window.LandingTower?.state()?.rings.find(r=>r.key==='route')?.gate===window.FieldAxisSelection()?.route);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,'/house/','glyph HOLD re-orients route ring '+width);
     // The address bar is the CURRENT held address, never a stale :glyphs entry.
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
     const input=page.locator('#fieldUrlInput');
@@ -79,6 +85,8 @@ try{
     assert.equal(await input.inputValue(),'unfinished','passive HOLD cannot clobber active input '+width);
     await input.evaluate(n=>n.blur());
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/desk/');
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,'/desk/','passive URLbar HOLD re-orients route ring '+width);
     await page.evaluate(()=>window.__fieldAct.focus('/house/'));
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
     assert.equal(new URL(page.url()).pathname,'/','native HOLD never navigates '+width);
@@ -92,6 +100,18 @@ try{
     await page.locator('#fieldWords').click();
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
     assert.equal(await page.locator('#feedRail').isVisible(),true);
+    // Direct tower rotation must select a native route; no local-only glyph pose.
+    const turned=await page.evaluate(()=>{
+      const before=LandingTower.state(),i=before.rings.findIndex(r=>r.key==='route');
+      LandingTower.turn(1,i);
+      return {previous:before.rings[i].gate,route:FieldAxisSelection().route};
+    });
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
+    assert.notEqual(turned.route,turned.previous,'a detent TURN changes native FIELD route '+width);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,turned.route,'native turn and composition are coherent '+width);
+    // A previously held source stays exactly recoverable from native glyphs.
+    await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    await page.waitForFunction(()=>FieldAxisSelection().route==='/house/'&&LandingTower.state().rings.find(r=>r.key==='route').gate==='/house/');
     await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
     await page.goBack();await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
     assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','BACK restores exact held source '+width);
