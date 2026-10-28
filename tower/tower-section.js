@@ -621,14 +621,36 @@
     stage.addEventListener('pointerleave', function () { setBloom(inst, false); }, { passive: true });
 
     svg.addEventListener('click', function (e) {
-      var hit = ringAtY(inst, e.clientY);
-      var b = inst.layout.boxes[hit.index];
-      if (!b) return;
-      if (Math.abs(hit.y - b.cy) > b.ry * 3.4) return;
-      inst.focus = hit.index;
+      var hit = ringAtY(inst, e.clientY), i = hit.index;
+      var b = inst.layout.boxes[i], ring = inst.tower.rings[i];
+      if (!b || !ring || !ring.count || Math.abs(hit.y - b.cy) > b.ry * 3.4) return;
       var rect = svg.getBoundingClientRect();
-      var dx = e.clientX - (rect.left + rect.width * (inst.layout.cx / VIEW_W));
-      turnOn(inst, dx < 0 ? -1 : 1, hit.index);
+      var x = (e.clientX - rect.left) * VIEW_W / rect.width;
+      var y = (e.clientY - rect.top) * inst.height / rect.height;
+      var chosen = -1;
+      if (inst.t[i] < .5) {
+        // Unwrapped strip: pointer x addresses the nearest exact member.
+        var distance = Infinity;
+        for (var j = 0; j < ring.count; j++) {
+          var p = T.markPosWeighted(j, ring.weights, inst.offsetF[i], inst.t[i], b);
+          var d = Math.abs(p.x - x);
+          if (d < distance) { distance = d; chosen = j; }
+        }
+      } else {
+        // Wrapped ring: undo its elliptical projection and support-weighted
+        // rotation before resolving a source slot. No left/right guesswork.
+        var dx = (x - b.cx) / Math.max(.01, b.rx);
+        var dy = (y - b.cy) / Math.max(.01, b.ry * inst.t[i]);
+        var radius = Math.hypot(dx, dy);
+        if (radius < .45 || radius > 1.7) return;
+        chosen = T.slotAtAngle(Math.atan2(dy, dx), ring.weights, inst.offsetF[i]);
+      }
+      inst.focus = i;
+      if (chosen === inst.rot[i]) { draw(inst); return; }
+      var delta = chosen - inst.rot[i];
+      if (delta > ring.count / 2) delta -= ring.count;
+      if (delta < -ring.count / 2) delta += ring.count;
+      turnOn(inst, delta, i);
     });
 
     svg.addEventListener('keydown', function (e) {
