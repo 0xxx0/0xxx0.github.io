@@ -5,7 +5,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
- const stale=['/field-work.mjs?v=0.10.8-circuit','/interphase/entry.mjs?v=0.10.8-circuit','/interphase/continuum.mjs?v=0.10.8-circuit','/field-work.css?v=0.10.8-circuit','/interphase/continuum.css?v=0.10.8-circuit','/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ const stale=['/field-work.mjs?v=0.10.8-door1','/interphase/entry.mjs?v=0.10.8-door1','/interphase/continuum.mjs?v=0.10.8-door1','/interphase/navigation.mjs?v=0.10.8-door1','/interphase/continuum.css?v=0.10.8-door1','/field-work.mjs?v=0.10.8-circuit','/interphase/entry.mjs?v=0.10.8-circuit','/interphase/continuum.mjs?v=0.10.8-circuit','/field-work.css?v=0.10.8-circuit','/interphase/continuum.css?v=0.10.8-circuit','/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
  let delayBar=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
   if(prime&&stale.includes(req.url)){
@@ -37,10 +37,10 @@ async function continuumBrowserProof(){
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){
-   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.8-door1'),'release key missing: '+file);
+   assert.ok(cacheRequests.slice(firstFresh).includes(file+'?v=0.10.10-witnessdoor'),'release key missing: '+file);
   }
   await cachedPage.goto(base+'/interphase/?src=/interphase/SPEC.md');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.address==='/interphase/SPEC.md');
-  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.8-door1'));assert.deepEqual(cacheErrors,[]);
+  assert.ok(cacheRequests.includes('/interphase/entry.mjs?v=0.10.10-witnessdoor'));assert.deepEqual(cacheErrors,[]);
   await cached.close();console.log('CONTINUUM CACHE PASS · stale HTTP responses stay cached · root and standalone load coupled released adapter/core/style');
   // A real cold import can outlast the former 15-second reveal timeout.
   // The one-bar CSS must never strand native commands behind hidden regions.
@@ -182,8 +182,40 @@ async function continuumBrowserProof(){
    assert.equal(circuitPacket.review.revision,hash,'working conclusion SHA-256 bound '+width);
    assert.equal(circuitPacket.review.purpose,'What follows from a closed gate?');
    await close();
+   // The projection is a view of authored SOURCE, not a new animation
+   // state. Moving the reading cursor must not regenerate 64 SVG marks
+   // or rewrite the same DOM on every RSVP tick.
+   const markChurn=await page.evaluate(()=>{
+    const layer=document.querySelector('[data-ip=marks-ring]');
+    const observer=new MutationObserver(()=>{});observer.observe(layer,{subtree:true,childList:true,attributes:true});
+    for(let i=1;i<=12;i++)InterphaseInstrument.seek(i*4);
+    const count=observer.takeRecords().length;observer.disconnect();return count;
+   });
+   assert.equal(markChurn,0,'cursor-only traversal does not rebuild authored glyphs '+width);
    await page.evaluate(c=>InterphaseInstrument.seek(c),raw.length-2);
    const circuitDeparture=(await snap()).attention.char;
+   // The same authored QUESTION must now be a genuine DIAL control: its
+   // geometry resolves back to exact source bytes, native editor, and RETURN.
+   await page.evaluate(()=>InterphaseInstrument.perspective('dial'));
+   const witnessTarget=await ip('marks-ring').locator('[data-witness-id]').first().evaluate(n=>{
+    const c=n.querySelector('.ip-review-question'),svg=n.ownerSVGElement,r=svg.getBoundingClientRect(),v=svg.viewBox.baseVal;
+    return{x:r.left+Number(c.getAttribute('cx'))*r.width/v.width,
+     y:r.top+Number(c.getAttribute('cy'))*r.height/v.height};
+   });
+   await page.mouse.click(witnessTarget.x,witnessTarget.y);
+   assert.equal((await snap()).attention.char,circuitPacket.annotations[0].charIndex,'glyph tap enters actual authored QUESTION '+width);
+   assert.equal(await ip('witness-open').isVisible(),true,'held source exposes its own authored note '+width);
+   await ip('witness-open').click();
+   assert.equal(await ip('drawer').isVisible(),true,'glyph editor is native SOURCE, not a second surface '+width);
+   assert.equal(await ip('note-text').inputValue(),'Does closing the gate redirect the flow?');
+   await close();
+   await page.locator('#fiReturn').click();
+   assert.equal((await snap()).attention.char,circuitDeparture,'pointer-to-source RETURN restores departure '+width);
+   await page.locator('[data-ip=marks-ring] [data-witness-id]').first().focus();
+   await page.keyboard.press('Enter');
+   assert.equal((await snap()).attention.char,circuitPacket.annotations[0].charIndex,'keyboard glyph enters same source interval '+width);
+   await page.evaluate(()=>InterphaseInstrument.returnStep());
+   assert.equal((await snap()).attention.char,circuitDeparture,'keyboard source RETURN restores departure '+width);
    await page.evaluate(()=>InterphaseInstrument.command(':revisit'));
    assert.equal((await snap()).attention.char,circuitPacket.annotations[0].charIndex,'revisit authored passage '+width);
    await page.evaluate(()=>InterphaseInstrument.returnStep());
@@ -210,6 +242,11 @@ async function continuumBrowserProof(){
    // are measured against DIFFERENT coordinate systems, not a decorative turn.
    await ip('view-dial').click();assert.equal((await snap()).attention.view,'dial');assert.equal((await snap()).attention.char,c);
    const dialBox=await ip('ring').boundingBox();assert.ok(dialBox?.width>100,'dial visible at phone width');
+   const heldBox=await ip('held').boundingBox();
+   assert.ok(heldBox.height<=Math.min(page.viewportSize().height*.35,340)+4,
+    'DIAL must not pad the source into a giant empty card '+width+' height='+heldBox.height);
+   assert.ok(heldBox.y>=0&&heldBox.y+heldBox.height<=page.viewportSize().height,
+    'held passage stays on screen beside the same two source coordinates');
    await page.mouse.click(dialBox.x+dialBox.width*(159/180),dialBox.y+dialBox.height*.5);
    const outerChar=(await snap()).attention.char;
    assert.ok(Math.abs(outerChar-Math.round((raw.length-1)/6))<=2,'outer arc selects absolute source fraction');
@@ -263,6 +300,19 @@ async function continuumBrowserProof(){
    await source();await details.locator('summary').click();await ip('link-start').click();
    await ip('next').click();const destination=(await snap()).attention.char;
    await source();await ip('relation').selectOption('questions');await ip('link-end').click();assert.equal((await snap()).links.length,1);
+   // Explicitly authored QUESTION relation is a real chord, not a proximity
+   // inference. Follow its visible line and RETURN to the exact departure.
+   await page.evaluate(()=>InterphaseInstrument.perspective('dial'));
+   const relationPath=page.locator('[data-ip=links-ring] .ip-link-hit').first();
+   assert.equal(await relationPath.count(),1,'native relation has an explicit typed chord '+width);
+   const relationTarget=await relationPath.evaluate(n=>{
+    const p=n.getPointAtLength(n.getTotalLength()*.5),svg=n.ownerSVGElement,r=svg.getBoundingClientRect(),v=svg.viewBox.baseVal;
+    return{x:r.left+p.x*r.width/v.width,y:r.top+p.y*r.height/v.height};
+   });
+   await page.mouse.click(relationTarget.x,relationTarget.y);
+   assert.equal((await snap()).attention.char,departure,'chord tap follows exact authored relation '+width);
+   await page.locator('#fiReturn').click();
+   assert.equal((await snap()).attention.char,destination,'relation chord RETURN recovers exact departure '+width);
    await page.locator('.ip-relation').click();assert.equal((await snap()).attention.char,raw.indexOf('Water flows'));
    await page.locator('#fiReturn').click();assert.equal((await snap()).attention.char,destination);
    await source();await ip('edit').click();const oldRange=await ip('replacement').inputValue();await ip('replacement').fill(oldRange.replace('closed','open'));
