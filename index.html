@@ -1343,13 +1343,15 @@ function heldCue(r){
   return{kind:completed?'STATUS':'NEXT',text:n.objective.trim(),source:'CURRENT.json · '+(n.state||'NEXT')};
  }
  const verb=String(r.contract?.transforms?.verb||r.role||'').trim();
+ // A CURRENT head with no executable objective has a gap, not an implicit NEXT.
+ if(h)return{kind:'NO NEXT',text:verb||'No declared next move or capability text',source:'CURRENT.json · no next_executable objective · manifest capability '+r.href};
  return{kind:'DOES',text:verb||'No declared capability text; inspect this source',source:'showcase-manifest.json · '+r.href};
 }
 function renderHeldCue(r){
  const c=heldCue(r),el=$('apCue'),k=$('apCueKind'),txt=$('apCueText');
  if(!el||!k||!txt)return;
  k.textContent=c.kind;txt.textContent=c.text;el.title=c.source+' · '+c.text;
- el.dataset.cueSource=c.kind==='NEXT'||c.kind==='STATUS'?'CURRENT':'MANIFEST';
+ el.dataset.cueSource=c.kind==='NEXT'||c.kind==='STATUS'?'CURRENT':c.kind==='NO NEXT'?'CURRENT_MISSING':'MANIFEST';
 }
 function renderAperture(){
  renderHeldCue(focus);
