@@ -200,6 +200,15 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    const a=dialXY(c/Math.max(1,source.raw.length-1),82),b=dialXY(c/Math.max(1,source.raw.length-1),87);
    return `<path d="M ${a.x} ${a.y} L ${b.x} ${b.y}" />`;
   }).join('');
+  // Interpretive marks share exact DIAL character coordinates; they cannot
+  // be mistaken for an inferred comprehension or completeness metric.
+  el('marks-ring').insertAdjacentHTML('beforeend',authored().map(m=>{
+   const p=dialXY(m.charIndex/Math.max(1,source.raw.length-1),78);
+   if(m.kind==='QUESTION'&&!m.resolved)return '<circle class="ip-review-question" cx="'+p.x+'" cy="'+p.y+'" r="3"/>';
+   if(m.kind==='APPLIED')return '<rect class="ip-review-applied" x="'+(p.x-2.5)+'" y="'+(p.y-2.5)+'" width="5" height="5"/>';
+   const q=dialXY(m.charIndex/Math.max(1,source.raw.length-1),85);
+   return '<path class="ip-review-note" d="M '+p.x+' '+p.y+' L '+q.x+' '+q.y+'"/>';
+  }).join(''));
   el('doors').replaceChildren();el('more-ports').replaceChildren();const port=node=>(el('doors').children.length<3?el('doors'):el('more-ports')).append(node);
   for(const door of relationDoors(model,source.hash,links,anchor)){
    const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,85)}`;b.title='Authored interpretation with exact source quotes';
@@ -209,6 +218,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(source.returnTo){const a=document.createElement('a');a.href=source.returnTo;a.textContent='↩ CALLER';port(a)}
   el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:''].filter(Boolean).join(' · ');
   el('undo').disabled=!undo.length;el('redo').disabled=!redo.length;
+  paintReview();
   el('identity').textContent=`${source.hash} · ${source.address||'held source'} · ${source.raw.length} characters · ${links.length} authored links`;
   onFocus({id:source.hash,label:nativeRecord?.title||source.label,route:activeRoute,char:anchor,scope,scopeLabel:level(model,scope).label,view,playing:s.playing,index:n.index+1,count:n.units.length,back:frames.length||!!source.returnTo});
   if(activeRoute&&activeRoute!==lastNotifiedRoute){lastNotifiedRoute=activeRoute;const hash=source.hash,href=activeRoute;queueMicrotask(()=>{if(source?.hash===hash&&activeRoute===href)onRoute(href)})}
@@ -236,7 +246,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  async function load(raw,label,address='',opt={}){
   const request=opt.request??++epoch;if(request!==epoch||disposed)return;ap?.stop();
   const next=await prepare(raw,label,address,opt);if(request!==epoch||disposed){next.candidate.remove();return}
-  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=null;bodyKey='';
+  loading=true;ap?.remove();ap=next.candidate;source=next.source;model=next.model;scope=next.attention.scope;view=next.attention.view;query=next.attention.query;links=structuredClone(next.links);marks=[...next.marks];frames=opt.frames||[];catalog=opt.catalog||null;nativeRecord=opt.nativeRecord||null;activeRoute=opt.route||null;lastNotifiedRoute=null;pendingLink=null;pendingAnnotation=null;bodyKey='';
   ap.addEventListener('aperture-focus',()=>{paint();persist()});ap.selectChar(next.attention.char);ap.setWpm(next.attention.wpm);
   el('scope').innerHTML=model.levels.map(l=>`<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
   el('find').value=query;el('link-end').disabled=true;el('link-note').textContent='';
