@@ -72,3 +72,23 @@
  .ip-heading{gap:4px}.ip-views button{min-width:55px;padding:4px 5px;font-size:10px}
  .ip-continuum[data-view="dial"] .ip-held{min-height:60px;padding:10px}
 }
+
+/* Authored interpretation lives in SOURCE, never a fourth reading mode.
+   The active passage and both dial coordinates remain unchanged. */
+.ip-review{max-width:780px}
+.ip-review>label{display:grid;gap:4px;margin:10px 0;color:var(--ip-mut);font-size:11px}
+.ip-review>label input,.ip-review>label textarea,.ip-review textarea{
+ width:100%;max-width:100%;box-sizing:border-box;padding:9px;
+ border:1px solid var(--ip-line);color:var(--ip-ink);background:var(--ip-bg);
+ font:13px/1.45 system-ui,sans-serif;resize:vertical
+}
+.ip-review [data-ip="note-target"]{flex:1 1 150px;min-width:0;color:var(--ip-mut);
+ overflow-wrap:anywhere;font:11px/1.35 ui-monospace,monospace}
+.ip-review .ip-review-items{display:grid;gap:3px;max-height:210px;overflow:auto;margin:8px 0}
+.ip-review .ip-review-item{display:flex;gap:5px;align-items:center;padding:4px 0;border-bottom:1px solid var(--ip-line)}
+.ip-review .ip-review-item button{flex:none;min-height:36px}
+.ip-review .ip-review-item span{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--ip-mut);font-size:11px}
+.ip-review [data-ip="review-law"]{font-size:10px;color:var(--ip-mut);line-height:1.4}
+.ip-review [data-ip="review-count"]{font:10px ui-monospace,monospace;color:var(--ip-mut)}
+.ip-axis [data-ip="marks-ring"] .ip-review-question{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:1.6}
+.ip-axis [data-ip="marks-ring"] .ip-review-applied{fill:var(--ip-hot);stroke:none}

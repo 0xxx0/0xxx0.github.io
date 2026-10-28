@@ -55,11 +55,7 @@ try{
         horizontalOverflow:document.documentElement.scrollWidth>innerWidth+2,
         glyphOverflow:rail.scrollWidth>rail.clientWidth+2||rail.scrollHeight>rail.clientHeight+2,
         bottom:Math.max(...boxes.map(r=>r.bottom)),
-        pageScroll:document.documentElement.scrollHeight-innerHeight,
-        trace:['main','#fieldUrlBar','#axialLatest','#aperture','#feedRail','header'].map(sel=>{const n=document.querySelector(sel);if(!n)return{sel,missing:true};const b=n.getBoundingClientRect(),s=getComputedStyle(n);return{sel,top:Math.round(b.top),bottom:Math.round(b.bottom),height:Math.round(b.height),display:s.display,paddingTop:s.paddingTop,marginTop:s.marginTop,parent:n.parentElement?.tagName+'#'+n.parentElement?.id}}),
-        state:{work:document.documentElement.dataset.fieldWork,pane:document.documentElement.dataset.fieldBarPane,words:document.documentElement.dataset.fieldWords},
-        mainChildren:[...document.querySelector('main').children].map((n,i)=>{const b=n.getBoundingClientRect(),s=getComputedStyle(n);return {i,tag:n.tagName,id:n.id,cls:String(n.className||'').slice(0,35),display:s.display,position:s.position,hidden:n.hidden,top:Math.round(b.top),bottom:Math.round(b.bottom),height:Math.round(b.height),marginTop:s.marginTop,marginBottom:s.marginBottom}}).filter(n=>n.display!=='none'||n.height>0)
-       };
+        pageScroll:document.documentElement.scrollHeight-innerHeight};
     });
     const headN=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.filter(h=>h.route!=='/').length;
     assert.equal(g.count,headN,'every CURRENT glyph rendered '+width);
@@ -69,10 +65,16 @@ try{
     assert.ok(g.namesHidden&&g.namesRetained,'words hidden visually, source names remain accessible '+width);
     const first=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.find(h=>h.route!=='/').route;
     assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,first,'held CURRENT source exact '+width);
+    await page.waitForFunction(()=>window.LandingTower?.state()?.ready&&window.LandingTower.state().source==='field-axes');
+    const initialTower=await page.evaluate(()=>({selection:FieldAxisSelection(),tower:LandingTower.state()}));
+    assert.equal(initialTower.tower.rings.find(r=>r.key==='route').gate,initialTower.selection.route,'ring gate reflects native CURRENT on boot '+width);
+    assert.deepEqual(initialTower.tower.composition.parts,initialTower.tower.rings.map(r=>r.gate),'composition is exact visible tuple '+width);
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
     assert.equal(await page.locator('html').getAttribute('data-field-bar-pane'),'browse','select keeps every glyph visible '+width);
     assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'same native held object '+width);
     assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,'/house/');
+    await page.waitForFunction(()=>window.LandingTower?.state()?.rings.find(r=>r.key==='route')?.gate===window.FieldAxisSelection()?.route);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,'/house/','glyph HOLD re-orients route ring '+width);
     // The address bar is the CURRENT held address, never a stale :glyphs entry.
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
     const input=page.locator('#fieldUrlInput');
@@ -83,6 +85,8 @@ try{
     assert.equal(await input.inputValue(),'unfinished','passive HOLD cannot clobber active input '+width);
     await input.evaluate(n=>n.blur());
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/desk/');
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,'/desk/','passive URLbar HOLD re-orients route ring '+width);
     await page.evaluate(()=>window.__fieldAct.focus('/house/'));
     await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
     assert.equal(new URL(page.url()).pathname,'/','native HOLD never navigates '+width);
@@ -96,6 +100,36 @@ try{
     await page.locator('#fieldWords').click();
     assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
     assert.equal(await page.locator('#feedRail').isVisible(),true);
+    // Direct tower rotation must select a native route; no local-only glyph pose.
+    const turned=await page.evaluate(()=>{
+      const before=LandingTower.state(),i=before.rings.findIndex(r=>r.key==='route');
+      LandingTower.turn(1,i);
+      return {previous:before.rings[i].gate,route:FieldAxisSelection().route};
+    });
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
+    assert.notEqual(turned.route,turned.previous,'a detent TURN changes native FIELD route '+width);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,turned.route,'native turn and composition are coherent '+width);
+    // Hit the drawn arc itself, not a left/right guess: ring geometry must
+    // invert to the exact selected STATE member using real pointer coordinates.
+    const target=await page.evaluate(()=>{
+      const tower=LandingTower.state(),i=tower.rings.findIndex(r=>r.key==='state'),ring=tower.rings[i];
+      const axis=FieldAxes().find(a=>a.key==='state'),selected=(ring.rotation+1)%ring.count;
+      const group=[...document.querySelectorAll('#tower .tw-ringgrp')].find(g=>g.querySelector('.tw-label')?.textContent.startsWith('STATE '));
+      const ellipse=group?.querySelector('ellipse'),svg=document.querySelector('#tower-svg'),rect=svg.getBoundingClientRect(),view=svg.viewBox.baseVal;
+      if(!ellipse)throw Error('STATE source ring missing');
+      const weights=Array(ring.count).fill(1),off=TowerCore.offsetFor(ring.rotation,weights);
+      const p=TowerCore.markPosWeighted(selected,weights,off,1,{
+       cx:Number(ellipse.getAttribute('cx')),cy:Number(ellipse.getAttribute('cy')),
+       rx:Number(ellipse.getAttribute('rx')),ry:Number(ellipse.getAttribute('ry'))
+      });
+      return{x:rect.left+p.x*rect.width/view.width,y:rect.top+p.y*rect.height/view.height,expect:axis.values[selected]};
+    });
+    await page.mouse.click(target.x,target.y);
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='state').gate===FieldAxisSelection().state);
+    assert.equal((await page.evaluate(()=>FieldAxisSelection())).state,target.expect,'arc tap selects exact native STATE source member '+width);
+    // A previously held source stays exactly recoverable from native glyphs.
+    await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    await page.waitForFunction(()=>FieldAxisSelection().route==='/house/'&&LandingTower.state().rings.find(r=>r.key==='route').gate==='/house/');
     await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
     await page.goBack();await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
     assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','BACK restores exact held source '+width);
