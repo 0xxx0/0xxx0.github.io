@@ -15,7 +15,9 @@ const finish=(ok,o)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(o);
  const W=()=>frame.contentWindow,D=()=>W().document,$=id=>D().getElementById(id);
  await wait(()=>W().FieldIndexReadModel?.snapshot?.().routes?.length>100&&W().FieldBarLanding?.reveal&&D().querySelectorAll('#feedRail .feedChip').length>=2&&W().LandingTower?.state?.().ready,'boot');
  const source=await (await W().fetch('/control/CURRENT.json',{cache:'no-store'})).json();
- const old=W().FieldLensHost.focus()?.href;
+ const old=W().FieldLensHost.focus()?.href,now=source.next_single_action;
+ await wait(()=>now?.target_route&&W().FieldLensHost.focus()?.href===now.target_route&&$('apCueText')?.textContent===now.instruction,'typed CURRENT cold resume');
+ rec.initial={route:old,declared:now.target_route,cue:$('apCueText').textContent,primary:new URL($('apOpen').href).pathname,updated:source.updated};
  const head=(source.current_heads||[]).find(h=>h.route&&h.route!==old&&h.next_executable?.objective&&D().querySelectorAll('#feedRail .feedChip').length&&[...D().querySelectorAll('#feedRail .feedChip')].some(b=>b.dataset.href===h.route));
  if(!head)throw Error('no second CURRENT head with an exact objective');
  const tile=[...D().querySelectorAll('#feedRail .feedChip')].find(b=>b.dataset.href===head.route);tile.click();
@@ -50,7 +52,7 @@ const finish=(ok,o)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(o);
  rec.viewport390=ext();
  frame.style.width='320px';frame.style.height='568px';await sleep(250);rec.viewport320=ext();
  frame.style.width='1280px';frame.style.height='900px';await sleep(250);rec.viewport1280=ext();
- const pass=rec.comms.owner==='/port/comms/'&&rec.comms.secondary.includes('/port/comms/?transport=1')&&rec.held===head.route&&rec.cue===head.next_executable.objective&&rec.provenance==='CURRENT'&&
+ const pass=rec.initial.route===rec.initial.declared&&rec.initial.primary===rec.initial.declared&&rec.initial.cue===source.next_single_action.instruction&&rec.comms.owner==='/port/comms/'&&rec.comms.secondary.includes('/port/comms/?transport=1')&&rec.held===head.route&&rec.cue===head.next_executable.objective&&rec.provenance==='CURRENT'&&
   ['NEXT','STATUS'].includes(rec.kind)&&rec.nativeOpen.actual===rec.nativeOpen.expected&&rec.openVisible&&rec.doorAtRest==='none'&&
   rec.towerAtBrowse!=='none'&&rec.work.tower==='none'&&rec.work.section!=='none'&&rec.work.open&&rec.work.focus===originalFocus&&
   rec.prove.tower==='none'&&rec.prove.section!=='none'&&rec.map.tower==='none'&&rec.return.tower!=='none'&&
