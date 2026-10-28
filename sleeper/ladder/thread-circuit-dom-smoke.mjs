@@ -37,6 +37,10 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  assert(rd.querySelectorAll('#ladderContext a').length>=3,'book and canonical Sutta cross-references');
  assert(rd.querySelector('#ladderContext a').href.startsWith('https://buddhadhamma.github.io/'),'real book link');
  assert(rd.querySelector('#where').textContent.includes('1 / 8'),'entry starts at first gate');
+ assert([...rd.querySelectorAll('#quickThreads a')].some(a=>a.href.includes('suttacentral.net/mn117/')),'path factors must expose the canonical MN 117 cross-reading');
+ assert([...rd.querySelectorAll('#quickThreads button')].some(b=>b.textContent.includes('EFFORT · ADJUST')),'right effort is an inspect-only support thread');
+ assert([...rd.querySelectorAll('#quickThreads button')].some(b=>b.textContent.includes('MINDFULNESS · CHECK')),'right mindfulness is an inspect-only support thread');
+
  const sentence=rd.querySelector('#passage button');
  assert(sentence,'source exact sentence available');
  sentence.click();
