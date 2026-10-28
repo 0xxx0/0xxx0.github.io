@@ -1,0 +1,31 @@
+name: sleeper-ladder-reading-circuit
+on:
+  pull_request:
+    paths:
+      - 'sleeper/ladder/**'
+      - 'sleeper/reading-play.js'
+      - 'sleeper/axis-score.html'
+      - '.github/workflows/sleeper-ladder-reading-circuit.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'sleeper/ladder/**'
+      - 'sleeper/reading-play.js'
+      - 'sleeper/axis-score.html'
+permissions:
+  contents: read
+jobs:
+  reader:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: LADDER native geometry, eight-factor source and Gate laws
+        run: node sleeper/ladder/ladder-selftest.mjs
+      - name: Existing THREADWALK evidence, source and return circuit
+        run: node sleeper/ladder/thread-circuit-selftest.mjs
+      - name: Browser source projection and exact same walk RETURN
+        run: node sleeper/ladder/thread-circuit-dom-smoke.mjs
