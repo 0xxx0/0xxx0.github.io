@@ -21,6 +21,25 @@ const host=document.createElement('div');host.id='readingPlay';host.setAttribute
 dom.innerHTML='<style>'+style+bookMapCSS+'</style><div id="app"></div>';
 document.body.append(host);const $=id=>dom.getElementById(id);
 let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=false,threadOpen=false,ladderLesson=null;
+let bellComparison=null,ladderProjectionPromise=null;
+async function compareLadder(index){
+ const state=snap(),at=state.inspected,sha=state.model?.sha256;
+ if(!sha||state.model.source!==DEMO)throw Error('BELL_SOURCE_CHANGED');
+ if(!window.SleeperLadderThread)throw Error('LADDER_SOURCE_ADAPTER_MISSING');
+ const expected=SleeperLadderThread.bellLensAt(index);
+ ladderProjectionPromise ||= fetch('./ladder/source-dhamma.json',{cache:'no-store'}).then(r=>{
+  if(!r.ok)throw Error('LADDER_SOURCE_HTTP_'+r.status);
+  return r.json();
+ }).then(raw=>SleeperLadderThread.create(raw)).catch(e=>{ladderProjectionPromise=null;throw e});
+ const projection=await ladderProjectionPromise;
+ const current=snap();
+ if(current.model?.sha256!==sha||current.inspected!==at)throw Error('COMPARISON_POSITION_CHANGED');
+ const factor=projection.entries[expected.factor];
+ if(!factor||factor.index!==expected.factor)throw Error('LADDER_FACTOR_MISMATCH');
+ bellComparison=Object.freeze({sha,at,index,factor});
+ render();
+ return bellComparison;
+}
 const snap=()=>B.snapshot(),text=s=>String(s??'');
 function stop(){clearTimeout(timer);timer=null;playing=false;try{speechSynthesis.cancel()}catch(_){}}
 function element(tag,className,value){const e=document.createElement(tag);if(className)e.className=className;if(value!==undefined)e.textContent=value;return e;}
@@ -32,7 +51,7 @@ function quote(m,w){return w?m.source.slice(w.start,w.end):'';}
 function paintEchoText(button,value,terms){let cursor=0;for(const match of value.matchAll(/[\p{L}\p{N}]+/gu)){const start=match.index,word=match[0];if(start>cursor)button.append(document.createTextNode(value.slice(cursor,start)));button.append(terms.has(word.toLowerCase())?element('mark','echoWord',word):document.createTextNode(word));cursor=start+word.length;}if(cursor<value.length)button.append(document.createTextNode(value.slice(cursor)));}
 function holdAt(id,choice){action(()=>{B.hold(id,choice);if(!snap().session.selected)B.mark(id)})}
 function clean(s){return text(s).replace(/\s+/g,' ').trim();}
-async function load(source,title,url='',keepLadder=false){stop();error='';if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
+async function load(source,title,url='',keepLadder=false){stop();error='';bellComparison=null;if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
 function home(){stop();action(()=>{const m=snap().model;let cap=m.nodes.length+2;while(cap-->0){const s=snap().session,path=T.routeHome(m,s);if(path.length<=1)break;B.originStep()}B.inspect(m.nodes[0].id);});}
 function result(){action(()=>{const obj=B.returnArtifact(),json=JSON.stringify(obj,null,2);const url=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='threadwalk-'+obj.source.hash+'-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});}
 function play(){
@@ -102,6 +121,41 @@ function render(){
    map.append(list,element('p','tiny','Questions are editorial navigation, not quotes or doctrinal proof.'));
    context.append(map);
   }
+ }
+ if(!ladderLesson&&m.source===DEMO&&window.SleeperLadderThread){
+  const lesson=SleeperLadderThread.bellLensAt(i);
+  context.append(element('div','tiny','BELL / '+lesson.phase+' · EDITORIAL READING LENS'));
+  context.append(element('p','notice',lesson.question));
+  const refs=element('div','quick');
+  for(const [name,url] of [['PAYUTTO / '+lesson.book.chapter,lesson.book.url],[lesson.sutta.id,lesson.sutta.url],['LADDER / PAINTING','./ladder/']]){
+   const a=element('a','',name+' ↗');a.href=url;a.target='_blank';a.rel='noopener noreferrer';refs.append(a);
+  }
+  context.append(refs);
+  const compare=button('↔ READ THE RELATED PATH FACTOR',()=>{
+   compare.disabled=true;compare.textContent='CHECKING SOURCE…';
+   compareLadder(i).catch(e=>{status('CROSS_SOURCE_UNAVAILABLE · '+(e.message||e));compare.disabled=false;compare.textContent='↔ RETRY SOURCE';});
+  },'ghost');
+  compare.title='Read a verified Ladder excerpt alongside Bell without moving or changing your source';context.append(compare);
+  if(bellComparison?.sha===m.sha256&&bellComparison.at===node.id&&bellComparison.index===i){
+   const e=bellComparison.factor,frame=element('div','bookMap');
+   frame.append(element('div','tiny','LADDER / '+e.name.toUpperCase()+' · '+e.locator+' · SEPARATE ABRIDGED SOURCE'));
+   frame.append(element('blockquote','quote',e.excerpt));
+   frame.append(element('p','notice','Editorial comparison only. These offsets address the Ladder projection, not the book or Bell. No Gate proof or cross-source door.'));
+   for(const [name,url] of [['OPEN PAYUTTO CHAPTER',e.canonical],['READ FULL LADDER THREADWALK','./axis-score.html?read=1&ladderFactor='+e.index]]){
+    const a=element('a','',name+' ↗');a.href=url;a.target='_blank';a.rel='noopener noreferrer';frame.append(a,document.createTextNode(' · '));
+   }
+   context.append(frame);
+  }
+  const map=document.createElement('details');map.className='bookMap';
+  map.append(element('summary','','BOOK MAP / WHAT IS WORTH READING'));
+  const list=document.createElement('ol');
+  for(const stage of SleeperLadderThread.READING_MAP){
+   const li=document.createElement('li'),a=element('a','',stage.lens+' · '+stage.chapter+' · '+stage.title);
+   a.href=stage.url;a.rel='noopener noreferrer';a.target='_blank';
+   li.append(a,element('span','',stage.question));list.append(li);
+  }
+  map.append(list,element('p','tiny','Editorial attention prompts, not canonical quotations or automatic doctrine.'));
+  context.append(map);
  }
  const p=$('passage');for(const [j,e] of choices.entries()){
   const exact=m.source.slice(e.start,e.end);
