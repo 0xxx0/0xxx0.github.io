@@ -190,7 +190,7 @@ function render(){
    save.disabled=!witness;
    carry.append(save);
    if(existing){
-    carry.append(element('p','notice','CARRIED · Bell SHA256 '+existing.bell.sourceSha256.slice(0,12)+' / Ladder selection SHA256 '+existing.ladder.selectionSha256.slice(0,12)+'. Original source is not embedded.'));
+    carry.append(element('p','notice','CARRIED · Bell SHA256 '+existing.bell.sourceSha256.slice(0,12)+' / Ladder selection SHA256 '+existing.ladder.selectionSha256.slice(0,12)+'. Full sources are not embedded; only these two excerpts are carried.'));
     const exportButton=button('EXPORT CARRY JSON ↓',()=>{
       const json=JSON.stringify(existing,null,2),url=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');
       a.href=url;a.download='sleeper-bell-ladder-carry.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
