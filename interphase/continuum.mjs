@@ -42,7 +42,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <p data-ip="review-law">Marks record authored interpretation, not comprehension. Exact quotes and revisions travel with RETURN.</p>
  </details>
  <div class="ip-row"><button data-ip="edit">EDIT THIS RANGE</button><button data-ip="undo" disabled>UNDO</button><button data-ip="redo" disabled>REDO</button></div>
- <details><summary>Connect passages or sources</summary><p>HOLD FIRST → open another exact source → CONNECT HERE. Follow only verified revisions and RETURN to the exact caller; interpretation is never proof.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
+ <details><summary>Connect passages or sources</summary><p>HOLD FIRST → open another exact source → CONNECT HERE. Follow only verified revisions and RETURN to the exact caller; interpretation is never proof.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><label>WHY (authored, not proof)<textarea data-ip="relation-warrant" maxlength="320" rows="2" placeholder="Reason for this connection or disagreement; optional."></textarea></label><p data-ip="link-note"></p></details>
  <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a><a data-ip="glyphfield" href="/interphase/?legacy=1" hidden>◎ GLYPHFIELD ↗</a></div>
  <details><summary>Exact source / retained tools</summary><p data-ip="identity"></p><button data-ip="raw-open">SHOW EXACT RANGE</button><pre data-ip="raw" hidden></pre><div class="ip-doors" data-ip="more-ports"></div><p><a href="/interphase/?legacy=1">Ω / HISTORY / DAYLINE / AXIS ↗</a> · <a href="/?work=0">Native FIELD map ↗</a> · <a href="/interphase/SPEC.md">Specification ↗</a></p><p>Search is lexical. Links are interpretations. Native effects stay with their host. The exported RETURN carries the current revision, not the session undo stack.</p></details></section>
  <p class="ip-status" data-ip="status" role="status">Opening the source.</p>
@@ -257,12 +257,12 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    const i=witness.relations.indexOf(edge),dx=edge.b.x-edge.a.x,dy=edge.b.y-edge.a.y;
    const length=Math.max(.01,Math.hypot(dx,dy)),ux=dx/length,uy=dy/length;
    const group=svgNode('g',{'class':'ip-link-token','data-witness-link':i});
-   group.append(svgNode('title',{},edge.type+' · '+edge.from.quote.slice(0,100)+' → '+edge.to.quote.slice(0,100)));
+   group.append(svgNode('title',{},edge.type+' · '+edge.from.quote.slice(0,100)+' → '+edge.to.quote.slice(0,100)+(edge.relation.warrant?' · WHY: '+edge.relation.warrant:'')));
    const d='M '+edge.a.x+' '+edge.a.y+' L '+edge.b.x+' '+edge.b.y;
    group.append(svgNode('path',{class:'ip-link-line ip-link-'+edge.type,d}));
    group.append(svgNode('path',{class:'ip-link-hit',d,role:'button',tabindex:'0',
     'aria-label':edge.type+' relation from '+edge.from.start+' to '+edge.to.start+
-     '. Enter follows exact source, RETURN restores departure'}));
+     +(edge.relation.warrant?'. Authored reason: '+edge.relation.warrant:'')+'. Enter follows exact source, RETURN restores departure'}));
    const tip=edge.b;
    group.append(svgNode('path',{class:'ip-link-arrow',d:
     'M '+(tip.x-ux*5-uy*3)+' '+(tip.y-uy*5+ux*3)+
@@ -332,7 +332,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   paintWitness(anchor);
   el('doors').replaceChildren();el('more-ports').replaceChildren();const port=node=>(el('doors').children.length<3?el('doors'):el('more-ports')).append(node);
   for(const door of relationDoors(model,source.hash,links,anchor)){
-   const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,85)}`;b.title='Authored interpretation with exact source quotes';
+   const b=document.createElement('button');b.className='ip-relation';b.textContent=`${door.direction} ${door.type} · ${door.destination.quote.slice(0,70)}`+(door.warrant?' · WHY: '+door.warrant.slice(0,70):'');b.title='Authored interpretation with exact source quotes'+(door.warrant?' · WHY: '+door.warrant:'');
    b.onclick=()=>{frames.push(frame());if(frames.length>64)frames.shift();scope=door.destination.scope;seek(door.destination.start);status('Followed the '+door.type+' relation. RETURN restores the exact departure and scope.')};port(b);
   }
   for(const d of doors.filter(d=>Door.linkOK(d,location.origin))){
@@ -340,8 +340,8 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    const r=d.to.hash===source.hash&&d.to.address===source.address&&anchor>=d.to.start&&anchor<d.to.end;
    if(!f&&!r)continue;
    const e=f?d.to:d.from,b=document.createElement('button');b.className='ip-relation';
-   b.textContent='DOOR '+(f?'→ ':'← ')+d.type+' · '+e.address+' · '+e.quote.slice(0,50);
-   b.title='Exact revision and native range validated before source crossing';
+   b.textContent='DOOR '+(f?'→ ':'← ')+d.type+' · '+e.address+' · '+e.quote.slice(0,45)+(d.warrant?' · WHY: '+d.warrant.slice(0,70):'');
+   b.title='Exact revision and native range validated before source crossing'+(d.warrant?' · Authored reason: '+d.warrant:'');
    b.onclick=run(async()=>goDoor(e,await verifyRemote(e)));port(b);
   }
   if(Door.address(source.address,location.origin)===source.address){
@@ -548,21 +548,22 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  el('link-start').onclick=()=>{if(!model)return;ap.stop();const u=at(model,char(),scope);pendingLink={hash:source.hash,address:source.address,span:{start:u.start,end:u.end,scope},quote:source.raw.slice(u.start,u.end)};el('link-note').textContent='Held: '+source.raw.slice(u.start,Math.min(u.end,u.start+120));el('link-end').disabled=false;drawer(false);status('First range held. Move to another, then CONNECT HERE in SOURCE.')};
  el('link-end').onclick=run(async()=>{
   if(!pendingLink)throw Error('HOLD FIRST before connecting.');
-   const u=at(model,char(),scope),type=el('relation').value;
+   const u=at(model,char(),scope),type=el('relation').value,warrant=el('relation-warrant').value.trim();
+   if(warrant.length>320)throw Error('Relation reason exceeds 320 characters.');
    if(pendingLink.hash===source.hash&&pendingLink.address===source.address){
     if(links.length>=128)throw Error('128 local link limit.');
-    const r=relation(model,source.hash,pendingLink.span,{...u,scope},type);
+    const r=relation(model,source.hash,pendingLink.span,{...u,scope},type,warrant);
     checkpoint();links.push(r);status('Same-source interpretation connected.');
    }else{
     if(doors.length>=Door.LIMITS.doors)throw Error('64 DOOR limit.');
     const first={address:pendingLink.address,hash:pendingLink.hash,...pendingLink.span,quote:pendingLink.quote};
-    const d={type,from:first,to:end(),authority:'INTERPRETATION_ONLY'};
+    const d={type,from:first,to:end(),authority:'INTERPRETATION_ONLY',...(warrant?{warrant}:{})};
     if(!Door.linkOK(d,location.origin))throw Error('DOOR needs two distinct versioned text/JSON addresses.');
     await verifyRemote(first);
     if(source.hash!==d.to.hash||pendingLink?.hash!==d.from.hash)throw Error('CONNECT superseded.');
     checkpoint();doors.push(d);status('Cross-source interpretation connected.');
    }
-   pendingLink=null;el('link-end').disabled=true;el('link-note').textContent='';paint();persist();drawer(false);
+   pendingLink=null;el('link-end').disabled=true;el('link-note').textContent='';el('relation-warrant').value='';paint();persist();drawer(false);
  });
  el('edit').onclick=()=>{if(!model)return;ap.stop();editing={hash:source.hash,span:{...at(model,char(),scope)}};el('replacement').value=model.raw.slice(editing.span.start,editing.span.end);el('edit-range').textContent=`LOCAL EDIT · ${editing.span.start}–${editing.span.end}`;el('editor').hidden=false;el('replacement').focus()};
  el('cancel').onclick=()=>{el('editor').hidden=true;editing=null};
