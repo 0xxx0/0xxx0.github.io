@@ -6,7 +6,7 @@ import http from 'node:http';
 import {spawn} from 'node:child_process';
 import {browserBin} from './browser-bin.mjs';
 const root=process.cwd(),host='127.0.0.1';
-const html=String.raw`<!doctype html><html><body style="margin:0">
+const html=`<!doctype html><html><body style="margin:0">
 <iframe id="field" style="width:390px;height:850px;border:0" src="/"></iframe>
 <pre id="result">PENDING</pre>
 <script>
@@ -37,7 +37,7 @@ const done=(ok,x)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);
  const stage=D().querySelector('#tower .tw-stage');
  const svg=D().querySelector('#tower-svg');
  const rect=svg.getBoundingClientRect();
- stage.dispatchEvent(new W().PointerEvent('pointermove',{bubbles:true,clientY:rect.top+rect.height*.2,clientX:rect.left+rect.width*.4}));
+ stage.dispatchEvent(new (W().PointerEvent)('pointermove',{bubbles:true,clientY:rect.top+rect.height*.2,clientX:rect.left+rect.width*.4}));
  rec.hoverBind=api.state().focusKey;
  rec.hoverNoChange=JSON.stringify(selection())===hostAfter;
  api.bind('route');
@@ -49,7 +49,7 @@ const done=(ok,x)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(x);
  await wait(()=>api.state().rings.find(r=>r.key==='state').gate==='ANY','host native sync');
  rec.sync={gate:api.state().rings.find(r=>r.key==='state').gate,bind:api.state().focusKey,host:selection().state};
  const beforeKey=api.state().focusKey,preSelection=JSON.stringify(selection());
- svg.dispatchEvent(new W().KeyboardEvent('keydown',{key:'ArrowUp',bubbles:true,cancelable:true}));
+ svg.dispatchEvent(new (W().KeyboardEvent)('keydown',{key:'ArrowUp',bubbles:true,cancelable:true}));
  rec.keyboard={before:beforeKey,after:api.state().focusKey,selectionStable:JSON.stringify(selection())===preSelection};
  api.bind('operation');
  const actualUrl=W().location.href,oldApi=api;
