@@ -159,3 +159,19 @@ html[data-field-words="open"][data-field-bar-pane="browse"]:not([data-instrument
    width:100%!important;max-width:56px;
  }
 }
+
+/* Task before optics: reveal exact held context, not the whole work card.
+   Native OPEN and DOOR remain directly available under their existing
+   contracts; Aa unfolds additional reading detail only. */
+#apCue { display:none; }
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apCue {
+ display:flex!important;align-items:baseline;gap:5px;max-width:100%;margin:3px 0 0;
+ color:var(--mut);font:11px/1.32 system-ui,sans-serif;min-width:0;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apCueKind {
+ flex:none;color:var(--cool);font:700 9px/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.06em;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apCueText {
+ display:-webkit-box;min-width:0;overflow:hidden;overflow-wrap:anywhere;
+ -webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;
+}

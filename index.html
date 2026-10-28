@@ -606,7 +606,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody">
-      <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
+      <div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apCue" id="apCue" role="status"><b id="apCueKind">SOURCE</b><span id="apCueText">Choose a route</span></div><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD</div>
       <p id="apRole">Tap a head below — one tap holds it and shows what it buys (NEXT move, witness, RETURN); tap again to open.</p>
       <div class="apFlow" id="apFlow" aria-label="Held object continuation">
         <div class="apNext"><span class="apFlowK">NEXT</span><div class="capMoves" id="capMoves"></div></div>
@@ -1297,6 +1297,9 @@ function bindHeldForecast(el,move){
 function renderHeldContinuation(){
  if(!focus){$('capMoves').innerHTML='';$('capWitness').textContent='—';$('capReturn').textContent='—';$('capForecast').textContent='—';renderRunDock();return}
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href),carrier=fieldCarrierForFocus(),returned=!!carrier?.meta?.daylineReturnId;
+ // Opening the held owner is not equivalent to choosing its first exit.
+ // Root glyph second-tap already uses this exact route; the primary action must
+ // commute with that gesture. Other available exit paths remain secondary.
  const nativeActions=Array.isArray(c?.actions)?c.actions.slice(0,3):[],open=$('apOpen');let primaryForecastMove=null;
  if(nativeActions.length){
   const [primary,...rest]=nativeActions;primaryForecastMove=primary;
@@ -1329,7 +1332,29 @@ function renderRunDock(){
  $('runDockWitness').innerHTML='<b>WITNESS</b> '+esc($('capWitness')?.textContent||'—');
  $('runDockForecast').innerHTML='<b>FORECAST</b> '+esc($('capForecast')?.textContent||'—');
 }
+/* A task cue, not a second task database. Exact CURRENT ownership beats
+   manifest capability. Never project a parent HEAD's NEXT onto a child route. */
+function heldCue(r){
+ if(!r)return{kind:'SELECT',text:'Choose one exact glyph to resume work',source:'FIELD'};
+ const h=(current?.current_heads||[]).find(x=>x.route===r.href);
+ const n=h?.next_executable;
+ if(typeof n?.objective==='string'&&n.objective.trim()){
+  const state=String(n.state||'').toUpperCase(),completed=/SHIPPED|DONE|COMPLETE|CLOSED|OBSERVE_ONLY/.test(state);
+  return{kind:completed?'STATUS':'NEXT',text:n.objective.trim(),source:'CURRENT.json · '+(n.state||'NEXT')};
+ }
+ const verb=String(r.contract?.transforms?.verb||r.role||'').trim();
+ // A CURRENT head with no executable objective has a gap, not an implicit NEXT.
+ if(h)return{kind:'NO NEXT',text:verb||'No declared next move or capability text',source:'CURRENT.json · no next_executable objective · manifest capability '+r.href};
+ return{kind:'DOES',text:verb||'No declared capability text; inspect this source',source:'showcase-manifest.json · '+r.href};
+}
+function renderHeldCue(r){
+ const c=heldCue(r),el=$('apCue'),k=$('apCueKind'),txt=$('apCueText');
+ if(!el||!k||!txt)return;
+ k.textContent=c.kind;txt.textContent=c.text;el.title=c.source+' · '+c.text;
+ el.dataset.cueSource=c.kind==='NEXT'||c.kind==='STATUS'?'CURRENT':c.kind==='NO NEXT'?'CURRENT_MISSING':'MANIFEST';
+}
 function renderAperture(){
+ renderHeldCue(focus);
  const seen=$('apSeen'),residue=$('focusResidue');
  if(!focus){
   const impossible=currentMatches().length===0;
