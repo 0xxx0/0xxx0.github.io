@@ -18,6 +18,9 @@ on:
       - 'index.html'
       - 'docs/index.html'
       - 'rsvp/**'
+      - 'fold-bloom/lens/**'
+      - 'sleeper/threadwalk-work.js'
+      - 'sleeper/reading-play.js'
       - 'tools/interphase-*'
       - 'tools/field-instrument-smoke.mjs'
       - 'control/CURRENT.json'
@@ -42,6 +45,9 @@ on:
       - 'index.html'
       - 'docs/index.html'
       - 'rsvp/**'
+      - 'fold-bloom/lens/**'
+      - 'sleeper/threadwalk-work.js'
+      - 'sleeper/reading-play.js'
       - 'tools/interphase-*'
       - 'tools/field-instrument-smoke.mjs'
       - 'control/CURRENT.json'
@@ -75,6 +81,7 @@ jobs:
       - name: Executable workflow and recovered source laws
         run: |
           node tools/interphase-door-selftest.mjs
+          node tools/interphase-source-cycle-selftest.cjs
           node tools/interphase-navigation-selftest.mjs
           node tools/interphase-workflow-selftest.mjs
           node tools/interphase-extensions-selftest.mjs
@@ -91,6 +98,16 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/interphase-test" playwright
           "$RUNNER_TEMP/interphase-test/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Aperture / Scale Lens / unfinished Threadwalk source cycle
+        env:
+          NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules
+          SCREENSHOT_DIR: ${{ runner.temp }}/continuum-screenshots
+        run: node tools/interphase-source-cycle-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-cycle-screenshots
+          path: ${{ runner.temp }}/continuum-screenshots/source-cycle-*.png
       - name: Cross-source DOOR and exact return
         env:
           NODE_PATH: ${{ runner.temp }}/interphase-test/node_modules

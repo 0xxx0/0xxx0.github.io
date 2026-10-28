@@ -10,6 +10,12 @@ async function enterInterphase(){
  template.remove();
  const {mountContinuum}=await import('./continuum.mjs'+release),api=await mountContinuum(document.getElementById('interphaseContinuum'));
  window.InterphaseInstrument=api;
+ if(q.has('resume')){
+  const saved=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null');
+  if(!saved||saved.source?.hash!==q.get('resume'))throw Error('Aperture checkpoint changed. Source and prior attention were not replaced.');
+  await api.importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',...saved});
+  const u=new URL(location.href);u.searchParams.delete('resume');history.replaceState(null,'',u.pathname+u.search+u.hash);return;
+ }
  if(q.has('src'))return api.openPath(q.get('src'));
  if(q.has('handoff')){
   const p=JSON.parse(sessionStorage.getItem('rsvp.handoff.v1')||'null');

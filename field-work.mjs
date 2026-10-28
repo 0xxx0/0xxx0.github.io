@@ -36,10 +36,15 @@ function startFieldWork(){
   let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>api.refresh(),180)});
   // Native FIELD already captures the original navigation parameters before restoring its URL.
   const incoming=window.FieldIndexReadModel.entry().focus;
-  if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');lastNative=native.heldAddress();ready=true;
+  if(query.has('resume')){
+   const saved=JSON.parse(sessionStorage.getItem('interphase.continuum.v1')||'null');
+   if(!saved||saved.source?.hash!==query.get('resume'))throw Error('Aperture checkpoint changed. Return held.');
+   await api.importPacket({schema:'interphase.continuation/v1',authority:'LOCAL_SOURCE_ONLY',...saved});
+   const u=new URL(location.href);u.searchParams.delete('resume');history.replaceState(null,'',u.pathname+u.search+u.hash);
+  }else if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');lastNative=native.heldAddress();ready=true;
   // Root bar only selects existing views; canonical source/RETURN unchanged.
   const requestedView=query.get('view');
-  if(['plain','walk','dial'].includes(requestedView))api.perspective(requestedView);
+  if(!query.has('resume')&&['plain','walk','dial'].includes(requestedView))api.perspective(requestedView);
   if(query.get('source')==='1')api.command(':source');
   window.InterphaseInstrument=api;
   window.FieldWork=Object.freeze({active:()=>native.active()&&!host.hidden,show:()=>{native.enter();host.hidden=false;api.refresh()},snapshot:api.snapshot,instrument:api});

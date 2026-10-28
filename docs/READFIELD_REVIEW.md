@@ -1,5 +1,11 @@
 # READFIELD: interpretation beside an exact work
 
+28 October status: the operator rejected this wrapper as the way forward. Preserve
+its tested annotation mechanics as a donor; the accepted task is not established
+by those tests. The corrective candidate continues the existing aperture, Scale
+Lens and Threadwalk in `interphase/SPEC.md`; this document is not a fresh product
+brief or permission to design another reader.
+
 Selected brief, 27 October 2026: reduce the existing `/docs/` reader into a compact instrument for reviewing documents and artifacts, defining what matters, annotating an interpretation, and seeing that work accumulate in a glyph. Preserve the reader's source, native cursor, scope, voice/RSVP and exact return. No new route or source owner.
 
 Assumptions: annotations express the reader's interpretation; advancing playback is not evidence of understanding. Literal search is not semantic relevance. An idea marked APPLIED is a human declaration, not a measured effect. Input is text/Markdown/JSON/CSV/source code; PDF/EPUB extraction is not implemented here.
