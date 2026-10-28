@@ -87,6 +87,24 @@ try{
   assert.equal(authored.all.length,2);
   assert.ok(authored.all.every(m=>m.revision===authored.source.hash&&
    m.quote===authored.source.raw.slice(m.charIndex,m.endIndex)),'every mark is exact SHA/quote bound');
+  const question=authored.all.find(m=>m.kind==='QUESTION');
+  const noteTarget=await page.evaluate(mark=>{
+   const svg=document.querySelector('svg.orbit'),r=svg.getBoundingClientRect();
+   const a=-Math.PI/2+(mark.charIndex/RSVPReader.source().raw.length)*Math.PI*2;
+   return{x:r.x+r.width*(60+Math.cos(a)*34)/120,
+    y:r.y+r.height*(60+Math.sin(a)*34)/120};
+  },question);
+  await page.evaluate(()=>RSVPReader.seekChar(0));
+  await page.mouse.click(noteTarget.x,noteTarget.y);
+  assert.equal(await page.evaluate(()=>document.getElementById('wristAperture').snapshot().char_index),
+   question.charIndex,'SOURCE ring glyph performs exact native source seek');
+  assert.equal(await page.locator('#readingEdit').isVisible(),true,'glyph reaches existing note editor');
+  await page.locator('#editCancel').click();
+  await page.evaluate(()=>RSVPReader.seekChar(0));
+  await page.locator('#markRail button[data-kind="QUESTION"]').click();
+  assert.equal(await page.evaluate(()=>document.getElementById('wristAperture').snapshot().char_index),
+   question.charIndex,'linear mark and radial glyph address the same exact passage');
+  await page.locator('#editCancel').click();
   await page.locator('#showMarks').click();
   assert.equal(await page.locator('#marksList li').count(),2,'stored work becomes a plain navigable source list');
   await page.locator('#marksList li').first().locator('button').last().click();
