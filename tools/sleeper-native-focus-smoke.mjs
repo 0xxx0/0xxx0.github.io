@@ -48,7 +48,7 @@ const probe=[
 ' assert(!read("game.gates.find(g=>g.name===\\"MEASURE\\").collected"),"LOOK cannot award MEASURE distance");',
 ' d.querySelector("#fBefore").value="I expect CONCH to leave a native signal trace";',
 ' d.querySelector("#fTry").click();assert(!A.state().opened&&A.state().pending,"prediction returns to same native world");',
-' const wb=stable(),eventBefore=read("game.routeEvents.length");',
+' const wb=stable(),eventBefore=read("game.routeEvents.length");assert(!read("uiPaused()"),"native still paused after fTry: "+d.querySelector("#side").className+" / "+d.querySelector("#modal").className+" / "+A.state().opened);',
 ' d.querySelector("[data-tool=\\"conch\\"]").click();',
 ' assert(read("game.routeEvents.length")>eventBefore,"a real native tool was enacted");',
 ' d.querySelector("#focusBtn").click();',
