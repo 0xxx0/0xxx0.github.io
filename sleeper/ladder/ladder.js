@@ -97,7 +97,7 @@
     note: false,       // the field note (a reveal, no chrome)
     pointers: 0,       // two fingers = the view; measured, never a button
     // 0.6.0 — the wave: a held line rides at its own pace; release at the end
-    ride: null, rideTimer: 0, rides: {},
+    ride: null, rideTimer: 0, rides: {}, loop: false,
   };
   let W = 0, H = 0, dpr = 1;
 
@@ -1030,7 +1030,11 @@
   function voiceLines() {
     if (S.ride) return rideVoiceLines();
     if (S.decodeCell != null && S.field) return decodeLines();
-    if (!S.voice) return [];
+    const teaching = !S.taughtRide && Object.keys(S.rides || {}).length === 0;
+    const hint = S.distance === 'FAR' ? 'tap the painting · it resolves into a city'
+      : S.distance === 'NEAR' ? 'tap again · enter the city'
+      : (S.hold ? 'keep holding · the line rides' : 'swipe to walk · hold a room · let go at the end');
+    if (!S.voice) return teaching ? [hint] : [];
     const size = 9.5;
     const raw = S.voice.lines;
     if (S.voice.kind === 'gate' && raw.length >= 3 && S.gates.length) {
@@ -1047,9 +1051,9 @@
     for (const r of raw) {
       for (const l of wrapText(r, W - 26, size)) out.push(l);
     }
-    // before the first ride the strip says the one new gesture, then stops
-    if (!S.taughtRide && Object.keys(S.rides || {}).length === 0 && S.distance === 'ENTERED' && S.voice && S.voice.kind !== 'gate') {
-      out[0] = S.hold ? 'keep holding · the line rides' : 'hold · let go at the end';
+    // before the first ride the strip says what to do at THIS distance, then stops
+    if (teaching && S.voice && S.voice.kind !== 'gate') {
+      out[0] = hint;
     }
     return out.slice(0, 3);
   }
@@ -1913,6 +1917,7 @@
     if (!d || !d.line) return null;
     S.ride = { plan: C.waveOf(d.line), t: 0, t0: 0, misses: 0, over: false, verdict: null, p: cell.unit.p };
     S.decodeCell = null;
+    S.loop = false;                                     // a new attempt is not the old loop
     if (S.drag) S.drag.moved = true;                    // the hold already acted (probes may have no drag)
     wake();                                             // the ride needs frame time
     draw();
@@ -1932,13 +1937,16 @@
       S.ride.rewindStart = null; S.ride.rewindU = 0; S.ride.rewindUntil = 1;
     } else if (out.verdict === 'sharp') {
       S.rides[S.ride.p] = (S.rides[S.ride.p] || 0) + 1;
-      S.taughtRide = true;
+      S.taughtRide = true; S.loop = false;
       if (S.ledger) { S.ledger.rides = S.rides; S.ledger.taught = true; saveLedger(); }
       say(['held to the end'], 'line', 5);
+      if (window.SleeperLadderRead) window.SleeperLadderRead.refresh();
     } else if (out.verdict === 'blown') {
       say(['late · past the end'], 'line', 5);
     } else if (out.verdict === 'lost') {
-      say(['early · three times'], 'line', 5);
+      S.loop = true;                                  // three early releases: the loop won
+      say(['the loop is stronger than the line · tap the source line'], 'line', 6);
+      if (window.SleeperLadderRead) window.SleeperLadderRead.refresh();
     }
     draw();
     return out.verdict;
@@ -2339,6 +2347,8 @@
     rideAt: () => (S.ride ? C.rideAt(S.ride, S.ride.plan, S.ride.t) : null),
     rides: () => JSON.parse(JSON.stringify(S.rides || {})),
     taught: () => !!S.taughtRide,
+    loop: () => !!S.loop,
+    lines: () => voiceLines(),
     redraw: () => { draw(); return true; },
     rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowCharFrom.toFixed(4), ticks: pl.tickChars.map((c) => +c.toFixed(4)), words: pl.words, chars: pl.chars } : null; },
     startRideAt: (n) => { const c = S.field && S.field.cells[n]; return c ? startRide(c) : null; },

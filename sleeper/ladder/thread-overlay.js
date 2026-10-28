@@ -22,10 +22,10 @@ function nextFactor(){
 function label(){
  const n=nextFactor();
  if(n===null)return;
- const suffix=' · READ '+(n+1)+'/8 ↗';
- if(!foot.textContent.includes(' · READ '))foot.textContent+=suffix;
- else foot.textContent=foot.textContent.replace(/ · READ [0-8]\/8 ↗$/,suffix);
- foot.title='READ '+L.factor(n).en+' ('+L.factor(n).locator+') · return to the same walk';
+ const suffix=(L.loop&&L.loop())?' · THE LOOP ↗':' · READ '+(n+1)+'/8 ↗';
+ if(!foot.textContent.includes(' · READ ')&&!foot.textContent.includes(' · THE LOOP '))foot.textContent+=suffix;
+ else foot.textContent=foot.textContent.replace(/ · (READ [0-8]\/8|THE LOOP) ↗$/,'')+suffix;
+ foot.title=(L.loop&&L.loop())?'The Bell — the loop that outran the line · return to the same walk':'READ '+L.factor(n).en+' ('+L.factor(n).locator+') · return to the same walk';
 }
 function close(){
  if(!overlay)return false;
@@ -36,11 +36,12 @@ function close(){
 }
 function open(){
  const n=nextFactor();if(n===null||overlay)return;
- active={factor:n,before:L.state()};
+ const bell=!!(L.loop&&L.loop());
+ active={factor:n,before:L.state(),bell};
  overlay=document.createElement('div');overlay.id='ladderOverlay';overlay.setAttribute('role','dialog');
- overlay.setAttribute('aria-label','Threadwalk source projection');overlay.setAttribute('aria-modal','true');
+ overlay.setAttribute('aria-label',bell?'The Bell — the loop you are in':'Threadwalk source projection');overlay.setAttribute('aria-modal','true');
  const back=document.createElement('button');back.id='ladderClose';back.type='button';back.textContent='↩ LADDER';back.onclick=close;
- frame=document.createElement('iframe');frame.id='ladderFrame';frame.title='Threadwalk — the eight path factors';frame.src='../axis-score.html?read=1&ladderFactor='+n;
+ frame=document.createElement('iframe');frame.id='ladderFrame';frame.title=bell?'The Bell — the loop you are in':'Threadwalk — the eight path factors';frame.src=bell?'../axis-score.html?bell=1':'../axis-score.html?read=1&ladderFactor='+n;
  overlay.append(frame,back);document.body.append(overlay);back.focus();
 }
 foot.addEventListener('click',open);
@@ -61,6 +62,6 @@ L.ready.then(s=>{
 foot.addEventListener('pointerenter',label);foot.addEventListener('focus',label);
 window.SleeperLadderRead=Object.freeze({
  current:nextFactor,isOpen:()=>!!overlay,close,
- before:()=>active?.before||null
+ before:()=>active?.before||null,refresh:label
 });
 })();
