@@ -79,3 +79,58 @@ Fix the existing host rather than adding a new source model or reader mode.
    semantic JSON narration or general operation authority over other hosts.
 3. Continue with exact object/focus continuity only where a reproduced failure
    demands it. No archive reorganization is required to use this reader now.
+
+## 28 Oct 2026 · Source bearings / one lawful operating surface
+
+Use the current `/rsvp/` page, not a separate project UI:
+
+1. **PIN** on a passage or a currently focused word remembers that exact
+   source interval. Press PIN there again to remove the *bookmark*, not a
+   separate authored question.
+2. Select text → **NOTE** to write a `NOTE`, `QUESTION`, or `APPLIED`
+   observation. The quote, start/end UTF-16 positions and exact SHA-256
+   revision are checked before saving. `MARKS` is a plain list, not a second
+   document; selecting a mark seeks the native reader. Direct circular glyph
+   and linear rail stops invert to the same address.
+3. **COPY REF** inside an annotation copies a real READFIELD
+   `?src=/path&ap_char=N` link where a repository path exists, with the
+   source hash, quoted bytes and precise range. Local-only sources receive
+   explicitly non-clickable citations; source text is not placed in URLs.
+4. The faint extent is **furthest VISITED**, not completed or understood.
+   `FieldSourceTrail` binds last/visited positions to source revision. A
+   changed file at the same path resets the visited extent and cannot
+   restore the old cursor. Earlier authored marks remain parked as
+   **UNBOUND** and are never implicitly attached to different bytes.
+   Legacy unversioned positions cannot claim exact re-entry.
+5. The available phone space retains the entire current text or an
+   explicitly bounded long-source window. The source-selected word is
+   highlighted in that same text. LISTEN's original source glyph and
+   measured audio-energy contour remain optional and source-bound.
+   The 180px wrist remains the minimal ring and transport.
+
+**Same owners, not a new ontology:** `FieldAperture` owns focus/clock;
+`FieldSourceTrail` owns browser-local traversal and marks;
+`ReadfieldReviewModel.bound` decides if authored evidence belongs to the
+current bytes; `READFIELD` remains source owner; INTERPHASE provides
+cross-source relationships and exact RETURN; Scale Lens projects scale
+without rewriting identity; Atlas Dayline owns the *temporal decision*
+whether an `APPLIED` passage becomes a task. A note is not silently
+promoted to a Dayline obligation. The user's explicit COPY REF action is
+the available cross-work carrier. No duplicate bookmark database,
+automatic comprehension metric or infinite radial graph is invented.
+
+This cuts four specific friction points against established tools: the
+fast annotation focus and revisit familiar in Reader, exact
+quote/position binding standardized by W3C Web Annotation, a
+side-by-side fovea+periphery (no hidden text during RSVP) and one
+navigable source-spine at phone width. It does **not** claim PDF/EPUB
+parsing, cloud-sync, graph-based semantic discovery, collaborative
+editing, or general cross-source pin navigation.
+
+**Promotion tests:** `tools/reading-trail-revision-selftest.cjs`;
+`tools/reading-continuity-smoke.mjs` (320/390/1280 and 180px),
+including pin/question creation, ring↔rail inverse, exact copy reference,
+reload, native READFIELD review, and same-path changed-source demotion;
+existing LISTEN real MP3+text source, review/annotation and source
+identity suites. Subjective reading speed/recall and physical-device
+comfort still require human comparison.

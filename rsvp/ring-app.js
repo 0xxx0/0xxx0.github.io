@@ -52,7 +52,7 @@ const snap=()=>ap.snapshot();
 function persist(s=raw&&snap()){
  if(!s||!trailKey||loading)return;
  const now=Date.now();if(s.playing&&now-lastPersist<1100)return;lastPersist=now;
- FieldSourceTrail.record(trailKey,{address:s.address,progress:s.source_progress,focus:s.focus,charIndex:s.char_index,scale:s.scale,via:'READFIELD_WRIST'});
+ FieldSourceTrail.record(trailKey,{address:s.address,progress:s.source_progress,focus:s.focus,charIndex:s.char_index,scale:s.scale,revision:sourceHash,via:'READFIELD_WRIST'});
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════
@@ -487,7 +487,7 @@ async function load(text,name,options={},request=++epoch){
  pause();loading=true;
  raw=input;label=name||'PASTE';nodes=map;sourceHash=hash;sourceAddress=safe(options.sourceAddress||'');returnAddress=safe(options.returnAddress||'');
  trailKey=FieldSourceTrail.sourceKey({address:sourceAddress,id:hash});
- const last=FieldSourceTrail.read(trailKey).last,focus=options.focus||last;
+ const last=FieldSourceTrail.read(trailKey).last,focus=options.focus||(last?.revision===hash?last:null);
  const char=focus?.char_index??focus?.charIndex??0;
  if(options.focus?.wpm!=null)wpm=options.focus.wpm;
  wpm=Math.min(6000,Math.max(60,Number(wpm)||260));
@@ -536,6 +536,7 @@ function seekRingEvent(e){
 el('stage').onclick=e=>{
  if(suppressClick){suppressClick=false;return}
  if(gate){const k=sectorFromEvent(e);if(k>=0)answer(k);return}
+ if(window.RSVPSourceInstrument?.pickRing?.(e))return;
  if(seekRingEvent(e))return;
  toggle();
 };
@@ -596,6 +597,7 @@ window.addEventListener('pagehide',()=>persist());
 // One native source/cursor bridge for the optional large-screen projection.
 // Its consumers may SEEK, never edit FieldAperture or author another clock.
 window.RSVPReader=Object.freeze({
+ key:()=>trailKey,
  source:()=>raw?{raw,hash:sourceHash,label,sourceAddress}:null,
  snapshot:()=>raw?snap():null,
  seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true}

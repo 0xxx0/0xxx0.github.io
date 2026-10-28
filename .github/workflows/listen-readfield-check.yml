@@ -86,6 +86,7 @@ jobs:
       - name: Prove READ / STRUCT / WRIST continuity
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
+          SCREENSHOT_DIR: /tmp/readfield-review-captures
         run: node tools/reading-continuity-smoke.mjs
       - name: Prove actual LISTEN waveform/glyph and full WRIST text
         env:
@@ -96,6 +97,7 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
         run: |
+          node tools/reading-trail-revision-selftest.cjs
           node tools/reading-review-selftest.cjs
           node tools/reading-review-smoke.mjs
       - uses: actions/upload-artifact@v4
