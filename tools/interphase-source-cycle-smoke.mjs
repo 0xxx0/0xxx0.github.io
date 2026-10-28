@@ -33,6 +33,9 @@ try{
   await ip('lens').click();await page.waitForFunction(()=>window.ScaleLensSpatialAPI?.snapshot()&&document.getElementById('heldRanges'));
   assert.equal(await page.locator('#lensTools').getAttribute('open'),null,'depth starts folded');
   assert.equal(await page.locator('#canonical').isVisible(),false,'addresses do not precede the source');
+  await page.locator('#showcase-route-adapter').waitFor({state:'attached'});
+  assert(await page.locator('#showcase-route-adapter').evaluate(el=>!!el.closest('#lensTools')),'shared route controls belong to the same tools reveal');
+  assert.equal(await page.locator('#showcase-route-adapter').isVisible(),false,'one persistent route-control surface');
   assert.equal(await page.locator('#sourcePreview').isVisible(),true);
   assert.deepEqual(await page.locator('#scopes button').allTextContents(),['WORD','SENTENCE','PARAGRAPH','DOCUMENT']);
   await page.locator('#scopes button').filter({hasText:'PARAGRAPH'}).click();
