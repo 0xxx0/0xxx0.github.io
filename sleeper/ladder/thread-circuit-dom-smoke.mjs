@@ -14,12 +14,12 @@ const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker,lit:s.lit,breath:s.breath,moves:s.moves,seed:s.seed};}
 (async()=>{try{
  f.src='/sleeper/ladder/';
- const d=await wait(()=>f.contentDocument?.querySelector('#ladderRead'),'Ladder HTML');
+ const d=await wait(()=>f.contentDocument?.querySelector('#prov'),'Ladder HTML');
  const L=await wait(()=>f.contentWindow?.SleeperLadder,'Ladder API');
  await L.ready;
  assert(L.state().ready,'source and painting load must succeed');
- const read=d.querySelector('#ladderRead');
- assert(!read.disabled,'READ button enabled');
+ const read=d.querySelector('#prov');
+ await wait(()=>read.textContent.includes('READ 1/8'),'READ source address');assert(read.getAttribute('role')==='button'&&read.tabIndex===0,'provenance is keyboard accessible');
  for(const width of [320,390,1280]){
   f.style.width=width+'px';await sleep(80);
   const r=read.getBoundingClientRect();
@@ -29,7 +29,7 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  const before=stable(L.state());
  read.click();
  const overlay=d.querySelector('#ladderOverlay'),inner=d.querySelector('#ladderFrame');
- assert(!overlay.hidden,'reader overlay opened');
+ assert(overlay&&overlay.isConnected,'reader overlay opened');
  const rd=await wait(()=>inner.contentDocument?.querySelector('#readingPlay')?.shadowRoot,'Threadwalk shadow');
  await wait(()=>rd.querySelector('#ladderContext')?.textContent?.includes('RIGHT VIEW'),'source projection');
  assert(rd.querySelector('#passage')?.textContent.includes('right view'),'factor line visible');
@@ -45,12 +45,12 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  await wait(()=>rd.querySelector('#where')?.textContent.includes('2 / 8'),'real source navigation');
  assert(same(stable(L.state()),before),'reading has not moved walker, spent breath, lit Gate or changed witness');
  rd.querySelector('#exit').click();
- await wait(()=>overlay.hidden,'source-to-Ladder return message');
+ await wait(()=>!d.querySelector('#ladderOverlay'),'source-to-Ladder return message');
  assert(same(stable(L.state()),before),'same native walk after close');
  read.click();
- await wait(()=>!overlay.hidden,'reopen');
+ await wait(()=>!!d.querySelector('#ladderOverlay'),'reopen');
  d.querySelector('#ladderClose').click();
- assert(overlay.hidden,'explicit close works');
+ assert(!d.querySelector('#ladderOverlay'),'explicit close works');
  assert(same(stable(L.state()),before),'reversible close');
  out.textContent='PASS Ladder → source-exact abridged Threadwalk → same Ladder / 320,390,1280 / original law unchanged';
 }catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
