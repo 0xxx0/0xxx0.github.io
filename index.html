@@ -1856,6 +1856,18 @@ window.FieldIndexReadModel=Object.freeze({
     if (!d.axis || d.value == null) return;
     try { if (window.FieldAxisHold) window.FieldAxisHold(d.axis, d.value); } catch (_) {}
   });
+  // Native FIELD owns the tuple in both directions. URLbar, glyph selection,
+  // restored history and instrument navigation re-orient the existing tower.
+  // A microtask follows the host commit; it never invents a second selection.
+  var syncQueued = false;
+  window.addEventListener('field-index:state', function () {
+    if (syncQueued) return;
+    syncQueued = true;
+    queueMicrotask(function () {
+      syncQueued = false;
+      try { if (window.LandingTower) window.LandingTower.sync(); } catch (_) {}
+    });
+  });
 })();
 </script>
 </body></html>
