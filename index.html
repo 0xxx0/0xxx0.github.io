@@ -833,7 +833,13 @@ function applyInitialAxial(){
  const state=INIT.get('ax_state'),op=INIT.get('ax_op'),mode=INIT.get('ax_mode'),href=INIT.get('focus');
  if(state)axisState.state=state;if(op)axisState.operation=op;if(mode)axisState.mode=mode;
  const r=href&&routeMap().get(href),nativeView=INIT.get('instrument')==='1'||INIT.get('work')==='0'||INIT.get('work')==='1';focus=r||(nativeView?null:((current?.current_heads||[]).map(h=>routeMap().get(h.route)).find(x=>x&&x.href!=='/'))||latest.find(x=>x.href!=='/')||null);
- if(r){axisState.state=r.state||axisState.state;axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||axisState.mode}
+ // A named focus must not override an explicitly addressed AXIAL aperture.
+ // Otherwise reload converts a multi-route filter into the focused route's singleton tuple.
+ if(r&&!['ax_state','ax_op','ax_mode'].some(k=>INIT.has(k))){
+   axisState.state=r.state||axisState.state;
+   axisState.operation=opOf(r);
+   axisState.mode=modesOf(r)[0]||axisState.mode;
+ }
  supportTrail=[latest.length,currentMatches().length].filter((v,i,a)=>i===0||v!==a[i-1]);
  renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex();
 }
@@ -1806,6 +1812,8 @@ window.FieldIndexReadModel=Object.freeze({
  entry:()=>({focus:INIT.get('focus'),expression:INIT.get('fi'),native:['lens_proof','ax_state','ax_op','ax_mode'].some(k=>INIT.has(k))}),
  snapshot:()=>({routes:routes.slice(),heads:(current?.current_heads||[]).map(h=>h.route),
    seen:{stamp:catchupSeen(),items:catchupItems(),needs:currentHumanGates().map(g=>g.route).filter(Boolean)},canRewind:!!catchupHistory().length}),
+ // Native source gives the tower its LIVE/HELD reading. Projection cannot recalculate authority.
+ aperture:()=>({focus:focus?.href||null,live:currentMatches().length,total:latest.length}),
  actions:href=>nativeRouteActions(routeMap().get(href)),
  openAction:(href,id)=>{const r=routeMap().get(href),a=nativeRouteActions(r).find(x=>x.id===id);if(!r||!a)return false;const u=new URL(a.target,location.href);if(!['http:','https:'].includes(u.protocol))return false;focusRoute(r,true,'OTHER');noteOpen();advanceInto(u.href);return true},
  seen:href=>{if(href)markRouteCaughtUp(href);else markCaughtUp();notifyFieldIndex()},
@@ -1825,7 +1833,7 @@ window.FieldIndexReadModel=Object.freeze({
 <script src="./field-bar-landing.js?v=0.3"></script>
 </main>
 <script src="./tower/tower-core.js?v=0.2-circuit"></script>
-<script src="./tower/tower-section.js?v=0.2-circuit"></script>
+<script src="./tower/tower-section.js?v=0.3-bind"></script>
 <script>
 /* The tower is the index; the strip is one ring unrolled. Two laws here:
    1. MOUNT AFTER DATA. The host fills `latest` asynchronously; mounting on DOMContentLoaded

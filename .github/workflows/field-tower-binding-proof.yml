@@ -1,0 +1,28 @@
+name: field-tower-binding-proof
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'tower/tower-section.js'
+      - 'tower/tower-core.js'
+      - 'tools/field-tower-binding-smoke.mjs'
+      - '.github/workflows/field-tower-binding-proof.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  binding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify native tower JavaScript
+        run: |
+          node --check tower/tower-section.js
+          node --check tower/tower-core.js
+          node --check tools/field-tower-binding-smoke.mjs
+      - name: FIELD landing native binding, witness and AXIAL connection
+        run: node tools/field-tower-binding-smoke.mjs

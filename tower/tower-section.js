@@ -67,6 +67,39 @@
     return s.length > n ? s.slice(0, n - 1) + '…' : s;
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+  // Binding is VIEW memory. The host owns values, source and effect authority.
+  // Only STATE / OPERATION are identical vocabularies in native /foundry/axial/.
+  const BIND_KEY='field.tower.binding.v01';
+  const AXIAL_BIND_KEY='axial.binding.FIELD';
+  const SHARED_KEYS=new Set(['state','operation']);
+  function knownRing(inst,key){return inst.tower.rings.findIndex(r=>r.key===key)}
+  function initialBinding(inst,priorKey){
+    if(knownRing(inst,priorKey)>=0)return priorKey;
+    let own='',shared='';
+    try{own=localStorage.getItem(BIND_KEY)||'';shared=localStorage.getItem(AXIAL_BIND_KEY)||''}catch(_){}
+    if(knownRing(inst,own)>=0)return own;
+    if(SHARED_KEYS.has(shared)&&knownRing(inst,shared)>=0)return shared;
+    return knownRing(inst,'route')>=0?'route':inst.tower.rings[0]?.key||null;
+  }
+  function bindOn(inst,key,{persist=true}={}){
+    const i=typeof key==='string'?knownRing(inst,key):Math.trunc(Number(key));
+    if(!(i>=0&&i<inst.tower.rings.length))return snapshot(inst);
+    const changed=i!==inst.focus;
+    inst.focus=i;
+    if(persist){
+      const k=inst.tower.rings[i].key;
+      try{
+        localStorage.setItem(BIND_KEY,k);
+        // No route↔family, mode↔role, or fabricated kind correspondence.
+        if(SHARED_KEYS.has(k))localStorage.setItem(AXIAL_BIND_KEY,k);
+      }catch(_){}
+    }
+    if(changed){
+      draw(inst);
+      emit(inst,'landing-tower:bind',{axis:inst.tower.rings[i].key,authority:'VIEW_ONLY'});
+    }
+    return snapshot(inst);
+  }
   function emit(inst, name, detail) {
     try {
       if (typeof window.CustomEvent !== 'function') return;
@@ -180,6 +213,7 @@
       mount: function (target, opts) { return mount(target || el, opts); },
       state: function () { return snapshot(inst); },
       turn: function (n, ring) { return turnOn(inst, n, ring); },
+      bind: function (key) { return bindOn(inst, key); },
       unwrap: function (ring) { return unwrapOn(inst, ring); },
       selftest: function () { return selftestOn(inst); },
     });
@@ -223,6 +257,7 @@
 
   function applyModel(inst, model, flags) {
     var f = flags || {};
+    var priorKey = inst.tower?.rings[inst.focus]?.key||null;
     var tower = T.buildTower(model, { maxRings: 6 });
     inst.model = model;
     inst.tower = tower;
@@ -234,7 +269,8 @@
     inst.offset = tower.rings.map(function (r, i) { return T.offsetFor(inst.rot[i], r.weights); });
     inst.offsetF = inst.offset.slice();
     inst.t = tower.rings.map(function () { return 1; });
-    inst.focus = 0;
+    var bound=initialBinding(inst,priorKey);
+    inst.focus=knownRing(inst,bound)>=0?knownRing(inst,bound):0;
 
     inst.layout = T.towerLayout(tower.rings, { w: VIEW_W });
     inst.height = inst.layout.height;
@@ -389,8 +425,15 @@
       return m ? m.key : '∅';
     });
     inst.comp = T.compose(parts);
+    // DataDisc discipline: the visual checksum is not the evidence.
+    // Read the host's exact native aperture rather than counting a second copy.
+    var witness=null;
+    try{if(inst.model.source==='field-axes')witness=window.FieldIndexReadModel?.aperture?.()||null}catch(_){}
+    inst.witness=witness;
     if (inst.tagNode) {
-      inst.tagNode.textContent = 'COMPOSITION · ' + inst.comp.tag;
+      inst.tagNode.textContent=witness
+        ? ((witness.live===0?'DEAD':'LIVE')+' '+witness.live+'/'+witness.total+' · BIND '+(rings[inst.focus]?.label||'—'))
+        : 'COMPOSITION · '+inst.comp.tag;
       inst.tagNode.setAttribute('class', 'tw-tag' + (inst.bloom ? ' is-hot' : ''));
     }
     if (inst.totalNode) {
@@ -404,7 +447,9 @@
         line = '0 surfaces · ' + (inst.degraded ? 'manifest unreachable' : 'no data');
       }
       if (t.folded.count) line += ' · ' + t.folded.count + ' folded';
-      inst.totalNode.textContent = line;
+      inst.totalNode.textContent = witness?.focus
+        ? 'HOLD '+truncate(witness.focus,31)
+        : line;
     }
 
     if (inst.paintedTag !== inst.comp.tag || inst.paintedBloom !== inst.bloom || inst.paintedInk !== inst.ink) paintGlyph(inst);
@@ -541,6 +586,7 @@
     var steps = Math.round(Number(n));
     if (!Number.isFinite(steps) || steps === 0) steps = 1;
 
+    bindOn(inst,i);
     var from = inst.rot[i];
     var to = T.wrap(from + steps, ring.count);
     var startOff = inst.offsetF[i];
@@ -609,12 +655,10 @@
     var stage = inst.stage, svg = inst.svg, el = inst.el;
 
     var onMove = function (e) {
+      // Hover can reveal the figure, but cannot silently rebind the knob.
       var hit = ringAtY(inst, e.clientY);
       var b = inst.layout.boxes[hit.index];
-      var near = b && Math.abs(hit.y - b.cy) <= b.ry * 3.2;
-      var next = near ? hit.index : inst.focus;
-      if (next !== inst.focus) { inst.focus = next; draw(inst); }
-      if (near) setBloom(inst, true);
+      if (b&&Math.abs(hit.y-b.cy)<=b.ry*3.2)setBloom(inst,true);
     };
     stage.addEventListener('pointermove', onMove, { passive: true });
     stage.addEventListener('pointerenter', function () { setBloom(inst, true); }, { passive: true });
@@ -645,7 +689,7 @@
         if (radius < .45 || radius > 1.7) return;
         chosen = T.slotAtAngle(Math.atan2(dy, dx), ring.weights, inst.offsetF[i]);
       }
-      inst.focus = i;
+      bindOn(inst,i);
       if (chosen === inst.rot[i]) { draw(inst); return; }
       var delta = chosen - inst.rot[i];
       if (delta > ring.count / 2) delta -= ring.count;
@@ -662,7 +706,7 @@
       else if (k === 'ArrowUp' || k === 'ArrowDown') {
         var d = k === 'ArrowUp' ? 1 : -1;
         var n = inst.tower.rings.length;
-        if (n) { inst.focus = T.wrap(inst.focus + d, n); draw(inst); }
+        if (n) bindOn(inst,T.wrap(inst.focus + d,n));
         e.preventDefault();
       } else if (k === 'u' || k === 'U') { unwrapOn(inst); e.preventDefault(); }
       else if (k === 'Escape') { setBloom(inst, false); e.preventDefault(); }
@@ -700,6 +744,7 @@
       folded: { count: inst.tower.folded.count, families: inst.tower.folded.families },
       focus: inst.focus,
       focusKey: rings[inst.focus] ? rings[inst.focus].key : null,
+      witness: inst.witness?{focus:inst.witness.focus,live:inst.witness.live,total:inst.witness.total}:null,
       bloom: !!inst.bloom,
       reducedMotion: isReduced(),
       composition: { seed: inst.comp.seed, tag: inst.comp.tag, arity: inst.comp.arity, parts: inst.comp.parts },
@@ -764,6 +809,7 @@
     mount: function (el, opts) { return mount(el, opts); },
     state: function () { return current ? snapshot(current) : { mounted: false, version: VERSION }; },
     turn: function (n, ring) { return current ? turnOn(current, n, ring) : null; },
+    bind: function (key) { return current ? bindOn(current, key) : null; },
     sync: function () { return current ? syncFromHost(current) : null; },
     unwrap: function (ring) { return current ? unwrapOn(current, ring) : null; },
     selftest: function () {
