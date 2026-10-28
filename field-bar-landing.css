@@ -160,9 +160,9 @@ html[data-field-words="open"][data-field-bar-pane="browse"]:not([data-instrument
  }
 }
 
-/* Task before optics: expose one real source cue, not the whole old work card.
-   At rest there is one native continuation (OPEN); source-space DOOR lives
-   behind the existing Aa reveal. No new action mode or route. */
+/* Task before optics: reveal exact held context, not the whole work card.
+   Native OPEN and DOOR remain directly available under their existing
+   contracts; Aa unfolds additional reading detail only. */
 #apCue { display:none; }
 html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apCue {
  display:flex!important;align-items:baseline;gap:5px;max-width:100%;margin:3px 0 0;
