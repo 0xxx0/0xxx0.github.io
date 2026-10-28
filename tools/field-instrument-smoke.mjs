@@ -109,6 +109,24 @@ try{
     await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
     assert.notEqual(turned.route,turned.previous,'a detent TURN changes native FIELD route '+width);
     assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,turned.route,'native turn and composition are coherent '+width);
+    // Hit the drawn arc itself, not a left/right guess: ring geometry must
+    // invert to the exact selected STATE member using real pointer coordinates.
+    const target=await page.evaluate(()=>{
+      const tower=LandingTower.state(),i=tower.rings.findIndex(r=>r.key==='state'),ring=tower.rings[i];
+      const axis=FieldAxes().find(a=>a.key==='state'),selected=(ring.rotation+1)%ring.count;
+      const group=[...document.querySelectorAll('#tower .tw-ringgrp')].find(g=>g.querySelector('.tw-label')?.textContent.startsWith('STATE '));
+      const ellipse=group?.querySelector('ellipse'),svg=document.querySelector('#tower-svg'),rect=svg.getBoundingClientRect(),view=svg.viewBox.baseVal;
+      if(!ellipse)throw Error('STATE source ring missing');
+      const weights=Array(ring.count).fill(1),off=TowerCore.offsetFor(ring.rotation,weights);
+      const p=TowerCore.markPosWeighted(selected,weights,off,1,{
+       cx:Number(ellipse.getAttribute('cx')),cy:Number(ellipse.getAttribute('cy')),
+       rx:Number(ellipse.getAttribute('rx')),ry:Number(ellipse.getAttribute('ry'))
+      });
+      return{x:rect.left+p.x*rect.width/view.width,y:rect.top+p.y*rect.height/view.height,expect:axis.values[selected]};
+    });
+    await page.mouse.click(target.x,target.y);
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='state').gate===FieldAxisSelection().state);
+    assert.equal((await page.evaluate(()=>FieldAxisSelection())).state,target.expect,'arc tap selects exact native STATE source member '+width);
     // A previously held source stays exactly recoverable from native glyphs.
     await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
     await page.waitForFunction(()=>FieldAxisSelection().route==='/house/'&&LandingTower.state().rings.find(r=>r.key==='route').gate==='/house/');
