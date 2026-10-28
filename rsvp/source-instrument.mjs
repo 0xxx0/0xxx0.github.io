@@ -130,8 +130,27 @@ function paintFocus(){
  const span=snap.span||{start:char,end:char+1};
  const a=clamp(span.start-start,0,textNode.length),b=clamp(span.end-start,a+1,textNode.length);
  const r=document.createRange();r.setStart(textNode,a);r.setEnd(textNode,b);
+ // Context ring has a broad native span, but foveal fixation remains the
+ // ACTUAL word under FieldAperture's same anchor. Scope and focus never
+ // become unrelated text objects or override the native cursor.
+ let word=r;
+ if(snap.kind==='TEXT'&&snap.scale!=='WORD'){
+  const words=ap.A?.scales?.find(x=>x.id==='WORD')?.units||[];
+  let lo=0,hi=words.length-1,found=null;
+  while(lo<=hi){
+   const mid=(lo+hi)>>1,u=words[mid];
+   if(char<u.start)hi=mid-1;else if(char>=Math.max(u.start+1,u.end))lo=mid+1;
+   else{found=u;break}
+  }
+  if(found){
+   word=document.createRange();
+   word.setStart(textNode,clamp(found.start-start,0,textNode.length));
+   word.setEnd(textNode,clamp(found.end-start,0,textNode.length));
+  }
+ }
  if(globalThis.CSS?.highlights&&globalThis.Highlight){
-  CSS.highlights.set('rsvp-exact-focus',new Highlight(r));
+  CSS.highlights.set('rsvp-aperture-scope',new Highlight(r));
+  CSS.highlights.set('rsvp-exact-focus',new Highlight(word));
  }
  // Only scroll to the word when it escapes the visible reading pane, and
  // yield to deliberate human scrolling. No jump every RSVP clock tick.
@@ -320,26 +339,53 @@ function makeEditor(mark=null){
  $('editKind').value=draft.kind;$('editResolved').checked=!!draft.resolved;
  $('editResolved').closest('label').hidden=draft.kind!=='QUESTION';
  $('editRemove').hidden=!mark;
+ $('editDayline').hidden=draft.kind!=='APPLIED';
  showStatus('Exact SHA-bound passage; original source is not edited.');
  $('editText').focus({preventScroll:true});
 }
 function closeEditor(){
  editing=null;$('readingEdit').hidden=true;showStatus('');
 }
-function saveEditor(){
- if(!editing)return;
+function draftEditor(){
+ if(!editing)return null;
  const note=$('editText').value.trim();
- if(!note)return showStatus('Write a note, question or application to save.');
- if(note.length>500)return showStatus('500 character limit.');
+ if(!note)return showStatus('Write a note, question or application to save.'),null;
+ if(note.length>500)return showStatus('500 character limit.'),null;
  const kind=$('editKind').value;
- if(!['NOTE','QUESTION','APPLIED'].includes(kind))return;
+ if(!['NOTE','QUESTION','APPLIED'].includes(kind))return null;
  const m={...editing,note,kind,resolved:kind==='QUESTION'&&$('editResolved').checked};
- if(!noteBound(m))return showStatus('Source changed: do not attach this note to other bytes.');
- const marks=allMarks.filter(x=>x.id!==m.id);
- marks.push(m);
- if(saveMarks(marks)){
+ if(!noteBound(m))return showStatus('Source changed: do not attach this note to other bytes.'),null;
+ return m;
+}
+function saveEditor(){
+ const m=draftEditor();if(!m)return;
+ if(saveMarks([...allMarks.filter(x=>x.id!==m.id),m])){
   selectedRange=null;closeEditor();if(shelfOpen)renderShelf();
  }
+}
+// A human APPLIED mark can become Dayline work, but never automatically.
+// Stage the source-exact packet; Dayline's native bridge still requires
+// an explicit ADD TO DAY click. A rejected packet leaves source untouched.
+function carryToDayline(){
+ const m=draftEditor();if(!m)return;
+ if(m.kind!=='APPLIED')return showStatus('Choose APPLIED for a proposed next action.');
+ const source=window.RSVPReader?.source();
+ let packet;try{
+  packet=proposedDaylineHandoff({
+   raw,hash,label:source?.label||'READING',
+   sourceAddress:source?.sourceAddress||'',mark:m
+  });
+ }catch(e){return showStatus(e.message)}
+ try{
+  sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));
+ }catch(e){return showStatus('Local handoff unavailable; the source is unchanged.')}
+ const updated=[...allMarks.filter(x=>x.id!==m.id),m];
+ if(!saveMarks(updated)){
+  try{sessionStorage.removeItem('atlas.dayline.handoff.v01')}catch(_){}
+  return;
+ }
+ selectedRange=null;closeEditor();
+ window.location.assign('/atlas-dayline/?live=1');
 }
 function removeEditor(){
  if(!editing)return;
@@ -445,7 +491,11 @@ $('editSave').onclick=saveEditor;
 $('editRemove').onclick=removeEditor;
 $('editCancel').onclick=closeEditor;
 $('editReference').onclick=copyRef;
-$('editKind').onchange=()=>{$('editResolved').closest('label').hidden=$('editKind').value!=='QUESTION'};
+$('editDayline').onclick=carryToDayline;
+$('editKind').onchange=()=>{
+ $('editResolved').closest('label').hidden=$('editKind').value!=='QUESTION';
+ $('editDayline').hidden=$('editKind').value!=='APPLIED';
+};
 window.addEventListener('storage',e=>{
  if(e.key&&e.key===FieldSourceTrail.storageKey(sourceKey()))refreshMarks();
 });
