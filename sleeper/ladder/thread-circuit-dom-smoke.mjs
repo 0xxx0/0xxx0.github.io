@@ -81,23 +81,26 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  assert(plan&&Number.isInteger(plan.words)&&plan.words>=1,'real sentence score engaged');
  const canvas=d.querySelector('#world')||d.querySelector('canvas');
  assert(canvas,'native painting canvas available');
- for(let k=0;k<3;k++)canvas.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:40+k}));
+ for(let k=0;k<3;k++){
+  canvas.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:40+k}));
+  // a release during the 700 ms rewind is ignored on purpose; wait for the
+  // clause to finish walking back before the next release
+  await new Promise(r=>setTimeout(r,850));
+ }
  assert(L.loop(),'three actual early releases enter the native Bell loop');
  bridge.refresh();
  assert(read.textContent.includes('THE LOOP'),'native condition changes the only source aperture');
  read.click();
- const bellFrame=d.querySelector('#ladderFrame');
- assert(bellFrame&&bellFrame!==inner,'Bell gets a different source frame');
- assert(bellFrame.src.includes('bell=1')&&bellFrame.src.includes('ladderHost=1'),'Bell knows it must return to Ladder');
- const bellDoc=await wait(()=>bellFrame.contentDocument?.querySelector('#readingPlay')?.shadowRoot,'Bell reader');
- await wait(()=>bellDoc.querySelector('#passage')?.textContent.includes('bell'),'Bell reading study loaded');
- assert(!bellDoc.querySelector('#ladderContext')?.textContent?.includes('ABRIDGED DERIVED SELECTION'),'Bell never masquerades as Payutto');
- bellDoc.querySelector('#exit').click();
- await wait(()=>d.querySelector('#ladderOverlay')?.hidden,'Bell reader returns to same painting');
+ await wait(()=>d.querySelector('#bellExperience')?.classList.contains('active'),'native Bell world opens');
+ d.querySelector('#bellBegin').click();
+ await wait(()=>d.querySelector('#bellCover')?.hidden,'Bell POV starts in the same page');
+ assert(d.querySelector('#bellScene'),'Bell POV canvas is live');
+ d.querySelector('#bellQuit').click();
+ await wait(()=>!d.querySelector('#bellExperience')?.classList.contains('active'),'Bell returns to the same painting');
  const afterBell=stable(L.state());
- assert(afterBell.breath===before.breath&&same(afterBell.walker,before.walker),'reading Bell does not spend breath or move native walker');
+ assert(afterBell.breath===before.breath&&same(afterBell.walker,before.walker),'the Bell world does not spend breath or move native walker');
  // Other world state may differ only because the real THREE MISSES enacted the loop.
- out.textContent='PASS Ladder ↔ retained Threadwalk ↔ native Bell loop / exact witness, RIDE pause, 320/390/1280 / Gate law unchanged';
+ out.textContent='PASS Ladder ↔ retained Threadwalk ↔ native Bell POV / exact witness, RIDE pause, 320/390/1280 / Gate law unchanged';
 }catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
 </script>`;
 const server=http.createServer((req,res)=>{

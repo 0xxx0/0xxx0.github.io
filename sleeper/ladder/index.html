@@ -19,6 +19,7 @@
     font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     display: flex; flex-direction: column; overscroll-behavior: none;
     -webkit-text-size-adjust: 100%;
+    -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
   }
   main { flex: 1 1 auto; position: relative; min-height: 160px; }
   #field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
@@ -48,8 +49,8 @@
   <script src="/lib/moire-ambient.js"></script>
   <!-- ?v= rides with the code: a phone that cached an older build must not run it against
        a newer page. Bump it in the same commit that changes either module. -->
-  <script src="ladder-core.js?v=0.6.5"></script>
-  <script src="ladder.js?v=0.6.5"></script>
-  <script src="thread-overlay.js?v=0.1"></script>
+  <script src="ladder-core.js?v=0.6.6"></script>
+  <script src="ladder.js?v=0.6.6"></script>
+  <script src="thread-overlay.js?v=0.2"></script>
 </body>
 </html>

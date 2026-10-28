@@ -66,13 +66,13 @@
   const C = window.SleeperLadderCore, MA = window.MoireAmbient;
   const RAMP = ' .·:-=+*#%@';                       // elevation ramp (floor glyphs)
   const PAINTING_SRC = '/sleeper/borrowed-river/landscape.jpg';
-  const HOLD_MS = 380;                               // dwell that opens a decode
+  const HOLD_MS = 340;                               // dwell that opens a decode
   const RISE_MS = 1400;                              // sustained attention that sees a district whole
   const VOICE_H = 50;                                // the foot strip (3 lines)
   const LETGO_MS = 620;                              // one wrong thought, held until it goes
   const SPEECH_MS = 700;                             // one wrong speech, unsaid
   const STAY_MS = 2400;                              // one point, kept
-  const RIDE_MS = 950;                               // hold past the decode = the line rides
+  const RIDE_MS = 800;                               // hold past the decode = the line rides
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 
@@ -1033,7 +1033,7 @@
     const teaching = !S.taughtRide && Object.keys(S.rides || {}).length === 0;
     const hint = S.distance === 'FAR' ? 'tap the painting · it resolves into a city'
       : S.distance === 'NEAR' ? 'tap again · enter the city'
-      : (S.hold ? 'keep holding · the line rides' : 'swipe to walk · hold a room · let go at the end');
+      : (S.hold ? 'keep holding · the line rides' : 'swipe to walk · hold a room · release at the bright arc');
     if (!S.voice) return teaching ? [hint] : [];
     const size = 9.5;
     const raw = S.voice.lines;
@@ -1060,69 +1060,69 @@
   // the ride is drawn word by word: the sentence lights up at its own pace and
   // the strip says only what the body should do next. No clock, no counter.
   function drawRideVoice() {
+    // 0.6.6 — the ride is an RSVP ring, not a sentence to squint at.
+    // One word at the focal point; the ring is the whole score: clause ticks,
+    // progress, and the bright release window. The painting stays behind it.
     const r = S.ride, p = r.plan;
-    const size = 9.5;
-    ctx.save();
-    ctx.font = size + 'px ' + MONO;
-    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
-    const d = S.field ? geoFor(S.distance).dst : null;
-    const y0 = d ? Math.min(H - VOICE_H + 7, d.y + d.h + 11) : H - VOICE_H + 7;
-    // the strip is a clean slate each frame: a ride rewrites its own lines, and
-    // no earlier frame may show through under them
-    ctx.globalAlpha = 1; ctx.fillStyle = 'rgb(8,12,18)';
-    ctx.fillRect(0, Math.max(0, y0 - 6), W, H - Math.max(0, y0 - 6));
-    const maxW = W - 26;
-    const words = p.line.split(' ');
-    const lines = []; let cur = [];
-    for (const w of words) {
-      const t = cur.concat(w).join(' ');
-      if (ctx.measureText(t).width > maxW && cur.length) { lines.push(cur); cur = [w]; } else cur.push(w);
-    }
-    if (cur.length) lines.push(cur);
     const at = C.rideAt(r, p, r.t);
-    // a soft release rewinds the line over the same 700 ms it takes to say so:
-    // the playhead walks back to the clause, the strip names the miss, and the
-    // ride resumes from there — no silent jump back.
+    const words = p.line.split(' ');
     const rewind = r.rewindUntil ? (r.rewindU || 0) : null;
-    const headFrac = r.over ? null : (rewind != null
+    const frac = r.over ? 1 : (rewind != null
       ? r.rewindFrom + (r.rewindTo - r.rewindFrom) * rewind : at.charFrac);
-    const mark = r.over ? { frac: r.markChar, verdict: r.verdict }
-      : (r.markChar != null ? { frac: r.markChar, verdict: 'soft' } : null);
-    drawRail(Math.min(H - 8, y0 + 44), p, headFrac, r.rewindUntil ? 'rewind' : at.phase, mark);
-    const space = ctx.measureText(' ').width;
-    if (r.over) {
-      // the news first: what the release was, then the sentence it came from
-      const verdict = r.verdict === 'sharp' ? 'held to the end'
-        : r.verdict === 'blown' ? 'late · past the end' : 'early · three times';
-      ctx.globalAlpha = 0.96; ctx.fillStyle = 'rgb(232,236,240)';
-      ctx.fillText(verdict, 13, y0);
-      for (let k = 0; k < Math.min(2, lines.length); k++) {
-        let x = 13;
-        for (const w of lines[k]) {
-          ctx.globalAlpha = 0.58; ctx.fillStyle = 'rgb(214,220,228)';
-          ctx.fillText(w, x, y0 + 13 + k * 13);
-          x += ctx.measureText(w).width + space;
-        }
-      }
-    } else {
-      const shown = at.i + 1;
-      let wi = 0;
-      for (let k = 0; k < Math.min(2, lines.length); k++) {
-        let x = 13;
-        for (const w of lines[k]) {
-          ctx.globalAlpha = r.rewindUntil ? 0.26 : (wi < shown ? 0.95 : 0.26);
-          ctx.fillStyle = 'rgb(214,220,228)';
-          ctx.fillText(w, x, y0 + k * 13);
-          x += ctx.measureText(w).width + space;
-          wi++;
-        }
-      }
-      const notice = r.rewindUntil ? 'early · again from the clause'
-        : (at.phase === 'window' ? 'let go · the end' : 'keep holding · let go at the end');
-      ctx.globalAlpha = r.rewindUntil ? 0.96 : (at.phase === 'window' ? 0.92 : 0.62);
-      ctx.fillStyle = (r.rewindUntil || at.phase === 'window') ? 'rgb(232,236,240)' : 'rgb(150,158,168)';
-      ctx.fillText(notice, 13, y0 + 2 * 13);
+    ctx.save();
+    ctx.fillStyle = 'rgba(6,10,15,0.62)';
+    ctx.fillRect(0, 0, W, H);
+    const cx = W / 2, cy = H * 0.44;
+    const R = Math.max(96, Math.min(W * 0.34, H * 0.26));
+    const a0 = -Math.PI / 2, TAU = Math.PI * 2;
+    // the disc: enough contrast for a word, not a panel
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU);
+    ctx.fillStyle = 'rgba(9,14,20,0.58)'; ctx.fill();
+    // base ring
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU);
+    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(198,209,220,0.16)'; ctx.stroke();
+    // clause ticks: the same marks as the rail, on the ring itself
+    for (const t of (p.tickChars || [])) {
+      if (t >= 1) continue;
+      const a = a0 + t * TAU;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * (R - 5), cy + Math.sin(a) * (R - 5));
+      ctx.lineTo(cx + Math.cos(a) * (R + 5), cy + Math.sin(a) * (R + 5));
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(210,220,230,0.26)'; ctx.stroke();
     }
+    // the release window: the one part of the ring that is bright before you reach it
+    const wf = p.windowFrom || 0;
+    ctx.beginPath(); ctx.arc(cx, cy, R, a0 + wf * TAU, a0 + TAU);
+    ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(232,238,244,0.50)'; ctx.stroke();
+    // progress
+    ctx.beginPath(); ctx.arc(cx, cy, R, a0, a0 + Math.max(0.003, frac) * TAU);
+    ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(240,245,250,0.95)'; ctx.stroke();
+    // the playhead: a dot on the ring, and a short radial breath
+    const ang = a0 + frac * TAU;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(ang) * (R - 9), cy + Math.sin(ang) * (R - 9));
+    ctx.lineTo(cx + Math.cos(ang) * (R + 2), cy + Math.sin(ang) * (R + 2));
+    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(250,252,255,0.85)'; ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx + Math.cos(ang) * R, cy + Math.sin(ang) * R, 3.2, 0, TAU);
+    ctx.fillStyle = 'rgb(246,249,252)'; ctx.fill();
+    // the word — one at a time, sized to the ring
+    const verdictWord = r.verdict === 'sharp' ? 'held' : r.verdict === 'blown' ? 'late' : 'early';
+    const word = r.over ? verdictWord : (words[Math.max(0, Math.min(at.i, words.length - 1))] || '');
+    let size = Math.min(46, Math.max(24, W * 0.09));
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = size + 'px ' + MONO;
+    while (ctx.measureText(word).width > R * 1.8 && size > 15) { size -= 2; ctx.font = size + 'px ' + MONO; }
+    ctx.globalAlpha = 0.97; ctx.fillStyle = 'rgb(238,243,248)';
+    ctx.fillText(word, cx, cy);
+    // the instruction, under the ring; it changes with the moment, not with a timer
+    const note = r.over
+      ? (r.verdict === 'sharp' ? 'held to the end' : r.verdict === 'blown' ? 'late · past the end' : 'early · three times')
+      : (rewind != null ? 'early · again from the clause'
+        : (at.phase === 'window' ? 'let go · the end' : 'let go at the bright arc'));
+    ctx.font = '10px ' + MONO; ctx.textBaseline = 'top';
+    ctx.globalAlpha = r.over || rewind != null || at.phase === 'window' ? 0.94 : 0.64;
+    ctx.fillStyle = r.over || rewind != null || at.phase === 'window' ? 'rgb(232,238,244)' : 'rgb(176,187,198)';
+    ctx.fillText(note, cx, cy + R + 20);
     ctx.restore();
   }
   function drawVoice() {
@@ -2069,7 +2069,9 @@
   cv.addEventListener('pointermove', (e) => {
     if (!S.drag || !S.field) return;
     const dx = e.clientX - S.drag.x, dy = e.clientY - S.drag.y;
-    if (Math.hypot(dx, dy) > 10) { S.drag.moved = true; clearTimeout(S.holdTimer); clearTimeout(S.rideTimer); }
+    // a thumb is not a mouse: 10 px of natural drift must not cancel a hold.
+    // 16 px still ends a hold long before a walk step (~0.8 of a cell).
+    if (Math.hypot(dx, dy) > 16) { S.drag.moved = true; clearTimeout(S.holdTimer); clearTimeout(S.rideTimer); }
     if (S.distance === 'NEAR' && S.hold) {
       const c = cellFromEvent(e);
       if (c) { S.hold.cx = c.cx; S.hold.cy = c.cy; wake(); }
@@ -2133,7 +2135,13 @@
     else if (S.distance === 'EXITED') resetRoute();
     if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
   });
-  cv.addEventListener('pointercancel', endPointer);
+  cv.addEventListener('pointercancel', (e) => {
+    // a browser gesture can cancel a touch mid-ride (iOS does it on a long
+    // press that drifts). The release still has to count; never leave a ride
+    // running with no finger on it. A rewind already counts as released.
+    if (S.ride && !S.ride.over && !S.ride.rewindUntil) { endRide(); S.drag = null; S.hold = null; }
+    endPointer();
+  });
   cv.addEventListener('contextmenu', (e) => e.preventDefault());
 
   window.addEventListener('keydown', (e) => {

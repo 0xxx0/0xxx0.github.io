@@ -8,7 +8,21 @@ if(!L||!foot)return;
 let overlay=null,frame=null,active=null,ready=false;
 // Two source identities share the same viewport but never share evidence state.
 // Retaining the iframes preserves actual text work, not a reconstruction from a save.
-const frames={read:null,bell:null};
+const frames={read:null};
+let bellLoading=false;
+// The loop door opens the POV world itself, mounted on demand in this document.
+// It is not a page about the Bell; the same SleeperBell the Threadwalk host uses.
+function openBell(){
+ const launch=()=>{const b=document.getElementById('bellEntry');if(b){b.click();return true}return false};
+ if(launch())return;
+ if(bellLoading)return;
+ bellLoading=true;
+ if(!document.getElementById('enter')){const a=document.createElement('div');a.id='enter';a.hidden=true;document.body.append(a)}
+ if(!document.getElementById('bellEntryHide')){const st=document.createElement('style');st.id='bellEntryHide';st.textContent='#bellEntry{display:none!important}';document.head.append(st)}
+ const boot=()=>{try{if(window.SleeperBell)window.SleeperBell.mount()}catch(e){}bellLoading=false;launch()};
+ if(window.SleeperBell){boot();return}
+ const s=document.createElement('script');s.src='../bell-world.js?v=0.6.6';s.onload=boot;s.onerror=()=>{bellLoading=false};document.body.append(s);
+}
 const css=document.createElement('style');
 css.textContent=[
  '#ladderOverlay{position:fixed;inset:0;z-index:4000;background:#07131c}',
@@ -42,7 +56,8 @@ function close(){
 }
 function open(){
  const n=nextFactor();if(n===null||overlay&&!overlay.hidden)return;
- const bell=!!(L.loop&&L.loop()),key=bell?'bell':'read';
+ if(L.loop&&L.loop()){label();openBell();return}
+ const key='read';
  if(!overlay){
   overlay=document.createElement('div');overlay.id='ladderOverlay';overlay.setAttribute('role','dialog');
   overlay.setAttribute('aria-modal','true');
@@ -53,15 +68,15 @@ function open(){
  if(!chosen){
   chosen=document.createElement('iframe');
   chosen.className='ladderSourceFrame';
-  chosen.title=bell?'The Bell — the loop you are in':'Threadwalk — the eight path factors';
-  chosen.src=bell?'../axis-score.html?bell=1&ladderHost=1':'../axis-score.html?read=1&ladderFactor='+n;
+  chosen.title='Threadwalk — the eight path factors';
+  chosen.src='../axis-score.html?read=1&ladderFactor='+n;
   chosen.hidden=true;
   frames[key]=chosen;
   overlay.insertBefore(chosen,overlay.querySelector('#ladderClose'));
  }
  if(frame&&frame!==chosen){frame.hidden=true;frame.removeAttribute('id');}
  frame=chosen;frame.id='ladderFrame';frame.hidden=false;
- active={factor:n,before:L.state(),bell};
+ active={factor:n,before:L.state()};
  overlay.setAttribute('aria-label',chosen.title);
  overlay.hidden=false;overlay.removeAttribute('aria-hidden');
  overlay.querySelector('#ladderClose').focus();

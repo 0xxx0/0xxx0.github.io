@@ -79,7 +79,7 @@ test(reader.includes("query.has('ladderFactor')")&&reader.includes('LADDER_PROJE
 test(reader.includes('LADDER_SOURCE_REJECTED')&&reader.includes('LADDER_SOURCE_HTTP_'),'source failures are explicit');
 const overlay=fs.readFileSync(new URL('thread-overlay.js',path),'utf8');
 test(overlay.includes('e.origin!==location.origin')&&overlay.includes('e.source!==frame.contentWindow'),'close requires same-origin same-frame');
-test(overlay.includes('const frames={read:null,bell:null}')&&overlay.includes("key=bell?'bell':'read'"),'Ladder maintains separate Bell and Path reading sessions');
+test(overlay.includes('const frames={read:null}')&&overlay.includes('L.loop&&L.loop()')&&overlay.includes('openBell()'),'Ladder retains one source frame and opens the native Bell world on the loop');
 test(overlay.includes('overlay.hidden=true')&&overlay.includes('overlay.hidden=false')&&overlay.includes('#ladderOverlay[hidden]'),'reader display is reversible with no iframe teardown');
 test(!overlay.includes('node.remove()')&&!overlay.includes('overlay=null;frame=null'),'reader is not destroyed when returning to painting');
 test(overlay.includes('sleeper.ladder-reader-pause/v1'),'hidden reader stops timed playback');
