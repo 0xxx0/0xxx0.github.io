@@ -45,6 +45,14 @@ for(let i=0;i<8;i++){
  test(/^https:\/\/suttacentral\.net\//.test(x.sutta.url),'Bell Sutta cross-reference '+i);
 }
 for(const bad of [-1,8,1.5,'0',null])assert.throws(()=>b.bellLensAt(bad),/BELL_PASSAGE_INDEX_INVALID/);
+const expectedBellPivots=[4,2,null,null,null,3,5,null];
+test(b.FACTOR_BELL_PIVOTS.length===8,'bounded doctrinal comparison addresses');
+for(let i=0;i<8;i++){
+ const x=b.bellForFactor(i);
+ test(x?x.index===expectedBellPivots[i]&&x.factor===i&&x.authority==='EDITORIAL_CROSS_READING_ONLY':expectedBellPivots[i]===null,'Bell parallel is explicit rather than inferred '+i);
+}
+for(const bad of [-1,8,1.2,'0',null])assert.throws(()=>b.bellForFactor(bad),/FACTOR_INDEX_INVALID/);
+
 const ladderHTML=fs.readFileSync(new URL('index.html',path),'utf8');
 test(!/^(<<<<<<<|=======|>>>>>>>)/m.test(ladderHTML),'Ladder HTML contains no unresolved merge conflict');
 test((ladderHTML.match(/<script src="thread-overlay\.js/g)||[]).length===1,'exactly one live Ladder reader aperture');
@@ -83,6 +91,8 @@ test(overlay.includes('const frames={read:null,bell:null}')&&overlay.includes("k
 test(overlay.includes('overlay.hidden=true')&&overlay.includes('overlay.hidden=false')&&overlay.includes('#ladderOverlay[hidden]'),'reader display is reversible with no iframe teardown');
 test(!overlay.includes('node.remove()')&&!overlay.includes('overlay=null;frame=null'),'reader is not destroyed when returning to painting');
 test(overlay.includes('sleeper.ladder-reader-pause/v1'),'hidden reader stops timed playback');
+test(reader.includes('ladderBellParallel')&&reader.includes('bellAt=')&&reader.includes('String.fromCharCode(10,10)'),'Ladder read projects original Bell passages without mixing sources');
+test(reader.includes("query.has('bellAt')")&&reader.includes('BELL_PASSAGE_INDEX_INVALID'),'Bell source deep-link is exact and bounded');
 test(reader.includes('hostedByLadder')&&reader.includes("e.source!==window.parent")&&reader.includes("e.origin!==location.origin"),'Bell uses authenticated parent return/pause without impersonating a Gate');
 test(reader.includes('sleeper.ladder-reader-pause/v1'),'reader actually handles the pause instruction');
 const native=fs.readFileSync(new URL('ladder.js',path),'utf8');
