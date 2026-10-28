@@ -134,7 +134,9 @@ async function continuumBrowserProof(){
        throw Error('GLYPH REENTRY '+JSON.stringify(state)+' '+error.message);
       });
      assert.equal((await glyphTab.locator('#railId').textContent()).trim(),'route:/docs/','glyph keeps held object');
-     await glyphTab.goto(base+'/interphase/');
+     const backLink=glyphTab.locator('[data-substrate-return]');
+     assert.equal(await backLink.count(),1,'addressed glyph exposes a single RETURN to its original source');
+     await backLink.click();
      await glyphTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.hash);
      const back=await glyphTab.evaluate(()=>window.InterphaseInstrument.snapshot());
      assert.equal(back.source.hash,held.source.hash,'glyph RETURN retains exact source');
