@@ -34,5 +34,7 @@ const position=md.indexOf('`/control/INTERPHASE_SUCCESSOR.json`');
 assert.ok(position>=0,'real historical citation must exist');
 const scope={start:Math.max(0,position-100),end:position+150};
 assert.ok(D.citations(md,scope,file,origin).includes(b));
+assert.deepEqual(D.citations('[successor](../INTERPHASE_SUCCESSOR.json)',{start:0,end:43},file,origin),[b]);
+assert.deepEqual(D.citations('[outside](https://evil.example/outside.md)',{start:0,end:42},file,origin),[]);
 assert.deepEqual(D.citations('plain reference /other.md',{start:0,end:25},a,origin),[]);
 console.log('INTERPHASE DOOR CORE PASS · exact 2 canonical JSON revisions · source citation from historical Fold/Bloom · no effects or forged ranges');
