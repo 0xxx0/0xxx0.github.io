@@ -2,13 +2,65 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><title>CONFLUENCE / TRANSFER</title>
 <style>
-:root{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0b0d0e;color:#e8ecef;--line:#30383b;--mut:#aeb8bd;--hot:#e7a065;--green:#87d0a0;--gold:#d9b56d;--cool:#9ed7ff}*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:auto;padding:32px 18px 70px}a{color:var(--cool)}h1{font-size:clamp(42px,10vw,90px);line-height:.82;margin:14px 0 20px;letter-spacing:-.06em}.ey{color:var(--hot);font-size:10px;letter-spacing:.16em}.lead{max-width:760px;color:var(--mut);font:14px/1.6 system-ui,sans-serif}.law{margin:20px 0 0;border:1px solid var(--line);padding:12px;color:#cbd3d5}.law b{color:var(--green)}nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}nav a{border:1px solid #384147;padding:6px 8px;text-decoration:none;font-size:10px}.bar{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:28px 0 8px;border-bottom:1px solid var(--line);padding-bottom:7px}.bar b{font-size:10px;letter-spacing:.14em}.bar span{font-size:8px;color:#758188}.transfers,.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.tx,.card{border:1px solid var(--line);padding:16px;text-decoration:none;color:inherit;min-height:150px}.tx h2,.card b{font-size:17px}.tx p,.card p{color:var(--mut);font:11px/1.5 system-ui,sans-serif}.tag{color:var(--green);font-size:9px;letter-spacing:.12em}.tx.PROOF_REQUIRED .tag,.tx.PROPOSED .tag{color:var(--gold)}.path{color:#718087;font-size:8px;word-break:break-all}.flow{margin-top:8px;color:#98a5a9;font-size:9px}.stategrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.statecard{background:#0b0d0e;padding:12px;text-decoration:none;color:inherit;min-height:118px}.statecard span{font-size:8px;letter-spacing:.12em;color:#7f8a8e}.statecard b{display:block;margin-top:4px;font-size:14px}.statecard p{color:var(--mut);font:10px/1.45 system-ui,sans-serif}.statecard.recover b{color:var(--gold)}.statecard.transfer b{color:var(--cool)}.statecard.donor b{color:#9ba5aa}@media(max-width:760px){.stategrid{grid-template-columns:1fr 1fr}}@media(max-width:650px){.transfers,.grid,.stategrid{grid-template-columns:1fr}}</style></head><body><main>
+:root{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0b0d0e;color:#e8ecef;--line:#30383b;--mut:#aeb8bd;--hot:#e7a065;--green:#87d0a0;--gold:#d9b56d;--cool:#9ed7ff}*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:auto;padding:32px 18px 70px}a{color:var(--cool)}h1{font-size:clamp(42px,10vw,90px);line-height:.82;margin:14px 0 20px;letter-spacing:-.06em}.ey{color:var(--hot);font-size:10px;letter-spacing:.16em}.lead{max-width:760px;color:var(--mut);font:14px/1.6 system-ui,sans-serif}.law{margin:20px 0 0;border:1px solid var(--line);padding:12px;color:#cbd3d5}.law b{color:var(--green)}nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}nav a{border:1px solid #384147;padding:6px 8px;text-decoration:none;font-size:10px}.bar{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:28px 0 8px;border-bottom:1px solid var(--line);padding-bottom:7px}.bar b{font-size:10px;letter-spacing:.14em}.bar span{font-size:8px;color:#758188}.transfers,.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.tx,.card{border:1px solid var(--line);padding:16px;text-decoration:none;color:inherit;min-height:150px}.tx h2,.card b{font-size:17px}.tx p,.card p{color:var(--mut);font:11px/1.5 system-ui,sans-serif}.tag{color:var(--green);font-size:9px;letter-spacing:.12em}.tx.PROOF_REQUIRED .tag,.tx.PROPOSED .tag{color:var(--gold)}.path{color:#718087;font-size:8px;word-break:break-all}.flow{margin-top:8px;color:#98a5a9;font-size:9px}.stategrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.statecard{background:#0b0d0e;padding:12px;text-decoration:none;color:inherit;min-height:118px}.statecard span{font-size:8px;letter-spacing:.12em;color:#7f8a8e}.statecard b{display:block;margin-top:4px;font-size:14px}.statecard p{color:var(--mut);font:10px/1.45 system-ui,sans-serif}.statecard.recover b{color:var(--gold)}.statecard.transfer b{color:var(--cool)}.statecard.donor b{color:#9ba5aa}
+.familyMap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.family{background:#0b0d0e;padding:12px;min-height:188px}.family.now{outline:1px solid var(--hot);outline-offset:-1px}
+.family .num{font-size:8px;letter-spacing:.14em;color:#748188}.family h3{margin:5px 0 7px;font-size:15px;line-height:1.05}
+.family .status{display:inline-block;font-size:8px;letter-spacing:.09em;color:var(--green);margin-bottom:7px}.family .status.hold{color:var(--gold)}.family .status.now{color:var(--hot)}
+.family p{margin:5px 0;color:var(--mut);font:10px/1.45 system-ui,sans-serif}.family p b{color:#dfe5e7}.family .next{border-top:1px solid #232b2f;margin-top:8px;padding-top:7px;color:#d6dcde}.family .deps{font-size:8px;color:#718087;letter-spacing:.04em}
+.familyFlow{border:1px solid var(--line);border-top:0;padding:9px 12px;color:#aeb8bd;font:10px/1.5 system-ui,sans-serif}.familyFlow b{color:var(--hot)}.familyFlow code{color:var(--cool)}@media(max-width:760px){.stategrid{grid-template-columns:1fr 1fr}.familyMap{grid-template-columns:1fr 1fr}}@media(max-width:650px){.transfers,.grid,.stategrid,.familyMap{grid-template-columns:1fr}}</style></head><body><main>
 <div class="ey">FOUNDRY MACHINE / TRANSFER VIEW</div><h1>CONFLUENCE</h1>
 <p class="lead"><b>CONFLUENCE asks what may cross.</b> It packages a bounded mechanism from one lineage for a sovereign recipient, names what must survive, and requires recipient-side evidence. Similarity is not lineage; a donor is not canon; a proposed transfer is not an adoption.</p>
 <div class="law"><b>TRANSFER PACKET</b> · FROM → UNIT → TO → TEST → RETURN</div>
-<nav><a href="../../foundry/core/">CORE</a><a href="../../">FIELD</a><a href="../../control/">CURRENT</a><a href="../../recovery/">RECOVERY</a><a href="../../migration/">MIGRATION</a><a href="./README.md">WORKER MODEL</a><a href="./DONOR_TRANSPLANT.md">TRANSFER LAW</a><a href="./transfers.json">REGISTRY JSON</a></nav>
+<nav><a href="../../foundry/core/">CORE</a><a href="../../">FIELD</a><a href="../../control/">CURRENT</a><a href="#project-map">PROJECT MAP</a><a href="../../recovery/">RECOVERY</a><a href="../../migration/">MIGRATION</a><a href="./README.md">WORKER MODEL</a><a href="./DONOR_TRANSPLANT.md">TRANSFER LAW</a><a href="./transfers.json">REGISTRY JSON</a></nav>
 <div class="bar"><b>COORDINATION SURFACE</b><span>canonical source ≠ derivative ≠ donor ≠ transfer</span></div>
 <div class="stategrid"><a class="statecard" href="../../control/"><span>NOW</span><b>CURRENT / QUEUE</b><p>The small active surface. Executable/public authority comes from master; attention comes from CURRENT + QUEUE.</p></a><a class="statecard recover" href="../../sleeper/"><span>CANONICAL</span><b>ONE RETURN v2</b><p>Exact City source authority: PHRASE + CELL + FIGURE → WORLD, with URCHIN / SLOTHCAKE / KITE physics. Historical deployment reachability remains a separate verification problem.</p></a><a class="statecard donor" href="../../sleeper/one-return/"><span>DONOR</span><b>ASCII RECON</b><p>Related playable reconstruction. Useful comparison, explicitly not the polished ONE RETURN head.</p></a><a class="statecard transfer" href="../../recovery/path-grid/grid-path-compiler-v4/"><span>ADJACENT DONOR</span><b>GRID PATH V4</b><p>Exact path/compiler donor. Confluences exist, but it remains a separate organism.</p></a></div>
+<div class="bar" id="project-map"><b>SIX-FAMILY PROJECT MAP</b><span>CURRENT owns NOW · <a href="./PROJECT_MAP.md">full one-page map ↗</a></span></div>
+<div class="familyMap" aria-label="Six-family project map">
+  <article class="family">
+    <span class="num">01 · FOUNDATION</span><h3>HOLD / ADDRESS / SCALE</h3>
+    <span class="status hold">CORE PASS · HUMAN USE UNPROVED</span>
+    <p class="deps">exact source · native owner · provenance</p>
+    <p>FIELD / INTERPHASE 0.10.6 holds one addressed tool; GLYPHFIELD exact-source RETURN is merged. Candidate PRs do not become truth by existing.</p>
+    <p class="next"><b>NEXT IF NEEDED</b> · repair only a reproduced selection/open/back break; otherwise no architecture move.</p>
+  </article>
+  <article class="family">
+    <span class="num">02 · MOTION</span><h3>PATH / TRAVERSAL / RE-ENTRY</h3>
+    <span class="status hold">STRUCTURAL PASS · VALUE OPEN</span>
+    <p class="deps">HOLD identity · exact address · source witness</p>
+    <p>READFIELD 0.8.6 is exact-source/cursor capable. Sleeper/Threadwalk/Bell/Ladder now preserve inspect-only support and cited reading relations.</p>
+    <p class="next"><b>NEXT IF CHOSEN</b> · one same-source plain-vs-traversal A/B; keep only a mechanism that improves recall/orientation/action.</p>
+  </article>
+  <article class="family">
+    <span class="num">03 · CHANGE</span><h3>TRANSFORM / STEERING</h3>
+    <span class="status hold">CALCULATION ONLY</span>
+    <p class="deps">HOLD · PATH when order matters · native observable</p>
+    <p>Change calculus/J-space may compare/support but cannot mint permission or effect authority; evidence must refresh after native mutation.</p>
+    <p class="next"><b>NEXT IF NEEDED</b> · let the air loop provide one measurable observable; compare one bounded HOUSE-owned configuration.</p>
+  </article>
+  <article class="family">
+    <span class="num">04 · ENCOUNTER</span><h3>EXPERIENCE / EXPRESSION</h3>
+    <span class="status hold">SHIPPED · NOT NOW</span>
+    <p class="deps">HOLD continuity · optional PATH/TRANSFORM · world RETURN</p>
+    <p>FOLD//BLOOM, READ/RIDE, Verse and Sleeper have working encounter surfaces. Recent commits are repo progress, not attention authority.</p>
+    <p class="next"><b>NEXT IF CHOSEN</b> · express one truthful world fact through an existing carrier, or do one context-free outside-human use. No new mode.</p>
+  </article>
+  <article class="family now">
+    <span class="num">05 · CURRENT</span><h3>WORLD LOOPS</h3>
+    <span class="status now">ACTIVE NOW · AIR-INSTRUMENT</span>
+    <p class="deps">HOLD · native commit boundary · real device/world witness</p>
+    <p>Dayline 0.4 is machine-green. HOUSE owns device/spatial truth. CURRENT names one exact next move before any sensor wiring.</p>
+    <p class="next"><b>NEXT</b> · /dayline/ → rotate today’s lines → phone witness → RETURN → STOP → re-read CURRENT.</p>
+  </article>
+  <article class="family">
+    <span class="num">06 · MEMORY</span><h3>RECOVERY / PROVENANCE</h3>
+    <span class="status hold">READY · ON DEMAND</span>
+    <p class="deps">one exact blocker from another family</p>
+    <p>Recovery/source/receipt machinery is mature and no longer a live front. It activates only for a named missing fact/source.</p>
+    <p class="next"><b>NEXT IF BLOCKED</b> · recover one exact spec/mapping/receipt; otherwise NO RECOVERY JUSTIFIED.</p>
+  </article>
+</div>
+<div class="familyFlow"><b>ACTIVE CHAIN</b> · <code>Dayline → phone witness → RETURN → STOP → re-read CURRENT</code>. Only a fresh selection after RETURN may proceed into the sensor/air loop.</div>
 <div class="bar"><b>TRANSFER REGISTRY</b><span>only explicit evidence-bounded packets · absence stays absent</span></div>
 <div id="transfers" class="transfers"><article class="tx"><p>Loading transfer registry…</p></article></div>
 <div class="bar"><b>QUARRY / PACKETS / METHODS</b><span>readable source material; not every document is an active transfer</span></div>
