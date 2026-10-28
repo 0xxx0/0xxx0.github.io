@@ -114,8 +114,67 @@ function dialArc(start,end,radius=69){
  const a=dialXY(start,radius),b=dialXY(end,radius);
  return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${(end-start)*DIAL_SWEEP>Math.PI?1:0} 1 ${b.x} ${b.y}`;
 }
+// A projection is only a readable address for a source-owned object.
+// There is no inferred meaning, simulated authority, or second annotation store.
+// Source interval endpoints stay distinct: DIAL's missing quadrant is a seam.
+function witnessMarkValid(model,hash,m){
+ return !!m&&m.revision===hash&&typeof m.id==='string'&&!!m.id&&
+  Number.isInteger(m.charIndex)&&Number.isInteger(m.endIndex)&&
+  m.charIndex>=0&&m.endIndex>m.charIndex&&m.endIndex<=model.raw.length&&
+  m.quote===model.raw.slice(m.charIndex,m.endIndex)&&
+  ['NOTE','QUESTION','APPLIED'].includes(m.kind)&&
+  typeof m.note==='string'&&!!m.note.trim()&&m.note.length<=500;
+}
+function projectWitnesses(model,hash,marks=[],relations=[]){
+ if(!model||typeof model.raw!=='string'||typeof hash!=='string')throw Error('Exact source identity required.');
+ const length=Math.max(1,model.raw.length-1);
+ const seen=new Set(),notes=[];
+ for(const m of Array.isArray(marks)?marks:[]){
+  if(!witnessMarkValid(model,hash,m)||seen.has(m.id))continue;
+  seen.add(m.id);
+  const start=m.charIndex/length,end=(m.endIndex-1)/length;
+  const point=dialXY(start,78),edge=dialXY(end,78);
+  notes.push(Object.freeze({id:m.id,kind:m.kind,resolved:!!m.resolved,
+   charIndex:m.charIndex,endIndex:m.endIndex,quote:m.quote,note:m.note,
+   point,edge,start,end,sourceHash:hash}));
+ }
+ notes.sort((a,b)=>a.charIndex-b.charIndex||a.id.localeCompare(b.id));
+ const edges=[];
+ for(const r of Array.isArray(relations)?relations:[]){
+  if(!validRelation(model,hash,r))continue;
+  const a=dialXY(r.from.start/length,57),b=dialXY(r.to.start/length,57);
+  edges.push(Object.freeze({type:r.type,from:r.from,to:r.to,sourceHash:hash,
+   a,b,relation:r}));
+ }
+ return Object.freeze({schema:'interphase/witness-projection/v1',sourceHash:hash,
+  sourceLength:model.raw.length,notes:Object.freeze(notes),relations:Object.freeze(edges),
+  residue:Object.freeze({unboundNotes:(Array.isArray(marks)?marks.length:0)-notes.length,
+   unboundRelations:(Array.isArray(relations)?relations.length:0)-edges.length})});
+}
+// Inverse of the visual witness: a tap selects a revision- and quote-verified
+// source mark. Dense marks at nearly the same position are cycled, not merged,
+// averaged, or silently made unreachable. Host may then SEEK + RETURN.
+function witnessAtPoint(projection,x,y,{radius=19,previousId=null}={}){
+ if(!Number.isFinite(x)||!Number.isFinite(y)||!projection?.notes)return null;
+ const matches=projection.notes.map(n=>({note:n,
+  d:Math.hypot(n.point.x-x,n.point.y-y)})).filter(x=>x.d<=radius)
+  .sort((a,b)=>a.d-b.d||a.note.charIndex-b.note.charIndex||a.note.id.localeCompare(b.note.id));
+ if(!matches.length)return null;
+ const prior=previousId===null?-1:matches.findIndex(x=>x.note.id===previousId);
+ return Object.freeze({note:matches[(prior+1)%matches.length].note,
+  candidates:matches.length});
+}
+function witnessAddress(projection,sourceRaw,sourceHash,noteId){
+ if(projection?.sourceHash!==sourceHash||projection?.sourceLength!==sourceRaw?.length)
+  throw Error('Source revision changed.');
+ const note=projection.notes.find(n=>n.id===noteId);
+ if(!note||note.sourceHash!==sourceHash||sourceRaw.slice(note.charIndex,note.endIndex)!==note.quote)
+  throw Error('Unbound or changed source witness.');
+ return Object.freeze({char:note.charIndex,end:note.endIndex,quote:note.quote,
+  kind:note.kind,id:note.id,sourceHash});
+}
 function validateAttention(model,a){
  if(!a||!Number.isInteger(a.char)||a.char<0||a.char>=model.raw.length||!model.levels.some(s=>s.id===a.scope)||!['plain','walk','dial'].includes(a.view)||!Number.isFinite(a.wpm)||a.wpm<60||a.wpm>6000||typeof a.query!=='string'||a.query.length>200)throw Error('Invalid RETURN attention.');
  return{char:a.char,scope:a.scope,view:a.view,wpm:a.wpm,query:a.query};
 }
-export {MAX_BYTES,RELATIONS,clamp,compile,level,containing,at,focusChar,zoomScope,exactSpan,charIn,ordered,neighbors,describe,patch,relation,validRelation,relationDoors,validateAttention,dialReading,dialChar,dialFraction,dialXY,dialArc};
+export {MAX_BYTES,RELATIONS,clamp,compile,level,containing,at,focusChar,zoomScope,exactSpan,charIn,ordered,neighbors,describe,patch,relation,validRelation,relationDoors,validateAttention,dialReading,dialChar,dialFraction,dialXY,dialArc,witnessMarkValid,projectWitnesses,witnessAtPoint,witnessAddress};
