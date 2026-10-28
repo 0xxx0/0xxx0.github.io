@@ -74,6 +74,22 @@ its control handlers. The browser check delays the actual URLbar response by 17
 seconds and then requires native WORK to become visible. This fixes availability;
 it does not establish the broader room/plain instrument's usefulness.
 
+## Native FIELD selection across the existing tower
+
+The tower is a projection of the same native route/state/operation/work-mode tuple.
+Native bar/HOLD/RETURN changes must update every gate and its composition without
+emitting another TURN or rebuilding stable nodes. Ring turns select through the
+native owner; rotating back to an already held route must not open it. An unheld
+native route stays explicitly unheld. Focus and unwrapped strips survive passive
+synchronization; stale animation cannot overrule a later native selection.
+
+The existing `:axis` command reveals the existing tower alongside its native proof
+region. Ordinary entry keeps the one-screen glyph landing. This is the bounded
+selection seam needed before the source→read→revisit→annotate→compress→RETURN task;
+it is not completion of that task or recovery of the original April ROOM runtime.
+The native FIELD browser journey checks both directions, unheld state, full-wrap
+non-navigation, DOM identity, retained unfold, animation interruption and native restore.
+
 ## Recovered lineage and useful fragments
 
 Evidence classes distinguish BYTES, SPEC, IMAGE and observed runtime. Twenty selected

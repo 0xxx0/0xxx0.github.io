@@ -11,6 +11,7 @@ on:
       - 'field-instrument*'
       - 'field-work*'
       - 'index.html'
+      - 'tower/**'
       - 'docs/index.html'
       - 'rsvp/**'
       - 'tools/interphase-*'
@@ -30,6 +31,7 @@ on:
       - 'field-instrument*'
       - 'field-work*'
       - 'index.html'
+      - 'tower/**'
       - 'docs/index.html'
       - 'rsvp/**'
       - 'tools/interphase-*'
@@ -58,6 +60,8 @@ jobs:
           node --check interphase/entry.mjs
           node --check interphase/navigation.mjs
           node --check field-work.mjs
+          node --check tower/tower-core.js
+          node --check tower/tower-section.js
           node --check rsvp/reader.js
           node --check tools/interphase-history-selftest.cjs
       - name: Real-object history / RETURN proof

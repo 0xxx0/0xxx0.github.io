@@ -32,7 +32,7 @@
   }
 
   var NS = 'http://www.w3.org/2000/svg';
-  var VERSION = '1.0.0';
+  var VERSION = '1.0.1';
   var VIEW_W = 300;
   var MOUNTED = new WeakMap();
   var current = null;
@@ -170,6 +170,7 @@
     inst.api = Object.freeze({
       mount: function (target, opts) { return mount(target || el, opts); },
       state: function () { return snapshot(inst); },
+      sync: function () { return syncOn(inst); },
       turn: function (n, ring) { return turnOn(inst, n, ring); },
       unwrap: function (ring) { return unwrapOn(inst, ring); },
       selftest: function () { return selftestOn(inst); },
@@ -221,7 +222,7 @@
     inst.note = f.note || model.note || '';
     inst.ready = !f.pending;
 
-    inst.rot = tower.rings.map(function (r) { return T.gateIndex(r.selected || 0, Math.max(1, r.count)); });
+    inst.rot = tower.rings.map(function (r) { return r.selected === null ? null : T.gateIndex(r.selected || 0, Math.max(1, r.count)); });
     inst.offset = tower.rings.map(function (r, i) { return T.offsetFor(inst.rot[i], r.weights); });
     inst.offsetF = inst.offset.slice();
     inst.t = tower.rings.map(function () { return 1; });
@@ -243,6 +244,51 @@
       source: model.source, rings: tower.rings.length, total: model.totalMembers,
       folded: tower.folded.count, degraded: inst.degraded, note: inst.note,
     });
+  }
+
+  function cancelAnimation(inst) {
+    if (!inst.anim) return;
+    inst.anim.cancelled = true;
+    if (inst.anim.id && window.cancelAnimationFrame) window.cancelAnimationFrame(inst.anim.id);
+    inst.anim = null;
+  }
+
+  function sameMembers(a, b) {
+    return a.totalMembers === b.totalMembers && a.totalFamilies === b.totalFamilies && a.rings.length === b.rings.length && a.rings.every(function (r, i) {
+      var s = b.rings[i];
+      return r.key === s.key && r.label === s.label && r.count === s.count && r.members.every(function (m, j) {
+        var n = s.members[j];
+        return m.key === n.key && m.label === n.label && m.kind === n.kind && m.support === n.support && m.href === n.href;
+      });
+    });
+  }
+
+  function syncOn(inst) {
+    var model = fieldModel();
+    if (!model) return snapshot(inst);
+    var next = T.buildTower(model, { maxRings: 6 });
+    if (!sameMembers(inst.tower, next)) {
+      var focusKey = inst.tower.rings[inst.focus] && inst.tower.rings[inst.focus].key;
+      var unfolded = new Map(inst.tower.rings.map(function (r, i) { return [r.key, inst.t[i]]; }));
+      cancelAnimation(inst);
+      applyModel(inst, model);
+      inst.focus = Math.max(0, next.rings.findIndex(function (r) { return r.key === focusKey; }));
+      inst.t = next.rings.map(function (r) { return unfolded.has(r.key) ? unfolded.get(r.key) : 1; });
+    } else {
+      if (next.rings.every(function (r, i) { return r.selected === inst.rot[i]; })) return snapshot(inst);
+      cancelAnimation(inst);
+      inst.model = model;
+      inst.tower = next;
+      inst.rot = next.rings.map(function (r) { return r.selected; });
+      inst.offset = next.rings.map(function (r, i) { return T.offsetFor(inst.rot[i] || 0, r.weights); });
+      inst.offsetF = inst.offset.slice();
+    }
+    draw(inst);
+    return snapshot(inst);
+  }
+
+  function gateMember(inst, ring, i) {
+    return inst.rot[i] === null ? null : ring.members[T.gateIndex(inst.rot[i], Math.max(1, ring.count))];
   }
 
   function setReading(inst, source) {
@@ -269,7 +315,7 @@
 
     for (var i = rings.length - 1; i >= 0; i--) {
       var ring = rings[i], b = L.boxes[i];
-      var g = mk('g', { class: 'tw-ringgrp' });
+      var g = mk('g', { class: 'tw-ringgrp', 'data-axis': ring.key });
       var ell = mk('ellipse', { cx: b.cx, cy: b.cy, rx: b.rx, ry: b.ry }, 'tw-ring');
       g.appendChild(ell);
       var notch = mk('line', { x1: b.cx - 4, y1: b.cy - b.ry, x2: b.cx + 4, y2: b.cy - b.ry }, 'tw-notch');
@@ -335,7 +381,7 @@
 
     // composition: the tuple of gate values, in the host's axis order
     var parts = rings.map(function (r, i) {
-      var m = r.members[T.gateIndex(inst.rot[i], Math.max(1, r.count))];
+      var m = gateMember(inst, r, i);
       return m ? m.key : '∅';
     });
     inst.comp = T.compose(parts);
@@ -373,6 +419,7 @@
     var n = ring.count, t = inst.t[i], off = inst.offsetF[i];
     var isHot = i === inst.focus && inst.bloom;
     var gateIdx = T.gateIndex(inst.rot[i], Math.max(1, n));
+    N.gate.setAttribute('visibility', inst.rot[i] === null ? 'hidden' : 'visible');
 
     N.ell.setAttribute('ry', Math.max(0.01, b.ry * t));
     N.notkh.setAttribute('y1', b.cy - b.ry * t);
@@ -398,8 +445,8 @@
       N.gate.setAttribute('y1', (gp.y - 5).toFixed(2));
       N.gate.setAttribute('x2', (gp.x).toFixed(2));
       N.gate.setAttribute('y2', (gp.y + 5).toFixed(2));
-      var m = ring.members[gateIdx];
-      N.gateLabel.textContent = truncate(m ? (m.href || m.label || m.key) : '', 22);
+      var m = gateMember(inst, ring, i);
+      N.gateLabel.textContent = truncate(m ? (m.href || m.label || m.key) : 'NO HOLD', 22);
       N.gateLabel.setAttribute('x', (b.cx + 7).toFixed(2));
       N.gateLabel.setAttribute('y', (b.cy - b.ry * t - 6).toFixed(2));
       N.gateLabel.setAttribute('class', 'tw-gate' + (i === inst.focus && inst.bloom ? ' is-hot' : ''));
@@ -454,8 +501,8 @@
   function ariaLabel(inst) {
     var bits = inst.tower.rings.map(function (r) {
       var i = inst.tower.rings.indexOf(r);
-      var m = r.members[T.gateIndex(inst.rot[i], Math.max(1, r.count))];
-      return r.label + ' at ' + (m ? (m.label || m.key) : 'no value');
+      var m = gateMember(inst, r, i);
+      return r.label + ' at ' + (m ? (m.label || m.key) : 'no held value');
     });
     return 'Ring tower of the field index: ' + (bits.length ? bits.join(', ') : 'no data') +
       '. Composition ' + inst.comp.tag + '. Arrow keys turn the focused ring, U unwraps it.';
@@ -491,7 +538,7 @@
     var steps = Math.round(Number(n));
     if (!Number.isFinite(steps) || steps === 0) steps = 1;
 
-    var from = inst.rot[i];
+    var from = inst.rot[i] === null ? (steps > 0 ? -1 : 0) : inst.rot[i];
     var to = T.wrap(from + steps, ring.count);
     var startOff = inst.offsetF[i];
     var targetOff = T.offsetFor(to, ring.weights);
@@ -510,6 +557,10 @@
       axis: ring.key, value: m ? m.key : null, index: to, count: ring.count,
       focus: i, steps: steps,
     });
+
+    // The native host may normalize or refuse a candidate. Its completion is
+    // authoritative; an old animation must not repaint a different selection.
+    if (inst.rot[i] !== to) return snapshot(inst);
 
     animate(inst, Math.min(240, 90 + Math.abs(steps) * 24), function (k) {
       inst.offsetF[i] = startOff + d * k;
@@ -602,7 +653,7 @@
   // ---------- public state --------------------------------------------------
   function snapshot(inst) {
     var rings = inst.tower.rings.map(function (r, i) {
-      var m = r.members[T.gateIndex(inst.rot[i], Math.max(1, r.count))];
+      var m = gateMember(inst, r, i);
       var w = r.weights;
       var uniform = w.every(function (x) { return Math.abs(x - 1) < 1e-9; });
       return {
@@ -691,6 +742,7 @@
   window.LandingTower = Object.freeze({
     mount: function (el, opts) { return mount(el, opts); },
     state: function () { return current ? snapshot(current) : { mounted: false, version: VERSION }; },
+    sync: function () { return current ? syncOn(current) : null; },
     turn: function (n, ring) { return current ? turnOn(current, n, ring) : null; },
     unwrap: function (ring) { return current ? unwrapOn(current, ring) : null; },
     selftest: function () {

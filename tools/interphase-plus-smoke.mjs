@@ -5,7 +5,7 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),{chromium}=require('playwright');
 async function continuumBrowserProof(){
- const stale=['/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
+ const stale=['/field-bar-landing.css?v=0.2','/tower/tower-core.js','/tower/tower-section.js','/field-bar-landing.js?v=0.2','/field-bar-landing.js?v=0.1','/field-bar-landing.css?v=0.1','/field-work.mjs?v=0.10.6-dial2','/interphase/entry.mjs?v=0.10.6-dial2','/interphase/continuum.mjs?v=0.10.6-dial2','/field-work.css?v=0.10.6-dial2','/interphase/continuum.css?v=0.10.6-dial2','/field-work.mjs?v=0.10.6','/field-work.mjs?v=0.10.5','/interphase/entry.mjs?v=0.10.0','/interphase/continuum.mjs?v=0.10.0','/interphase/navigation.mjs','/field-work.css?v=0.10.0','/interphase/continuum.css?v=0.10.0'];let prime=false;
  let delayBar=false;
  const root=process.cwd(),server=http.createServer((req,res)=>{
   if(prime&&stale.includes(req.url)){
@@ -33,7 +33,7 @@ async function continuumBrowserProof(){
   assert.ok(warm.every(s=>s.includes('prior-continuum')),'the stale responses must really remain in HTTP cache');
   const firstFresh=cacheRequests.length;
   await cachedPage.goto(base+'/');await cachedPage.waitForFunction(()=>window.FieldBarLanding);
-  for(const file of ['/field-bar-landing.js?v=0.3','/field-bar-landing.css?v=0.2'])assert.ok(cacheRequests.slice(firstFresh).includes(file),'fresh one-screen control/style pair missing: '+file);
+  for(const file of ['/field-bar-landing.js?v=0.3','/field-bar-landing.css?v=0.2-tower-sync-1','/tower/tower-core.js?v=native-sync-1','/tower/tower-section.js?v=native-sync-1'])assert.ok(cacheRequests.slice(firstFresh).includes(file),'fresh one-screen control/style pair missing: '+file);
   await cachedPage.goto(base+'/?work=1');await cachedPage.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source.raw);
   assert.equal(await cachedPage.locator('[data-ip=view-dial]').count(),1);
   for(const file of ['/field-work.mjs','/field-work.css','/interphase/continuum.mjs','/interphase/navigation.mjs','/interphase/continuum.css']){

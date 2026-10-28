@@ -96,6 +96,42 @@ try{
     await page.goBack();await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
     assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','BACK restores exact held source '+width);
     assert.equal(await page.locator('#feedRail').isVisible(),true,'BACK restores glyph matrix '+width);
+    // One native tuple in either direction: selecting through the host changes
+    // the rings/glyph; turning a ring HOLDs without opening a native page.
+    await page.waitForFunction(()=>window.LandingTower?.state().ready);
+    const sameTower=async()=>{
+      const s=await page.evaluate(()=>({native:FieldAxisSelection(),gates:Object.fromEntries(LandingTower.state().rings.map(r=>[r.key,r.gate]))}));
+      assert.deepEqual(s.gates,s.native,'tower and native FIELD share every selected value '+width);
+    };
+    await sameTower();
+    await page.evaluate(()=>{
+      window.__towerNativeState=FieldLensHost.uiState();
+      window.__towerNode=document.querySelector('#tower .tw-ring');window.__towerTurns=0;
+      document.addEventListener('landing-tower:turn',()=>window.__towerTurns++);
+      LandingTower.unwrap(1);
+    });
+    await input.fill('/docs/');await input.press('Enter');
+    await page.waitForFunction(()=>FieldAxisSelection().route==='/docs/');await sameTower();
+    assert.deepEqual(await page.evaluate(()=>({sameNode:window.__towerNode===document.querySelector('#tower .tw-ring'),unfolded:LandingTower.state().rings[1].t,turns:window.__towerTurns})),{sameNode:true,unfolded:0,turns:0},'native sync preserves nodes/unfold state and emits no turn');
+    await page.evaluate(()=>LandingTower.turn(1,0));await sameTower();
+    const heldAfterTurn=await page.evaluate(()=>FieldAxisSelection().route);
+    await page.evaluate(()=>LandingTower.turn(LandingTower.state().rings[0].count,0));
+    assert.equal(new URL(page.url()).pathname,'/','full ring rotation never opens the already held native route');
+    assert.equal(await page.evaluate(()=>FieldAxisSelection().route),heldAfterTurn);await sameTower();
+    // A native restore while the figure animates must win over old frames.
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    await page.evaluate(()=>{LandingTower.turn(1,0);window.__fieldAct.focus('/house/')});
+    await page.waitForTimeout(350);await sameTower();
+    assert.equal(await page.evaluate(()=>FieldAxisSelection().route),'/house/');
+    await page.evaluate(()=>FieldLensHost.restore({...window.__towerNativeState,focusHref:null}));
+    await sameTower();
+    assert.equal(await page.evaluate(()=>LandingTower.state().rings[0].gate),null,'an unheld native source is not invented as the first route');
+    await page.evaluate(()=>FieldLensHost.restore(window.__towerNativeState));await sameTower();
+    await input.fill(':axis');await input.press('Enter');
+    await page.locator('#tower').waitFor({state:'visible'});
+    await input.fill(':glyphs');await input.press('Enter');
+    await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
+    assert.equal(await page.locator('#tower').isVisible(),false,'native glyph landing remains compact');
     assert.deepEqual(errors,[],'no landing script errors '+width);
     console.log('FIELD GLYPH ONE-SCREEN PASS '+width+'px · '+g.count+' accessible CURRENT marks / '+g.rows+' rows · HOLD, Aa, OPEN, BACK');
     if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'landing-glyphs-'+width+'.png')});}
