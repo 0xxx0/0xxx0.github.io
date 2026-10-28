@@ -175,5 +175,3 @@ html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) 
  display:-webkit-box;min-width:0;overflow:hidden;overflow-wrap:anywhere;
  -webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;
 }
-html[data-field-words="folded"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apDoor {display:none!important}
-html[data-field-words="open"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apDoor {display:inline-flex!important}
