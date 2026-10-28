@@ -6,8 +6,11 @@
    pane re-admits its own content by id (map -> #statusFold, browse -> #axialLatest>#feedRail).
    The tower is not a stray section; it is the index map. So it joins the same whitelist, with the
    same selector shape and one more id of specificity, instead of fighting the pane rule. */
-html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) main:has(> #fieldUrlBar) > #tower { display: block !important; }
-#tower { display: block !important; }
+/* The tower is the native browse instrument, not an always-on overlay.
+   WORK, PROVE, TRACE, HOLD and MAP get their entire aperture without the
+   tower taking another viewport. All four native rings remain at BROWSE. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) main:has(> #fieldUrlBar) > #tower { display: block !important; }
+#tower { display: block; }
 /* tower-section.css — FIELD INDEX / RING TOWER.
  *
  * Everything is scoped under #tower: the host page carries ~168 KB of global CSS and
