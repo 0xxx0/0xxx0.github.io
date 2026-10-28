@@ -21,6 +21,6 @@ async function enterInterphase(){
    return api.load(p.raw,p.label,p.sourceAddress||'',{hash,attention,returnTo:p.returnAddress});
   }
  }
- if(q.has('route'))return api.loadRoute(q.get('route'));return api.resume();
+ if(q.has('route'))return api.loadRoute(q.get('route'),{returnTo:q.get('return')||''});return api.resume();
 }
 enterInterphase().catch(e=>{const t=document.querySelector('[data-ip=status]')||document.getElementById('interphaseContinuum');if(t)t.textContent='Source held: '+e.message;console.error(e)});
