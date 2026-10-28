@@ -46,6 +46,16 @@ async function compareLadder(index){
 }
 const snap=()=>B.snapshot(),text=s=>String(s??'');
 function stop(){clearTimeout(timer);timer=null;playing=false;try{speechSynthesis.cancel()}catch(_){}}
+// The LADDER host may hide its source-exact reader without destroying it.
+ // Pause any RSVP/TTS on return to the painting; preserve model, witnesses,
+ // authored links, unsaved comparison drafts and inspected source position.
+window.addEventListener('message',e=>{
+ if(window.parent===window||e.source!==window.parent||e.origin!==location.origin)return;
+ if(e.data?.schema==='sleeper.ladder-reader-pause/v1'){
+  stop();
+  const b=$('ridePlay');if(b)b.textContent='▶ RIDE';
+ }
+});
 function element(tag,className,value){const e=document.createElement(tag);if(className)e.className=className;if(value!==undefined)e.textContent=value;return e;}
 function button(label,handler,className){const b=element('button',className,label);b.type='button';b.onclick=handler;return b;}
 function status(msg){error=msg;if($('stateStatus'))$('stateStatus').textContent=msg;if($('compareError'))$('compareError').textContent=msg;}
