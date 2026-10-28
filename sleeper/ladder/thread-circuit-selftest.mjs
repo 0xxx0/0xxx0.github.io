@@ -58,6 +58,13 @@ test(!/^(<<<<<<<|=======|>>>>>>>)/m.test(ladderHTML),'Ladder HTML contains no un
 test((ladderHTML.match(/<script src="thread-overlay\.js/g)||[]).length===1,'exactly one live Ladder reader aperture');
 const readerJS=fs.readFileSync(new URL('../reading-play.js',path),'utf8');
 test(readerJS.includes('async function compareLadder(')&&readerJS.includes('current.model?.sha256!==sha')&&readerJS.includes('COMPARISON_POSITION_CHANGED'),'Bell comparison checks source identity and position before showing excerpt');
+
+test(readerJS.includes('const PATH_SUPPORT=Object.freeze(')&&readerJS.includes('id=\'pathSupport\'')&&readerJS.includes('supportMode=mode'),'three concurrent supports work on the existing factor source, not three new games');
+test(readerJS.includes('FACTOR_MODEL_LIMITS=Object.freeze(')&&readerJS.includes('Keeping off a ring is not the whole'),'reader distinguishes gesture from Buddhist practice');
+test(ladderHTML.includes('They are not eight successive levels of attainment')&&ladderHTML.includes('the path factors work together'),'native Ladder labels authored order as a game itinerary');
+const spec=fs.readFileSync(new URL('SPEC.md',path),'utf8');
+test(spec.includes('The eight factors are one interdependent path')&&spec.includes('blocking road is a design constraint'),'spec corrects the earlier assertion of a doctrinal sequence');
+
 test(readerJS.includes('m.source===DEMO')&&readerJS.includes('LADDER_FACTOR_MISMATCH'),'Bell editorial mapping only allowed for original demo and validated factors');
 
 const bad=structuredClone(raw);bad.factors[6].act='recollect';

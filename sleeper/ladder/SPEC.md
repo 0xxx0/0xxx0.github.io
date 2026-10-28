@@ -8,6 +8,28 @@ its matter and its gates. 0.3.0 made the city conditional. 0.4.0 answered the
 first walk. **0.5.0 answers the second: the eight gates become the eight path
 factors, and the walk costs something.**
 
+## 2026-10-28 / doctrinal interpretation correction
+
+**The eight factors are one interdependent path, not eight successive attainments.**
+Payutto, [Ch. 12, *Introduction to the Middle Way*](https://buddhadhamma.github.io/introduction-to-the-middle-way.html),
+explicitly warns against treating the factors as separate practices to finish
+in chronological order. [MN 117](https://suttacentral.net/mn117/en/sujato)
+describes right view, right effort, and right mindfulness continually
+supporting the other factors. A gate numbered 1–8 in this instrument is an
+**authored itinerary**, not a claim that a practitioner must finish one factor
+before beginning the next. A completed gate proves only an interaction inside
+the software. Holding still is not samādhi; withholding a ring-touch is not
+the whole of right speech.
+
+THREADWALK now provides a **single reading lens with three simultaneous
+supports** on each exact selected sentence: VIEW distinguishes assertion from
+inference; EFFORT asks for one concrete response; MINDFULNESS asks what to
+observe and reconsider. These are editorial prompts, not automatic
+interpretations. They never mutate the painting's walker, breath, gate status,
+or native proof. The existing user-declared exact-witness door remains the
+only authority for new reading paths. This is the smallest correction to the
+conceptual mismatch; it does not establish teaching efficacy.
+
 The operator walked 0.4.0 and said: *"its interesting... dont really consider
 this gripping or compelling atm"* and *"maybe you can explain how it works better
 or conveys deep essential wisdom from the text"*. Both complaints had one cause:
@@ -251,9 +273,10 @@ progress; the frame's top edge is the breath.
    you are = the crosshair; what district = the band; what you read = the foot
    line; what is left = the frame's top edge. Nothing is drawn that is not a field
    of a record.
-2. **The path is walked in order.** The factors are a sequence in the text and a
-   sequence on the ground: you cannot pass gate 2 without doing right thought.
-   That is the doctrine's own claim about the factors, made mechanical.
+2. **The game itinerary is walked in an authored order.** The factor names
+   follow the source's listing and its gates sit along one road, but the factors
+   themselves work together. The blocking road is a design constraint, NOT a
+   claim that one factor must be attained before another can be practised.
 3. **The gate must be done, not known.** Six of eight factors are acts. The two
    that are words are the two whose accounts are definitions without a gesture.
 4. **Weather is a consequence.** The band's weather is the fold of your own walk.
