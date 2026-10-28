@@ -299,7 +299,8 @@ async function continuumBrowserProof(){
    const details=ip('link-start').locator('xpath=ancestor::details');
    await source();await details.locator('summary').click();await ip('link-start').click();
    await ip('next').click();const destination=(await snap()).attention.char;
-   await source();await ip('relation').selectOption('questions');await ip('link-end').click();assert.equal((await snap()).links.length,1);
+   await source();await ip('relation').selectOption('questions');await ip('relation-warrant').fill('Two readings remain distinct; this is my interpretation, not proof.');await ip('link-end').click();assert.equal((await snap()).links.length,1);
+   assert.equal((await snap()).links[0].warrant,'Two readings remain distinct; this is my interpretation, not proof.');
    // Explicitly authored QUESTION relation is a real chord, not a proximity
    // inference. Follow its visible line and RETURN to the exact departure.
    await page.evaluate(()=>InterphaseInstrument.perspective('dial'));
@@ -327,6 +328,7 @@ async function continuumBrowserProof(){
    const rejection=await page.evaluate(async p=>{try{await InterphaseInstrument.importPacket({...p,source:{...p.source,raw:p.source.raw+'bad'}});return false}catch(e){return e.message}},packet);assert.match(rejection,/mismatch/);assert.equal((await snap()).attention.char,0);
    await source();await ip('import').setInputFiles({name:'return.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(packet))});await page.waitForFunction(c=>InterphaseInstrument.snapshot().attention.char===c,end);assert.equal((await snap()).attention.char,end);
    const rejectedQuote=await page.evaluate(async p=>{p.links[0].from.quote='invented';try{await InterphaseInstrument.importPacket(p);return false}catch(e){return e.message}},packet);assert.match(rejectedQuote,/quotes/);
+   const rejectedReason=await page.evaluate(async p=>{const forged=structuredClone(p);forged.links[0].warrant=42;try{await InterphaseInstrument.importPacket(forged);return false}catch(e){return e.message}},packet);assert.match(rejectedReason,/relation quotes/);
    await source();await ip('file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"a":1,"a":2}')});await page.waitForFunction(()=>document.querySelector('[data-ip=status]').textContent.includes('ambiguous'));assert.equal((await snap()).source.hash,hash);await close();
    const nativeBefore=await page.evaluate(()=>FieldInstrument.snapshot().frame);await ip('space').focus();await page.keyboard.press('ArrowLeft');assert.deepEqual(await page.evaluate(()=>FieldInstrument.snapshot().frame),nativeBefore);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
