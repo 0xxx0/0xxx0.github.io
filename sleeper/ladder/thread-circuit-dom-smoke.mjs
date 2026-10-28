@@ -19,7 +19,7 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  await L.ready;
  assert(L.state().ready,'source and painting load must succeed');
  const read=d.querySelector('#prov');
- await wait(()=>read.textContent.includes('READ 1/8'),'READ source address');assert(read.getAttribute('role')==='button'&&read.tabIndex===0,'provenance is keyboard accessible');
+ const bridge=await wait(()=>f.contentWindow?.SleeperLadderRead,'bridge script loaded');await wait(()=>read.textContent.includes(' · READ '),'READ source address, current='+String(bridge.current())+', text='+read.textContent.slice(-150));assert(read.getAttribute('role')==='button'&&read.tabIndex===0,'provenance is keyboard accessible');
  for(const width of [320,390,1280]){
   f.style.width=width+'px';await sleep(80);
   const r=read.getBoundingClientRect();
