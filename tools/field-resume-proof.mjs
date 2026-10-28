@@ -22,8 +22,14 @@ const finish=(ok,o)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(o);
  await wait(()=>W().FieldLensHost.focus()?.href===head.route&&$('apCueText')?.textContent===head.next_executable.objective,'hold exact task');
  rec.held=W().FieldLensHost.focus()?.href;rec.cue=$('apCueText').textContent;rec.kind=$('apCueKind').textContent;rec.provenance=$('apCue').dataset.cueSource;
  const r=W().__fieldRouteMap.get(head.route),acts=W().FieldIndexReadModel.actions(head.route);
- const exp=new URL((acts[0]?.target||('.'+(r.alias_of||r.href))),W().location.href).pathname;
- rec.nativeOpen={expected:exp,actual:new URL($('apOpen').href).pathname};
+ const exp=new URL('.'+(r.alias_of||r.href),W().location.href).pathname;
+ rec.nativeOpen={expected:exp,actual:new URL($('apOpen').href).pathname,alternate:acts[0]?.target||null};
+ W().__fieldAct.focus('/dayline/');
+ await wait(()=>W().FieldLensHost.focus()?.href==='/dayline/','native dayline hold');
+ rec.dayline={owner:new URL($('apOpen').href).pathname,alternate:W().FieldIndexReadModel.actions('/dayline/')[0]?.target||null,
+   secondary:[...$('capMoves').querySelectorAll('.capMove[href]')].map(a=>new URL(a.href).pathname)};
+ W().__fieldAct.focus(head.route);
+ await wait(()=>W().FieldLensHost.focus()?.href===head.route,'resume selected head');
  rec.openVisible=W().getComputedStyle($('apOpen')).display!=='none';
  rec.doorAtRest=W().getComputedStyle($('apDoor')).display;
  rec.towerAtBrowse=W().getComputedStyle($('tower')).display;
@@ -43,7 +49,7 @@ const finish=(ok,o)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(o);
  rec.viewport390=ext();
  frame.style.width='320px';frame.style.height='568px';await sleep(250);rec.viewport320=ext();
  frame.style.width='1280px';frame.style.height='900px';await sleep(250);rec.viewport1280=ext();
- const pass=rec.held===head.route&&rec.cue===head.next_executable.objective&&rec.provenance==='CURRENT'&&
+ const pass=rec.dayline.owner==='/dayline/'&&rec.dayline.secondary.includes('/atlas-dayline/')&&rec.held===head.route&&rec.cue===head.next_executable.objective&&rec.provenance==='CURRENT'&&
   ['NEXT','STATUS'].includes(rec.kind)&&rec.nativeOpen.actual===rec.nativeOpen.expected&&rec.openVisible&&rec.doorAtRest==='none'&&
   rec.towerAtBrowse!=='none'&&rec.work.tower==='none'&&rec.work.section!=='none'&&rec.work.open&&rec.work.focus===originalFocus&&
   rec.prove.tower==='none'&&rec.prove.section!=='none'&&rec.map.tower==='none'&&rec.return.tower!=='none'&&
