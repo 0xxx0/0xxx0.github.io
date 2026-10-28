@@ -13,6 +13,12 @@ new Function('module','globalThis',html.slice(start,end))(t,globalThis);
 const T=t.exports;
 let n=0;
 function test(cond,msg){assert(cond,msg);n++}
+const damaged=structuredClone(raw);damaged.factors[6].line+=' INTERPOLATION';
+assert.throws(()=>b.create(damaged),/LADDER_SOURCE_PROJECTION_CHANGED/);
+const swapped=structuredClone(raw);[swapped.factors[1],swapped.factors[2]]=[swapped.factors[2],swapped.factors[1]];
+assert.throws(()=>b.create(swapped),/LADDER_SOURCE_PROJECTION_CHANGED/);
+assert.equal(b.READING_MAP.length,5);
+assert.deepEqual(b.READING_MAP.map(x=>x.lens),['COMPOSE','CHANGE','CONDITION','DISCERN','PRACTISE']);
 const p=b.create(raw),m=T.createModel(p.text,{title:p.title});
 test(p.entries.length===8,'eight source excerpts');
 test(m.nodes.length===8,'eight exact Threadwalk source paragraphs');
@@ -26,6 +32,7 @@ for(let i=0;i<8;i++){
  test(e.canonical===raw.provenance.pages[i<2?1:i<5?2:3],'correct Payutto chapter '+i);
  test(e.references.every(r=>/^https:\/\/suttacentral\.net\//.test(r.url)),'external parallels explicitly sourced '+i);
  test(e.question.length>35,'substantive inquiry for factor '+i);
+ test(e.compareIndices.every(j=>[0,5,6].includes(j)&&j!==i),'only inspect-only MN117 support factors '+i);
  test(b.selectedIndex(String(i))===i,'exact factor address '+i);
 }
 for(const value of ['-1','8','4.5','a','1x',''])if(value!=='')assert.throws(()=>b.selectedIndex(value),/INDEX_INVALID/);
