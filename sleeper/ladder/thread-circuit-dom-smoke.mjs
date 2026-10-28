@@ -14,7 +14,7 @@ const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker,lit:s.lit,breath:s.breath,moves:s.moves,seed:s.seed};}
 (async()=>{try{
  f.src='/sleeper/ladder/';
- const d=await wait(()=>f.contentDocument?.querySelector('#prov'),'Ladder HTML');
+ const d=await wait(()=>f.contentDocument?.querySelector('#prov')&&f.contentDocument,'Ladder HTML');
  const L=await wait(()=>f.contentWindow?.SleeperLadder,'Ladder API');
  await L.ready;
  assert(L.state().ready,'source and painting load must succeed');
