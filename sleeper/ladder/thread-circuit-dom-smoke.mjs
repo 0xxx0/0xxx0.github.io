@@ -74,9 +74,11 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
 
  // Native 0.6.5 trigger: three early releases on one cited sentence,
  // not a test-only assignment to the Bell switch.
- const active=L.state(),n=active.walker?.n;
- assert(Number.isInteger(n),'walker has a real source cell');
- const plan=L.startRideAt(n);assert(plan&&plan.words?.length>=1,'real sentence score engaged');
+ // FAR has no walker yet. Pick a real cited source cell through the public
+ // native startRideAt API; never inject or set the loop flag directly.
+ let plan=null;
+ for(let candidate=0;candidate<32&&!plan;candidate++)plan=L.startRideAt(candidate);
+ assert(plan&&plan.words?.length>=1,'real sentence score engaged');
  const canvas=d.querySelector('#world')||d.querySelector('canvas');
  assert(canvas,'native painting canvas available');
  for(let k=0;k<3;k++)canvas.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerId:40+k}));
