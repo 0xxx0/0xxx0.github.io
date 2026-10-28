@@ -79,7 +79,10 @@ test(reader.includes("query.has('ladderFactor')")&&reader.includes('LADDER_PROJE
 test(reader.includes('LADDER_SOURCE_REJECTED')&&reader.includes('LADDER_SOURCE_HTTP_'),'source failures are explicit');
 const overlay=fs.readFileSync(new URL('thread-overlay.js',path),'utf8');
 test(overlay.includes('e.origin!==location.origin')&&overlay.includes('e.source!==frame.contentWindow'),'close requires same-origin same-frame');
-test(overlay.includes('node.remove()')&&overlay.includes('frame=null'),'return tears down the entire reader overlay');
+test(overlay.includes('overlay.hidden=true')&&overlay.includes('overlay.hidden=false')&&overlay.includes('#ladderOverlay[hidden]'),'Ladder reader is temporarily hidden, not destroyed');
+test(!overlay.includes('node.remove()')&&!overlay.includes('frame=null'),'Ladder reader source and comparison drafts must survive close/reopen');
+test(overlay.includes("sleeper.ladder-reader-pause/v1"),'Ladder pauses reading audio when hidden');
+test(reader.includes("e.source!==window.parent")&&reader.includes("e.origin!==location.origin")&&reader.includes("sleeper.ladder-reader-pause/v1"),'reader accepts pause only from same-origin parent');
 const native=fs.readFileSync(new URL('ladder.js',path),'utf8');
 test(!native.includes('thread-bridge.js'),'native Ladder law remains independent');
 console.log('LADDER ↔ THREADWALK '+n+' assertions PASS / source offsets, eight factors, native separation, authored door + RETURN');
