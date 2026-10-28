@@ -64,6 +64,7 @@ jobs:
         run: node tools/interphase-history-selftest.cjs
       - name: Executable workflow and recovered source laws
         run: |
+          node tools/interphase-door-selftest.mjs
           node tools/interphase-navigation-selftest.mjs
           node tools/interphase-workflow-selftest.mjs
           node tools/interphase-extensions-selftest.mjs
