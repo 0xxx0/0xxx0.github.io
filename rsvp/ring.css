@@ -244,3 +244,17 @@ main{grid-template-rows:auto minmax(148px,35svh) minmax(110px,1fr) auto}
 @media(max-width:360px){.reading-heading{gap:2px;padding-inline:2px}
  .reading-actions button{font-size:8px;padding-inline:5px;min-height:26px}
  .reading-heading #sourceExtent{font-size:8px}}
+
+/* AXIAL aperture is the INNER ring's actual native scale, never a synthetic
+   document level. Outer annulus remains source address, middle source marks.
+   Central ORP stays one word even when the context aperture grows. */
+#apertureTicks{pointer-events:none}
+#apertureTicks .scope-track{fill:none;stroke:var(--line);stroke-width:.65;opacity:.66}
+#apertureTicks .scope-tick{stroke:var(--gate);stroke-width:1.7;opacity:.6;vector-effect:non-scaling-stroke}
+#apertureTicks .scope-tick.active{stroke:var(--accent);stroke-width:3;opacity:1}
+::highlight(rsvp-aperture-scope){background:color-mix(in srgb,var(--read) 12%,transparent);
+ text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--read) 40%,transparent);
+ text-decoration-thickness:1px}
+::highlight(rsvp-exact-focus){background:var(--accent);color:var(--pad);text-decoration:underline}
+@media(min-width:241px){.stage{touch-action:none}}
+@media(max-width:240px),(max-height:260px){#apertureTicks{display:none!important}}
