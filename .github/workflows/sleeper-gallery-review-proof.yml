@@ -1,0 +1,34 @@
+name: sleeper-gallery-review-proof
+on:
+  pull_request:
+    paths:
+      - 'sleeper/archive/index.html'
+      - 'sleeper/archive/catalog.json'
+      - 'recovery/media/sleeper-atlas/catalog.json'
+      - 'tools/sleeper-gallery-review-smoke.mjs'
+      - '.github/workflows/sleeper-gallery-review-proof.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'sleeper/archive/index.html'
+      - 'tools/sleeper-gallery-review-smoke.mjs'
+permissions:
+  contents: read
+jobs:
+  gallery-reader:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Install ephemeral browser test dependency
+        run: npm install --prefix "$RUNNER_TEMP/reading-test" playwright
+      - name: Gallery source integrity, human note, revision, and RETURN at 320/390/1280px
+        env:
+          NODE_PATH: ${{ runner.temp }}/reading-test/node_modules
+        run: node tools/sleeper-gallery-review-smoke.mjs
