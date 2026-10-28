@@ -22,6 +22,10 @@ dom.innerHTML='<style>'+style+bookMapCSS+'</style><div id="app"></div>';
 document.body.append(host);const $=id=>dom.getElementById(id);
 let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=false,threadOpen=false,ladderLesson=null;
 let bellComparison=null,bellCarry=null,ladderProjectionPromise=null;
+// In-memory, exact-source-bound drafts: never copy an interpretation to a new quote.
+const bellDrafts=new Map(),doorDrafts=new Map();
+const bellDraftKey=(m,node,w,factor)=>[m.sha256,node.id,w?.start,w?.end,w?.quoteHash,factor].join('|');
+const doorDraftKey=(m,marked,node,s)=>[m.sha256,marked.id,s.witnesses[marked.id]?.quoteHash,node.id,s.witnesses[node.id]?.quoteHash].join('|');
 async function compareLadder(index){
  const state=snap(),at=state.inspected,sha=state.model?.sha256;
  if(!sha||state.model.source!==DEMO)throw Error('BELL_SOURCE_CHANGED');
@@ -51,7 +55,7 @@ function quote(m,w){return w?m.source.slice(w.start,w.end):'';}
 function paintEchoText(button,value,terms){let cursor=0;for(const match of value.matchAll(/[\p{L}\p{N}]+/gu)){const start=match.index,word=match[0];if(start>cursor)button.append(document.createTextNode(value.slice(cursor,start)));button.append(terms.has(word.toLowerCase())?element('mark','echoWord',word):document.createTextNode(word));cursor=start+word.length;}if(cursor<value.length)button.append(document.createTextNode(value.slice(cursor)));}
 function holdAt(id,choice){action(()=>{B.hold(id,choice);if(!snap().session.selected)B.mark(id)})}
 function clean(s){return text(s).replace(/\s+/g,' ').trim();}
-async function load(source,title,url='',keepLadder=false){stop();error='';bellComparison=null;bellCarry=null;if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
+async function load(source,title,url='',keepLadder=false){stop();error='';bellComparison=null;bellCarry=null;if(!keepLadder)ladderLesson=null;try{await B.load(source,title,url);bellDrafts.clear();doorDrafts.clear();sourceOpen=false;threadOpen=false;readIndex=0;render();host.scrollTo(0,0)}catch(e){error=e.message||String(e);sourceOpen=true;render()}}
 function home(){stop();action(()=>{const m=snap().model;let cap=m.nodes.length+2;while(cap-->0){const s=snap().session,path=T.routeHome(m,s);if(path.length<=1)break;B.originStep()}B.inspect(m.nodes[0].id);});}
 function result(){action(()=>{const obj=B.returnArtifact(),json=JSON.stringify(obj,null,2);const url=URL.createObjectURL(new Blob([json],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='threadwalk-'+obj.source.hash+'-return.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});}
 function play(){
@@ -162,7 +166,11 @@ function render(){
    check.setAttribute('aria-label','A test or alternative reading');
    check.maxLength=240;
    const existing=bellCarry&&bellCarry.bell?.sourceSha256===m.sha256&&bellCarry.bell.passageIndex===i&&bellCarry.ladder.factorIndex===e.index&&w&&bellCarry.bell.span.quoteHash===w.quoteHash&&bellCarry.bell.span.start===w.start&&bellCarry.bell.span.end===w.end?bellCarry:null;
+   const draftKey=bellDraftKey(m,node,w,e.index),draft=bellDrafts.get(draftKey);
    if(existing){claim.value=existing.interpretation;check.value=existing.check;}
+   else if(draft){claim.value=draft.interpretation;check.value=draft.check;}
+   const preserveDraft=()=>bellDrafts.set(draftKey,{interpretation:claim.value,check:check.value});
+   claim.addEventListener('input',preserveDraft);check.addEventListener('input',preserveDraft);
    carry.append(element('p','notice','VIEW: distinguish what the quote says. EFFORT: propose a different reading or action. MINDFULNESS: name what would make you revise it. These are practice prompts, not certified attainment.'));
    carry.append(claim,check);
    const save=button(existing?'REVISE CARRY':'CARRY THIS DISTINCTION',()=>{
@@ -174,6 +182,7 @@ function render(){
     if(interpretation.length<12||interpretation.length>300){status('INTERPRETATION_NEEDS_12_TO_300_CHARACTERS');return;}
     if(recheck.length<8||recheck.length>240){status('CHECK_NEEDS_8_TO_240_CHARACTERS');return;}
     if(bellComparison?.sha!==m.sha256||bellComparison?.at!==node.id){status('CROSS_SOURCE_POSITION_CHANGED');return;}
+    bellDrafts.delete(draftKey);
     bellCarry=Object.freeze({
       schema:'sleeper.bell-ladder-carry/v1',
       authority:'USER_INTERPRETATION_NOT_SEMANTIC_OR_GATE_PROOF',
@@ -209,6 +218,22 @@ function render(){
   }
   map.append(list,element('p','tiny','Editorial attention prompts, not canonical quotations or automatic doctrine.'));
   context.append(map);
+  // Compare two exact authored outcomes without introducing an answer Gate.
+  // INSPECT preserves the native Threadwalk route and source identity.
+  if(i===0||i===2||i===3||i===6){
+   const contrast=element('details','bookMap');contrast.id='bellConsequences';
+   contrast.append(element('summary','','THE SAME BELL / TWO CONTINUATIONS'));
+   contrast.append(element('p','notice','Compare following the wish with releasing it. Both passages are from this fictional Bell study, not quotations from Buddhadhamma.'));
+   for(const [index,label] of [[3,'FOLLOW / MOVE TOWARD'],[6,'RELEASE / OPEN THE HAND']]){
+    const target=m.nodes[index],frame=element('div','bookMap');
+    frame.append(element('div','tiny',label+' · SOURCE PASSAGE '+(index+1)));
+    frame.append(element('blockquote','quote',target.text));
+    frame.append(button('INSPECT PASSAGE '+(index+1)+' ↗',()=>move(target.id,false),'ghost'));
+    contrast.append(frame);
+   }
+   contrast.append(element('p','tiny','The stimulus stays the same. Which condition changed? What does the story NOT establish? Viewing is not traversal, doctrinal proof or a Gate.'));
+   context.append(contrast);
+  }
  }
  const p=$('passage');for(const [j,e] of choices.entries()){
   const exact=m.source.slice(e.start,e.end);
@@ -263,7 +288,14 @@ function render(){
    panel.append(element('div','tiny','INSPECTED PASSAGE '+(i+1)),element('blockquote','quote',quote(m,w)||'Now hold a sentence in the inspected passage.'));
    const relation=element('select');relation.id='relation';for(const value of ['questions','contrasts','supports']){const o=element('option','',value.toUpperCase());o.value=value;relation.append(o)}
    const why=element('textarea');why.id='reason';why.placeholder='What changes when these two exact passages are read together? (12+ characters)';
-   panel.append(relation,why,button('MAKE DOOR →',()=>{if(!s.witnesses[mark.id]||!s.witnesses[node.id]){status('HOLD_BOTH_EXACT_SENTENCES');return}action(()=>B.link(node.id,relation.value,why.value));},'gold'));
+   const draftKey=doorDraftKey(m,mark,node,s),draft=doorDrafts.get(draftKey);
+   if(draft){why.value=draft.reason;relation.value=draft.relation;}
+   const preserveDraft=()=>doorDrafts.set(draftKey,{reason:why.value,relation:relation.value});
+   why.addEventListener('input',preserveDraft);relation.addEventListener('change',preserveDraft);
+   panel.append(relation,why,button('MAKE DOOR →',()=>{if(!s.witnesses[mark.id]||!s.witnesses[node.id]){status('HOLD_BOTH_EXACT_SENTENCES');return}
+    const kind=relation.value,reason=why.value;
+    action(()=>{B.link(node.id,kind,reason);doorDrafts.delete(draftKey)});
+   },'gold'));
   }else panel.append(element('div','empty','Inspect an echo or distant passage; hold a sentence there to compare.'));
  }else panel.append(element('div','empty','Hold a sentence. MARK this passage. Inspect a different passage to compare.'));
  const payoff=$('payoff');if(recent){
