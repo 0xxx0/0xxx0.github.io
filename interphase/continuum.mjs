@@ -10,7 +10,7 @@ function sourceScript(path,key){
 }
 async function dependencies(){
  await sourceScript('/lib/document-structure.js','FieldDocumentStructure');
- await sourceScript('/lib/read-trail.js','FieldSourceTrail');
+ await sourceScript('/lib/read-trail.js?v=review-2','FieldSourceTrail');
  await sourceScript('/field-aperture.js?v=0.8.7','FieldAperture');
  if(!document.querySelector('[data-interphase-continuum]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/interphase/continuum.css'+release;l.dataset.interphaseContinuum='';document.head.append(l)}
 }
