@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T08:18:37.144Z",
+  "generated": "2026-10-28T09:20:35.492Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 35,
-  "git_commits_in_window": 85,
-  "telemetry_commits_in_window": 50,
-  "commits_total": 7166,
-  "branch_count": 1111,
+  "commits_in_window": 39,
+  "git_commits_in_window": 94,
+  "telemetry_commits_in_window": 55,
+  "commits_total": 7175,
+  "branch_count": 1112,
   "recent_commits": [
-    "INTERPHASE: exact source → GLYPHFIELD → RETURN (#1031)",
-    "test: enact GLYPHFIELD RETURN through actual UI control",
-    "INTERPHASE: expose explicit glyph-to-exact-source RETURN"
+    "SLEEPER: bridge Bell reading to cited Ladder factors without altering Threadwa",
+    "desk: refresh public field data + root git chronology",
+    "fi-mutation-contract: stamp /sleeper/ladder/ (0.6.4 rail under the sentence, e"
   ],
   "active_fronts": [
     {
