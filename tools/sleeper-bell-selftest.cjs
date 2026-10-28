@@ -47,6 +47,7 @@ ok(s.won,'exit reached via real movement');
 const out=B.exportState(s);
 eq(out.actions.won,true,'return witnesses enacted exit');
 eq(out.source.bytesRedistributed,false,'no third-party book bytes exported');
+eq(out.source.url,'https://buddhadhamma.github.io/dependent-origination.html','Bell conditionality has the correct linked chapter');
 ok(out.actions.loops>=1,'return witnesses the loop');
 B.rewind(s,fork);
 ok(s.choice===null&&!s.opened&&!s.won,'rewind restores branchable causal state');
@@ -75,4 +76,40 @@ ok(images.length>0&&images.every(g=>Number.isFinite(g.x)&&g.radius>0),'ghost app
 const occluded=B.create();occluded.ghost=[[23.5,13.5]];
 eq(B.ghostProjection(occluded,390,844).length,0,'ghost hidden behind current physical walls');
 ok(B.ghostProjection(occluded,0,844).length===0,'zero viewport projects nothing');
+// The first-person route itself enacts FOLLOW when the fork is crossed.
+const unprompted=toFork();
+ok(unprompted.choice===null,'fork has no pre-selected answer');
+ok(walk(unprompted,16.2,8.5),'cross fork by moving forward');
+eq(unprompted.choice,'follow','continuation physically admits upper loop');
+ok(!unprompted.opened,'continuation does not silently open lower gate');
+denied(()=>B.choose(unprompted,'notice'),'release not licensed until fold witnessed');
+ok(walk(unprompted,21.5,8.5),'natural pull reaches upper turn');
+ok(walk(unprompted,21.5,3.5),'natural pull reaches gallery');
+walk(unprompted,9.5,3.5);
+ok(unprompted.loops>=1,'unprompted continuation physically folds');
+B.choose(unprompted,'notice');
+ok(B.openCell(unprompted,18.5,10.5),'subsequent deliberate cut changes real topology');
+// Ring is an actionable mobile control: 47.6px core diameter at CSS 107px.
+eq(B.ringZone(0),'CORE','ring centre selects actual conditional action');
+eq(B.ringZone(40),'CORE','full mobile minimum action hit target');
+eq(B.ringZone(41),'REWIND','inner dial retains history aperture');
+eq(B.ringZone(62),'REWIND','inner and outer regions are distinct');
+eq(B.ringZone(63),'TURN','outer dial retains heading aperture');
+// The exact held-touch binding must survive thumb drift without becoming sticky.
+function fakeButton(){
+ const handlers=new Map(),capture=[];
+ return {style:{},capture,handlers,addEventListener(name,cb){handlers.set(name,cb)},setPointerCapture(id){capture.push(id)},fire(name,props={}){handlers.get(name)?.({button:0,pointerId:17,preventDefault(){},...props})}};
+}
+const held=new Set(),button=fakeButton(),unlocked=[];
+const release=B.bindDrive(button,held,'forward',()=>unlocked.push('sound'));
+eq(button.style.touchAction,'none','browser pan must not steal forward gesture');
+button.fire('pointerdown');ok(held.has('forward'),'touch down holds forward');
+eq(button.capture,[17],'captured pointer survives drift beyond button bounds');
+eq(unlocked.length,1,'touch starts gated audio exactly once');
+button.fire('pointerleave');ok(held.has('forward'),'thumb drift must not stop walking');
+button.fire('pointerup');ok(!held.has('forward'),'lift terminates movement');
+button.fire('pointerdown');button.fire('pointercancel');ok(!held.has('forward'),'cancel terminates movement');
+button.fire('pointerdown');button.fire('lostpointercapture');ok(!held.has('forward'),'lost capture terminates movement');
+button.fire('pointerdown',{button:2});ok(!held.has('forward'),'secondary pointer cannot begin movement');
+button.fire('pointerdown');release();ok(!held.has('forward'),'exit cleanup terminates held input');
 process.stdout.write('PASS '+assertions+' assertions / enacted route, quiet timeline, spatial ghost, conditional RETURN\n');

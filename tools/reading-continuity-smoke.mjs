@@ -34,7 +34,7 @@ try{
   await page.locator('#jsonProjection').click();
   assert.match(await page.evaluate(()=>document.getElementById('docAperture').snapshot().focus),/first/,'tree selection must carry into reading');
   const start=await select(raw.indexOf('second value')+2);
-  await page.locator('#wristLink').click();await page.waitForURL('**/rsvp/?handoff=1');
+  await page.locator('.rf-source-tools summary').click();await page.locator('#wristLink').click();await page.waitForURL('**/rsvp/?handoff=1');
   await page.waitForFunction(()=>document.getElementById('drawer').hidden&&document.getElementById('wristAperture').A);
   const wrist=await page.evaluate(()=>document.getElementById('wristAperture').snapshot());
   assert.equal(wrist.char_index,start.char_index);assert.equal(wrist.focus,start.focus);assert.equal(wrist.wpm,start.wpm);

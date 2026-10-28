@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/submission-contract/v0.2",
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "purpose": "One typed envelope for every contributor — human, Hermes, ChatGPT, Codex, or local worker. Making a contribution to FIELD is itself a FIELD operation; switching crew mates must preserve the same addressed object, bounded move options, evidence and RETURN without transferring hidden state or authority.",
   "sequence": "SOURCE → SUBMISSION OBJECT → HOST RESOLUTION → HOLD → TURN → TRACE → RETURN",
   "envelope": {
@@ -117,18 +117,21 @@
         "to": "/?focus=%2Fdocs%2F"
       }
     },
-    "intake_boundary": "Use the full submission envelope when object_ref is UNRESOLVED, host resolution is still required, donor/contribution classification matters, or evidence class/source provenance must be established. Once one exact object+owner are resolved, the minimum projection is sufficient for bounded execution/handoff."
+    "intake_boundary": "Use the full submission envelope when object_ref is UNRESOLVED, host resolution is still required, donor/contribution classification matters, or evidence class/source provenance must be established. Once one exact object+owner are resolved, the minimum projection is sufficient for bounded execution/handoff.",
+    "compiler": "node scripts/emit-agent-transcript.mjs --turn <submission.json|-> [--json]",
+    "compiler_law": "Compiler runs crew-handoff + source-witness preflight, resolves native owner from showcase-manifest.json, and emits only when state is TURN_READY. '-' reads one JSON submission from stdin. No state is written."
   },
   "crew_handoff_projection": {
-    "compiler": "node scripts/emit-agent-transcript.mjs --handoff <submission.json>",
-    "structured": "node scripts/emit-agent-transcript.mjs --handoff <submission.json> --json",
+    "compiler": "node scripts/emit-agent-transcript.mjs --handoff <submission.json|->",
+    "structured": "node scripts/emit-agent-transcript.mjs --handoff <submission.json|-> --json",
     "schema": "field-crew-handoff/v0.1",
     "authority": "NONE / TRANSIENT HANDOFF ONLY",
     "states": {
       "SOURCE_REQUIRED": "object_ref is unresolved OR a supplied source witness is unverified/stale/missing; receiver must establish one exact current host/object before action",
       "HOLD_REQUIRED": "object is resolved but no moves are declared; receiver derives 1–3 host-native moves",
       "HOLD_READY": "1–3 native moves are declared; one may be deliberately selected",
-      "TURN_READY": "one declared move is selected; native effect/commit authority is still not transferred"
+      "TURN_READY": "one declared move is selected; native effect/commit authority is still not transferred",
+      "HUMAN_REQUIRED": "An explicit PING/CHOOSE/WORLD_RETURN remains unsatisfied, OR a selected EFFECT still carries an UNSPECIFIED human gate. Receiver may prepare/reduce but cannot expose TURN_READY until the gate is explicit; gate resolution never grants effect authority."
     },
     "identity": "A deterministic opaque crew:<fnv64> handle is derived from source_ref + intent + object_ref + contribution_class + evidence_class + delta_or_question. It correlates the same handoff object without becoming a task database or session authority.",
     "statelessness": "The compiler reads one submission and emits one transient projection. It writes no queue, task store, memory, CURRENT, manifest or native host state.",
@@ -156,7 +159,8 @@
     "MORE THAN THREE MOVES FAILS CLOSED.",
     "A SELECTED TURN ON AN UNRESOLVED OBJECT FAILS CLOSED.",
     "RETURN CLOSES AUTHORITY; NEXT_AUTHORITY IS NONE UNTIL CURRENT IS RE-READ.",
-    "SOURCE WITNESS != OBJECT IDENTITY OR AUTHORITY. IT IS AN OPTIONAL OPTIMISTIC-CONCURRENCY GUARD; STALE/MISSING HANDOFFS RETURN TO SOURCE_REQUIRED."
+    "SOURCE WITNESS != OBJECT IDENTITY OR AUTHORITY. IT IS AN OPTIONAL OPTIMISTIC-CONCURRENCY GUARD; STALE/MISSING HANDOFFS RETURN TO SOURCE_REQUIRED.",
+    "UNSPECIFIED HUMAN GATE + SELECTED EFFECT FAILS CLOSED TO HUMAN_REQUIRED; EXPLICIT NONE OR A SATISFIED EXPLICIT GATE IS REQUIRED BEFORE EFFECT CAN PROJECT TURN_READY."
   ],
   "contribution_classes": {
     "DELTA": "Changes an existing head. Requires a named host.",
@@ -235,5 +239,37 @@
         "/showcase-manifest.json"
       ]
     }
+  },
+  "crew_turn_projection": {
+    "compiler": "node scripts/emit-agent-transcript.mjs --turn <submission.json|->",
+    "structured": "node scripts/emit-agent-transcript.mjs --turn <submission.json|-> --json",
+    "schema": "field-crew-turn/v0.1",
+    "authority": "NONE / EXECUTION PROJECTION ONLY",
+    "purpose": "Smallest directly pipeable same-object execution handoff. TRACE begins UNKNOWN / NOT_EXECUTED and must be replaced by observed evidence after native TURN.",
+    "readiness": "Only TURN_READY handoffs project. Other states fail closed.",
+    "owner_resolution": "Native owner comes from showcase-manifest route.field.owner; FIELD root resolves to FIELD INDEX. Missing owner fails closed.",
+    "stdin": "Use '-' to read one submission JSON object from stdin; no transient handoff file is required.",
+    "law": "Transport/compression only; it never grants native RELEASE, NOW, merge or effect authority."
+  },
+  "crew_response_projection": {
+    "compiler": "node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME>",
+    "structured": "node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME> --json",
+    "schema": "field-crew-response/v0.1",
+    "authority": "NONE / COORDINATION ONLY",
+    "purpose": "Minimal receiver read-back over the same field-crew-handoff/v0.1 object so crew can repair framing without replaying a transcript or creating shared task/memory state.",
+    "actions": {
+      "KEEP": "Frame is sufficient for otherwise-lawful continuation on the same object. Not EFFECT/merge/publish/NOW/priority approval.",
+      "PARK": "Retain as residue/later possibility and stop active continuation. Not deletion or rejection of source truth.",
+      "WRONG_FRAME": "Frame is not sufficient for continuation. Re-SOURCE/re-HOLD before any TURN; do not silently repair then continue."
+    },
+    "invariants": [
+      "context_handle and object_ref are preserved exactly from the handoff",
+      "response never mutates the handoff or native host",
+      "next_authority is always NONE",
+      "KEEP cannot grant EFFECT, merge, publish, NOW or priority authority",
+      "PARK creates no queue/backlog obligation",
+      "WRONG_FRAME returns coordination to SOURCE_REQUIRED semantics",
+      "response is transient; do not commit it as a shared memory/task store"
+    ]
   }
 }

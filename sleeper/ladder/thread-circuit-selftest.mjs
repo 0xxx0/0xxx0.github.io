@@ -1,0 +1,85 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+const require=createRequire(import.meta.url),path=new URL('./',import.meta.url);
+const raw=JSON.parse(fs.readFileSync(new URL('source-dhamma.json',path),'utf8'));
+const b=require('./thread-bridge.js');
+const html=fs.readFileSync(new URL('../axis-score.html',path),'utf8');
+const start=html.indexOf('/* SLEEPER / THREADWALK');
+const end=html.indexOf('</script>',start);
+assert(start>0&&end>start,'existing Threadwalk must be available as the authority');
+const t={exports:{}};
+new Function('module','globalThis',html.slice(start,end))(t,globalThis);
+const T=t.exports;
+let n=0;
+function test(cond,msg){assert(cond,msg);n++}
+const damaged=structuredClone(raw);damaged.factors[6].line+=' INTERPOLATION';
+assert.throws(()=>b.create(damaged),/LADDER_SOURCE_PROJECTION_CHANGED/);
+const swapped=structuredClone(raw);[swapped.factors[1],swapped.factors[2]]=[swapped.factors[2],swapped.factors[1]];
+assert.throws(()=>b.create(swapped),/LADDER_SOURCE_PROJECTION_CHANGED/);
+assert.equal(b.READING_MAP.length,5);
+assert.deepEqual(b.READING_MAP.map(x=>x.lens),['COMPOSE','CHANGE','CONDITION','DISCERN','PRACTISE']);
+const p=b.create(raw),m=T.createModel(p.text,{title:p.title});
+test(p.entries.length===8,'eight source excerpts');
+test(m.nodes.length===8,'eight exact Threadwalk source paragraphs');
+test(m.nodes.every((node,i)=>node.text===p.entries[i].passage),'byte-addressable factor lines');
+test(p.originalSelectionSha256===raw.selection.sha256,'selection identity retained');
+test(p.sourceType.includes('NOT_FULL_BOOK'),'must not claim original book byte offsets');
+test(m.nodes.every(x=>m.source.slice(x.start,x.end)===x.text),'source offsets exact to projection');
+for(let i=0;i<8;i++){
+ const e=p.entries[i],f=raw.factors[i];
+ test(e.key===f.key&&e.locator===f.locator&&e.excerpt===f.line.trim(),'gate factor '+i+' unchanged');
+ test(e.canonical===raw.provenance.pages[i<2?1:i<5?2:3],'correct Payutto chapter '+i);
+ test(e.references.every(r=>/^https:\/\/suttacentral\.net\//.test(r.url)),'external parallels explicitly sourced '+i);
+ test(e.question.length>35,'substantive inquiry for factor '+i);
+ test(e.compareIndices.every(j=>[0,5,6].includes(j)&&j!==i),'only inspect-only MN117 support factors '+i);
+ test(b.selectedIndex(String(i))===i,'exact factor address '+i);
+}
+for(const value of ['-1','8','4.5','a','1x',''])if(value!=='')assert.throws(()=>b.selectedIndex(value),/INDEX_INVALID/);
+test(b.selectedIndex('')===0,'blank factor maps to first');
+test(b.BELL_MAP.length===8,'Bell original study eight source-specific attention prompts');
+for(let i=0;i<8;i++){
+ const x=b.bellLensAt(i),factor=p.entries[x.factor],book=b.READING_MAP[x.lens];
+ test(x.book.url===book.url&&/^https:\/\/buddhadhamma\.github\.io\//.test(x.book.url),'Bell chapter '+i+' links to documented Payutto chapter');
+ test(factor&&factor.name.length>3&&x.question.length>35,'Bell question '+i+' maps to real Ladder factor');
+ test(/^https:\/\/suttacentral\.net\//.test(x.sutta.url),'Bell Sutta cross-reference '+i);
+}
+for(const bad of [-1,8,1.5,'0',null])assert.throws(()=>b.bellLensAt(bad),/BELL_PASSAGE_INDEX_INVALID/);
+const ladderHTML=fs.readFileSync(new URL('index.html',path),'utf8');
+test(!/^(<<<<<<<|=======|>>>>>>>)/m.test(ladderHTML),'Ladder HTML contains no unresolved merge conflict');
+test((ladderHTML.match(/<script src="thread-overlay\.js/g)||[]).length===1,'exactly one live Ladder reader aperture');
+const readerJS=fs.readFileSync(new URL('../reading-play.js',path),'utf8');
+test(readerJS.includes('async function compareLadder(')&&readerJS.includes('current.model?.sha256!==sha')&&readerJS.includes('COMPARISON_POSITION_CHANGED'),'Bell comparison checks source identity and position before showing excerpt');
+test(readerJS.includes('m.source===DEMO')&&readerJS.includes('LADDER_FACTOR_MISMATCH'),'Bell editorial mapping only allowed for original demo and validated factors');
+
+const bad=structuredClone(raw);bad.factors[6].act='recollect';
+assert.throws(()=>b.create(bad),/LADDER_FACTOR_INVALID_6|LADDER_SOURCE_PROJECTION_CHANGED/);n++;
+const bad2=structuredClone(raw);bad2.factors[0].line='word';
+assert.throws(()=>b.create(bad2),/LADDER_FACTOR_INVALID_0|LADDER_SOURCE_PROJECTION_CHANGED/);n++;
+const bad3=structuredClone(raw);bad3.selection.sha256='00';
+assert.throws(()=>b.create(bad3),/LADDER_SOURCE_SLICE_INVALID/);n++;
+let s=T.blank(m);
+s=T.cite(m,s,m.nodes[0].id,0);
+s=T.select(m,s,m.nodes[0].id);
+s=T.cite(m,s,m.nodes[4].id,0);
+s=T.commit(m,s,m.nodes[4].id,'questions','Would the second passage challenge the first account?');
+test(s.links.length===1,'one user-authorized explicit door');
+test(s.links[0].authority==='USER_DECLARED_WITH_EXACT_WITNESSES','no fabricated semantic authority');
+s=T.move(m,s,m.nodes[4].id);
+test(s.moves.at(-1).via==='COMMITTED','crossing declaration changes topology');
+s=T.move(m,s,m.nodes[0].id);
+test(T.canReturn(s),'existing Threadwalk gates source return');
+for(const file of ['index.html','thread-overlay.js','../reading-play.js','../axis-score.html']){
+ const x=fs.readFileSync(new URL(file,path),'utf8');
+ test(x.length>0,'connected runtime '+file);
+}
+test(html.includes('./ladder/thread-bridge.js')&&html.includes('./reading-play.js'),'single bridge loaded before reader');
+const reader=fs.readFileSync(new URL('../reading-play.js',path),'utf8');
+test(reader.includes("query.has('ladderFactor')")&&reader.includes('LADDER_PROJECTION_MISMATCH'),'reader checks factor import');
+test(reader.includes('LADDER_SOURCE_REJECTED')&&reader.includes('LADDER_SOURCE_HTTP_'),'source failures are explicit');
+const overlay=fs.readFileSync(new URL('thread-overlay.js',path),'utf8');
+test(overlay.includes('e.origin!==location.origin')&&overlay.includes('e.source!==frame.contentWindow'),'close requires same-origin same-frame');
+test(overlay.includes('node.remove()')&&overlay.includes('frame=null'),'return tears down the entire reader overlay');
+const native=fs.readFileSync(new URL('ladder.js',path),'utf8');
+test(!native.includes('thread-bridge.js'),'native Ladder law remains independent');
+console.log('LADDER ↔ THREADWALK '+n+' assertions PASS / source offsets, eight factors, native separation, authored door + RETURN');

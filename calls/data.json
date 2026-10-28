@@ -1,71 +1,10 @@
 {
  "schema": "calls-web/v0.1",
- "generated_at": "2026-10-24T13:55:38+08:00",
+ "generated_at": "2026-10-28T15:53:24+08:00",
  "source": "sovereign-node/corpus/calls/calls.json",
  "answers": "sovereign-node/corpus/calls/answers.jsonl",
  "answer_wire": "https://t.me/tathagatabot?start=call_<id>_<k>",
- "open": [
-  {
-   "id": "whatsapp-pair",
-   "title": "WhatsApp — pair it?",
-   "options": [
-    {
-     "k": "A",
-     "t": "Do it now — walk me through in chat",
-     "eff": "WhatsApp read+drafts live today"
-    },
-    {
-     "k": "B",
-     "t": "Later",
-     "eff": "stays prepped, nothing lost"
-    },
-    {
-     "k": "C",
-     "t": "Skip WhatsApp",
-     "eff": "Telegram-only comms lane stays"
-    }
-   ]
-  },
-  {
-   "id": "money-topup",
-   "title": "Credits — the wall",
-   "options": [
-    {
-     "k": "A",
-     "t": "Top up Nous",
-     "eff": "paid quality routes back on (primary lane)"
-    },
-    {
-     "k": "B",
-     "t": "Top up OpenRouter",
-     "eff": "fallback/spare lane funded"
-    },
-    {
-     "k": "C",
-     "t": "Stay free-only",
-     "eff": "$0 spend; I optimize for free models"
-    }
-   ]
-  },
-  {
-   "id": "promise-qwen3-8-27b-fallback-pull",
-   "title": "BROKEN PROMISE: Local fallback lane fixed: qwen3.8:27b pulled or kestrel ollama-local.default_model repoin",
-   "options": [
-    {
-     "k": "A",
-     "t": "Own it — fix now (machine executes on your word)"
-    },
-    {
-     "k": "B",
-     "t": "Extend — reply a new date, promise re-dated not buried"
-    },
-    {
-     "k": "C",
-     "t": "Waive — closed as no-longer-wanted, ledger records the waiver"
-    }
-   ]
-  }
- ],
+ "open": [],
  "called": {
   "purge": {
    "id": "purge",
@@ -163,7 +102,7 @@
    "pick": "A",
    "pick_label": "Recover as an optional triangle view over the bench (5 bounded deltas; numeric table stays canonical; kill at ~150 lines)",
    "note": "",
-   "ts": "2026-10-07T22:07:17"
+   "ts": "2026-10-25T01:39:17"
   },
   "interphase-two-tree": {
    "id": "interphase-two-tree",
@@ -172,40 +111,75 @@
    "note": "",
    "ts": "2026-10-07T22:07:04"
   },
+  "whatsapp-pair": {
+   "id": "whatsapp-pair",
+   "pick": "B",
+   "pick_label": "Later",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "money-topup": {
+   "id": "money-topup",
+   "pick": "A",
+   "pick_label": "Top up Nous",
+   "note": "",
+   "ts": "2026-10-28T15:53:00"
+  },
   "six-0817-retire": {
    "id": "six-0817-retire",
    "pick": "B",
    "pick_label": "Keep open — I'll answer",
-   "note": "Keep / open (?)",
-   "ts": "2026-10-21T19:45:21"
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
   },
   "promise-secret-scan-weekly-enabled": {
    "id": "promise-secret-scan-weekly-enabled",
-   "pick": "A",
-   "pick_label": "Own it — fix now (machine executes on your word)",
+   "pick": "C",
+   "pick_label": "Waive — closed as no-longer-wanted, ledger records the waiver",
    "note": "",
-   "ts": "2026-10-24T13:06:43"
+   "ts": "2026-10-25T01:39:17"
   },
   "promise-ab-voice-scoring-pass": {
    "id": "promise-ab-voice-scoring-pass",
    "pick": "A",
    "pick_label": "Own it — fix now (machine executes on your word)",
    "note": "",
-   "ts": "2026-10-24T13:44:27"
+   "ts": "2026-10-25T01:39:17"
+  },
+  "promise-qwen3-8-27b-fallback-pull": {
+   "id": "promise-qwen3-8-27b-fallback-pull",
+   "pick": "A",
+   "pick_label": "Own it — fix now (machine executes on your word)",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
   },
   "promise-memory-crowding-consolidate": {
    "id": "promise-memory-crowding-consolidate",
    "pick": "A",
    "pick_label": "Own it — fix now (machine executes on your word)",
    "note": "",
-   "ts": "2026-10-24T13:45:03"
+   "ts": "2026-10-25T01:39:17"
   },
   "publish-media-consolidated": {
    "id": "publish-media-consolidated",
-   "pick": "B",
-   "pick_label": "Publish Poo Baby only",
-   "note": "OK w publishing — B: Poo Baby only, sleeper stays private; the poobaby PDF sequences arent right (flag/exclude)",
-   "ts": "2026-10-24T13:15:33"
+   "pick": "A",
+   "pick_label": "Publish both (reviewed contact sheets first)",
+   "note": "",
+   "ts": "2026-10-25T01:39:17"
+  },
+  "sleeper-donor": {
+   "id": "sleeper-donor",
+   "pick": "C",
+   "pick_label": "Build compat layer",
+   "note": "",
+   "ts": "2026-10-25T20:07:15"
+  },
+  "sleeper-substrate": {
+   "id": "sleeper-substrate",
+   "pick": "D",
+   "pick_label": "Buddhadhamma text (operator's own answer)",
+   "note": "'can we use buddhadhamma as text' — the city's matter = buddhadhamma",
+   "ts": "2026-10-25T20:09:29+08:00"
   }
  },
  "law": "Every call buys something; nothing here is a fail state. Picks are recorded, not judged."

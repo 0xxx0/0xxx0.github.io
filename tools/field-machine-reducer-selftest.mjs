@@ -10,7 +10,7 @@ assert.equal(helpRun.status,0,helpRun.stderr);
 const help=JSON.parse(helpRun.stdout);
 assert.equal(help.schema,'field-machine-entrypoint-help/v0.1');
 assert.equal(help.authority,'NONE');
-assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge','source-witness','crew-handoff']);
+assert.deepEqual(help.modes.map(x=>x.mode),['transcript','transcript-json','crystal','packet-reduce','contribution-converge','source-witness','crew-handoff','crew-turn','crew-response']);
 assert.deepEqual(help.converge_attestations.merge_requires,['ci PASS','exact_head true','base_current true','mergeable true']);
 assert.match(help.converge_attestations.base_current,/behind_by === 0/);
 const llms=fs.readFileSync('llms.txt','utf8');

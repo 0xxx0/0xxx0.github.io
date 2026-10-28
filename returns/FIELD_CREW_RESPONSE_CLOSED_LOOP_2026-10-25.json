@@ -1,0 +1,74 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "field-crew-response-closed-loop-2026-10-25",
+  "result_status": "CHANGED",
+  "source_object": "/control/SUBMISSION_CONTRACT.json#crew_response_projection",
+  "host": "FIELD machine entrypoint / 0xxx0/0xxx0.github.io",
+  "turn_ref": "8419de97b561634b90f4d549c7b276c4d3d9043b",
+  "before": {
+    "handoff": "field-crew-handoff/v0.1 preserved object/intent/moves/evidence/gate/RETURN and field-crew-turn/v0.1 projected one bounded TURN",
+    "missing_function": "No generic FIELD-level receiver read-back to accept, park, or reject the coordination frame without replaying conversation or inventing shared task state."
+  },
+  "after": {
+    "schema": "field-crew-response/v0.1",
+    "actions": [
+      "KEEP",
+      "PARK",
+      "WRONG_FRAME"
+    ],
+    "authority": "NONE / COORDINATION ONLY",
+    "continuity": [
+      "context_handle",
+      "object_ref",
+      "return.target"
+    ],
+    "return": {
+      "next_authority": "NONE"
+    },
+    "entrypoint": "node scripts/emit-agent-transcript.mjs --respond <handoff.json> <KEEP|PARK|WRONG_FRAME> [--json]"
+  },
+  "observed_delta": "A receiver can now close the same-object crew handoff with exactly KEEP, PARK, or WRONG_FRAME. KEEP cannot approve EFFECT/merge/NOW/priority; PARK creates no backlog obligation; WRONG_FRAME requires fresh SOURCE/HOLD before TURN. The response is transient and stateless.",
+  "evidence_refs": [
+    "https://github.com/0xxx0/0xxx0.github.io/pull/1026",
+    "commit:8419de97b561634b90f4d549c7b276c4d3d9043b",
+    "workflow:field-stage-handoff/40170552805:SUCCESS",
+    "workflow:gitleaks/40170552776:SUCCESS",
+    "/lib/field-crew-response.mjs",
+    "/tools/field-crew-response-selftest.mjs",
+    "/scripts/emit-agent-transcript.mjs",
+    "/control/SUBMISSION_CONTRACT.json",
+    "/llms.txt",
+    "/AGENTS.md"
+  ],
+  "trace": {
+    "status": "PASS_TARGETED",
+    "checks": [
+      "closed-loop crew readback coordination-only selftest PASS",
+      "staged object → canonical handoff → KEEP response roundtrip PASS",
+      "bounded execution protocol PASS",
+      "machine entrypoint reducer PASS",
+      "gitleaks PASS",
+      "post-merge master contains response schema, CLI handler, same-object continuity law, KEEP≠EFFECT law, next_authority NONE"
+    ],
+    "public_surface": {
+      "run_id": 40170552854,
+      "status_at_merge": "IN_PROGRESS",
+      "claimed_pass": false,
+      "context": "The predecessor exact-head public suite was rerun and failed on two different unrelated FOLD//BLOOM browser-smoke timeouts. Recent merged PRs also show ambient public-surface failures. This receipt does not relabel that suite green."
+    }
+  },
+  "residue": {
+    "surviving_mechanism": "HANDOFF → KEEP | PARK | WRONG_FRAME → same object → RETURN/NEXT authority NONE",
+    "empirical_question": "Does this materially reduce rebriefing, silent frame drift, and human interruption across real ChatGPT/Codex/Hermes handoffs?",
+    "smallest_real_use_proof": "Use one real cross-agent handoff with a source witness; receiver returns KEEP/PARK/WRONG_FRAME before any TURN; record whether a rebrief or frame repair was needed."
+  },
+  "unknowns": [
+    "Real-world reduction in repeated briefing has not yet been measured.",
+    "Cross-agent uptake outside workers following AGENTS.md/llms.txt is not established.",
+    "The monolithic public-surface-check was not green at merge time and is not claimed as evidence for this capability."
+  ],
+  "unresolved_gate": null,
+  "return_address": "/control/SUBMISSION_CONTRACT.json#crew_response_projection",
+  "closed_at": "2026-10-25T14:52:00+08:00",
+  "next_authority": "NONE"
+}

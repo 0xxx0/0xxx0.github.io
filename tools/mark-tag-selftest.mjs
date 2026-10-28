@@ -114,8 +114,10 @@ const manifest = JSON.parse(read('showcase-manifest.json'));
 const current = JSON.parse(read('control/CURRENT.json'));
 const routes = (manifest.routes || []).filter(r => r.href !== '/');
 const routeMap = new Map(routes.map(r => [r.href, r]));
+const evList = v => Array.isArray(v) ? v
+  : (typeof v === 'string' ? v.split(/\s*\u00b7\s*/).map(t => t.trim()).filter(Boolean) : []);
 const nowHref = f => {
-  const ev = (f.evidence || []).find(x => routeMap.has(x));
+  const ev = evList(f.evidence).find(x => routeMap.has(x));
   if (ev) return ev;
   const m = String(f.center || '').match(/\/[A-Za-z0-9._/-]*\//);
   return m && routeMap.has(m[0]) ? m[0] : '/control/';

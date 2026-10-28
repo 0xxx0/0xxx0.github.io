@@ -1,7 +1,7 @@
 {
  "schema": "field-fold/v2",
- "generated": "2026-10-24T13:18:13.139Z",
- "returns_total": 300,
+ "generated": "2026-10-28T09:01:01.839Z",
+ "returns_total": 303,
  "raw_distinct_states": 115,
  "folded_onto_enum": 4,
  "convergence_ratio": 0.035,
@@ -9,10 +9,10 @@
   "SOURCE": 0,
   "HOLD": 97,
   "RETURN": 148,
-  "RESIDUE": 55
+  "RESIDUE": 58
  },
- "residue_count": 55,
- "unrecorded_count": 52,
+ "residue_count": 58,
+ "unrecorded_count": 55,
  "fraying_count": 3,
  "residue_files": [
   {
@@ -58,13 +58,31 @@
    "kind": "unrecorded"
   },
   {
+   "file": "CREW_TURN_PIPE_EFFECT_GATE_2026-10-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
   },
   {
+   "file": "CURRENT_NEXT_ONE_TURN_CONTRACTION_2026-10-25.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
+   "raw": "",
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_CREW_RESPONSE_CLOSED_LOOP_2026-10-25.json",
    "raw": "",
    "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
    "kind": "unrecorded"
@@ -355,7 +373,7 @@
  "raw_state_histogram": [
   {
    "state": "(none)",
-   "count": 52
+   "count": 55
   },
   {
    "state": "CANDIDATE",
@@ -1047,7 +1065,23 @@
    "why": "candidate / in flight, not landed"
   },
   {
+   "file": "CREW_TURN_PIPE_EFFECT_GATE_2026-10-25.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
+  },
+  {
    "file": "CUBE_HEXAGON_CORRECTION_2026-09-23.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
+  },
+  {
+   "file": "CURRENT_NEXT_ONE_TURN_CONTRACTION_2026-10-25.json",
    "raw": "",
    "phase": "RESIDUE",
    "verified": false,
@@ -1161,6 +1195,14 @@
   },
   {
    "file": "FIELD_CREW_HUMAN_GATE_2026-10-03.json",
+   "raw": "",
+   "phase": "RESIDUE",
+   "verified": false,
+   "why": "no state recorded — UNDETERMINED (absence is not evidence of not-landed)",
+   "residue_kind": "unrecorded"
+  },
+  {
+   "file": "FIELD_CREW_RESPONSE_CLOSED_LOOP_2026-10-25.json",
    "raw": "",
    "phase": "RESIDUE",
    "verified": false,
@@ -2974,18 +3016,18 @@
   }
  ],
  "routes": {
-  "routes_total": 215,
+  "routes_total": 218,
   "route_state_raw_distinct": 10,
   "route_state_folded_onto": 3,
   "route_state_dist": {
    "SOURCE": 42,
-   "HOLD": 40,
-   "RETURN": 133,
+   "HOLD": 41,
+   "RETURN": 135,
    "RESIDUE": 0
   },
   "route_state_residue": [],
-  "operation_distinct": 74,
-  "operation_compound_count": 22,
+  "operation_distinct": 75,
+  "operation_compound_count": 23,
   "operation_debt_sample": [
    "ENTER / ROUTE",
    "REMEMBER / PATH",
@@ -2998,7 +3040,7 @@
   "operation_class_dist": {
    "RECOVER": 11,
    "OPERATE": 5,
-   "SEE": 16,
+   "SEE": 17,
    "MAKE": 21,
    "WAYFIND": 7,
    "PLAY": 13,
@@ -3078,7 +3120,8 @@
    "VERIFY / ALIGN": "SEE",
    "RECOVER / REPRESENT": "RECOVER",
    "LOAD / COMPOSE": "RECOVER",
-   "WITNESS": "SEE"
+   "WITNESS": "SEE",
+   "READ / REFLECT": "SEE"
   }
  },
  "receipt_sync": {
@@ -3101,7 +3144,7 @@
      "phase_distribution.SOURCE: receipt 49 vs map 0",
      "phase_distribution.HOLD: receipt 94 vs map 97",
      "phase_distribution.RETURN: receipt 135 vs map 148",
-     "phase_distribution.RESIDUE: receipt 7 vs map 55",
+     "phase_distribution.RESIDUE: receipt 7 vs map 58",
      "verified_flagged: receipt 95 vs map 73"
     ],
     "needs_counts_as_of": false,

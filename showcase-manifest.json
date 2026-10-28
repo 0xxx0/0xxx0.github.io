@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-10-24T21:14:41.667+08:00",
+  "updated": "2026-10-28T17:00:29+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -59,7 +59,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-10-24T20:57:00+08:00",
+        "updated_at": "2026-10-25T20:19:02+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -67,12 +67,17 @@
           "OPERATE"
         ]
       },
-      "role": "Open the FIELD source, move through actual routes, or bring text/JSON. One exact position carries through scope, plain reading, spatial traversal and native RSVP. Quoted links and local edits remain inspectable; effects remain with the native host.",
+      "role": "One address bar, one held tool with its native action, and a compact tool strip. Aa unfolds the original descriptions, history and status without moving focus. Native map and reader remain explicit tools.",
       "state": "ACTIVE",
-      "receipt": "/returns/FIELD_INDEX_CREW_HANDOFF_0101_2026-10-24.json",
+      "receipt": "/interphase/SPEC.md",
       "machine_view": "FIELD",
-      "version": "0.10.1",
+      "version": "0.10.6",
       "transfer": [
+        "0.10.6 folds words by default: one address bar, one held object/action, compact addressed tool targets, and Aa to unfold existing depth in place. No duplicate command dock or automatic introduction in the folded reading.",
+        "0.10.5 exact re-entry: axis scroll changes selection only after a pointer/touch/wheel gesture on that live strip; layout/history restoration and hidden strips cannot reselect a different route. Keyboard and direct selection remain native.",
+        "0.10.4 quiet entry: the retained AWAKE introduction is loaded only by explicit ?visor=1; ordinary first visit and first HOLD neither load it nor open it. Native map, source reader and original-code continuation remain unchanged.",
+        "0.10.3 restores the readable FIELD host after the operator disconfirmed 0.10.0. Full names replace glyph-only route choices. Native map is opt-in (?instrument=1; compatibility ?work=0); experimental source reader is opt-in (?work=1), loaded lazily. Earlier reader/state proofs do not establish daily usefulness or convergence.",
+        "0.10.2 HELD WALK retained: LIST pins the current source across pagination, WALK follows declared parent/child/peer edges, STEP restores previous position and exact RETURN remains; no inferred relationship or second authority.",
         "0.10.1 CREW HANDOFF: held FIELD HANDOFF replaces the parallel field-action-handoff packet with the canonical SUBMISSION_CONTRACT envelope — exact object, intent, ≤3 host-derived moves, CURRENT human/world gate, evidence refs and exact RETURN. Receiver labels are informational; copied handoff grants no NOW/effect/merge authority.",
         "0.10.0 supersedes the disconfirmed 0.9.0 aggregation: source ranges and attention replace iframe/workflow UI; native authority remains unequal",
         "0.9.0 INTERPHASE+: root opens the existing /interphase/ workbench; source → AT/WHERE/PICK/SORT/TAKE/UNIQUE → addressed result → READ/ROOM → checked RETURN. Explicit same-origin focus correspondence joins FIELD and workbench. Ω 0.4, history, Dayline/Fan, AXIS, extensions and package transport are recovered rather than rewritten. No new route or source authority.",
@@ -364,7 +369,7 @@
         "owner": "DAYLINE"
       },
       "index": {
-        "updated_at": "2026-10-18T17:44:10+08:00",
+        "updated_at": "2026-10-25T20:21:30+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY",
@@ -1731,9 +1736,9 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Read exact source text through scale, pace, voice, JSON structure and a compact wrist layout. READ, STRUCT and WRIST preserve the same source bytes and addressed character; tree selection changes the reading position. Local bytes remain session-only; LISTEN retains its own audio clock and native hosts retain effects.",
+      "role": "Read, annotate and review one exact source. Set a reading purpose, trace literal terms, attach interpretations or questions to revision-checked passages, and fold excerpts into a working conclusion. READ, STRUCT and WRIST retain the same source/cursor. Full local source stays session-only; bounded annotation quotes and notes persist device-locally with export. LISTEN retains its audio clock.",
       "index": {
-        "updated_at": "2026-10-24T20:47:08.919+08:00",
+        "updated_at": "2026-10-24T20:47:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -1743,7 +1748,7 @@
         "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
         "INTERPHASE 0.2 adapter: the existing Aperture cursor is exposed as shared address/focus state; no second text cursor",
         "PLAIN remains an explicit geometry-free performance fallback",
-        "FOCUS is the visible default and projects AXIAL address/aperture rings + Triangle center frame over the same cursor",
+        "FOCUS is the visible default; the compact reading ring shows source position, literal search occurrences and revision-checked human annotations over the same cursor",
         "MIN reduces the focus lens to ring + ORP/RSVP essentials",
         "LISTEN FIELD PULSE supplies clock/energy witness only; borrowed clock != borrowed authorship",
         "Glyph Atlas document handoff may carry the already-derived exact-source glyph witness without changing text identity",
@@ -1759,7 +1764,7 @@
         "session-local downloaded text/Markdown/JSON/CSV/log/YAML/source/SVG intake through the same RSVP/focus/voice/LOCI kernel",
         "task chains preserve the same cursor across SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN",
         "local-file epoch repair: explicit phone/file selection preempts stale repository source completion",
-        "device-local field-source-trail/v0.1 keeps bounded VISITED/MARKED continuity without storing source bytes or inferring completion",
+        "device-local field-source-trail/v0.1 keeps VISITED/MARKED continuity plus bounded exact annotation quotes, human notes and reading intent; no inferred understanding or completion",
         "RIDE LIVE return is EVIDENCE_ONLY; READFIELD re-hashes current bytes and requires exact native [start,end] before one cursor restore; stale/malformed return is zero-mutation",
         "0.8.6: exact JSON key/value spans, READ↔STRUCT selected-node continuity, shared WRIST engine/trail, SHA-256 checked handoff and exact cursor RETURN; no JSON source reserialization"
       ],
@@ -2148,7 +2153,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-10-24T20:03:08.675+08:00",
+        "updated_at": "2026-10-24T20:03:08+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -8104,7 +8109,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-24T23:42:38+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -8785,7 +8790,7 @@
         "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-10-24T19:54:49.279+08:00",
+        "updated_at": "2026-10-25T20:13:22+08:00",
         "work_modes": [
           "PLAY",
           "VERIFY",
@@ -8796,7 +8801,12 @@
       "project": "/sleeper/project/",
       "tier": "FIELD",
       "role": "Canonical SLEEPER // ONE RETURN v2 City Engine: phrase + verse cell + figure compile one deterministic city; enacted Gates and ordered route evidence return to origin as Return Artifact v2. Current convergence treats Sleeper as a path/witness host for same-world route comparison, ghosts and optional transportation readings; FIELD/STEP donors may compose at the aperture boundary without taking City Engine authority.",
-      "latest_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json"
+      "latest_return": "/returns/SLEEPER_HUMAN_RETURN_0C4VA6Q_2026-09-27.json",
+      "updated_at": "2026-10-24T23:59:30+08:00",
+      "work_modes": [
+        "IMPLEMENT",
+        "VERIFY"
+      ]
     },
     {
       "href": "/sleeper/axis-score.html",
@@ -8818,7 +8828,7 @@
         "POV / THE BELL: first-person wall geometry, enacted conditional branch, nonlinear loop, real passage opening, branchable state rewinding with ghost, source link; illustrative model only"
       ],
       "index": {
-        "updated_at": "2026-10-24T21:14:41.667+08:00",
+        "updated_at": "2026-10-24T21:14:41+08:00",
         "work_modes": [
           "IMPLEMENT",
           "PLAY",
@@ -9037,6 +9047,97 @@
       "tier": "FIELD"
     },
     {
+      "href": "/sleeper/ladder/",
+      "title": "SLEEPER // LADDER 0.6.4",
+      "kind": "experiment",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PLAY / PROVE / RETURN",
+      "state": "CANDIDATE",
+      "version": "0.6.4",
+      "showcase_card": false,
+      "receipt": "/sleeper/ladder/release.json",
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/sleeper/",
+        "generation": 5,
+        "stage": "TEST",
+        "question": "The instrument's eight gates and its source section's eight path factors were the same number and never met: can binding gate i to path factor i — quoted from the text's own account of that factor, six of them enacted rather than asked — and making the walk cost breath turn a reading check into a practice?",
+        "baseline": "LADDER 0.4.0: eight gates at arbitrary quantiles of the walk's distance field running generic cloze quizzes drawn from whichever district they stood in; one gate (right view) enacted. The source text is Section 7 'Path Factors' and the gates knew nothing about the factors. The walk had no stake: nothing could be lost, so nothing was at risk.",
+        "mutation": "Gate i asks path factor i in the text's own order (MN 117, quoted at Ch. 16 ¶15; verified against the corpus, not assumed). Each factor's own paragraph is quoted verbatim with its locator; the build refuses an address that does not carry the factor's name. Six factors are enacted: right view (hold until the district's shape resolves), right thought (let go of the three wrong thoughts), right speech (say none of the four), right effort (four steps), right mindfulness (go back onto walked ground), right concentration (stay still). Two ask one word of their own sentence (right action, right livelihood) because their accounts are definitions with no gesture in them. The walk costs breath = the city's 50 sentences + 28 paragraphs = 78: a step costs 1, a failed gate 3, and at 0 the walk ends where it stands. The gate now speaks its factor, its sentence and its ask in three lines. REMOVED: placeGates + quantile targets, gateCard + seven generic cloze gates, SIGHT_GATES. No route, element or control added (page still has four elements).",
+        "evidence_gate": "ladder-selftest 142/142 (and 142/142 with --rgba on the real painting): the doctrine's order read out of the corpus, all eight quotes verified against their addressed paragraph (8/8) plus a neighbouring-address negative, the city digest identical to 0.4.0 (18ac9948) and unchanged when the factors block is dropped, budget 50+28=78 with monotone spend and no refill, one road whose legs cost their step difference (58 steps on the real painting). Browser 390x844 and 1280x577: a full walk of the eight factors — 8/8 gates lit, breath 15 of 78, exit line 'exited · 63 steps · 8/8 gates · 15 ¶ read · breath 15 of 78'; a real click on the silence gate failed it (breath -3); a second walk spent all 78 steps and ended 'the breath is spent'. Phone card: each of the three lines ends within 2px of its own measured width (no overprint), page has no overflow.",
+        "next_if_pass": "Carry the factor table into the exit line (which factors were done, which were left), and let the ledger remember done factors across walks so the eight can be finished over days without the lamps resetting.",
+        "next_if_fail": "If the acts read as a gauntlet rather than a practice, keep the binding and the words and drop the blocking: a gate you may pass undone but that leaves its lamp dark."
+      },
+      "role": "The four-distance resolution ladder, built out of Buddhadhamma: FAR is the Borrowed River painting, NEAR resolves its brushwork into the whole 96x32 character field, ENTERED is a walkable window whose matter is P. A. Payutto's Buddhadhamma (Section 7, chapters 16-18; paragraph = district, sentence = building, word = room, character = material), and EXITED recomposes the painting from the walked U/D/L/R witness. 0.5.0 binds the eight gates to the section's eight path factors in the text's own order: six are thresholds you cannot pass until you have DONE the factor (seen, let go, said none, walked, gone back, stayed), two ask one word of the factor's own sentence, and every gate says who it is, what the text says, and what it asks. The walk is paid for in breath — the city's own sentence and paragraph counts — and ends where the breath does.",
+      "transfer": [
+        "painting sha256 -> one hash32 tag f0f09635 = painting identity = city identity = artifact identity",
+        "selected text sha256 -> one hash32 fingerprint bbbe96ac = source identity (a different selection is a different artifact)",
+        "walked U/D/L/R witness -> deterministic recomposition + measured divergence (mad64 / changedPx / sha256)",
+        "image statistics -> walkable city field (walls from the edge quantile that opens the largest district)",
+        "cell edge -> wall face (the drawn boundary) and, in the eye, the block's height",
+        "walker cell + district run -> reading-head ordinal (n - n0 + 1 of n1 - n0 + 1), the ring's arc and its seam",
+        "book text -> district/building/room/material matter, drawn counts asserted against the source",
+        "district punctuation -> a weather body; carried weather -> a district's weather (the fold, not an assignment)",
+        "path factor table (paragraph -> verbatim quote + locator + the text's own list) -> gate i's factor, its act, and the three lines it says",
+        "the city's own counts (sentences + paragraphs) -> the walk's breath budget; a step 1, a failed gate 3, no refill"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "U/D/L/R route witness"
+          ],
+          "requires": [
+            "sleeper.borrowed-river/landscape.jpg",
+            "sleeper/ladder/source-dhamma.json (sleeper/source-slice@1)"
+          ]
+        },
+        "transforms": {
+          "verb": "resolve a painting into its walkable city at four distances, then recompose the painting from the route",
+          "preserves": [
+            "painting identity",
+            "source provenance",
+            "route witness",
+            "origin reconstruction"
+          ],
+          "reversibility": "full - the empty witness recomposes the original bytes",
+          "side_effects": "browser-local runtime state only"
+        },
+        "emits": {
+          "kinds": [
+            "recomposed painting",
+            "route witness",
+            "in-page determinism measurements"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/sleeper/ladder/release.json",
+          "checks": [
+            "node sleeper/ladder/ladder-selftest.mjs — 142 passed, 0 failed, 0 skipped; also 142/142 with --rgba on the real painting (2172x724). New arms: the doctrine's own order read out of the corpus; the eight quotes verified against their addressed paragraphs; the text's own lists; a seven-factor or unknown-act slice refused; the city digest identical to 0.4.0 and unchanged without the factors block; budget 78 = 50+28 with monotone spend and no refill; one road, each leg costing its step difference",
+            "browser 390x844 dpr2 + 1280x577 — a full walk of the eight factors: gate 1 rise -> lit, gate 2 three holds -> lit, gate 3 four speeches out while still -> lit (a real click on the ring failed it, -3 breath), gates 4-5 answered from the doors ('abstain', 'abandoned'), gate 6 four steps -> lit, gate 7 one step back -> lit, gate 8 stillness -> lit; 8/8 with breath 15 of 78; a second walk spent the 78 steps and ended 'the breath is spent'",
+            "determinism: painting tag f0f09635, source fingerprint bbbe96ac, city digest 18ac9948 unchanged from 0.4.0; same route twice -> identical sha256; empty witness -> mad64 0, changedPx 0; gate placement deterministic and moved by a different painting",
+            "surface budget: four page elements, no form control, no new route; the gate table is one appended key in source-dhamma.json (+3.3 KB)"
+          ],
+          "return_path": "/sleeper/ladder/"
+        },
+        "requires": [
+          "sleeper.borrowed-river/landscape.jpg",
+          "sleeper/ladder/source-dhamma.json (sleeper/source-slice@1)"
+        ]
+      },
+      "spec": "/sleeper/ladder/SPEC.md",
+      "index": {
+        "updated_at": "2026-10-28T17:00:29+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/sleeper/one-return/",
       "title": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
       "kind": "artifact",
@@ -9085,7 +9186,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-10-06T23:37:33+08:00",
+        "updated_at": "2026-10-25T20:13:22+08:00",
         "work_modes": [
           "VERIFY",
           "RECOVER",
@@ -9626,21 +9727,28 @@
     },
     {
       "href": "/field/",
-      "title": "FIELD — instruments",
-      "kind": "index",
+      "title": "FIELD — what changed",
+      "kind": "instrument",
       "parent": "/",
       "operation": "OPERATE",
       "state": "ACTIVE",
       "versionless": true,
       "showcase_card": false,
       "family": "FIELD / OPS",
-      "role": "Hub of the field's own instruments: FIELD INDEX root, AXIAL shadow probe, MOIRÉ ROUTE mismatch instrument, FOVEA lens. Was a silent 404 — /field/ had instrument subdirectories and no index.",
+      "role": "One change instrument over the house's own records: the last-24h ledger (authored commits by workstream, route recency, operator call answers, job runs with exit+duration, returns) with the 24-72h window folded beneath it. Every row is a measured local record with a one-tap target; machine clockwork collapses to one counted row; a source with nothing in the window says so. Replaces the hand-typed four-card hub; FOVEA is billed here as the LENS preset, its route unchanged until FLOWER-KEY proves equivalence (deletion-map A.1). Generated by scripts/build-field-delta.py, whose --check mode is the drift gate.",
       "index": {
-        "updated_at": "2026-10-19T12:02:02+08:00",
+        "updated_at": "2026-10-25T20:19:02+08:00",
         "work_modes": [
           "OPERATE",
           "IMPLEMENT",
           "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "scripts/build-field-delta.py --check: committed field/data.json matches a fresh render",
+          "390px: 0px horizontal overflow; rows expand on tap; all five sources present",
+          "check-route-registration exit 0; finish-line --check green"
         ]
       }
     },
@@ -9746,7 +9854,7 @@
       "showcase_card": true,
       "role": "One source-space instrument for exact text and JSON: focus, contained scope, plain/walk/native RSVP, quoted paths, local edit/undo and checked RETURN. Recovered Ω/history/Dayline/AXIS remain behind the explicit legacy entry.",
       "index": {
-        "updated_at": "2026-10-24T17:03:33+08:00",
+        "updated_at": "2026-10-25T02:22:16+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -10328,7 +10436,7 @@
       "family": "FIELD / OPS",
       "role": "The decision queue surface: everything that needs a human tap. One-line asks, letter-pick answers via one-tap Telegram deep links, fold receipts. Projection of sovereign-node/corpus/calls/calls.json; regenerate with scripts/build-calls.py.",
       "index": {
-        "updated_at": "2026-10-24T13:55:38+08:00",
+        "updated_at": "2026-10-28T15:53:25+08:00",
         "work_modes": [
           "OPERATE",
           "IMPLEMENT",
@@ -10346,7 +10454,7 @@
       "family": "FIELD / READ",
       "role": "Compact layout over the existing READFIELD engine and source trail. Fixed ORP, progress ring, local text/JSON, shared source/cursor/pace and explicit RETURN to READFIELD. No independent tokenizer, playback timer or position store. Browser-tested at 180px; physical watch usability remains unmeasured.",
       "index": {
-        "updated_at": "2026-10-24T13:15:00+08:00",
+        "updated_at": "2026-10-26T16:00:40+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
@@ -10727,6 +10835,63 @@
           "RESEARCH"
         ]
       }
+    },
+    {
+      "href": "/decide/",
+      "title": "THE DESK — 14 escalated + 10 calls",
+      "kind": "instrument",
+      "parent": "/calls/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "versionless": true,
+      "showcase_card": false,
+      "family": "FIELD / OPS",
+      "role": "Decision surface: 14 escalated promises pre-set to kestrel's recommendation with reasons + 10 open calls with real options. Tap, copy the one-line reply, paste back to execute. 12 closed / 1 snoozed / 1 held on 2026-10-24.",
+      "index": {
+        "updated_at": "2026-10-25T01:42:44+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/field/at-night/",
+      "title": "THE FIELD AT NIGHT",
+      "parent": "/field/",
+      "kind": "art",
+      "state": "ACTIVE",
+      "version": "2026-10-25",
+      "role": "Two months of machine sessions drawn as a night sky: each star is one session, sized by its message count and coloured by profile. Aggregate data only — profile, date, count, and whether the session was human-facing or machine. No message text, no titles, no ids. Quiet by default; the layers control isolates the human-facing set.",
+      "operation": "READ / REFLECT",
+      "receipt": "/field/at-night/",
+      "index": {
+        "updated_at": "2026-10-25T01:55:09+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "field": {
+        "roles": [
+          "PROJECTION"
+        ],
+        "inputs": [],
+        "outputs": [
+          {
+            "medium": "DRAWING",
+            "kind": "aggregate star map"
+          }
+        ],
+        "exit_paths": [
+          {
+            "status": "AVAILABLE",
+            "via": "/field/",
+            "class": "RETURN"
+          }
+        ]
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [

@@ -1,0 +1,145 @@
+/* Existing FIELD host / one-screen glyph landing.
+   The bar, native held aperture and every CURRENT glyph are visible together.
+   Aa reveals only the held object's existing detail in this projection.
+   Native :work/:prove/:trace and instrument/reader own further depth.
+   No replacement store, tool-picker, card renderer or action authority. */
+html[data-field-words]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar){
+  width:min(850px,100%);margin:0 auto!important;
+  padding:clamp(70px,19svh,184px) clamp(10px,2vw,20px) 16px!important;
+  min-height:calc(100svh - 32px);
+}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) main:has(> #fieldUrlBar) > :where(:not(#fieldUrlBar):not(script):not(style):not(#fieldInstrument)){display:none!important}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar{
+ margin:0!important;top:max(0px,env(safe-area-inset-top));z-index:100;
+}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlFrame{
+ border-color:var(--line);box-shadow:inset 2px 0 0 var(--cool);height:52px;
+}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlInput{
+ font-size:clamp(16px,2.5vw,17px);font-weight:550;letter-spacing:0;
+}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlPanel{
+ max-height:min(62svh,480px);overscroll-behavior:contain;
+}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlRow{
+ min-height:48px;grid-template-columns:38px minmax(0,1fr) auto;
+}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlBody b{font-size:clamp(12px,2.1vw,14px)}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlBody code{font-size:11px}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlTail{font-size:9px}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"]) #fieldUrlBar .fieldUrlTail b{font-size:10px}
+/* Only an explicit action opens a bounded, native region. The original
+   reading, glyphs, work/proof and exact owners are not cloned here. */
+html[data-field-words][data-field-bar-pane="hold"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words][data-field-bar-pane="work"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words][data-field-bar-pane="prove"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words][data-field-bar-pane="trace"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#axialLatest,
+html[data-field-words][data-field-bar-pane="trace"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#statusFold,
+html[data-field-words][data-field-bar-pane="map"]:not([data-instrument="1"]) main:has(> #fieldUrlBar)>#statusFold{display:block!important}
+html[data-field-words][data-field-bar-pane]:not([data-field-bar-pane="none"]):not([data-instrument="1"]) main:has(> #fieldUrlBar){padding-top:clamp(12px,4svh,40px)!important}
+html[data-field-words][data-field-bar-pane]:not([data-field-bar-pane="none"]):not([data-instrument="1"]) #axialLatest{margin-top:8px!important}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #axialLatest > :not(#aperture){display:none!important}
+html[data-field-words][data-field-bar-pane="work"]:not([data-instrument="1"]) #axialLatest>#workDepth,
+html[data-field-words][data-field-bar-pane="prove"]:not([data-instrument="1"]) #axialLatest>#refineFold,
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest>#feedRail{display:grid!important}
+html[data-field-words][data-field-bar-pane="trace"]:not([data-instrument="1"]) #statusFold>.foldBody.nested>:not(#traceFold),
+html[data-field-words][data-field-bar-pane="map"]:not([data-instrument="1"]) #statusFold>.foldBody.nested>:not(#mapFold){display:none!important}
+/* All CURRENT heads in one viewport: wrap canonical glyph marks, never names/cards.
+   A 320px phone gives five columns; 390px gives six; desktop fits all eleven.
+   Native aria-label/title preserve exact source names and paths. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest > #feedRail{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fill,minmax(52px,56px));
+  justify-content:center;
+  align-content:start;
+  gap:4px;
+  max-width:100%;
+  overflow:visible;
+  padding:6px 2px 7px;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedChip{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:1fr!important;
+  place-items:center;
+  width:100%!important;min-width:0;max-width:56px;
+  height:56px!important;min-height:56px!important;
+  padding:5px!important;margin:0;
+  border:1px solid transparent;
+  box-shadow:none;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedChip.on{
+  border-color:var(--hot);background:var(--p2);
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedName,
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedChip tt{
+  display:none!important;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedDay{
+  display:none!important;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail svg{
+  width:36px!important;height:36px!important;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedChip:focus-visible{
+  outline:2px solid var(--hot);outline-offset:-2px;
+}
+
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) .feedName{pointer-events:none}
+html[data-field-words][data-field-bar-pane="work"]:not([data-instrument="1"]) #workDepth,
+html[data-field-words][data-field-bar-pane="prove"]:not([data-instrument="1"]) #refineFold{margin-top:8px}
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #aperture{border-top:0}
+@media(max-width:520px){
+ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) main:has(> #fieldUrlBar){padding-left:6px!important;padding-right:6px!important}
+ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlProto{padding-inline:5px;font-size:9px}
+ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlFrame{grid-template-columns:auto 32px minmax(0,1fr) 36px 40px}
+ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlBody code{font-size:10px}
+ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #fieldUrlBar .fieldUrlTail{max-width:10ch}
+}
+@media(prefers-reduced-motion:reduce){html[data-field-bar-pane] #fieldUrlBar *{scroll-behavior:auto!important}}
+
+/* Aa never resurrects the tall legacy card/grid on the compact entry.
+   It opens one clipped, source-owned held reading; further detail remains
+   available through :work, :prove, :trace, and native views. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #aperture{
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr) auto;
+  gap:8px;padding:6px 4px;border:0;align-items:center;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apGlyph,
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apGlyph svg{
+  max-width:40px;max-height:40px;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apTitle{
+  font-size:clamp(14px,4vw,19px);line-height:1.15;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #aperture :is(.apFlow,.apForecast,.apOutcome){
+  display:none!important;
+}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) .apActions button{
+  display:none!important;
+}
+html[data-field-words="open"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #aperture :is(.apMeta,.apPath,.apReading){
+  display:block!important;
+  font-size:10px;line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html[data-field-words="open"][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apRole{
+  display:-webkit-box!important;
+  -webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;
+  overflow:hidden;margin:4px 0 0;max-height:2.8em;
+  font:11px/1.35 system-ui,sans-serif;
+}
+html[data-field-words="open"][data-field-bar-pane="browse"]:not([data-instrument="1"]) main:has(> #fieldUrlBar) > #workedOn{
+  display:none!important;
+}
+@media(max-width:350px){
+ html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #axialLatest > #feedRail{
+   grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;
+ }
+ html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #feedRail .feedChip{
+   width:100%!important;max-width:56px;
+ }
+}

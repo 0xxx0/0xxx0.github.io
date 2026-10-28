@@ -5,7 +5,7 @@ const assert=require('node:assert/strict');
 const visor=fs.readFileSync('field-awake-visor.js','utf8');
 const presentation=fs.readFileSync('field-presentation.js','utf8');
 
-assert.match(presentation,/import\('\.\/field-awake-visor\.js'\)/,'FIELD presentation must load AWAKE visor');
+assert.match(presentation,/import\('\.\/field-awake-visor\.js\?v=[^']+'\)/,'explicit AWAKE mode must retain its versioned import');
 assert.match(visor,/FieldIndexCarrier\?\.current\?\.\(\)/,'visor must read the canonical FIELD INTERPHASE carrier');
 assert.match(visor,/\/recovery\/semantic-painting-v0\.8\//,'exact painting-backed donor address missing');
 for(const pair of ["['WAKE','SOURCE']","['CUT','FRAME']","['HOLD','FOCUS']","['TURN','OPERATE']","['TRACE','WITNESS']","['AGAIN','RETURN']"]){

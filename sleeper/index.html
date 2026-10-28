@@ -21,9 +21,9 @@
       <label>VERSE CELL<select id="cell"></select></label>
       <label>FIGURE<select id="figure"></select></label>
     </div>
-    <div id="worldPreview" class="world-preview tiny"></div>
+    <div id="worldPreview" class="world-preview tiny"></div><div id="sourceApertureStatus" class="small cyan hidden" role="status"></div>
     <div class="boot-actions"><button id="enter" class="primary caps">ENTER YOUR CITY →</button><button id="resume" class="secondary caps hidden">RESUME LAST WORLD</button></div>
-    <div class="tiny" style="margin:12px 0 0"><a href="./axis-score.html?bell=1">THE BELL / FIRST-PERSON ENCOUNTER ↗</a> · <a href="./axis-score.html">AXIS SCORE / SOURCE INSTRUMENT ↗</a> · companion experiences; ONE RETURN Gates remain native</div>
+    <div class="tiny" style="margin:12px 0 0"><a href="./axis-score.html?read=1&amp;ladderFactor=0">READ BUDDHADHAMMA / EIGHT FACTORS ↗</a> · <a href="./axis-score.html?bell=1">THE BELL / READ & THREADWALK ↗</a> · <a href="./axis-score.html?src=%2Frecovery%2Fsleeper%2Fsite-source-2026-09-18%2Fdocs%2FONE_RETURN_V2.md">READ ORIGINAL SLEEPER SPEC ↗</a> · <a href="./axis-score.html">OPEN YOUR OWN SOURCE ↗</a> · companion experiences; ONE RETURN Gates remain native</div>
     <details class="provenance"><summary>SOURCE / MECHANISM / LIMITS</summary>PROVENANCE: exact recovered law/source remains at <code>/recovery/sleeper/site-source-2026-09-18/</code>. This static port preserves deterministic compilation, city layout, Gate protocols and Return Artifact v2 derivation, while adding evidence-only route traces and inspection projections. Historical deployment byte identity is not claimed. PLAN / TRACE cannot satisfy or fabricate Gate proof.</details>
   </div>
 </section>
@@ -60,7 +60,8 @@
         <div class="material-controls" aria-label="City material"><button data-material="woven" aria-pressed="true">WOVEN</button><button data-material="glyph" aria-pressed="false">GLYPH</button><button id="soundBtn" aria-pressed="false">SOUND OFF</button></div>
         <div class="tiny dim">Material and sound change how the city reads. SPIRAL remains the proof-bearing fold.</div>
       </div>
-      <div class="section"><h2>ACTIVE APERTURE</h2><div id="nearGate" class="small">NO GATE IN RANGE</div><div class="progress"><i id="gateProgress"></i></div></div>
+      <div class="section hidden" id="sourceWitnessPanel"><h2>SOURCE / HELD ADDRESS</h2><div id="sourceWitnessText" class="small"></div><button id="sourceBackNow" type="button" class="secondary">↩ SOURCE NOW · NO GATE CLAIM</button></div>
+       <div class="section"><h2>ACTIVE APERTURE</h2><div id="nearGate" class="small">NO GATE IN RANGE</div><div class="progress"><i id="gateProgress"></i></div></div>
       <div class="section"><h2>EIGHT GATES</h2><div id="gates" class="gate-list"></div></div>
       <div class="section"><h2>PROOF LEDGER</h2><div id="proofs" class="proofs">NO PROOFS YET.</div></div>
       <div class="section"><h2>TRACE</h2><div id="log" class="log"></div></div>
@@ -85,6 +86,7 @@ const baseNewGame=newGame;
 newGame=function(...args){const next=baseNewGame(...args);next.lastHudAt=0;return next};
 </script>
 <script src="./native-views.js"></script>
+<script src="./source-aperture.js"></script>
 <script src="./native-ui.js"></script>
 <script src="./native-presence.js"></script>
 </body>

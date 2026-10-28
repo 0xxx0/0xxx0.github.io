@@ -1,0 +1,56 @@
+{
+  "schema": "0xxx0/return-receipt/v0.2",
+  "id": "crew-turn-pipe-effect-gate-2026-10-25",
+  "result_status": "CHANGED",
+  "source_object": "field crew handoff / minimum execution projection",
+  "host": "0xxx0/0xxx0.github.io",
+  "turn_ref": "32d6655df920a89c6f5137bf6cd28444e38083cf",
+  "before": {
+    "handoff": "field-crew-handoff/v0.1 existed and preserved object/intent/moves/evidence/RETURN",
+    "friction": "--handoff required a JSON file path; the contract described field-crew-turn/v0.1 but no CLI emitted it",
+    "safety_gap": "selected EFFECT + human gate UNSPECIFIED could still reduce to TURN_READY"
+  },
+  "after": {
+    "handoff": "--handoff accepts <submission.json|-> so another worker can pipe JSON over stdin",
+    "crew_turn": "--turn <submission.json|-> emits the existing minimum field-crew-turn/v0.1 only after handoff/source-witness preflight reaches TURN_READY",
+    "owner": "native owner resolves from showcase-manifest route.field.owner; FIELD root resolves explicitly to FIELD INDEX; missing owner fails closed",
+    "safety": "selected EFFECT + UNSPECIFIED human gate now becomes HUMAN_REQUIRED until gate is explicit",
+    "proof": "tools/field-crew-handoff-selftest.mjs covers EDIT, EFFECT, explicit NONE, CHOOSE, >3 moves and unresolved selected TURN"
+  },
+  "observed_delta": "Crew mates can now pass one selected same-object bounded TURN through stdin without manufacturing a transient packet file, while an EFFECT cannot become coordination-ready under an unspecified human interruption gate.",
+  "evidence_refs": [
+    "commit:32d6655df920a89c6f5137bf6cd28444e38083cf",
+    "/lib/field-crew-handoff.mjs",
+    "/scripts/emit-agent-transcript.mjs",
+    "/control/SUBMISSION_CONTRACT.json",
+    "/llms.txt",
+    "/tools/field-crew-handoff-selftest.mjs"
+  ],
+  "residue": {
+    "pipe_example": "cat submission.json | node scripts/emit-agent-transcript.mjs --turn - --json",
+    "handoff_example": "cat submission.json | node scripts/emit-agent-transcript.mjs --handoff - --json",
+    "law": "same object > shared hidden state; packet authority remains NONE; native RELEASE/effect stays native",
+    "first_attempt": "An attempted precommit syntax check used an invalid Function-based ESM check and stopped before any repo mutation; it was discarded rather than treated as repo evidence."
+  },
+  "unknowns": [
+    "No GitHub workflow run/status was attached to TURN commit at TRACE time.",
+    "The current execution environment could not clone GitHub for local Node execution because outbound DNS is unavailable; runtime selftest execution is therefore not claimed here."
+  ],
+  "unresolved_gate": "Runtime/CI proof remains available when a normal checkout or workflow executes node tools/field-crew-handoff-selftest.mjs; this does not authorize further mutation.",
+  "return_address": "/llms.txt#human-agent-agent-agent-crew-handoff",
+  "closed_at": "2026-10-25T14:30:00+08:00",
+  "next_authority": "NONE",
+  "trace": {
+    "status": "PASS_STATIC / RUNTIME_UNKNOWN",
+    "checks": [
+      "TURN commit touched exactly the five declared crew-control files",
+      "EFFECT + UNSPECIFIED guard present",
+      "projectCrewTurn export and field-crew-turn/v0.1 projection present",
+      "stdin reader and --turn CLI present",
+      "manifest-owner resolver present",
+      "SUBMISSION_CONTRACT compiler/effect laws present",
+      "llms machine hook present",
+      "dedicated selftest fixtures present"
+    ]
+  }
+}

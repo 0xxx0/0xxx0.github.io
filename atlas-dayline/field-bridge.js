@@ -39,10 +39,11 @@ function renderHandoff(){
  const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||'',replacePrefix:payload.replacePrefix||''});else if(kind==='TASK')api().addFieldTask(payload.task||{});else throw Error('unsupported handoff kind');sessionStorage.removeItem(HANDOFF);renderHandoff();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
  a.appendChild(take);if(h.return_to){const back=document.createElement('a');back.href=h.return_to;back.textContent='BACK';a.appendChild(back)}const drop=document.createElement('button');drop.textContent='CLEAR';drop.onclick=clearHandoff;a.appendChild(drop);d.appendChild(a);host.appendChild(d)
 }
+const evList=v=>Array.isArray(v)?v:(typeof v==='string'?v.split(/\s*\u00b7\s*/).map(t=>t.trim()).filter(Boolean):[]);
 function render(){
  const f=document.getElementById('flFronts'),g=document.getElementById('flGates');f.textContent='';g.textContent='';
  const fronts=(current?.active_fronts||[]).filter(x=>String(x.state||'').includes('ACTIVE')).slice(0,3);
- for(const x of fronts)f.appendChild(row({title:'FIELD / '+String(x.id||'front').toUpperCase(),body:x.objective||x.center||'',sourceRef:'/control/CURRENT.json#active_fronts/'+x.id,sourceUpdated:current.updated,provenance:'FIELD CURRENT '+current.updated+' / '+x.id,notes:[x.center,x.objective,'Evidence: '+(x.evidence||[]).join(', ')].filter(Boolean).join('\n'),contexts:['computer'],duration:25,value:5}));
+ for(const x of fronts)f.appendChild(row({title:'FIELD / '+String(x.id||'front').toUpperCase(),body:x.objective||x.center||'',sourceRef:'/control/CURRENT.json#active_fronts/'+x.id,sourceUpdated:current.updated,provenance:'FIELD CURRENT '+current.updated+' / '+x.id,notes:[x.center,x.objective,'Evidence: '+evList(x.evidence).join(', ')].filter(Boolean).join('\n'),contexts:['computer'],duration:25,value:5}));
  if(!fronts.length)f.innerHTML='<div class="fl-row"><div><strong>NO ACTIVE FRONT</strong><p>Nothing is promoted into the day.</p></div></div>';
  const gates=(current?.current_heads||[]).filter(h=>h.next_executable).slice(0,8);
  for(const h of gates){const n=h.next_executable||{};g.appendChild(row({title:(h.lineage||'head')+' / '+(n.id||'gate'),body:n.objective||n.state||'',sourceRef:'/control/CURRENT.json#current_heads/'+(h.lineage||''),route:h.route||'/'},true))}

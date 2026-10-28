@@ -6,6 +6,8 @@ on:
       - 'tools/field-hermes-run.mjs'
       - 'tools/field-terminal-lens.mjs'
       - 'lib/field-crew-handoff.mjs'
+      - 'lib/field-crew-response.mjs'
+      - 'tools/field-crew-response-selftest.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
       - 'control/CURRENT.json'
@@ -20,6 +22,8 @@ on:
       - 'tools/field-hermes-run.mjs'
       - 'tools/field-terminal-lens.mjs'
       - 'lib/field-crew-handoff.mjs'
+      - 'lib/field-crew-response.mjs'
+      - 'tools/field-crew-response-selftest.mjs'
       - 'scripts/emit-agent-transcript.mjs'
       - 'control/SUBMISSION_CONTRACT.json'
       - 'control/CURRENT.json'
@@ -46,6 +50,8 @@ jobs:
         run: node --check tools/field-terminal-lens.mjs
       - name: Prove exact-object staging stays authority NONE
         run: node tools/field-stage-handoff.mjs --selftest
+      - name: Prove closed-loop crew readback stays coordination-only
+        run: node tools/field-crew-response-selftest.mjs
       - name: Prove Hermes bridge stays loopback and authority NONE
         run: node tools/field-hermes-run.mjs --selftest
       - name: Prove terminal lens stays projection-only
@@ -65,6 +71,17 @@ jobs:
           if((h.hold.moves||[]).length>3)throw Error('move bound drift');
           if((h.hold.moves||[]).some(m=>m.authority!=='OFFER'))throw Error('derived move authority drift');
           console.log('FIELD STAGE → CREW HANDOFF ROUNDTRIP PASS · '+h.context_handle+' · '+h.status.state);
+          NODE
+          node scripts/emit-agent-transcript.mjs --respond /tmp/field-handoff.json KEEP --json > /tmp/field-response.json
+          node - <<'NODE'
+          const fs=require('fs');
+          const h=JSON.parse(fs.readFileSync('/tmp/field-handoff.json','utf8'));
+          const r=JSON.parse(fs.readFileSync('/tmp/field-response.json','utf8'));
+          if(r.schema!=='field-crew-response/v0.1')throw Error('response schema drift');
+          if(r.context_handle!==h.context_handle||r.object_ref!==h.source.object_ref)throw Error('response object drift');
+          if(r.action!=='KEEP'||r.authority!=='NONE / COORDINATION ONLY')throw Error('response acquired authority');
+          if(r.return.next_authority!=='NONE')throw Error('response minted NEXT authority');
+          console.log('FIELD CREW CLOSED LOOP PASS · '+r.context_handle+' · '+r.action);
           NODE
       - name: Preserve bounded execution protocol
         run: node tools/source-hold-turn-trace-return-selftest.mjs

@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-24T21:02:00+08:00",
+  "updated": "2026-10-25T14:30:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -36,11 +36,12 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / INTERPHASE 0.10.0 · ONE SOURCE / MOVABLE ATTENTION",
+      "head": "FIELD INDEX / INTERPHASE 0.10.6 · FOLDED WORDS / HELD TOOL",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "One exact source, SHA identity and character anchor feed contained scope, plain/spatial traversal and the existing READFIELD RSVP clock. FIELD opens its full canonical manifest as a document, anchored in the actual held route; imported text and JSON use the same source-space model. Quoted interpretation links, local edits with exact undo, and validated RETURN remain source-scoped. Native effects stay with their owner. Explicit source-intent semantics remain generic: FIELD expresses READ / RIDE / SOURCE intent but never silently chooses a source or story. Recovered Ω/history/Dayline/AXIS tools remain explicit retained tools.",
+      "retained_function": "One address bar, one held tool and its native move, compact addressed tool targets. Aa unfolds the same descriptions/history/status in place; it does not change identity or create another app. First visit has no automatic introduction; layout/history scroll cannot reselect an object. Explicit source-intent semantics remain generic: READ / RIDE / SOURCE never silently chooses a story. Current map/reader and the original Drive CODE/FU/INTERPHASE continuation remain preserved depth.",
       "evidence": [
+        "https://github.com/0xxx0/0xxx0.github.io/pull/999",
         "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
         "/interphase/SPEC.md",
         "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
@@ -107,47 +108,16 @@
         "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
         "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
       ],
-      "version": "0.10.0",
-      "latest_return": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+      "version": "0.10.6",
+      "latest_return": "/interphase/SPEC.md",
       "repo_verification": {
-        "status": "COMPONENT_VERIFIED / BROADER_CI_NOT_GREEN",
-        "source": "https://github.com/0xxx0/0xxx0.github.io/pull/988",
-        "source_head": "68a528a6a17aba89a0a796494c4d06a540125cac",
-        "component_workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183173",
-        "evidence": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
-        "checks": "Native source laws; three viewport continuum browser task including real RETURN files and annotated reader round trips; five viewport native FIELD; retained workbench; package/types; static/release/redaction",
-        "broader_suite": {
-          "status": "NOT_GREEN",
-          "workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40093183248",
-          "observed": "Chrome --dump-dom virtual-time READ/RIDE probe timed out after 26 seconds; first-use and convergence assertions now pass after integrating current master. Earlier broad runs also exposed legacy probe completion races. No whole-repository green claim."
-        },
-        "previous_release": {
-          "status": "COMPONENT_PASS / CI_UNCLAIMED",
-          "local": {
-            "core": "PASS · ordered workflow, original source/field references, exact source bytes, bounds and protected import",
-            "browser": "PASS · 320/390/1280px work composition/views/RETURN; native FIELD five viewports; recovered protected history, Ω, Dayline/Fan and AXIS",
-            "ci": "UNCLAIMED here · inspect exact PR head checks at https://github.com/0xxx0/0xxx0.github.io/pull/986"
-          },
-          "base": "d87a49a1bbd2756579204856d3ea9595af8a33dd",
-          "evidence": "/returns/FIELD_INDEX_INTERPHASE_PLUS_LANDING_2026-10-24.json",
-          "previous_release": {
-            "status": "COMPONENT_PASS / EXISTING_COORDINATION_DRIFT",
-            "local": {
-              "core": "PASS · family reachability, stable complete overview, disjoint neighbours, count conservation, exact frames, unknown deltas, lossless text",
-              "browser": "PASS · real stale HTTP-cache priming, non-reduced aperture expansion/reverse/cancel, five viewport native pointer/OPEN/BACK/RETURN journeys",
-              "ci": "UNCLAIMED · inspect exact candidate head; broad baseline coordination failures remain"
-            },
-            "base": "b95b7bcaf2b0d6ecf70c38e705344fa01dbcb087",
-            "evidence": "/returns/FIELD_INDEX_APERTURE_0837_2026-10-20.json",
-            "note": "Operator disconfirmed intuitive use and fine-angle recognition. This revision tests concrete depth traversal and cache delivery; human task comprehension remains unresolved.",
-            "previous": {
-              "class": "HISTORICAL_PROOF",
-              "source": "https://github.com/0xxx0/0xxx0.github.io/blob/8b2351199ce60f99b4d2b273677b797a24b5ea0e/control/CURRENT.json",
-              "selector": "current_heads[lineage=field-index].repo_verification",
-              "canonical_json_sha256": "dc6e42727ee5ca19146c68c766276fa3c30ccea8a6980ca58ce14ecde3a5fc18"
-            }
-          }
-        }
+        "status": "SEE_EXACT_HEAD_CI / HUMAN_USE_UNPROVED",
+        "evidence": "/interphase/SPEC.md",
+        "checks": "Readable entry and named choices at 320/390/1280px; HOUSE open/back; explicit reader opt-in and retained native FIELD tests. Inspect exact candidate CI for results.",
+        "historical_component_proof": "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
+        "disconfirmed": "0.10.0 mechanical source continuity is not evidence of useful unified work.",
+        "prior_map_proof": "https://github.com/0xxx0/0xxx0.github.io/pull/999",
+        "component_workflow": "https://github.com/0xxx0/0xxx0.github.io/actions/runs/40098034685"
       }
     },
     {
@@ -1017,7 +987,7 @@
   ],
   "next_single_action": {
     "id": "witness-dayline",
-    "instruction": "Rotate the day's lines into /dayline/, witness on phone, then wire the air-instrument sensor loop."
+    "instruction": "Rotate the day's lines into /dayline/ and witness the result on phone. RETURN the observed fit/friction. STOP before wiring the air-instrument sensor loop; that is a fresh SOURCE/HOLD after RETURN."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",

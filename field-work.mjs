@@ -1,11 +1,13 @@
-import {mountContinuum} from './interphase/continuum.mjs?v=0.10.0';
 function startFieldWork(){
- if(location.pathname!=='/'||new URLSearchParams(location.search).get('instrument')==='0'||new URLSearchParams(location.search).get('work')==='0')return;
+ const query=new URLSearchParams(location.search);
+ if(location.pathname!=='/'||query.get('instrument')==='0'||query.get('work')!=='1')return;
  const begin=async()=>{
+  const release=new URL(import.meta.url).search;
+  const {mountContinuum}=await import('./interphase/continuum.mjs'+release);
   let native;for(let i=0;i<150;i++){native=window.FieldInstrument;if(native&&document.getElementById('fieldInstrument')&&document.getElementById('fiView'))break;await new Promise(r=>setTimeout(r,80))}
   if(!native)throw Error('Native FIELD did not open.');
   const root=document.getElementById('fieldInstrument'),host=document.createElement('div');host.id='interphaseWorkspace';root.append(host);root.dataset.work='1';document.documentElement.dataset.fieldWork='1';
-  const css=document.createElement('link');css.rel='stylesheet';css.href='/field-work.css?v=0.10.0';document.head.append(css);
+  const css=document.createElement('link');css.rel='stylesheet';css.href='/field-work.css'+release;document.head.append(css);
   const get=id=>document.getElementById(id);let lastNative=null,api,ready=false;
   api=await mountContinuum(host,{route:'/',onRoute:href=>{if(href!==lastNative){lastNative=href;native.hold(href)}},onFocus:s=>{
    // A new source consumes the caller's old FIELD selection; reload must resume this source.
@@ -17,13 +19,13 @@ function startFieldWork(){
    if(get('fiParent'))get('fiParent').setAttribute('aria-label','Source and work');
    if(get('fiReturn')){get('fiReturn').setAttribute('aria-label','Return to previous source context');get('fiReturn').hidden=!s.back}
    if(get('fiMenu'))get('fiMenu').hidden=true;
-   if(get('fiViewName'))get('fiViewName').textContent=s.view==='walk'?'◇ WALK':'⊞ PLAIN';
+   // The three visible source tabs own the projection; no second view control.
   }});
-  const view=get('fiView');view.setAttribute('aria-label','Change source perspective: plain or walk');view.onclick=e=>{e.stopPropagation();api.perspective(api.snapshot()?.attention.view==='walk'?'plain':'walk')};
+  // No host-level shadow view toggle. All views retain the same native source.
   get('fiParent').onclick=e=>{e.stopPropagation();native.closeEditor();api.toggleSource()};
   get('fiReturn').onclick=e=>{e.stopPropagation();api.returnStep()};
   get('fiAddress').addEventListener('click',()=>api.stop());
-  const input=get('fieldUrlInput');input.placeholder='Source /path · find words · :walk · :read · :return';
+  const input=get('fieldUrlInput');input.placeholder='Source /path · find · :note · :revisit · :return';
   input.addEventListener('input',e=>{if(native.active())e.stopImmediatePropagation()},true);
   input.addEventListener('keydown',e=>{
    if(e.key!=='Enter'||!native.active())return;e.preventDefault();e.stopImmediatePropagation();
@@ -35,6 +37,10 @@ function startFieldWork(){
   // Native FIELD already captures the original navigation parameters before restoring its URL.
   const incoming=window.FieldIndexReadModel.entry().focus;
   if(incoming)await api.loadRoute(incoming);else await api.resume(native.heldAddress()||'/');lastNative=native.heldAddress();ready=true;
+  // Root bar only selects existing views; canonical source/RETURN unchanged.
+  const requestedView=query.get('view');
+  if(['plain','walk','dial'].includes(requestedView))api.perspective(requestedView);
+  if(query.get('source')==='1')api.command(':source');
   window.InterphaseInstrument=api;
   window.FieldWork=Object.freeze({active:()=>native.active()&&!host.hidden,show:()=>{native.enter();host.hidden=false;api.refresh()},snapshot:api.snapshot,instrument:api});
  };

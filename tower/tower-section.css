@@ -1,0 +1,228 @@
+/* Measured cause of the "invisible tower" (2026-10-26), stated exactly:
+     html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]):not([data-field-work="1"])
+       main:has(> #fieldUrlBar) > :where(:not(#fieldUrlBar):not(script):not(style):not(#fieldInstrument))
+       { display:none !important }
+   The landing is a PANE system: in field-bar-pane mode main shows only the field bar, and each
+   pane re-admits its own content by id (map -> #statusFold, browse -> #axialLatest>#feedRail).
+   The tower is not a stray section; it is the index map. So it joins the same whitelist, with the
+   same selector shape and one more id of specificity, instead of fighting the pane rule. */
+html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) main:has(> #fieldUrlBar) > #tower { display: block !important; }
+#tower { display: block !important; }
+/* tower-section.css — FIELD INDEX / RING TOWER.
+ *
+ * Everything is scoped under #tower: the host page carries ~168 KB of global CSS and
+ * this file must not be able to collide with any of it. No element selectors, no
+ * custom properties leaking out, no !important except inside the reduced-motion block.
+ *
+ * HOUSE LAW: quiet by default, depth behind explicit reveal — at rest every overlay
+ * layer stays at alpha <= 0.12 (the gradients are emitted at that alpha by
+ * tower-core.js, clamped there); one hairline ring set + one axis, no blur, no
+ * gradients as decoration, no high-contrast blocks. Colour only on approach.
+ * Pad rgb(8,12,18) · lines rgb(79,87,96) · bone #eff2ef · accent #fd956e.
+ */
+
+#tower {
+  --tw-pad: rgb(8, 12, 18);
+  --tw-ink: rgb(79, 87, 96);
+  --tw-bone: #eff2ef;
+  --tw-hot: #fd956e;
+  position: relative;
+  margin: 0;
+  padding: 6px 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--tw-ink);
+  font: 10px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The host carries two themes and its own declared palette for each. In light mode the
+ * dark pad/ink pair would be unreadable, so this section borrows the HOST's declared
+ * variables (no new hues): the figure keeps its geometry and its quiet, only the ink
+ * flips. Selector still begins with #tower, so the scoping law holds. */
+#tower:where(html[data-theme="light"] *) {
+  --tw-pad: var(--p, #fbf9f3);
+  --tw-ink: var(--mut, #6b675d);
+  --tw-bone: var(--ink, #1a1c1a);
+  --tw-hot: var(--hot, #b8532a);
+}
+
+#tower h2 {
+  margin: 0;
+  padding: 0;
+  font: 500 10px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.16em;
+  color: var(--tw-bone);
+  text-transform: none;
+}
+
+/* the stage is the figure; it carries no plate of its own (the page is the plate) */
+#tower .tw-stage {
+  position: relative;
+  isolation: isolate;
+  margin: 2px 0 0;
+}
+
+#tower svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#tower svg:focus { outline: none; }
+#tower svg:focus-visible {
+  outline: 1px solid rgba(253, 149, 110, 0.45);
+  outline-offset: 3px;
+}
+
+/* ---- the composition glyph: transparent overlay, gratings only, no plate ---- */
+#tower .tw-glyph {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(79, 87, 96, 0.28);
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+#tower .tw-glyph i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+/* ---- marks: hairlines. Slant = kind (only where a ring carries >1 real kind). */
+#tower .tw-axis {
+  stroke: var(--tw-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.5;
+  fill: none;
+}
+#tower .tw-ring {
+  stroke: var(--tw-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.32;
+  fill: none;
+}
+#tower .tw-ring.is-focus { stroke-opacity: 0.52; }
+#tower .tw-ring.is-hot {
+  stroke: var(--tw-hot);
+  stroke-opacity: 0.85;
+}
+#tower .tw-notch {
+  stroke: var(--tw-bone);
+  stroke-width: 1;
+  stroke-opacity: 0.5;
+}
+#tower .tw-tick {
+  stroke: var(--tw-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.3;
+}
+#tower .tw-tick.is-gate {
+  stroke: var(--tw-bone);
+  stroke-width: 1.25;
+  stroke-opacity: 0.95;
+}
+/* the focused ring is the one the keys turn — one mark says so, no colour at rest */
+#tower .tw-tick.is-gate.is-focus { stroke-width: 1.75; }
+#tower .tw-tick.is-gate.is-hot {
+  stroke: var(--tw-hot);
+  stroke-width: 1.5;
+}
+
+/* Type sits over the moiré field, so every label carries a pad-coloured halo drawn
+ * BEHIND the glyph (paint-order) — the hatching never eats a letterform, and the halo
+ * is the pad colour, so it is invisible except where it clears the interference. */
+#tower .tw-label,
+#tower .tw-gate,
+#tower .tw-tag,
+#tower .tw-fold {
+  paint-order: stroke fill;
+  stroke: var(--tw-pad);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+}
+#tower .tw-label {
+  fill: var(--tw-ink);
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+}
+#tower .tw-gate {
+  fill: var(--tw-bone);
+  fill-opacity: 0.6;
+  font-size: 9.5px;
+}
+#tower .tw-gate.is-hot {
+  fill: var(--tw-hot);
+  fill-opacity: 0.95;
+}
+#tower .tw-tag {
+  fill: var(--tw-ink);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+#tower .tw-tag.is-hot { fill: var(--tw-hot); }
+#tower .tw-fold {
+  fill: var(--tw-ink);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  fill-opacity: 0.8;
+}
+
+/* ---- the reading: what the structure IS, in his vocabulary, at rest ---- */
+#tower .tw-reading {
+  margin: 7px 0 0;
+  padding: 0 1px;
+  color: var(--tw-ink);
+  font-size: 10.5px;
+  line-height: 1.5;
+  max-width: 54ch;
+}
+#tower .tw-reading span { display: block; }
+#tower .tw-reading span + span { margin-top: 2px; }
+
+/* prefers-reduced-motion: same geometry, zero motion (turning already happens on tap;
+ * the JS skips its detent/morph tweens entirely under this query). */
+@media (prefers-reduced-motion: reduce) {
+  #tower * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* 320px floor: nothing here is fixed-width; the svg scales with its box and the
+ * reading wraps. This block only trims the heading/reading slightly. */
+@media (max-width: 340px) {
+  #tower h2 { font-size: 9.5px; letter-spacing: 0.12em; }
+  #tower .tw-reading { font-size: 10px; }
+}
+
+/* One-page FIELD on short phones: compact the SAME ring geometry, not a new
+   mobile menu. Word explanations are exactly the content the folded state hides.
+   On Aa, the original readable tower detail remains intact. */
+html[data-field-words="folded"] #tower .tw-stage{
+  width:min(100%,clamp(180px,calc(30svh + 30px),250px));
+  margin-inline:auto;
+}
+html[data-field-words="folded"] #tower .tw-reading{display:none}
+html[data-field-words="folded"] #tower h2{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0
+}
+html[data-field-words="folded"] #tower{padding:0}
+@media(max-height:600px){
+ html[data-field-words="folded"] #tower .tw-stage{width:min(100%,180px)}
+}

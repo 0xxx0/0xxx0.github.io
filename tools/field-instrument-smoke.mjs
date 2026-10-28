@@ -30,6 +30,120 @@ const browser=await chromium.launch({headless:true,executablePath:browserBin(),a
 // Native FIELD projection fixture; default source continuum is proved by interphase-plus-smoke.
 const results=[];
 try{
+  // One-screen native FIELD entry: every CURRENT mark is visible, with no
+  // duplicate named cards or invented source map. No scrolling to find heads.
+  for(const [width,height] of [[320,640],[390,844],[1280,800]]){
+    const context=await browser.newContext({viewport:{width,height},hasTouch:width<760,reducedMotion:'reduce'});
+    const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+    await page.goto(base+'/');
+    await page.waitForFunction(()=>document.querySelectorAll('#feedRail .feedChip').length>=10
+      &&document.documentElement.dataset.fieldBarPane==='browse'
+      &&document.querySelector('#fieldWords')?.parentElement?.classList.contains('fieldUrlFrame'));
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
+    assert.equal(await page.locator('#fieldUrlBar').isVisible(),true,'one native address bar '+width);
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'glyph field visible at rest '+width);
+    assert.equal(await page.locator('#aperture').isVisible(),true,'one held source shown '+width);
+    assert.equal(await page.locator('#workedOn').isVisible(),false,'no archival wall '+width);
+    const g=await page.evaluate(()=>{
+      const rail=document.querySelector('#feedRail'),tiles=[...rail.querySelectorAll('.feedChip')];
+      const boxes=tiles.map(n=>n.getBoundingClientRect()),styles=tiles.map(n=>getComputedStyle(n.querySelector('.feedName')).display);
+      const positions=new Set(boxes.map(r=>Math.round(r.top)));
+      return {count:tiles.length,display:getComputedStyle(rail).display,rows:positions.size,
+        widths:boxes.map(r=>r.width),heights:boxes.map(r=>r.height),
+        allVisible:boxes.every(r=>r.width>=44&&r.height>=44&&r.left>=-1&&r.right<=innerWidth+1&&r.top>=0&&r.bottom<=innerHeight),
+        namesHidden:styles.every(x=>x==='none'),namesRetained:tiles.every(n=>n.getAttribute('aria-label')&&n.getAttribute('title')&&n.querySelector('.feedName')?.textContent),
+        horizontalOverflow:document.documentElement.scrollWidth>innerWidth+2,
+        glyphOverflow:rail.scrollWidth>rail.clientWidth+2||rail.scrollHeight>rail.clientHeight+2,
+        bottom:Math.max(...boxes.map(r=>r.bottom)),
+        pageScroll:document.documentElement.scrollHeight-innerHeight};
+    });
+    const headN=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.filter(h=>h.route!=='/').length;
+    assert.equal(g.count,headN,'every CURRENT glyph rendered '+width);
+    assert.equal(g.display,'grid','native glyph matrix, not labeled list '+width);
+    assert.ok(g.rows>=1&&g.rows<=3,'all heads in <=3 rows '+width+' '+JSON.stringify(g));
+    assert.ok(g.allVisible&&!g.horizontalOverflow&&!g.glyphOverflow,'all glyphs reachable without scrolling '+width+' '+JSON.stringify(g));
+    assert.ok(g.namesHidden&&g.namesRetained,'words hidden visually, source names remain accessible '+width);
+    const first=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.find(h=>h.route!=='/').route;
+    assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,first,'held CURRENT source exact '+width);
+    await page.waitForFunction(()=>window.LandingTower?.state()?.ready&&window.LandingTower.state().source==='field-axes');
+    const initialTower=await page.evaluate(()=>({selection:FieldAxisSelection(),tower:LandingTower.state()}));
+    assert.equal(initialTower.tower.rings.find(r=>r.key==='route').gate,initialTower.selection.route,'ring gate reflects native CURRENT on boot '+width);
+    assert.deepEqual(initialTower.tower.composition.parts,initialTower.tower.rings.map(r=>r.gate),'composition is exact visible tuple '+width);
+    await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    assert.equal(await page.locator('html').getAttribute('data-field-bar-pane'),'browse','select keeps every glyph visible '+width);
+    assert.match(await page.locator('#apTitle').textContent(),/HOUSE/i,'same native held object '+width);
+    assert.equal(new URL(await page.locator('#apOpen').getAttribute('href'),base).pathname,'/house/');
+    await page.waitForFunction(()=>window.LandingTower?.state()?.rings.find(r=>r.key==='route')?.gate===window.FieldAxisSelection()?.route);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,'/house/','glyph HOLD re-orients route ring '+width);
+    // The address bar is the CURRENT held address, never a stale :glyphs entry.
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
+    const input=page.locator('#fieldUrlInput');
+    await input.focus();
+    assert.deepEqual(await input.evaluate(n=>[n.selectionStart,n.selectionEnd]),[0,7],'held address is selected for immediate replacement '+width);
+    await input.fill('unfinished');
+    await page.evaluate(()=>window.__fieldAct.focus('/desk/'));
+    assert.equal(await input.inputValue(),'unfinished','passive HOLD cannot clobber active input '+width);
+    await input.evaluate(n=>n.blur());
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/desk/');
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,'/desk/','passive URLbar HOLD re-orients route ring '+width);
+    await page.evaluate(()=>window.__fieldAct.focus('/house/'));
+    await page.waitForFunction(()=>document.getElementById('fieldUrlInput').value==='/house/');
+    assert.equal(new URL(page.url()).pathname,'/','native HOLD never navigates '+width);
+    await page.locator('#fieldWords').click();
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'open','Aa reveals only held detail '+width);
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'Aa keeps glyph field '+width);
+    assert.equal(await page.locator('#workedOn').isVisible(),false,'Aa does not restore giant legacy stack '+width);
+    assert.equal(await page.locator('#apRole').isVisible(),true,'Aa gives selected source detail '+width);
+    assert.equal(await page.locator('#feedRail .feedName:visible').count(),0,'Aa never restores label cards '+width);
+    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','Aa preserves source identity '+width);
+    await page.locator('#fieldWords').click();
+    assert.equal(await page.locator('html').getAttribute('data-field-words'),'folded');
+    assert.equal(await page.locator('#feedRail').isVisible(),true);
+    // Direct tower rotation must select a native route; no local-only glyph pose.
+    const turned=await page.evaluate(()=>{
+      const before=LandingTower.state(),i=before.rings.findIndex(r=>r.key==='route');
+      LandingTower.turn(1,i);
+      return {previous:before.rings[i].gate,route:FieldAxisSelection().route};
+    });
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='route').gate===FieldAxisSelection().route);
+    assert.notEqual(turned.route,turned.previous,'a detent TURN changes native FIELD route '+width);
+    assert.equal((await page.evaluate(()=>LandingTower.state())).rings.find(r=>r.key==='route').gate,turned.route,'native turn and composition are coherent '+width);
+    // Hit the drawn arc itself, not a left/right guess: ring geometry must
+    // invert to the exact selected STATE member using real pointer coordinates.
+    const target=await page.evaluate(()=>{
+      const tower=LandingTower.state(),i=tower.rings.findIndex(r=>r.key==='state'),ring=tower.rings[i];
+      const axis=FieldAxes().find(a=>a.key==='state'),selected=(ring.rotation+1)%ring.count;
+      const group=[...document.querySelectorAll('#tower .tw-ringgrp')].find(g=>g.querySelector('.tw-label')?.textContent.startsWith('STATE '));
+      const ellipse=group?.querySelector('ellipse'),svg=document.querySelector('#tower-svg'),rect=svg.getBoundingClientRect(),view=svg.viewBox.baseVal;
+      if(!ellipse)throw Error('STATE source ring missing');
+      const weights=Array(ring.count).fill(1),off=TowerCore.offsetFor(ring.rotation,weights);
+      const p=TowerCore.markPosWeighted(selected,weights,off,1,{
+       cx:Number(ellipse.getAttribute('cx')),cy:Number(ellipse.getAttribute('cy')),
+       rx:Number(ellipse.getAttribute('rx')),ry:Number(ellipse.getAttribute('ry'))
+      });
+      return{x:rect.left+p.x*rect.width/view.width,y:rect.top+p.y*rect.height/view.height,expect:axis.values[selected]};
+    });
+    await page.mouse.click(target.x,target.y);
+    await page.waitForFunction(()=>LandingTower.state().rings.find(r=>r.key==='state').gate===FieldAxisSelection().state);
+    assert.equal((await page.evaluate(()=>FieldAxisSelection())).state,target.expect,'arc tap selects exact native STATE source member '+width);
+    // A previously held source stays exactly recoverable from native glyphs.
+    await page.locator('#feedRail .feedChip[data-href="/house/"]').click();
+    await page.waitForFunction(()=>FieldAxisSelection().route==='/house/'&&LandingTower.state().rings.find(r=>r.key==='route').gate==='/house/');
+    await page.locator('#apOpen').click();await page.waitForURL(base+'/house/');
+    await page.goBack();await page.waitForFunction(()=>document.documentElement.dataset.fieldBarPane==='browse');
+    assert.equal(await page.locator('#apTitle').textContent(),'HOUSE / FIELD','BACK restores exact held source '+width);
+    assert.equal(await page.locator('#feedRail').isVisible(),true,'BACK restores glyph matrix '+width);
+    assert.deepEqual(errors,[],'no landing script errors '+width);
+    console.log('FIELD GLYPH ONE-SCREEN PASS '+width+'px · '+g.count+' accessible CURRENT marks / '+g.rows+' rows · HOLD, Aa, OPEN, BACK');
+    if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'landing-glyphs-'+width+'.png')});}
+    // An explicit incoming ?fi remains an intentional editable projection until
+    // the operator changes it; passive bootstrap must not rewrite that input.
+    await page.goto(base+'/?fi=source%3Agit');
+    await page.waitForFunction(()=>window.FieldURLBar&&window.FieldIndexReadModel?.snapshot?.().routes.length>0);
+    assert.equal(await page.locator('#fieldUrlInput').inputValue(),'source:git','cold explicit expression survives hydration '+width);
+    await context.close();
+  }
   // Use a real HTTP cache: page.route would disable it. Old adapter/core/style
   // bytes must not combine with the newly fetched CURRENT/manifest data.
   const cached=await browser.newContext(),cachePage=await cached.newPage();warmLegacy=true;
@@ -88,6 +202,59 @@ try{
         overlaps:rects.some((a,i)=>rects.some((b,j)=>j>i&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top))};
     });
     assert.equal(geometry.scroll<=width,true,'horizontal clipping '+width);assert.equal(geometry.bad,0,'unreachable marks '+width);assert.equal(geometry.overlaps,false);
+    // ONE source / three lawful readings: tab switch may not touch the FIELD frame.
+    await page.locator('#fiView').click();
+    assert.equal(await page.locator('#fiViewTabs:not([hidden]) [role="tab"]').count(),3,'one view picker has three accessible readings');
+    await page.locator('#fiViewTabs [data-view="list"]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'list');
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'LIST must not change held source/position');
+    assert.equal(await page.locator('[data-map-id]').count(),expected,'list retains the exact whole-field axis');
+    assert.ok(await page.locator('#fiList .fiListRow:visible').count()>=1,'source list must expose readable, actionable addresses');
+    const listState=await page.locator('#fiList').evaluate(n=>({scroll:n.scrollWidth,width:n.clientWidth,head:n.querySelector('.fiListHead').textContent}));
+    assert.ok(listState.scroll<=listState.width+1&&listState.head.includes('IN SCOPE'),'LIST must be readable without horizontal clipping');
+    const firstListId=await page.locator('#fiList [data-list-id]').first().getAttribute('data-list-id');
+    await page.locator('#fiList [data-list-page="next"]').click();
+    assert.notEqual(await page.locator('#fiList [data-list-id]').first().getAttribute('data-list-id'),firstListId,'LIST pages through the counted tail');
+    await page.locator('#fiList [data-list-page="prev"]').click();
+    await page.locator('#fiList [data-list-id]').first().click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,firstListId,'list click holds canonical source identity');
+    const pinned=await page.locator('#fiList .fiListPin').textContent();
+    await page.locator('#fiList [data-list-page="next"]').click();
+    assert.equal(await page.locator('#fiList .fiListPin').textContent(),pinned,'held source must remain legible across LIST pagination');
+    await page.locator('#fiReturn').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'LIST selection preserves exact pinned RETURN');
+    // The original threadwalk contract: only declared parent links can lead
+    // into another source; the current object and exact RETURN stay visible.
+    const childAddress=await page.evaluate(()=>{
+      const routes=FieldIndexReadModel.snapshot().routes,ids=new Set(routes.map(r=>r.href));
+      return routes.find(r=>r.parent&&ids.has(r.parent))?.href||null;
+    });
+    assert.ok(childAddress,'fixture must carry at least one declared source edge');
+    assert.equal(await page.evaluate(a=>FieldInstrument.hold(a),childAddress),true);
+    const childFrame=(await page.evaluate(()=>FieldInstrument.snapshot())).frame;
+    await page.locator('#fiList [data-list-walk]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.mode,'RELATIONS','WALK is native declared adjacency');
+    assert.match(await page.locator('#fiList .fiListHead').textContent(),/WALK .* LINKS/);
+    assert.ok(await page.locator('#fiList [data-list-id]').count()>=1,'declared parent has a navigable source row');
+    assert.equal((await page.locator('#fiList .fiListRow').first().textContent()).includes('PARENT'),true,'declared parent is the first semantic edge');
+    await page.locator('#fiList .fiListRow').first().click();
+    assert.notEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,childFrame.focus,'WALK follows actual source identity');
+    assert.match(await page.locator('#fiList .fiListPin').textContent(),/◎/,'new source is still held in sight');
+    await page.locator('#fiList [data-list-back]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.focus,childFrame.focus,'↶ returns to exact previous source in the same native walk');
+    await page.locator('#fiList [data-list-walk]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).frame.mode,'FIELD','ALL exits the relation lens without another screen');
+    await page.locator('#fiReturn').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'WALK and ALL must retain the original pinned RETURN');
+    await page.locator('#fiView').click();
+    await page.locator('#fiViewTabs [data-view="plan"]').click();
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'plan');
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'PLAN is a coordinate projection not a state mutation');
+    await page.locator('#fiView').click();
+    await page.locator('#fiViewTabs [data-view="strip"]').click();
+    assert.deepEqual((await page.evaluate(()=>FieldInstrument.snapshot())).frame,initial.frame,'STRIP recovers same frame');
+    assert.deepEqual(await page.locator('[data-map-id]').evaluateAll(ns=>ns.map(n=>n.dataset.mapId)),overviewIds,'every observer projects the same axis order');
+
     if(width<760){
       const cdp=await context.newCDPSession(page),boxes=await page.locator('.fiMark').evaluateAll(ns=>ns.slice(0,2).map(n=>{const r=n.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2}}));
       await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[boxes[0]]});
@@ -235,6 +402,11 @@ try{
     await issue(':help');
     assert.equal(await page.locator('#fieldUrlPanel:not([hidden])').count(),1,'plain HELP must open command registry');
     if(width<760)assert.equal(await page.locator('#fieldOmnibarKeys [data-command="help"]').isVisible(),true,'one discoverable mobile help affordance');
+    await issue(':list');
+    await page.waitForSelector('html[data-instrument="1"]');
+    assert.equal((await page.evaluate(()=>FieldInstrument.snapshot())).map,'list','plain :list opens the existing source observer, not another application');
+    await cmd(':plain');
+    await page.waitForSelector('html:not([data-instrument="1"])');
     await issue(':turn');
     await page.waitForSelector('html[data-instrument="1"]');
     const angle=await page.evaluate(()=>FieldInstrument.snapshot().frame.turn);

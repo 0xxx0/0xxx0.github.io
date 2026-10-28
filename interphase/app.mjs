@@ -241,4 +241,5 @@ import {historyDisc, dayView, axisView, daylineSnapshot, taskObject, daylineKey,
   const requested=new URLSearchParams(location.search).get('view')?.toUpperCase();
   if(['PLAIN','COMPACT','FIELD','DISC','DAYLINE','FAN','AXIS','RESEARCH'].includes(requested))mode=requested;else mode='COMPACT';
   render();publishFocus();
+  document.dispatchEvent(new Event('interphase:ready'));
 })().catch(e=>{document.querySelector('#surfaceBody').textContent='SOURCE UNRESOLVED · '+e.message;});

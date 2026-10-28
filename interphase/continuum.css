@@ -43,3 +43,52 @@
 .ip-continuum[data-view=plain] .ip-before,.ip-continuum[data-view=plain] .ip-after{flex:0 0 auto}
 .ip-space:focus-visible{outline:none}.ip-space:focus-visible .ip-held{outline:1px solid var(--ip-hot)}
 @media(max-width:700px){.ip-continuum[data-view=plain] .ip-before button,.ip-continuum[data-view=plain] .ip-after button{max-height:42px}}
+
+/* The same held bytes + character cursor in three native readings. Not three
+   workspaces, no duplicated source, and no hidden tab chooser. */
+.ip-heading{align-items:center}
+.ip-views{display:flex;flex:none;gap:2px}
+.ip-views button{flex:none;min-width:61px;min-height:44px;padding:5px 8px;border:0;border-bottom:2px solid transparent;font-size:11px;letter-spacing:.02em}
+.ip-views button[aria-selected="true"]{color:var(--ip-hot);border-bottom-color:var(--ip-hot)}
+.ip-views button:focus-visible{outline-offset:-2px}
+.ip-dot-absolute{fill:var(--ip-hot)}
+.ip-dot-local{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:2.5}
+.ip-axis [data-ip="marks-ring"]{fill:none;stroke:var(--ip-hot);stroke-width:1.4;opacity:.8;pointer-events:none}
+.ip-continuum[data-view="dial"] .ip-axis{padding:4px 0 10px}
+.ip-continuum[data-view="dial"] .ip-axis{gap:4px}
+.ip-continuum[data-view="dial"] .ip-axis svg{width:min(220px,calc(100vw - 96px));height:auto;max-height:220px}
+.ip-axis [role="slider"]:focus-visible{outline:none}
+.ip-axis [role="slider"]:focus-visible path{stroke:var(--ip-hot);stroke-width:3}
+.ip-continuum[data-view="dial"] .ip-scene{display:flex;flex-direction:column;max-width:720px;height:100%;gap:5px}
+.ip-continuum[data-view="dial"] .ip-passage{width:100%;transform:none;position:relative;inset:auto;pointer-events:auto}
+.ip-continuum[data-view="dial"] .ip-held{flex:1;min-height:70px;max-height:100%}
+.ip-continuum[data-view="dial"] .ip-before,.ip-continuum[data-view="dial"] .ip-after{display:none}
+.ip-continuum[data-view="dial"] .ip-held h1{font-size:17px;margin:6px 0}
+.ip-residue:empty{display:none}
+.ip-continuum[data-view="dial"] .ip-body{font-size:16px;line-height:1.55}
+.ip-continuum[data-view="dial"] .ip-before button,.ip-continuum[data-view="dial"] .ip-after button{min-height:0;max-height:29px;overflow:hidden;border:0;padding:2px 12px;font-size:10px}
+@media(max-width:700px){
+ .ip-source{gap:4px;min-width:0}.ip-source span{font-size:10px}
+ .ip-heading{gap:4px}.ip-views button{min-width:55px;padding:4px 5px;font-size:10px}
+ .ip-continuum[data-view="dial"] .ip-held{min-height:60px;padding:10px}
+}
+
+/* Authored interpretation lives in SOURCE, never a fourth reading mode.
+   The active passage and both dial coordinates remain unchanged. */
+.ip-review{max-width:780px}
+.ip-review>label{display:grid;gap:4px;margin:10px 0;color:var(--ip-mut);font-size:11px}
+.ip-review>label input,.ip-review>label textarea,.ip-review textarea{
+ width:100%;max-width:100%;box-sizing:border-box;padding:9px;
+ border:1px solid var(--ip-line);color:var(--ip-ink);background:var(--ip-bg);
+ font:13px/1.45 system-ui,sans-serif;resize:vertical
+}
+.ip-review [data-ip="note-target"]{flex:1 1 150px;min-width:0;color:var(--ip-mut);
+ overflow-wrap:anywhere;font:11px/1.35 ui-monospace,monospace}
+.ip-review .ip-review-items{display:grid;gap:3px;max-height:210px;overflow:auto;margin:8px 0}
+.ip-review .ip-review-item{display:flex;gap:5px;align-items:center;padding:4px 0;border-bottom:1px solid var(--ip-line)}
+.ip-review .ip-review-item button{flex:none;min-height:36px}
+.ip-review .ip-review-item span{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--ip-mut);font-size:11px}
+.ip-review [data-ip="review-law"]{font-size:10px;color:var(--ip-mut);line-height:1.4}
+.ip-review [data-ip="review-count"]{font:10px ui-monospace,monospace;color:var(--ip-mut)}
+.ip-axis [data-ip="marks-ring"] .ip-review-question{fill:var(--ip-bg);stroke:var(--ip-hot);stroke-width:1.6}
+.ip-axis [data-ip="marks-ring"] .ip-review-applied{fill:var(--ip-hot);stroke:none}

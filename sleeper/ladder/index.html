@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SLEEPER // LADDER — the eight gates are the eight path factors</title>
+<meta name="description" content="One painting, four distances, built out of P. A. Payutto's Buddhadhamma: paragraph = district, sentence = building, word = room, character = material. The eight gates are the eight path factors in the doctrine's own order — five you cannot pass until you have done them, two ask one word of the text. The walk is paid for in breath. Deterministic; same route, same pixels.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="/sleeper/archive/media/icon/favicon.svg">
+<style>
+  /* P1 hairline skin: pad rgb(8,12,18), lines rgb(79,87,96), 1px strokes, no
+     blur, no high-contrast blocks. The world carries the state; the page
+     carries one line of provenance and nothing else. */
+  :root { --bg: rgb(8,12,18); --ink: rgb(79,87,96); --hair: rgba(79,87,96,.22); --hair-2: rgba(79,87,96,.10); }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    display: flex; flex-direction: column; overscroll-behavior: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { flex: 1 1 auto; position: relative; min-height: 160px; }
+  #field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; outline: none; }
+  #field:focus-visible { outline: 1px solid rgba(79,87,96,.55); outline-offset: -2px; }
+  /* The existing provenance line is also the one reversible reading aperture.
+     No extra HUD or DOM element exists while the canvas is at rest. */
+  #prov {
+    flex: 0 0 auto; margin: 0; padding: 7px 10px calc(9px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--hair-2); cursor: pointer;
+    font-size: 10px; letter-spacing: .02em; color: #99b1bb; line-height: 1.4;
+  }
+  #prov:focus-visible {outline: 2px solid #e7c585;outline-offset:-2px}
+  #prov b { font-weight: 400; color: rgba(79,87,96,.72); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+  <main>
+    <canvas id="field" tabindex="0" aria-label="The ladder: a painting that resolves into a city built of Buddhadhamma. Tap to resolve, swipe to walk, tap a cell to read it. The eight gates are the eight path factors, in order: right view asks you to hold until the district's shape is legible; right thought, to let three wrong thoughts go; right speech, to say none of the four; right action and right livelihood ask one word of the text; right effort wants four steps; right mindfulness wants you back on ground you have walked; right concentration wants you still. Each step spends breath, and the walk ends when the breath does. Two fingers, or a held press on the distance corner, stand you inside the city; hold to raise the eye line. Hold the top-left corner for the field note."></canvas>
+  </main>
+
+  <p id="prov" role="button" tabindex="0" aria-label="Read cited Buddhadhamma path factors in Threadwalk, keeping this walk intact">text · P. A. Payutto, <b>Buddhadhamma</b> (free online ed.) · buddhadhamma.github.io · retrieved 2026-10-25 (provenance loads with the source)</p>
+  <p class="sr" id="live" aria-live="polite"></p>
+  <p class="sr" id="help">Tap the painting to resolve it into characters, tap again to enter the city. Swipe to walk, tap a cell to read its district, sentence, word and material, and hold to see where you stand in that district's own text order — a hairline ring whose seam is now. The eight gates are the eight path factors, in the doctrine's order from the text: right view, right thought, right speech, right action, right livelihood, right effort, right mindfulness, right concentration. Each gate says its factor, quotes the sentence the text gives that factor, and says what it asks. Five are acts: hold on the gate until the district's shape is legible (right view); hold each of the three wrong thoughts until it goes (right thought); say none of the four wrong speeches and keep off the ring (right speech); walk four steps in the district (right effort); go back onto ground you have walked (right mindfulness); stay still on one point (right concentration). Right action and right livelihood ask one word of the text's own sentence: three doors at the foot. Every step spends one breath, and the frame's top edge shows what is left; a failed gate spends three. When the breath runs out the walk ends where it stands, and nothing is given back inside a walk. The weather of each district is what you carried out of the last one. Walls are the painting's own strong edges, drawn by their faces; a refused step marks the edge that refused and names the sides still open. Two fingers on the field, or a held press on the distance corner, stand you inside the city looking north: the same cells in perspective, and holding raises the eye line. The distance corner again returns to the plan; two fingers again puts the eye away. Hold the top-left corner, or open #note, to read the field note. Tap the painting when it is recomposed to return.</p>
+
+  <script src="/lib/moire-ambient.js"></script>
+  <!-- ?v= rides with the code: a phone that cached an older build must not run it against
+       a newer page. Bump it in the same commit that changes either module. -->
+  <script src="ladder-core.js?v=0.6.4"></script>
+  <script src="ladder.js?v=0.6.4"></script>
+  <script src="thread-overlay.js?v=0.1"></script>
+</body>
+</html>
