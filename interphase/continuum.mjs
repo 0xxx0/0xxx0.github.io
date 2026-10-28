@@ -29,6 +29,17 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <details><summary>Paste text / JSON</summary><textarea data-ip="paste" aria-label="Paste source" placeholder="Bring the actual source."></textarea><button data-ip="load-paste">OPEN PASTE</button></details>
  <form data-ip="find-form" class="ip-row"><input data-ip="find" type="search" maxlength="200" aria-label="Find words in source" placeholder="Find words · warp this reading"><button>FIND</button><button type="button" data-ip="clear">CLEAR</button></form>
  <div class="ip-row"><label>Scope <select data-ip="scope" aria-label="Scope"></select></label><label>WPM <input data-ip="wpm" type="number" min="60" max="6000" step="20" value="260" aria-label="Words per minute"></label><button data-ip="mark">MARK</button><button data-ip="marks">NEXT MARK</button></div>
+ <details class="ip-review" data-ip="review-fold"><summary>INTERPRET <output data-ip="review-count">0 authored marks</output></summary>
+ <label>SEEKING <input data-ip="purpose" maxlength="500" placeholder="What am I trying to understand?"></label>
+ <div class="ip-row"><button data-ip="note-capture">HOLD EXACT RANGE</button><span data-ip="note-target">Select a source range first.</span></div>
+ <div class="ip-row"><label>Kind <select data-ip="note-kind"><option>NOTE</option><option>QUESTION</option><option>APPLIED</option></select></label><label><input data-ip="note-resolved" type="checkbox"> resolved</label></div>
+ <label>MY READING <textarea data-ip="note-text" maxlength="500" rows="2" placeholder="What did I see, question, or use?"></textarea></label>
+ <div class="ip-row"><button data-ip="note-save">ATTACH</button><button data-ip="note-next">REVISIT NEXT</button></div>
+ <div class="ip-review-items" data-ip="review-items"></div>
+ <label>WORKING RETURN <textarea data-ip="conclusion" maxlength="2000" rows="2" placeholder="What do I take from this source? Empty is valid."></textarea></label>
+ <button data-ip="review-save">SAVE SEEKING / RETURN</button>
+ <p data-ip="review-law">Marks record authored interpretation, not comprehension. Exact quotes and revisions travel with RETURN.</p>
+ </details>
  <div class="ip-row"><button data-ip="edit">EDIT THIS RANGE</button><button data-ip="undo" disabled>UNDO</button><button data-ip="redo" disabled>REDO</button></div>
  <details><summary>Connect two passages</summary><p>Hold a range, move to another, and name an interpretation. Both quotes and scopes stay attached.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
  <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a></div>
@@ -44,7 +55,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <section class="ip-editor" data-ip="editor" hidden role="dialog" aria-modal="true" aria-label="Local source edit"><b data-ip="edit-range"></b><textarea data-ip="replacement" aria-label="Replacement source text" maxlength="100000"></textarea><div class="ip-row"><button data-ip="commit">COMMIT LOCAL EDIT</button><button data-ip="cancel">CANCEL</button></div><p>Only this exact range changes. Native source ownership stays unchanged.</p></section>`;
  target.append(root);
  const el=id=>root.querySelector(`[data-ip="${id}"]`);
- let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
+ let ap=null,source=null,model=null,catalog=null,nativeRecord=null,activeRoute=null,lastNotifiedRoute=null,scope='PARA',view='plain',query='',links=[],marks=[],frames=[],undo=[],redo=[],pendingLink=null,pendingAnnotation=null,editing=null,epoch=0,loading=false,disposed=false,lastPersist=0,persistTimer=null,bodyKey='';
  const snap=()=>ap?.snapshot(),char=()=>snap()?.char_index??0;
  const attention=()=>({char:char(),scope,view,wpm:snap()?.wpm||260,query});
  const frame=()=>({hash:source.hash,...attention()});
