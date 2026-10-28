@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T12:57:37.680Z",
+  "generated": "2026-10-28T13:28:41.312Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 118,
-  "git_commits_in_window": 194,
-  "telemetry_commits_in_window": 76,
-  "commits_total": 7286,
+  "commits_in_window": 119,
+  "git_commits_in_window": 198,
+  "telemetry_commits_in_window": 79,
+  "commits_total": 7290,
   "branch_count": 1133,
   "recent_commits": [
+    "ONE RETURN POV: fix controls and unify LOOK → RSVP → native action → RETURN",
     "LADDER: one source-addressed ASCII walk, AXIS focus and RSVP scrub",
-    "SLEEPER: exact Bell cross-readings over Ladder and Threadwalk",
-    "RSVP: native aperture through explicit Dayline work and exact RETURN"
+    "SLEEPER: exact Bell cross-readings over Ladder and Threadwalk"
   ],
   "active_fronts": [
     {
