@@ -142,6 +142,9 @@ function render(){
    const support=element('div','bookMap');support.id='pathSupport';
    support.append(element('div','tiny','ONE INTEGRATED PATH / THREE SUPPORTS · NOT EIGHT LEVELS'));
    const supportButtons=element('div','quick'),prompt=element('p','notice');prompt.id='supportPrompt';
+   const relatedCitation=element('div','tiny'),relatedQuote=element('blockquote','quote');
+   const inspectSupport=button('INSPECT SUPPORT',()=>{},'ghost');
+   relatedCitation.id='supportCitation';relatedQuote.id='supportQuote';inspectSupport.id='supportInspect';
    function showSupport(mode){
     supportMode=mode;prompt.textContent=PATH_SUPPORT[mode];
     for(const b of supportButtons.querySelectorAll('button')){
@@ -149,12 +152,18 @@ function render(){
      b.setAttribute('aria-pressed',String(active));
      b.style.borderColor=active?'#e6c17d':'#47646b';
     }
+    const at={view:0,effort:5,mindfulness:6}[mode],related=ladderLesson.entries[at];
+    if(!related||!m.nodes[at])throw Error('PATH_SUPPORT_SOURCE_UNAVAILABLE');
+    relatedCitation.textContent='CROSS-READ / '+related.name.toUpperCase()+' · '+related.locator+' · ABRIDGED SOURCE';
+    relatedQuote.textContent=related.excerpt;
+    inspectSupport.textContent='↝ INSPECT '+related.name.toUpperCase()+' / NO GATE PROOF';
+    inspectSupport.onclick=()=>move(m.nodes[at].id,false);
    }
    for(const [mode,label] of [['view','VIEW · DISTINGUISH'],['effort','EFFORT · RESPOND'],['mindfulness','MINDFULNESS · RECHECK']]){
     const control=button(label,()=>showSupport(mode),'ghost');control.dataset.mode=mode;
     supportButtons.append(control);
    }
-   support.append(supportButtons,prompt);
+   support.append(supportButtons,prompt,relatedCitation,relatedQuote,inspectSupport);
    support.append(element('p','tiny',w?'ANCHOR / HELD SOURCE '+w.start+'–'+w.end:'ANCHOR / TAP AN EXACT SENTENCE ABOVE'));
    support.append(element('p','tiny','MODEL LIMIT / '+FACTOR_MODEL_LIMITS[i]));
    const meaning=element('a','tiny','PAYUTTO CH. 12 / WHY THE FACTORS WORK TOGETHER ↗');
