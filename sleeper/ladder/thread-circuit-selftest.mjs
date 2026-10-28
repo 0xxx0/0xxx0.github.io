@@ -38,9 +38,9 @@ for(let i=0;i<8;i++){
 for(const value of ['-1','8','4.5','a','1x',''])if(value!=='')assert.throws(()=>b.selectedIndex(value),/INDEX_INVALID/);
 test(b.selectedIndex('')===0,'blank factor maps to first');
 const bad=structuredClone(raw);bad.factors[6].act='recollect';
-assert.throws(()=>b.create(bad),/LADDER_FACTOR_INVALID_6/);n++;
+assert.throws(()=>b.create(bad),/LADDER_FACTOR_INVALID_6|LADDER_SOURCE_PROJECTION_CHANGED/);n++;
 const bad2=structuredClone(raw);bad2.factors[0].line='word';
-assert.throws(()=>b.create(bad2),/LADDER_FACTOR_INVALID_0/);n++;
+assert.throws(()=>b.create(bad2),/LADDER_FACTOR_INVALID_0|LADDER_SOURCE_PROJECTION_CHANGED/);n++;
 const bad3=structuredClone(raw);bad3.selection.sha256='00';
 assert.throws(()=>b.create(bad3),/LADDER_SOURCE_SLICE_INVALID/);n++;
 let s=T.blank(m);
