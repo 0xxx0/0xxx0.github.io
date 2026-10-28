@@ -74,6 +74,58 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   try{sessionStorage.setItem('interphase.continuum.v1',JSON.stringify({source:{raw:source.raw,label:source.label,address:source.address,hash:source.hash},attention:attention(),links,marks,frames:frames.filter(f=>f.hash===source.hash).slice(-64),returnTo:source.returnTo}))}
   catch{if(!root.dataset.storage){root.dataset.storage='session-only';status('This source remains here; export RETURN to keep it.',true)}}
  }
+ // SHARE READFIELD'S SOURCE TRAIL. One local authored record per exact SHA-256
+ // range; old revisions remain parked, never silently rebound to changed bytes.
+ function trailKey(){return source?FieldSourceTrail.sourceKey({address:source.address,id:source.hash}):''}
+ function trail(){return FieldSourceTrail.read(trailKey())}
+ function validNote(m,raw=source?.raw,hash=source?.hash){
+  return !!m&&m.revision===hash&&Number.isInteger(m.charIndex)&&Number.isInteger(m.endIndex)&&m.charIndex>=0&&
+   m.endIndex>m.charIndex&&m.endIndex<=raw.length&&m.quote===raw.slice(m.charIndex,m.endIndex)&&
+   ['NOTE','QUESTION','APPLIED'].includes(m.kind)&&typeof m.note==='string'&&!!m.note.trim()&&m.note.length<=500;
+ }
+ function authored(){return trail().marks.filter(m=>validNote(m)).sort((a,b)=>a.charIndex-b.charIndex)}
+ function trailWritten(updated){
+  if(updated.storageState==='READY')return true;
+  status('Interpretation not stored ('+updated.storageState+'). Source remains unchanged.',true);return false;
+ }
+ function holdAnnotation(m=null){
+  if(!source||!model)return;
+  const u=m?{start:m.charIndex,end:m.endIndex}:at(model,char(),scope);
+  if(!u||u.end<=u.start||u.end-u.start>12000)throw Error('Hold a range of at most 12,000 source characters.');
+  const quote=source.raw.slice(u.start,u.end);
+  pendingAnnotation={hash:source.hash,start:u.start,end:u.end,quote,scope:m?.scale||scope,id:m?.id||('review:'+source.hash+':'+u.start+':'+u.end)};
+  el('note-target').textContent=u.start+'–'+u.end+' · '+quote.slice(0,100)+(quote.length>100?'…':'');
+  el('note-text').value=m?.note||'';el('note-kind').value=m?.kind||'NOTE';el('note-resolved').checked=!!m?.resolved;
+  el('note-text').focus({preventScroll:true});
+ }
+ function revisit(){
+  if(!source)return;const notes=authored(),next=notes.find(m=>m.charIndex>char())||notes[0];
+  if(!next)return status('No exact authored marks for this source revision.');
+  seek(next.charIndex,{remember:true});
+  if(model.levels.some(l=>l.id===next.scale))setScope(next.scale);
+  status('Revisited '+next.kind+' at exact character '+next.charIndex+'. RETURN restores departure.');
+ }
+ function paintReview(){
+  if(!source)return;const saved=trail(),notes=authored(),open=notes.filter(m=>m.kind==='QUESTION'&&!m.resolved).length;
+  el('review-count').textContent=notes.length+' notes · '+open+' open';
+  if(document.activeElement!==el('purpose'))el('purpose').value=saved.review.purpose;
+  if(document.activeElement!==el('conclusion'))el('conclusion').value=saved.review.conclusion;
+  if(!el('review-fold').open)return;
+  const list=el('review-items');list.replaceChildren();
+  for(const m of notes){
+   const line=document.createElement('div');line.className='ip-review-item';
+   const jump=document.createElement('button');jump.textContent=m.kind+(m.kind==='QUESTION'&&!m.resolved?' ○':'')+' · '+m.charIndex;
+   jump.title=m.quote;jump.onclick=()=>{drawer(false);seek(m.charIndex,{remember:true});status('Returned to authored range '+m.charIndex+'.')};
+   const edit=document.createElement('button');edit.textContent='EDIT';edit.onclick=()=>holdAnnotation(m);
+   const remove=document.createElement('button');remove.textContent='×';remove.setAttribute('aria-label','Remove interpretation at '+m.charIndex);
+   remove.onclick=()=>{if(trailWritten(FieldSourceTrail.setMarks(trailKey(),trail().marks.filter(x=>x.id!==m.id)))){paint();persist()}};
+   const phrase=document.createElement('span');phrase.textContent=m.note.slice(0,130);line.append(jump,edit,remove,phrase);list.append(line);
+  }
+  if(!notes.length){const p=document.createElement('p');p.textContent='No authored interpretation. Hold a range and write one, or leave it empty.';list.append(p)}
+  const unbound=saved.marks.length-notes.length;
+  el('review-law').textContent=unbound?unbound+' older/unbound marks are retained in READFIELD but excluded here.':
+   'Authored marks do not imply comprehension. Exact quote and revision travel with RETURN.';
+ }
  function seek(c,{remember=false}={}){
   if(!source)return;ap.stop();if(remember){frames.push(frame());if(frames.length>64)frames.shift()}
   ap.selectChar(clamp(c,0,source.raw.length-1));bodyKey='';paint();persist();
