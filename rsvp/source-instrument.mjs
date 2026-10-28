@@ -206,7 +206,7 @@ function refreshMarks(){
  trailState=x?.storageState||'NO_IDENTITY';
  allMarks=Array.isArray(x?.marks)?x.marks:[];
  boundMarks=allMarks.filter(noteBound).sort((a,b)=>a.charIndex-b.charIndex||a.id.localeCompare(b.id));
- furthest=Number(x?.furthest)||0;
+ furthest=x?.furthestRevision===hash?Number(x?.furthest)||0:0;
  paintRail();renderShelf();
  $('readingField').dataset.trailState=trailState;
 }
@@ -216,8 +216,9 @@ function paintVisited(){
  if(now-trailChecked<1600)return;trailChecked=now;
  const x=FieldSourceTrail.read(sourceKey());
  if(x.storageState!=='READY'&&x.storageState!=='EMPTY')return;
- if(Math.abs(furthest-x.furthest)>.001){
-  furthest=x.furthest;
+ const revisionBound=x.furthestRevision===hash?x.furthest:0;
+ if(Math.abs(furthest-revisionBound)>.001){
+  furthest=revisionBound;
   $('visitFill').style.width=(100*clamp(furthest,0,1)).toFixed(3)+'%';
   drawRingWitnesses();
  }
