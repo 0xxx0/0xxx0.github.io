@@ -36,7 +36,6 @@ try{
  assert.equal(packet.glyph.sourceHash,packet.audioHash);
  const appSource=await page.evaluate(()=>FoldBloomListen.state());
  assert.equal(packet.audioHash,appSource.fileMeta.hash);
- const {hashText}=await import('../lib/id.js').catch(()=>({hashText:null}));
  // Browser crypto is authoritative, not a guessed hash.
  const expected=await page.evaluate(async text=>{
   const bytes=new TextEncoder().encode(text);const digest=await crypto.subtle.digest('SHA-256',bytes);
@@ -68,5 +67,15 @@ try{
  assert.deepEqual(errors,[],'no browser errors on LISTEN → READFIELD → WRIST');
  console.log('RSVP LISTEN RING PASS · actual MP3+TXT pairing · measured energy · native glyph · full text · ring SEEK · same source');
  if(process.env.SCREENSHOT_DIR){fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});await reader.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'rsvp-listen-390.png')})}
+ await reader.evaluate(()=>{
+  const old=JSON.parse(sessionStorage.getItem('rsvp.listen.companion.v1'));
+  old.textHash='sha256:'+'0'.repeat(64);
+  sessionStorage.setItem('rsvp.listen.companion.v1',JSON.stringify(old));
+ });
+ await reader.reload();await reader.waitForFunction(()=>window.RSVPSourceInstrument?.sourceLength()>0);
+ assert.equal(await reader.evaluate(()=>RSVPSourceInstrument.paired()),false,'mismatched text hash must demote LISTEN contour');
+ assert.equal(await reader.locator('#sourceContour line.text').count(),72,'mismatch falls back to honest text ring');
+ assert.equal(await reader.locator('#listenGlyph svg').count(),0,'unpaired glyph cannot masquerade as text evidence');
+ assert.equal(await reader.locator('#fullSource').textContent(),lyrics.trim(),'source survives rejection unchanged');
  await ctx.close();
 }finally{await browser.close();await new Promise(r=>server.close(r))}
