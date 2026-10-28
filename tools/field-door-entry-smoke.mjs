@@ -26,6 +26,15 @@ try{
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/?focus=%2Ffold-bloom%2F');
   await page.waitForFunction(()=>window.FieldBarLanding?.view?.()==='browse'&&window.FieldIndexReadModel?.snapshot?.().routes.length>0,null,{timeout:30000});
+  const expected=await page.evaluate(()=>{const s=window.FieldIndexReadModel.snapshot();return{all:s.routes.length,heads:s.heads.length}});
+  assert.equal(await page.locator('#feedRail .feedChip').count(),expected.heads,'resting glyphs must be CURRENT subset');
+  const scope=page.locator('#feedRail .feedScopeToggle');
+  assert.equal(await scope.isVisible(),true,'ALL scope must be reachable in one-screen glyph rail');
+  await scope.click();
+  assert.equal(await page.locator('#feedRail .feedChip').count(),expected.all,'ALL must expose every manifest route with no privileged omissions');
+  assert.equal(await scope.getAttribute('data-scope'),'HEADS');
+  await scope.click();
+  assert.equal(await page.locator('#feedRail .feedChip').count(),expected.heads,'return to one-screen CURRENT subset');
   await page.evaluate(()=>window.__fieldAct.focus('/fold-bloom/'));
   const button=page.locator('#apDoor');
   assert.equal(await button.isVisible(),true,'DOOR must be visible in one-screen root at '+width);
