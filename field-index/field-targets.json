@@ -1,0 +1,46 @@
+{
+ "schema": "field-chart-targets/v1",
+ "derived_from": "field-game.json (corpus.db, 2026-10-24)",
+ "targets": [
+  {
+   "n": 1,
+   "ym": "2026-09",
+   "hr": 11,
+   "n_msgs": 6166,
+   "ask": "the loudest hour of September",
+   "tier": 1
+  },
+  {
+   "n": 2,
+   "ym": "2026-09",
+   "hr": 3,
+   "n_msgs": 3590,
+   "ask": "the month where 03h is loudest",
+   "tier": 1
+  },
+  {
+   "n": 3,
+   "ym": "2026-10",
+   "hr": 15,
+   "n_msgs": 5500,
+   "ask": "the loudest hour of October",
+   "tier": 1
+  },
+  {
+   "n": 4,
+   "ym": "2026-09",
+   "hr": 4,
+   "n_msgs": 3532,
+   "ask": "the month where 04h beats 16h hardest",
+   "tier": 2
+  },
+  {
+   "n": 5,
+   "ym": "2024-08",
+   "hr": 22,
+   "n_msgs": 22,
+   "ask": "the first month 22h beat 10h",
+   "tier": 3
+  }
+ ]
+}

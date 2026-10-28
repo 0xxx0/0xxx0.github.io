@@ -1,9 +1,9 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>FIELD INDEX — the memory field</title>
+<title>FIELD INDEX — the chart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="FIELD INDEX — the memory field">
-<meta property="og:description" content="A playable instrument over 31 months of a real corpus: 424 cells, 184,560 messages. Move through the field and it speaks. Dwell and the hidden text surfaces.">
+<meta property="og:title" content="FIELD INDEX — the chart">
+<meta property="og:description" content="Chart a memory field with your ear: five target cells, one lock each. The closer you are, the higher the tone. 424 real cells, 184,560 messages — measured, nothing seeded.">
 <meta property="og:image" content="https://0xxx0.github.io/keel/og.png">
 <style>
   :root { --ink:#141416; --dim:#8a8a8f; --hair:#ededeb; --paper:#fbfbfa; }
@@ -12,59 +12,74 @@
                font: 13px/1.6 -apple-system, "SF Pro Text", system-ui, sans-serif; }
   #field { position: absolute; inset: 0; width: 100vw; height: 100vh; touch-action: none;
            cursor: crosshair; }
-  /* quiet HUD — text at rest sits near the reveal threshold (design law) */
   .hud { position: fixed; color: var(--dim); font-size: 11px; letter-spacing: 0.08em;
          text-transform: uppercase; opacity: 0.35; transition: opacity .25s; }
   .hud:hover { opacity: 1; }
-  #tl { top: 14px; left: 18px; }
+  #tl { top: 14px; left: 18px; max-width: 62vw; }
   #tr { top: 14px; right: 18px; text-align: right; }
-  #bl { bottom: 14px; left: 18px; max-width: 44vw; text-transform: none; letter-spacing: 0.02em; }
+  #bl { bottom: 14px; left: 18px; max-width: 46vw; text-transform: none; letter-spacing: 0.02em; }
   #br { bottom: 14px; right: 18px; text-align: right; }
-  #readout { color: var(--ink); opacity: 0.55; font-family: ui-monospace, Menlo, monospace;
-             letter-spacing: 0.02em; }
+  #readout { color: var(--ink); opacity: 0.62; font-family: ui-monospace, Menlo, monospace;
+             letter-spacing: 0.02em; text-transform: none; }
   a { color: inherit; text-decoration: underline; text-underline-offset: 2.5px; }
   .key { border: 1px solid var(--hair); padding: 2px 6px; margin: 0 2px; }
 </style>
 <canvas id="field"></canvas>
 <div class="hud" id="tl">FIELD INDEX · 31 months · 424 cells · 184,560 messages<br>
-  <span id="readout">move through the field</span></div>
+  <span id="readout">hold on a cell to lock — one attempt each · the closer you are, the higher the tone</span></div>
 <div class="hud" id="tr">
   <span class="key">drag</span> orbit · <span class="key">scroll</span> radius ·
-  <span class="key">r</span> replay · <span class="key">e</span> export trace<br>
-  dwell on a cell — the hidden text surfaces</div>
+  <span class="key">r</span> replay · <span class="key">e</span> export · <span class="key">n</span> new chart<br>
+  <span id="chartline">chart 1/5 · locked 0 · missed 0</span></div>
 <div class="hud" id="bl">angle = hour of day · radius = month (2023-06 core → 2026-10 rim) ·
-  light = real message count · every value measured, nothing seeded</div>
-<div class="hud" id="br"><span id="score">cells visited 0</span><br>
-  <a href="https://0xxx0.github.io/keel/">← the specimen</a></div>
+  light = real message count · targets derived from the corpus, nothing seeded</div>
+<div class="hud" id="br"><a href="https://0xxx0.github.io/keel/">← the specimen</a></div>
 
 <script>
 (() => {
-  // FIELD INDEX — the corpus as a walkable sonified field.
-  // Named-prototype lineage: sleeper maze (radial walkable plan) + Paint With Music (stroke→sound)
-  // + inkField (gesture→JSON replay) + InkPainting (variable brush). Quiet at rest (P3):
-  // terrain alpha capped at 0.12, text hidden until dwell. Homoiconic: structure = data = text.
+  // FIELD INDEX — THE CHART v2.
+  // Body kept from v1 (field / trail / dwell-reveal / gesture trace). The mechanic added ON TOP:
+  // five target cells derived from the real corpus, one lock attempt each, sonar by proximity.
+  // Laws: position = evidence · sound is the compass · the chart remembers, and fades.
   const cv = document.getElementById('field');
   const ctx = cv.getContext('2d');
   const readout = document.getElementById('readout');
-  const scoreEl = document.getElementById('score');
-  let M = null;                    // {months, matrix, samples}
-  let cells = [];                  // {mi, hr, count, x, y, r}
+  const chartline = document.getElementById('chartline');
+  let M = null, T = null;
+  let cells = [], targets = [];
   let W, H, cx, cy, rMin, rMax, rot = 0, zoom = 1;
-  let trace = [];                  // gesture-to-JSON: [{t, x, y, mi, hr, count}]
-  let trail = [];                  // fading strokes: {x, y, w, a}
-  let reveals = [];                // dwelling text: {text, x, y, a, target}
-  let visited = new Set();
-  let ac = null, last = null, lastMove = 0, lastCell = null, dwell = 0;
+  let trace = [], trail = [], reveals = [], visited = new Set();
+  let ac = null, last = null, lastCell = null, dwell = 0;
+  let ti = 0;                       // current target index
+  let locked = [], missed = [];     // chart marks: {ym,hr,ts} / {ym,hr,ts}
+  let hold = null;                  // {cell, x, y, t0}
+  let flash = null;                 // {cell, until} — the true cell shown after a miss
+  let done = false;
+  const STORE = 'field-chart-v1';
+  const samplesByCell = new Map();
+
+  // ---------- chart persistence: the record has a life (fade 7d, drop 30d)
+  function loadChart() {
+    try {
+      const s = JSON.parse(localStorage.getItem(STORE) || '{}');
+      const now = Date.now(), DAY = 864e5;
+      const keep = a => (a || []).filter(m => now - m.ts < 30 * DAY);
+      locked = keep(s.locked); missed = keep(s.missed);
+      if (s.done && s.ti >= 5) done = true; else ti = s.ti || 0;
+    } catch (e) { locked = []; missed = []; }
+  }
+  function saveChart() {
+    localStorage.setItem(STORE, JSON.stringify({ ti, locked, missed, done }));
+  }
 
   function size() {
-    W = cv.width = innerWidth * devicePixelRatio;
-    H = cv.height = innerHeight * devicePixelRatio;
+    cv.width = innerWidth * devicePixelRatio;
+    cv.height = innerHeight * devicePixelRatio;
     ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
     cx = innerWidth / 2; cy = innerHeight / 2;
     rMin = Math.min(innerWidth, innerHeight) * 0.10;
     rMax = Math.min(innerWidth, innerHeight) * 0.44 * zoom;
-    layout();
-    paint();
+    layout(); paint();
   }
 
   function layout() {
@@ -82,26 +97,23 @@
           rad: 1 + Math.log(1 + count) * 1.5 });
       }
     });
-    // place each real sample next to its cell (the hidden text)
-    reveals = reveals.filter(r => r.a > 0.02);
     M.samples.forEach(s => {
       const c = cells.find(c => c.ym === s[0] && c.hr === s[1]);
       if (c) samplesByCell.set(c, s[2]);
     });
   }
-  const samplesByCell = new Map();
+  const cellAt = (ym, hr) => cells.find(c => c.ym === ym && c.hr === hr);
 
   function paint() {
     const w = innerWidth, h = innerHeight;
     ctx.fillStyle = '#fbfbfa'; ctx.fillRect(0, 0, w, h);
     if (!cells.length) return;
-    // REST STATE: terrain near-invisible (alpha ≤ 0.12). Structure waits.
+    // REST: terrain near-invisible (alpha ≤ 0.12); structure waits.
     cells.forEach(c => {
       const a = 0.04 + Math.log(1 + c.count) / Math.log(1400) * 0.08;
       ctx.fillStyle = `rgba(20,20,22,${a.toFixed(3)})`;
       ctx.beginPath(); ctx.arc(c.x, c.y, c.rad, 0, Math.PI * 2); ctx.fill();
     });
-    // hour rings, 1px, near-0 dim
     ctx.strokeStyle = 'rgba(20,20,22,0.05)'; ctx.lineWidth = 1;
     for (let hr = 0; hr < 24; hr += 6) {
       const ang = -Math.PI / 2 + (hr / 24) * Math.PI * 2 + rot;
@@ -109,7 +121,6 @@
       ctx.lineTo(cx + Math.cos(ang) * rMax, cy + Math.sin(ang) * rMax);
       ctx.stroke();
     }
-    // month ring ticks
     ctx.fillStyle = 'rgba(20,20,22,0.16)';
     if (M) M.months.forEach((ym, mi) => {
       if (ym.endsWith('-01') || mi === 0) {
@@ -117,29 +128,73 @@
         ctx.fillText(ym.slice(0, 4), cx + 3, cy - r);
       }
     });
+    // chart marks — solid = locked, dashed = missed; they fade with age
+    const now = Date.now(), DAY = 864e5;
+    const mark = (m, dashed) => {
+      const c = cellAt(m.ym, m.hr);
+      if (!c) return;
+      const age = Math.min(1, (now - m.ts) / (7 * DAY));
+      const a = 0.55 * (1 - age * 0.8);
+      ctx.save();
+      ctx.strokeStyle = `rgba(20,20,22,${a.toFixed(3)})`;
+      ctx.lineWidth = 1;
+      if (dashed) ctx.setLineDash([2.5, 3.5]);
+      ctx.beginPath(); ctx.arc(c.x, c.y, 7.5, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    };
+    locked.forEach(m => mark(m, false));
+    missed.forEach(m => mark(m, true));
+    // the true cell after a miss: dim halo for a few seconds (learn, don't punish)
+    if (flash && Date.now() < flash.until) {
+      const c = flash.cell;
+      const a = 0.30 * (1 - (Date.now() - flash.t0) / (flash.until - flash.t0));
+      ctx.strokeStyle = `rgba(20,20,22,${Math.max(0, a).toFixed(3)})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(c.x, c.y, 13, 0, Math.PI * 2); ctx.stroke();
+    }
   }
 
-  function speak(c) {
+  // ---------- sound: cell whisper (v1) + sonar ping (v2)
+  function audio() {
     if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
     if (ac.state === 'suspended') ac.resume();
-    const t = ac.currentTime;
-    const reg = 0.7 + (c.mi / 30) * 0.6;                 // outer months ring higher
-    const f = (90 + Math.log(1 + c.count) * 78) * reg;
-    const vol = 0.04 + Math.min(0.22, Math.log(1 + c.count) / 260);
-    const gain = ac.createGain();
-    gain.gain.setValueAtTime(0.0001, t);
-    gain.gain.exponentialRampToValueAtTime(vol, t + 0.012);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
-    [[f, 'triangle', 0.5], [f * 1.5, 'sine', 0.2], [f / 2, 'sine', 0.25]].forEach(([fr, ty, am]) => {
-      const o = ac.createOscillator(), g = ac.createGain();
-      o.type = ty; o.frequency.value = fr; g.gain.value = am;
-      o.connect(g); g.connect(gain); o.start(t); o.stop(t + 0.55);
+    return ac;
+  }
+  function tone(f, vol, dur, ty) {
+    const a = audio(), t = a.currentTime;
+    const g = a.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(Math.max(0.0002, vol), t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    [[f, ty || 'triangle', 0.5], [f * 1.5, 'sine', 0.18], [f / 2, 'sine', 0.25]].forEach(([fr, t2, am]) => {
+      const o = a.createOscillator(), gg = a.createGain();
+      o.type = t2; o.frequency.value = fr; gg.gain.value = am;
+      o.connect(gg); gg.connect(g); o.start(t); o.stop(t + dur + 0.1);
     });
-    gain.connect(ac.destination);
+    g.connect(a.destination);
+  }
+  function whisper(c) {
+    const reg = 0.7 + (c.mi / 30) * 0.6;
+    tone((90 + Math.log(1 + c.count) * 78) * reg, 0.04 + Math.min(0.2, Math.log(1 + c.count) / 260), 0.35);
+  }
+  let pingT = 0;
+  function ping(x, y) {
+    if (done || !targets[ti]) return;
+    const now = performance.now();
+    if (now - pingT < 95) return;                   // throttle
+    pingT = now;
+    const t = targets[ti], c = cellAt(t.ym, t.hr);
+    if (!c) return;
+    const d = Math.hypot(c.x - x, c.y - y);
+    const max = Math.hypot(innerWidth, innerHeight) * 0.55;
+    const near = Math.max(0, 1 - d / max);          // 1 = on it
+    const f = 180 + near * 880;                      // closer = higher
+    const vol = 0.012 + near * 0.10;                 // closer = louder
+    tone(f, vol, 0.10 + near * 0.05, near > 0.72 ? 'sine' : 'triangle');
   }
 
-  function nearest(x, y) {
-    let best = null, bd = 40 * 40;
+  function nearest(x, y, rad) {
+    let best = null, bd = (rad || 40) ** 2;
     for (const c of cells) {
       const d = (c.x - x) ** 2 + (c.y - y) ** 2;
       if (d < bd) { bd = d; best = c; }
@@ -149,39 +204,91 @@
 
   function move(x, y, speed) {
     const now = performance.now();
-    // variable brush (InkPainting): speed → stroke width, reversed
     const w = Math.max(1, 7 - Math.min(6, speed / 6));
-    trail.push({ x, y, w, a: 0.10 });                    // quiet trail cap
+    trail.push({ x, y, w, a: 0.10 });
     if (trail.length > 240) trail.shift();
-    const c = nearest(x, y);
+    const c = nearest(x, y, 40);
     if (c) {
       const key = c.mi * 100 + c.hr;
-      if (lastCell !== key) { speak(c); visited.add(key); lastCell = key; dwell = 0; }
-      else dwell += 1;
-      // DWELL REVEAL: hidden text surfaces when you stay with a cell
+      if (lastCell !== key) {
+        whisper(c);
+        visited.add(key); lastCell = key; dwell = 0;
+      } else dwell += 1;
       if (dwell > 6 && samplesByCell.get(c)) {
-        const txt = samplesByCell.get(c);
         if (!reveals.find(r => r.cell === c)) {
           if (reveals.length > 5) reveals.shift();
-          reveals.push({ cell: c, text: txt, x: c.x, y: c.y, a: 0, target: 1 });
+          reveals.push({ cell: c, text: samplesByCell.get(c), x: c.x, y: c.y, a: 0, target: 1 });
         }
       }
-      readout.textContent = `${c.ym} · ${String(c.hr).padStart(2, '0')}h · ${c.count.toLocaleString()} msgs`;
     }
-    scoreEl.textContent = `cells visited ${visited.size}`;
+    if (!done) ping(x, y);
     trace.push({ t: Math.round(now), x: Math.round(x), y: Math.round(y),
                  mi: c ? c.mi : null, hr: c ? c.hr : null, count: c ? c.count : 0 });
     if (trace.length > 4000) trace.shift();
     last = { x, y, t: now };
   }
 
+  // ---------- the lock: one attempt per target
+  function startHold(x, y) {
+    if (done) return false;
+    const c = nearest(x, y, 30);
+    if (!c) return false;
+    hold = { cell: c, x, y, t0: performance.now() };
+    tone(220, 0.02, 0.06, 'sine');
+    return true;
+  }
+  function endHold(cancelled) {
+    if (!hold) return;
+    const held = performance.now() - hold.t0;
+    const c = hold.cell;
+    hold = null;
+    if (cancelled) return;
+    if (held < 1000) { readout.textContent = 'released early — hold until the ring closes'; return; }
+    lock(c);
+  }
+  function lock(c) {
+    const t = targets[ti];
+    if (!t) { return; }
+    const truth = cellAt(t.ym, t.hr);
+    if (c === truth) {
+      locked.push({ ym: c.ym, hr: c.hr, ts: Date.now() });
+      tone(523.25, 0.16, 0.9, 'sine'); tone(784, 0.10, 0.9, 'sine');
+      // the reward: this cell's real messages surface
+      if (samplesByCell.get(c)) {
+        reveals.push({ cell: c, text: samplesByCell.get(c), x: c.x, y: c.y, a: 0, target: 1 });
+      }
+      advance(`locked — ${c.ym} · ${String(c.hr).padStart(2,'0')}h · ${c.count.toLocaleString()} messages`);
+    } else {
+      missed.push({ ym: c.ym, hr: c.hr, ts: Date.now() });
+      flash = { cell: truth, t0: Date.now(), until: Date.now() + 4200 };
+      tone(146.83, 0.10, 0.5, 'triangle');
+      advance(`missed — the target was ${t.ym} · ${String(t.hr).padStart(2,'0')}h`);
+    }
+  }
+  function advance(verdict) {
+    ti++;
+    if (ti >= targets.length) done = true;
+    saveChart();
+    renderChartLine();
+    paint();
+    readout.textContent = done ? verdict : verdict + ' · next: ' + targets[ti].ask;
+  }
+  function renderChartLine() {
+    chartline.textContent = done
+      ? `chart complete · locked ${locked.length} · missed ${missed.length}`
+      : `chart ${ti + 1}/${targets.length} · locked ${locked.length} · missed ${missed.length}`;
+  }
+  function startChart() {
+    ti = 0; done = false; locked = []; missed = []; flash = null;
+    saveChart(); renderChartLine();
+    readout.textContent = 'target 1/' + targets.length + ' · ' + targets[0].ask;
+  }
+
   function frame() {
-    // fade the trail, ramp reveal alphas (the reveal loop)
     trail.forEach(t => t.a *= 0.96);
     trail = trail.filter(t => t.a > 0.004);
     reveals.forEach(r => r.a += (r.target - r.a) * 0.08);
     reveals = reveals.filter(r => r.a > 0.02 || r.target === 1);
-
     paint();
     trail.forEach(t => {
       ctx.strokeStyle = `rgba(20,20,22,${t.a.toFixed(3)})`;
@@ -189,25 +296,33 @@
       ctx.beginPath(); ctx.arc(t.x, t.y, t.w / 2, 0, Math.PI * 2); ctx.stroke();
     });
     reveals.forEach(r => {
-      // text sits at rest ~0 alpha; only dwell brings it up
       ctx.font = '11px ui-monospace, Menlo, monospace';
       ctx.fillStyle = `rgba(20,20,22,${(r.a * 0.9).toFixed(3)})`;
       const words = r.text.match(/.{1,22}(\s|$)/g) || [r.text];
-      words.slice(0, 3).forEach((ln, i) => {
-        ctx.fillText(ln.trim(), r.x + 10, r.y - 10 + i * 13);
-      });
+      words.slice(0, 3).forEach((ln, i) => ctx.fillText(ln.trim(), r.x + 10, r.y - 10 + i * 13));
     });
+    // hold ring: the one new gesture made visible
+    if (hold) {
+      const p = Math.min(1, (performance.now() - hold.t0) / 1000);
+      ctx.strokeStyle = 'rgba(20,20,22,0.7)'; ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(hold.cell.x, hold.cell.y, 11, -Math.PI / 2, -Math.PI / 2 + p * Math.PI * 2);
+      ctx.stroke();
+      if (p >= 1) { const h = hold; hold = null; lock(h.cell); }
+    }
     requestAnimationFrame(frame);
   }
 
-  // ---- input: pointer = walk, drag = orbit, wheel = radius zoom
+  // ---------- input
   let dragging = false, dragStart = null;
   cv.addEventListener('pointerdown', e => {
-    dragging = true; dragStart = { x: e.clientX, y: e.clientY, rot };
+    const started = startHold(e.clientX, e.clientY);
+    dragging = !started; dragStart = { x: e.clientX, y: e.clientY, rot };
     cv.setPointerCapture(e.pointerId);
     move(e.clientX, e.clientY, 0);
   });
   cv.addEventListener('pointermove', e => {
+    if (hold && Math.hypot(e.clientX - hold.x, e.clientY - hold.y) > 22) endHold(true);
     if (dragging && dragStart) {
       rot = dragStart.rot + (e.clientX - dragStart.x) * 0.004;
       layout(); paint();
@@ -215,7 +330,10 @@
     const speed = last ? Math.hypot(e.clientX - last.x, e.clientY - last.y) : 0;
     move(e.clientX, e.clientY, speed);
   });
-  ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, () => { dragging = false; }));
+  ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, e => {
+    if (hold) endHold(false);
+    dragging = false;
+  }));
   cv.addEventListener('wheel', e => {
     e.preventDefault();
     zoom = Math.max(0.5, Math.min(1.8, zoom * (e.deltaY > 0 ? 0.94 : 1.06)));
@@ -226,11 +344,11 @@
   addEventListener('keydown', e => {
     if (e.key === 'r') replay();
     if (e.key === 'e') exportTrace();
+    if (e.key === 'n') startChart();
     if (e.key === 'ArrowLeft')  { rot -= 0.12; layout(); paint(); }
     if (e.key === 'ArrowRight') { rot += 0.12; layout(); paint(); }
   });
 
-  // ---- inkField lineage: the gesture is data. Replay it, or take it with you.
   function replay() {
     if (!trace.length) return;
     let i = 0;
@@ -243,15 +361,30 @@
     step();
   }
   function exportTrace() {
-    const blob = new Blob([JSON.stringify({ field: 'field-index', trace }, null, 1)],
+    const blob = new Blob([JSON.stringify({ field: 'field-index', chart: { locked, missed, ti, done }, trace }, null, 1)],
       { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'field-index-trace.json';
+    a.download = 'field-index-chart.json';
     a.click();
   }
 
-  fetch('./field-game.json').then(r => r.json()).then(d => { M = d; size(); frame(); }).catch(size);
+  // ---------- boot
+  Promise.all([
+    fetch('./field-game.json').then(r => r.json()),
+    fetch('./field-targets.json').then(r => r.json())
+  ]).then(([g, t]) => {
+    M = g; T = t; targets = t.targets;
+    loadChart(); size(); frame();
+    if (done) {
+      readout.textContent = 'chart complete — n starts a new chart';
+    } else if (ti === 0) {
+      readout.textContent = 'hold on a cell to lock — one attempt each · the closer, the higher the tone';
+    } else {
+      readout.textContent = 'target ' + (ti + 1) + '/' + targets.length + ' · ' + targets[ti].ask;
+    }
+    renderChartLine();
+  }).catch(size);
   addEventListener('resize', size);
 })();
 </script>

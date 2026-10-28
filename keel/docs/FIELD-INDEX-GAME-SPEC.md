@@ -54,3 +54,25 @@ arbitrary sample rows — deterministic `MIN(ROWID)` sampling next revision.)
   export is local).
 - Next concrete step: deterministic sample rows + topic sectors (lane 1), then fold both
   brushes into the shared lib (lane 2).
+
+## THE CHART (v2, 2026-10-27) — the mechanic
+- **The sentence**: "I charted a corner of my memory — and I can hear where I've never gone."
+- **Laws (3)**: position = evidence (targets derived from the corpus, never invented) ·
+  sound is the compass (proximity before sight) · the chart remembers and fades
+  (marks fade over 7 days, drop at 30; a miss leaves a dashed trace, a lock a solid ring).
+- **The one new gesture**: hold ~1s on a cell to lock. One attempt per target; cancels are free,
+  the lock is the point of no return. Held drawn as a closing ring at the cell.
+- **Targets** (`field-index/field-targets.json`, 5, derived by argmax/relational queries over
+  field-game.json): loudest hour of Sep 2026 (11h, 6,166) · month where 03h is loudest
+  (2026-09, 3,590) · loudest hour of Oct (15h, 5,500) · month where 04h beats 16h hardest
+  (2026-09 04h) · first month 22h beat 10h (2024-08 22h — a sparse cell, the hard one).
+- **Reward**: a correct lock surfaces that cell's real messages (the dwell reveal).
+  **Failure**: dashed ring where you locked wrongly + the true cell haloes dim for 4s (learn, not punish).
+- **What the machine cannot do**: the chart records what you touched; it cannot tell you why
+  you wrote it. Stated on the surface, not as a locked socket.
+- **Rejected / parked**: score, streak, rank (a mirror line of locked/missed only) · leaderboard ·
+  time pressure (would reward speed over reading) · duplicates and degenerate targets were cut at
+  derivation: "loudest hour anywhere" duplicated September, "most even month" landed on a 9-message stub.
+- **Falsifiers**: (1) a stranger on a cold open cannot say what to do in 5s → the readout line failed;
+  (2) holding never feels like the risk → the one-lock cost must be honoured (no undo);
+  (3) the sonar cannot be localised — if players hunt by eye, the sound law failed.
