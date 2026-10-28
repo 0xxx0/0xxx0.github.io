@@ -48,15 +48,36 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  rd.querySelector('#next').click();
  await wait(()=>rd.querySelector('#where')?.textContent.includes('2 / 8'),'real source navigation');
  assert(same(stable(L.state()),before),'reading has not moved walker, spent breath, lit Gate or changed witness');
+ // A deliberate close must not erase a HOLD or reset the reading position.
+ // Start RIDE to prove hidden lenses pause playback rather than leak audio.
+ rd.querySelector('#actions button:nth-child(2)').click();
+ const ride=rd.querySelector('#ridePlay');
+ assert(ride,'RIDE control available');
+ ride.click();
+ assert(ride.textContent.includes('PAUSE'),'RIDE actually started');
  rd.querySelector('#exit').click();
- await wait(()=>!d.querySelector('#ladderOverlay'),'source-to-Ladder return message');
+ await wait(()=>d.querySelector('#ladderOverlay')?.hidden,'reader hidden by source-to-Ladder return');
+ await wait(()=>ride.textContent.includes('RIDE'),'hidden reader playback paused');
  assert(same(stable(L.state()),before),'same native walk after close');
+
  read.click();
- await wait(()=>!!d.querySelector('#ladderOverlay'),'reopen');
+ await wait(()=>!d.querySelector('#ladderOverlay')?.hidden,'reopen');
+ assert(d.querySelector('#ladderFrame')===inner,'same actual iframe; no synthetic session restoration');
+ assert(rd.querySelector('#where')?.textContent.includes('2 / 8'),'reading progress survives close');
+ const first=rd.querySelector('#rail button:first-child');
+ first.click();
+ await wait(()=>rd.querySelector('#where')?.textContent.includes('1 / 8'),'source passage inspected again');
+ assert(rd.querySelector('#passage button.held'),'exact source sentence remains held after return to Ladder');
+ assert(same(stable(L.state()),before),'held evidence cannot mutate Ladder Gates');
+
  d.querySelector('#ladderClose').click();
- assert(!d.querySelector('#ladderOverlay'),'explicit close works');
- assert(same(stable(L.state()),before),'reversible close');
- out.textContent='PASS Ladder → source-exact abridged Threadwalk → same Ladder / 320,390,1280 / original law unchanged';
+ assert(d.querySelector('#ladderOverlay')?.hidden,'explicit close hides live frame');
+ read.click();
+ assert(!d.querySelector('#ladderOverlay')?.hidden,'explicit reopen shows same frame');
+ assert(rd.querySelector('#where')?.textContent.includes('1 / 8'),'repeated reopen retains exact position');
+ d.querySelector('#ladderClose').click();
+ assert(same(stable(L.state()),before),'reversible close and restore');
+ out.textContent='PASS Ladder ↔ source-exact Threadwalk / preserved witness + cursor + paused RIDE / 320,390,1280 / native law unchanged';
 }catch(e){out.textContent='FAIL '+String(e.stack||e)}})();
 </script>`;
 const server=http.createServer((req,res)=>{
