@@ -332,7 +332,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   const m=input.match(/^:([a-z]+)(?:\s+([\s\S]*))?$/i);if(!m){status('Unsupported source command.');return false}
   const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),glyph:glyphHandoff,return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
   if(!actions[name]){status('That move is not supported in this source. The native FIELD map is under SOURCE.');el('space').focus();return false}
-  await actions[name]();if(name!=='source'&&el('drawer').hidden)el('space').focus();paint();return true;
+  const result=await actions[name]();if(result===false)return false;if(name!=='source'&&el('drawer').hidden)el('space').focus();paint();return true;
  }
  const visibility=()=>{if(document.hidden){ap?.stop();persist(snap(),true)}},leaving=()=>persist(snap(),true);
  document.addEventListener('visibilitychange',visibility);window.addEventListener('pagehide',leaving);
