@@ -103,7 +103,7 @@ function paintFocus(){
 // existing READFIELD review schema. No RSVP mark database or second position.
 const bookmarkNote='BOOKMARK',svgNS='http://www.w3.org/2000/svg';
 let boundMarks=[],allMarks=[],trailState='EMPTY',furthest=0,selectedRange=null,
-    editing=null,shelfOpen=false,trailChecked=0,lastMarkPick=null;
+    editing=null,shelfOpen=false,trailChecked=-Infinity,lastMarkPick=null;
 const validHash=h=>/^sha256:[a-f0-9]{64}$/.test(String(h||''));
 const sourceKey=()=>window.RSVPReader?.key?.()||'';
 function noteBound(m){
