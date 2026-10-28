@@ -82,6 +82,14 @@ if(body&&modes){
   new MutationObserver(()=>render()).observe(document.body,{attributes:true,attributeFilter:['data-interphase-mode']});
   const rail=document.querySelector('#railId');if(rail)new MutationObserver(()=>{if(document.body.dataset.interphaseMode==='SUBSTRATE')render()}).observe(rail,{childList:true,characterData:true,subtree:true});
   if(location.hash==='#substrate'){
-    let attempts=0;const enter=()=>{attempts++;if(currentId()&&currentId()!=='loading source'){modeButton.click();return}if(attempts<12)setTimeout(enter,50)};setTimeout(enter,0);
+    // The host installs controls asynchronously. A fixed retry window can miss
+    // the exact-route handoff on a slow device; use the real host readiness edge.
+    const enter=()=>{
+      if(!window.InterphaseWorkbench?.setMode)return;
+      document.removeEventListener('interphase:ready',enter);
+      window.InterphaseWorkbench.setMode('SUBSTRATE');
+    };
+    document.addEventListener('interphase:ready',enter);
+    enter();
   }
 }
