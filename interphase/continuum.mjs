@@ -316,6 +316,34 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  el('raw-open').onclick=()=>{if(!model)return;const u=at(model,char(),scope);el('raw').textContent=model.raw.slice(u.start,u.end);el('raw').hidden=false};
  el('mark').onclick=()=>{if(!source)return;if(!marks.includes(char())&&marks.length<256){checkpoint();marks.push(char())}status('Marked this exact source position.');paint();persist()};
  el('marks').onclick=()=>{if(!source)return;const all=[...marks].sort((a,b)=>a-b);if(!all.length)return status('No marks in this source.');seek(all.find(c=>c>char())??all[0],{remember:true});drawer(false)};
+ // Source-owner controls; no parallel annotation database or dashboard.
+ el('review-fold').addEventListener('toggle',()=>{if(el('review-fold').open)paintReview()});
+ el('note-capture').onclick=run(()=>holdAnnotation());
+ el('note-save').onclick=run(()=>{
+  const p=pendingAnnotation;
+  if(!p)throw Error('HOLD an exact range first; the passage must not drift during authoring.');
+  if(!source||p.hash!==source.hash||source.raw.slice(p.start,p.end)!==p.quote)throw Error('The held annotation belongs to a different source revision.');
+  const note=el('note-text').value.trim();
+  if(!note)throw Error('Write your interpretation or question before attaching it.');
+  const saved=trail(),other=saved.marks.filter(m=>m.id!==p.id);
+  if(other.length>=64)throw Error('64 retained marks: export or remove one before adding another.');
+  const kind=el('note-kind').value;
+  const mark={id:p.id,revision:source.hash,address:source.address,quote:p.quote,
+   charIndex:p.start,endIndex:p.end,scale:p.scope,progress:p.start/Math.max(1,source.raw.length),
+   kind, note,resolved:kind==='QUESTION'&&el('note-resolved').checked,at:new Date().toISOString(),via:'INTERPHASE'};
+  if(trailWritten(FieldSourceTrail.setMarks(trailKey(),[...other,mark]))){
+   status('Exact authored '+kind.toLowerCase()+' attached to this source revision.');
+   paint();persist();
+  }
+ });
+ const saveReview=()=>{if(!source)return;
+  if(trailWritten(FieldSourceTrail.setReview(trailKey(),{
+   purpose:el('purpose').value.trim(),conclusion:el('conclusion').value.trim()
+  }))){paint();status('Seeking and working RETURN saved to this source identity.')}
+ };
+ el('purpose').onchange=saveReview;el('conclusion').onchange=saveReview;
+ el('review-save').onclick=saveReview;
+ el('note-next').onclick=()=>{drawer(false);revisit()};
  el('link-start').onclick=()=>{if(!model)return;ap.stop();const u=at(model,char(),scope);pendingLink={hash:source.hash,span:{start:u.start,end:u.end,scope}};el('link-note').textContent='Held: '+source.raw.slice(u.start,Math.min(u.end,u.start+120));el('link-end').disabled=false;drawer(false);status('First range held. Move to another, then CONNECT HERE in SOURCE.')};
  el('link-end').onclick=run(()=>{
   if(!pendingLink||pendingLink.hash!==source.hash)throw Error('The held range belongs to another revision.');
@@ -391,7 +419,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    el('find').value=input;el('find-form').dispatchEvent(new Event('submit',{cancelable:true}));return true;
   }
   const m=input.match(/^:([a-z]+)(?:\s+([\s\S]*))?$/i);if(!m){status('Unsupported source command.');return false}
-  const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
+  const name=m[1].toLowerCase(),actions={interpret:()=>{drawer(true);el('review-fold').open=true;paintReview()},note:()=>{drawer(true);el('review-fold').open=true;holdAnnotation()},revisit:()=>revisit(),source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
   if(!actions[name]){status('That move is not supported in this source. The native FIELD map is under SOURCE.');el('space').focus();return false}
   await actions[name]();if(name!=='source'&&el('drawer').hidden)el('space').focus();paint();return true;
  }
