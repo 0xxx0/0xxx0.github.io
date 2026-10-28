@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'sleeper/reading-play.js'
+      - 'sleeper/ladder/thread-bridge.js'
+      - 'sleeper/ladder/index.html'
+      - 'sleeper/ladder/source-dhamma.json'
+      - 'tools/sleeper-ladder-thread-selftest.mjs'
+      - 'tools/sleeper-ladder-reading-smoke.mjs'
       - 'sleeper/axis-score.html'
       - 'tools/sleeper-read-play-dom-smoke.mjs'
       - 'tools/sleeper-reading-smoke.mjs'
@@ -28,5 +33,9 @@ jobs:
         run: node tools/sleeper-source-aperture-selftest.cjs
       - name: Playwright-free Chromium reading-first integration
         run: node tools/sleeper-read-play-dom-smoke.mjs
+      - name: LADDER source projection, offset boundary and drift rejection
+        run: node tools/sleeper-ladder-thread-selftest.mjs
+      - name: LADDER to THREADWALK browser source and RETURN circuit
+        run: node tools/sleeper-ladder-reading-smoke.mjs
       - name: Mobile reader, RSVP, remote browse and source-change regression
         run: node tools/sleeper-reading-smoke.mjs
