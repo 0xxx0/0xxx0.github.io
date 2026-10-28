@@ -55,7 +55,9 @@ try{
         horizontalOverflow:document.documentElement.scrollWidth>innerWidth+2,
         glyphOverflow:rail.scrollWidth>rail.clientWidth+2||rail.scrollHeight>rail.clientHeight+2,
         bottom:Math.max(...boxes.map(r=>r.bottom)),
-        pageScroll:document.documentElement.scrollHeight-innerHeight};
+        pageScroll:document.documentElement.scrollHeight-innerHeight,
+        trace:['main','#fieldUrlBar','#axialLatest','#aperture','#feedRail','header'].map(sel=>{const n=document.querySelector(sel);if(!n)return{sel,missing:true};const b=n.getBoundingClientRect(),s=getComputedStyle(n);return{sel,top:Math.round(b.top),bottom:Math.round(b.bottom),height:Math.round(b.height),display:s.display,paddingTop:s.paddingTop,marginTop:s.marginTop,parent:n.parentElement?.tagName+'#'+n.parentElement?.id}}),
+        state:{work:document.documentElement.dataset.fieldWork,pane:document.documentElement.dataset.fieldBarPane,words:document.documentElement.dataset.fieldWords}};
     });
     const headN=JSON.parse(fs.readFileSync('control/CURRENT.json','utf8')).current_heads.filter(h=>h.route!=='/').length;
     assert.equal(g.count,headN,'every CURRENT glyph rendered '+width);
