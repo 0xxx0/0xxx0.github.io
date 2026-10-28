@@ -41,6 +41,9 @@ function stable(s){return {distance:s.distance,witness:s.witness,walker:s.walker
  const beforeSupports=stable(L.state());
  controls[1].click();
  assert(rd.querySelector('#supportPrompt')?.textContent.includes('one skillful response'),'effort changes the actual reading question');
+ assert(rd.querySelector('#supportCitation')?.textContent.includes('RIGHT EFFORT · Ch. 18'),'effort links a source-located factor rather than only switching prompt text');
+ assert(rd.querySelector('#supportQuote')?.textContent.length>25,'source-located factor excerpt appears on this lens');
+ assert(rd.querySelector('#supportInspect')?.textContent.includes('INSPECT RIGHT EFFORT'),'lens offers lawful inspect-only crossing into its source');
  assert(controls[1].getAttribute('aria-pressed')==='true'&&controls[0].getAttribute('aria-pressed')==='false','support lens has exactly one visible active state');
  controls[2].click();
  assert(rd.querySelector('#supportPrompt')?.textContent.includes('observe next'),'mindfulness changes the reading question');
