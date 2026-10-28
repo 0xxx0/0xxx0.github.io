@@ -129,7 +129,10 @@ async function continuumBrowserProof(){
      assert.equal(await link.isVisible(),true,'exact FIELD route exposes derived glyph');
      assert.equal(await link.getAttribute('href'),'/interphase/?legacy=1&route=%2Fdocs%2F#substrate');
      await link.click();
-     await glyphTab.waitForFunction(()=>document.body.dataset.interphaseMode==='SUBSTRATE'&&document.querySelector('.substrate-shell')?.dataset.mapping==='FIELD_FOLD_MAP');
+     await glyphTab.waitForFunction(()=>document.body.dataset.interphaseMode==='SUBSTRATE'&&document.querySelector('.substrate-shell')?.dataset.mapping==='FIELD_FOLD_MAP',null,{timeout:20000}).catch(async error=>{
+       const state=await glyphTab.evaluate(()=>({href:location.href,ready:!!window.InterphaseWorkbench,mode:document.body.dataset.interphaseMode,rail:document.getElementById('railId')?.textContent,content:document.getElementById('surfaceBody')?.textContent.slice(0,250)})).catch(()=>({href:glyphTab.url()}));
+       throw Error('GLYPH REENTRY '+JSON.stringify(state)+' '+error.message);
+      });
      assert.equal((await glyphTab.locator('#railId').textContent()).trim(),'route:/docs/','glyph keeps held object');
      await glyphTab.goto(base+'/interphase/');
      await glyphTab.waitForFunction(()=>window.InterphaseInstrument?.snapshot()?.source?.hash);
