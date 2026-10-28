@@ -50,7 +50,7 @@ const probe=[
 ' d.querySelector("#fTry").click();assert(!A.state().opened&&A.state().pending,"prediction returns to same native world");',
 ' const wb=stable(),eventBefore=read("game.routeEvents.length");assert(!read("uiPaused()"),"native still paused after fTry: "+d.querySelector("#side").className+" / "+d.querySelector("#modal").className+" / "+A.state().opened);',
 ' d.querySelector("[data-tool=\\"conch\\"]").click();',
-' assert(read("game.routeEvents.length")>eventBefore,"a real native tool was enacted: "+read("JSON.stringify({paused:uiPaused(),events:game.routeEvents.length,finished:game.finished,counts:game.operatorCounts,side:document.querySelector(\"#side\").className,modal:document.querySelector(\"#modal\").className})"));',
+ ' assert(read("game.routeEvents.length")>eventBefore,"a real native tool was enacted");',
 ' d.querySelector("#focusBtn").click();',
 ' assert(d.querySelector("#fActual").textContent.includes("conch"),"real native event compared");',
 ' assert(d.querySelector("#fActual").textContent.includes("Same world: true"),"return is same world");',
