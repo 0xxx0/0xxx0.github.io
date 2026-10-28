@@ -256,7 +256,7 @@
         selIndex = wrap(Math.round(Number(a.selectedIndex)), Math.max(1, members.length));
       }
       families.push(Object.freeze({
-        key, label, members: Object.freeze(members), count: members.length, selected: selIndex,
+        key, label, members: Object.freeze(members), count: members.length, selected: a.selected === null ? null : selIndex,
       }));
     }
     return Object.freeze({
@@ -326,7 +326,7 @@
       members: f.members,
       weights: weightsOf(f.members),
       order: i,
-      selected: gateIndex(f.selected || 0, Math.max(1, f.count)),
+      selected: f.selected === null ? null : gateIndex(f.selected || 0, Math.max(1, f.count)),
     }));
     const rest = fams.slice(maxRings);
     let foldedMembers = 0;

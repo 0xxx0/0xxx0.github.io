@@ -427,7 +427,7 @@ html[data-instrument="1"] #fieldWords{display:none!important;}
 </style>
 <link rel="stylesheet" href="./field-bar-landing.css?v=0.2">
 
-<link rel="stylesheet" href="./tower/tower-section.css">
+<link rel="stylesheet" href="./tower/tower-section.css?v=native-sync-1">
 </head>
 <body><main>
 <header>
@@ -851,9 +851,9 @@ function selectedValue(a){if(a.key==='route')return focus?.href||null;return axi
    strip. A tower grouped any other way would be a second index, which this system forbids.
    Read-only: the host keeps ownership of axes, selection and filtering. */
 try{
- window.FieldAxes=axes;
+ window.FieldAxes=()=>axes().map(a=>({...a,selected:selectedValue(a)}));
  window.FieldAxisSelection=()=>({route:selectedValue({key:'route'}),state:axisState.state,operation:axisState.operation,mode:axisState.mode});
- window.FieldAxisHold=(key,value)=>{try{if(typeof chooseAxis==='function')chooseAxis(key,value,true)}catch(_){}return window.FieldAxisSelection()};
+ window.FieldAxisHold=(key,value)=>{try{if(typeof chooseAxis==='function')chooseAxis(key,value,key!=='route')}catch(_){}return window.FieldAxisSelection()};
 }catch(_){}
 function matchesCandidate(r,key,value){
  const state=key==='state'?value:axisState.state,operation=key==='operation'?value:axisState.operation,mode=key==='mode'?value:axisState.mode;
@@ -1824,8 +1824,8 @@ window.FieldIndexReadModel=Object.freeze({
 <script type="module" src="./field-work.mjs?v=0.10.7-source"></script>
 <script src="./field-bar-landing.js?v=0.3"></script>
 </main>
-<script src="./tower/tower-core.js"></script>
-<script src="./tower/tower-section.js"></script>
+<script src="./tower/tower-core.js?v=native-sync-1"></script>
+<script src="./tower/tower-section.js?v=native-sync-1"></script>
 <script>
 /* The tower is the index; the strip is one ring unrolled. Two laws here:
    1. MOUNT AFTER DATA. The host fills `latest` asynchronously; mounting on DOMContentLoaded
@@ -1844,13 +1844,19 @@ window.FieldIndexReadModel=Object.freeze({
   function mountWhenReady() {
     if (mounted) return;
     if (members() > 6 || tries++ > 60) {
-      try { window.LandingTower.mount(host); mounted = true; }
+      try { window.LandingTower.mount(host, { compact: true }); mounted = true; }
       catch (e) { console.error('tower mount failed', e); }
       return;
     }
     setTimeout(mountWhenReady, 120);
   }
   mountWhenReady();
+  // Native selection/RETURN owns the tuple; the tower is its live projection.
+  // sync() never emits a turn, so this cannot feed back into chooseAxis.
+  window.addEventListener('field-index:state', function () {
+    if (mounted) window.LandingTower.sync();
+    else mountWhenReady();
+  });
   document.addEventListener('landing-tower:turn', function (e) {
     var d = e.detail || {};
     if (!d.axis || d.value == null) return;
