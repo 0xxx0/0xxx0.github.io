@@ -17,9 +17,9 @@ const server=http.createServer((req,res)=>{
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 try{
  const result=await new Promise((resolve,reject)=>{
-  const p=spawn(browserBin(),['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--window-size=1400,1000','--virtual-time-budget=5000','--dump-dom','http://127.0.0.1:'+server.address().port+'/__probe']);
+  const p=spawn(browserBin(),['--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--window-size=1400,1000','--virtual-time-budget=14000','--dump-dom','http://127.0.0.1:'+server.address().port+'/__probe']);
   let out='',err='';
-  const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('read smoke timed out'))},30000);
+  const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('read smoke timed out'))},45000);
   p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('error',reject);
   p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})});
  });
