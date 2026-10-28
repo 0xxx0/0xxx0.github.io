@@ -33,6 +33,34 @@
   const index=hash(g.law.key+'|'+at+'|'+quote+'|'+sx+','+sy)%candidates.length;
   return Object.freeze({...candidates[index],sourceIndex:at,quote});
  }
+ function nextHop(g,origin,target){
+  if(!g?.grid||!g.size||!origin||!target)return null;
+  const size=g.size,sx=Math.floor(origin.x),sy=Math.floor(origin.y),tx=Math.floor(target.x),ty=Math.floor(target.y);
+  if(g.grid[sy]?.[sx]!==0||g.grid[ty]?.[tx]!==0)return null;
+  // First align to the current open cell's centre. A diagonal turn at the
+  // corner of a corridor is not a traversable instruction for the native actor.
+  const center={x:sx+.5,y:sy+.5};
+  if(Math.hypot(center.x-origin.x,center.y-origin.y)>.18)return {...center,steps:null,align:true};
+  if(sx===tx&&sy===ty)return {x:target.x,y:target.y,steps:0,align:false};
+  const q=[[sx,sy]],seen=new Set([sy*size+sx]),prev=new Map();let reached=false;
+  for(let i=0;i<q.length;i++){
+   const [x,y]=q[i];if(x===tx&&y===ty){reached=true;break}
+   for(const [dx,dy] of DIR){
+    const nx=x+dx,ny=y+dy,k=ny*size+nx;
+    if(nx>=0&&ny>=0&&nx<size&&ny<size&&g.grid[ny][nx]===0&&!seen.has(k)){
+     seen.add(k);prev.set(k,[x,y]);q.push([nx,ny]);
+    }
+   }
+  }
+  if(!reached)return null;
+  let x=tx,y=ty,steps=0;
+  while(!(x===sx&&y===sy)){
+   const prior=prev.get(y*size+x);if(!prior)return null;
+   steps++;if(prior[0]===sx&&prior[1]===sy)break;
+   x=prior[0];y=prior[1];
+  }
+  return {x:x+.5,y:y+.5,steps,align:false};
+ }
  function trackSegment(path,startIndex,origin,end){
   const raw=path.slice(Math.max(0,startIndex)).map(p=>[+p.x.toFixed(3),+p.y.toFixed(3)]);
   const first=[+origin.x.toFixed(3),+origin.y.toFixed(3)];
@@ -59,5 +87,5 @@
   return Object.freeze({overlap:B.size?common/B.size:null,firstLength:distance(a),secondLength:distance(b),
    firstCells:A.size,secondCells:B.size,commonCells:common});
  }
- return Object.freeze({locate,trackSegment,compare,footprint,hash});
+ return Object.freeze({locate,nextHop,trackSegment,compare,footprint,hash});
 });
