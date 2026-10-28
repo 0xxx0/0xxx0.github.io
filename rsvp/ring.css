@@ -138,3 +138,48 @@ footer{padding:0 7px max(7px,env(safe-area-inset-bottom));display:grid;gap:5px}
 .decode .row u{text-decoration:none;color:rgba(239,242,239,.42)}
 .dim .orbit,.dim .word,.dim .axis{opacity:.12}
 @media(prefers-reduced-motion:reduce){.decode,.decode *{transition:none!important;animation:none!important}}
+
+/* READFIELD / WRIST · one source, two actual coordinates.
+   Phone: retain exact source beside native RSVP ring. Watch: keep the ring only.
+   Full text is browser-local; the caret is the SAME FieldAperture cursor. */
+main{grid-template-rows:auto minmax(148px,35svh) minmax(110px,1fr) auto}
+.stage{height:100%;max-height:35svh}
+.orbit{width:min(83vw,34svh,280px);height:min(83vw,34svh,280px)}
+#sourceContour{pointer-events:none}
+#sourceContour line{stroke-width:1.1;vector-effect:non-scaling-stroke;stroke-linecap:round}
+#sourceContour line.text{stroke:var(--gate);opacity:.42}
+#sourceContour line.audio{stroke:var(--accent);opacity:.76}
+.signal-label{position:absolute;bottom:4px;left:0;right:0;text-align:center;
+ font:9px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--mut);
+ letter-spacing:.11em;pointer-events:none}
+.listen-glyph{position:absolute;right:6%;top:6%;width:46px;height:46px;
+ opacity:.92;pointer-events:none}
+.listen-glyph[hidden]{display:none}
+.listen-glyph svg{width:100%;height:100%;display:block}
+.reading-field{display:grid;grid-template-rows:auto minmax(0,1fr);min-width:0;min-height:0;
+ margin:0 7px 6px;border-top:1px solid var(--line);background:var(--pad)}
+.reading-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:25px;
+ color:var(--mut);padding:4px 6px;font:9px/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;
+ letter-spacing:.06em}
+.reading-heading span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.reading-heading span:last-child{flex:none;opacity:.7}
+.full-source{min-height:0;max-height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+ white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;tab-size:2;
+ font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--bone);
+ text-align:left;padding:8px 10px 14px;user-select:text;cursor:text;scrollbar-width:thin;
+ -webkit-overflow-scrolling:touch}
+.full-source:focus-visible{outline:1px solid var(--accent);outline-offset:-1px}
+::highlight(rsvp-exact-focus){background:var(--accent);color:var(--pad);text-decoration:underline}
+.stage .context{display:none}
+@media(min-width:680px) and (min-height:750px){
+ main{grid-template-rows:auto minmax(210px,39svh) minmax(160px,1fr) auto}
+ .stage{max-height:39svh}.orbit{width:min(330px,38svh);height:min(330px,38svh)}
+ .full-source{font-size:16px;line-height:1.62}
+}
+@media(max-width:240px),(max-height:260px){
+ main{grid-template-rows:auto minmax(0,1fr) auto}
+ .stage{max-height:none}
+ .orbit{width:min(94vw,48svh);height:min(94vw,48svh)}
+ .reading-field,.listen-glyph,.signal-label{display:none!important}
+ .stage .context{display:block}
+}

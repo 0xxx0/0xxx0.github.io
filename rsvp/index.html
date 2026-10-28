@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080c12">
 <title>THE RING · READFIELD / WRIST</title>
-<link rel="stylesheet" href="./ring.css">
+<link rel="stylesheet" href="./ring.css?v=1.1-source">
 </head><body>
 <main>
 <header><span class="path" id="label">PIN / LOCAL</span><span class="meta" id="speed">260 WPM</span></header>
@@ -12,6 +12,7 @@
 <!-- Paint order is a statement: the gate sectors are UNDER the position arc, so opening a
      gate can never erase the one thing that says where you are. -->
 <circle class="base" cx="60" cy="60" r="53"/>
+<g id="sourceContour" data-kind="text-structure"></g>
 <g id="gates" hidden></g>
 <g id="ticks"></g>
 <circle class="progress" id="ring" cx="60" cy="60" r="53" stroke-dasharray="333.009" stroke-dashoffset="333.009"/>
@@ -19,10 +20,13 @@
 <g id="marks"></g>
 </svg>
 <span class="axis"></span>
+<span class="listen-glyph" id="listenGlyph" hidden aria-hidden="true"></span>
+<span class="signal-label" id="signalLabel" title="Exact source structure; no audio has been paired">TEXT · STRUCTURE</span>
 <span class="word"><span class="before" id="before"></span><span class="mark" id="mark">φ</span><span class="after" id="after"></span></span>
 <span class="decode" id="decode" hidden aria-hidden="true"><b>WHAT THE COLOURS MEAN</b><span id="decodeList"></span></span>
 <span class="context" id="context">Tap SOURCE to read text or JSON.</span>
 </button>
+<section class="reading-field" id="readingField" aria-label="Full exact source text"><div class="reading-heading"><span id="sourceExtent">LOAD A SOURCE TO READ</span><span>TOUCH TEXT TO SEEK</span></div><div class="full-source" id="fullSource" tabindex="0" role="document" aria-label="Whole text with active source location"></div></section>
 <footer>
 <div class="meter" id="meter" role="presentation"><i id="fill"></i></div>
 <div class="status"><span id="position">NO SOURCE</span><span id="state">READY</span></div>
@@ -39,10 +43,10 @@
 <div class="row"><button id="open">OPEN PATH</button><button id="sample">TRY JSON</button></div>
 <label>Or paste text / JSON<textarea id="paste" placeholder="Paste then press READ TEXT"></textarea></label>
 <button id="read">READ TEXT</button><small id="error" role="status"></small>
-<p>Tap: pause/play · arrows: step · 1 2 3: answer a gate · watch crown/scroll: speed while playing, position while paused · Space: pause/play. Source bytes remain in this browser session. <a id="readfield" href="/docs/">READFIELD ↗</a> <a id="interphase" href="/interphase/">WALK ↗</a></p>
+<p>Tap: pause/play · arrows: step · 1 2 3: answer a gate · watch crown/scroll: speed while playing, position while paused · Space: pause/play. Source bytes remain in this browser session. <a id="readfield" href="/docs/">READFIELD ↗</a> <a id="interphase" href="/interphase/">WALK ↗</a> <a id="listen" href="/fold-bloom/listen/">LISTEN ↗</a></p>
 </section>
 </main>
 <p class="sr" id="runLive" aria-live="polite"></p>
 <field-aperture id="wristAperture" hidden inert aria-hidden="true"></field-aperture>
-<script src="/lib/document-structure.js"></script><script src="/lib/read-trail.js"></script><script src="/field-aperture.js?v=0.8.7"></script><script src="./ring-core.js"></script><script src="./ring-view.js"></script><script src="./ring-app.js?v=1.0.0"></script>
+<script src="/lib/document-structure.js"></script><script src="/lib/read-trail.js"></script><script src="/field-aperture.js?v=0.8.7"></script><script src="./ring-core.js"></script><script src="./ring-view.js"></script><script src="./ring-app.js?v=1.1-source"></script><script type="module" src="./source-instrument.mjs?v=1.1-source"></script>
 </body></html>

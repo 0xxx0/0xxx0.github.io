@@ -245,7 +245,6 @@ function paintContext(s){
  if(gate){ctx.textContent='Tap the missing word';return}
  if(note){ctx.textContent=note;return}
  if(!raw||!s){ctx.textContent='Tap SOURCE to read text or JSON';return}
- if(s.playing){ctx.textContent='';return}
  const span=s.span||{start:0,end:0};
  ctx.textContent=raw.slice(Math.max(0,span.start-55),Math.min(raw.length,span.end+65));
 }
@@ -494,6 +493,7 @@ async function load(text,name,options={},request=++epoch){
  wpm=Math.min(6000,Math.max(60,Number(wpm)||260));
  resetRun();
  ap.load(raw,{label,format:'TXT',scale:'WORD',charIndex:char,wpm});loading=false;
+ document.dispatchEvent(new CustomEvent('rsvp:source-loaded',{detail:{hash:sourceHash}}));
  // Source bytes remain session-only. Explicit incoming focus is consumed once;
  // reload resumes the shared trail rather than replaying an old handoff cursor.
  try{sessionStorage.setItem('rsvp.handoff.v1',JSON.stringify({raw,label,hash:sourceHash,sourceAddress,returnAddress}));history.replaceState(null,'','?handoff=1')}catch(_){}
@@ -520,9 +520,23 @@ function sectorFromEvent(e){
  return Number.isInteger(k)?((k-gateRot())%3+3)%3:-1;
 }
 ap.addEventListener('aperture-focus',e=>paint(raw?e.detail:null));
+// A real address on the existing ring. The center still owns pause/play and
+// the six word gates retain priority. No new position store or visualizer clock.
+function seekRingEvent(e){
+ if(!raw||!ap||gate)return false;
+ const rect=document.querySelector('.orbit')?.getBoundingClientRect();
+ if(!rect?.width||!rect.height)return false;
+ const x=(e.clientX-rect.left-rect.width/2)/(rect.width/2);
+ const y=(e.clientY-rect.top-rect.height/2)/(rect.height/2);
+ const radius=Math.hypot(x,y);
+ if(radius<.69||radius>1.04)return false;
+ const fraction=(Math.atan2(y,x)+Math.PI/2+Math.PI*2)%(Math.PI*2)/(Math.PI*2);
+ ap.stop();ap.seekFraction(fraction);return true;
+}
 el('stage').onclick=e=>{
  if(suppressClick){suppressClick=false;return}
  if(gate){const k=sectorFromEvent(e);if(k>=0)answer(k);return}
+ if(seekRingEvent(e))return;
  toggle();
 };
 /* Hold to decode (P14): the key is the ring's own vocabulary, raised over the ring.
@@ -579,6 +593,13 @@ window.addEventListener('pagehide',()=>persist());
    8 · TEST API — thin wrappers over the same state and the same evaluation
        function the clock calls. No second path, no hidden answer index.
    ═════════════════════════════════════════════════════════════════════════════ */
+// One native source/cursor bridge for the optional large-screen projection.
+// Its consumers may SEEK, never edit FieldAperture or author another clock.
+window.RSVPReader=Object.freeze({
+ source:()=>raw?{raw,hash:sourceHash,label,sourceAddress}:null,
+ snapshot:()=>raw?snap():null,
+ seekChar:char=>{if(!raw||gate)return false;ap.stop();ap.selectChar(clamp(Math.trunc(char),0,raw.length-1));persist();return true}
+});
 window.RingApp={
  state,
  start:startRun,

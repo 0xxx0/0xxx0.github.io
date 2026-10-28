@@ -32,6 +32,32 @@ function parseMarkTime(value,fallback=0){
   return Math.max(0,Math.min(Number(map?.duration)||Infinity,total));
 }
 function scope(){return SCOPES[scopeIndex]}
+// Companion is derived from ACTUAL LISTEN analysis, not a mock waveform.
+// Only exact lyrics may claim this audio source in WRIST. No audio bytes or
+// playback authority leave LISTEN; session-only handoff preserves source SHA.
+let wristCompanionKey='';
+async function publishWristCompanion(){
+ const lyrics=String(fileMeta?.lyrics||'').trim(),audioHash=String(fileMeta?.hash||'');
+ if(!lyrics||!map||!glyphDesc||!/^[0-9a-f]{64}$/.test(audioHash))return false;
+ const key=audioHash+'|'+map.stage+'|'+lyrics.length;
+ if(key===wristCompanionKey)return true;
+ const generation=loadToken,atMap=map,atGlyph=glyphDesc,atMeta=fileMeta;
+ try{
+  const textHash='sha256:'+await hashHex(new TextEncoder().encode(lyrics));
+  if(generation!==loadToken||map!==atMap||glyphDesc!==atGlyph)return false;
+  const frames=Array.isArray(map.frames)?map.frames:[];
+  const energy=Array.from({length:72},(_,i)=>{
+   const f=frames[Math.min(frames.length-1,Math.floor(i*frames.length/72))]||{};
+   return Math.max(0,Math.min(1,Number(f.e)||0));
+  });
+  const packet={schema:'rsvp.listen.source-contour/v1',textHash,audioHash,
+   name:String(atMeta.name||'AUDIO').slice(0,120),stage:String(map.stage||'UNVERIFIED'),
+   glyph:atGlyph,energy,duration:Number(map.duration)||0,bpm:Number(map.bpm)||0,
+   semantics:'MEASURED_FRAME_ENERGY_NOT_PCM_WAVEFORM'};
+  sessionStorage.setItem('rsvp.listen.companion.v1',JSON.stringify(packet));
+  wristCompanionKey=key;return true;
+ }catch{return false}
+}
 function refreshGlyph(){
   const btn=$('#glyphBtn'),mark=$('#glyphMark');
   if(!btn||!mark||!map||!fileMeta){glyphDesc=null;if(btn)btn.disabled=true;return}
@@ -42,6 +68,7 @@ function refreshGlyph(){
   }catch(_){}
   mark.innerHTML=audioGlyphSvg(glyphDesc,{size:48,padding:4});
   btn.disabled=false;btn.title=`SOURCE GLYPH · ${glyphDesc.key||'NO KEY'} · ${glyphDesc.bpm?glyphDesc.bpm+' BPM':'NO BPM'}`;
+  void publishWristCompanion();
 }
 function downloadGlyph(){
   if(!glyphDesc)return;
