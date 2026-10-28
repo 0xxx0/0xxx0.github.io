@@ -99,6 +99,10 @@ html[data-field-words][data-field-bar-pane]:not([data-instrument="1"]) #aperture
 }
 @media(prefers-reduced-motion:reduce){html[data-field-bar-pane] #fieldUrlBar *{scroll-behavior:auto!important}}
 
+/* One contextual DOOR replaces a concealed action cluster. CURRENT is a scope,
+   never a privilege assigned to its glyphs. */
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apOpen{display:none!important}
+html[data-field-words][data-field-bar-pane="browse"]:not([data-instrument="1"]) #apDoor{display:inline-flex!important;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:8px 6px;white-space:nowrap;color:var(--cool);border:1px solid var(--cool);text-decoration:none;min-height:42px}
 /* Aa never resurrects the tall legacy card/grid on the compact entry.
    It opens one clipped, source-owned held reading; further detail remains
    available through :work, :prove, :trace, and native views. */
