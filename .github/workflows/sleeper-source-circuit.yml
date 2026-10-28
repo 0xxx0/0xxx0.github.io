@@ -28,3 +28,5 @@ jobs:
         run: node tools/sleeper-source-aperture-smoke.mjs
       - name: Native POV source focus, RSVP and falsifiable world return
         run: node tools/sleeper-native-focus-smoke.mjs
+      - name: Source word wayfinding and repeat/return in actual POV labyrinth
+        run: node tools/sleeper-native-word-echo-smoke.mjs
