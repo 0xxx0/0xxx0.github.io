@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T07:47:35.344Z",
+  "generated": "2026-10-28T08:18:37.144Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 6,
-  "git_commits_in_window": 53,
-  "telemetry_commits_in_window": 47,
-  "commits_total": 7134,
+  "commits_in_window": 35,
+  "git_commits_in_window": 85,
+  "telemetry_commits_in_window": 50,
+  "commits_total": 7166,
   "branch_count": 1111,
   "recent_commits": [
-    "FIELD / INTERPHASE: ring-to-source circuit with exact authored RETURN",
-    "SLEEPER: source-first five-question reading over existing LADDER/THREADWALK",
-    "SLEEPER: source-exact Ladder ↔ Threadwalk reading aperture"
+    "INTERPHASE: exact source → GLYPHFIELD → RETURN (#1031)",
+    "test: enact GLYPHFIELD RETURN through actual UI control",
+    "INTERPHASE: expose explicit glyph-to-exact-source RETURN"
   ],
   "active_fronts": [
     {
