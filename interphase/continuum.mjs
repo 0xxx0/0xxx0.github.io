@@ -32,7 +32,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  <div class="ip-row"><button data-ip="edit">EDIT THIS RANGE</button><button data-ip="undo" disabled>UNDO</button><button data-ip="redo" disabled>REDO</button></div>
  <details><summary>Connect two passages</summary><p>Hold a range, move to another, and name an interpretation. Both quotes and scopes stay attached.</p><div class="ip-row"><button data-ip="link-start">HOLD FIRST</button><select data-ip="relation" aria-label="Relation type">${RELATIONS.map(x=>`<option>${x}</option>`).join('')}</select><button data-ip="link-end" disabled>CONNECT HERE</button></div><p data-ip="link-note"></p></details>
  <div class="ip-row"><button data-ip="export">EXPORT RETURN</button><label class="ip-button">IMPORT RETURN<input data-ip="import" type="file" accept="application/json,.json" hidden></label><a data-ip="reader" href="/docs/">READER ↗</a><a data-ip="wrist" href="/rsvp/">WRIST ↗</a></div>
- <details><summary>Exact source / retained tools</summary><p data-ip="identity"></p><button data-ip="raw-open">SHOW EXACT RANGE</button><pre data-ip="raw" hidden></pre><div class="ip-doors" data-ip="more-ports"></div><p><a href="/interphase/?legacy=1">Recovered Ω / history / Dayline / AXIS workbench ↗</a> · <a href="/?work=0">Native FIELD map ↗</a> · <a href="/interphase/SPEC.md">Specification ↗</a></p><p>Search is lexical. Links are interpretations. Native effects stay with their host. The exported RETURN carries the current revision, not the session undo stack.</p></details></section>
+ <details><summary>Exact source / retained tools</summary><p data-ip="identity"></p><button data-ip="raw-open">SHOW EXACT RANGE</button><pre data-ip="raw" hidden></pre><div class="ip-doors" data-ip="more-ports"></div><p><a data-ip="glyphfield" href="/interphase/?legacy=1" hidden>◎ GLYPHFIELD ↗</a> <a href="/interphase/?legacy=1">Ω / HISTORY / DAYLINE / AXIS ↗</a> · <a href="/?work=0">Native FIELD map ↗</a> · <a href="/interphase/SPEC.md">Specification ↗</a></p><p>Search is lexical. Links are interpretations. Native effects stay with their host. The exported RETURN carries the current revision, not the session undo stack.</p></details></section>
  <p class="ip-status" data-ip="status" role="status">Opening the source.</p>
  <div class="ip-space" id="ip-source-space" data-ip="space" tabindex="0" aria-label="Source space. Left/right move, up widens scope, down narrows scope, space reads."><div class="ip-scene">
  <article class="ip-passage ip-before"><button data-ip="before" aria-label="Previous source range"></button></article>
@@ -51,6 +51,17 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
  const revision=()=>({source:{...source},attention:attention(),links:structuredClone(links),marks:[...marks],frames:structuredClone(frames),catalog,nativeRecord,activeRoute});
  function checkpoint(){undo.push(revision());if(undo.length>16)undo.shift();redo=[]}
  function status(message,error=false){el('status').textContent=message;if(error)el('status').dataset.error='1';else delete el('status').dataset.error}
+ // Geometry is permitted only for an explicitly held, current FIELD route.
+ // Preserve the source cursor in sessionStorage before crossing the projection seam.
+ function glyphAddress(){
+  if(source?.trusted!==true||source.address!=='/showcase-manifest.json'||!activeRoute||!catalog?.data?.routes?.some(r=>r.href===activeRoute))return '';
+  return '/interphase/?legacy=1&route='+encodeURIComponent(activeRoute)+'#substrate';
+ }
+ function glyphHandoff(){
+  const address=glyphAddress();
+  if(!address){status('GLYPHFIELD requires an exact FIELD route. SOURCE → FIELD to hold one.',true);return false}
+  ap?.stop();persist(snap(),true);location.assign(address);return true;
+ }
  const run=fn=>async e=>{try{await fn(e)}catch(error){status(error.message||String(error),true)}};
  function drawer(show){el('drawer').hidden=!show;el('source').setAttribute('aria-expanded',String(show));if(show){ap?.stop();el('find').focus()}else el('space').focus({preventScroll:true})}
  function persist(s=snap(),force=false){
@@ -146,7 +157,8 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
   if(source.returnTo){const a=document.createElement('a');a.href=source.returnTo;a.textContent='↩ CALLER';port(a)}
   el('residue').textContent=[el('residue').dataset.base,el('more-ports').children.length?`${el('more-ports').children.length} other moves retained in SOURCE`:''].filter(Boolean).join(' · ');
   el('undo').disabled=!undo.length;el('redo').disabled=!redo.length;
-  el('identity').textContent=`${source.hash} · ${source.address||'held source'} · ${source.raw.length} characters · ${links.length} authored links`;
+  const glyph=el('glyphfield');if(glyph){const href=glyphAddress();glyph.hidden=!href;if(href){glyph.href=href;glyph.title='Derived geometry for '+activeRoute+'; native source cursor is retained for RETURN';}}
+   el('identity').textContent=`${source.hash} · ${source.address||'held source'} · ${source.raw.length} characters · ${links.length} authored links`;
   onFocus({id:source.hash,label:nativeRecord?.title||source.label,route:activeRoute,char:anchor,scope,scopeLabel:level(model,scope).label,view,playing:s.playing,index:n.index+1,count:n.units.length,back:frames.length||!!source.returnTo});
   if(activeRoute&&activeRoute!==lastNotifiedRoute){lastNotifiedRoute=activeRoute;const hash=source.hash,href=activeRoute;queueMicrotask(()=>{if(source?.hash===hash&&activeRoute===href)onRoute(href)})}
  }
@@ -318,7 +330,7 @@ async function mountContinuum(target,{route='/',onRoute=()=>{},onFocus=()=>{}}={
    el('find').value=input;el('find-form').dispatchEvent(new Event('submit',{cancelable:true}));return true;
   }
   const m=input.match(/^:([a-z]+)(?:\s+([\s\S]*))?$/i);if(!m){status('Unsupported source command.');return false}
-  const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
+  const name=m[1].toLowerCase(),actions={source:()=>drawer(true),read:()=>el('play').click(),pause:()=>ap?.stop(),next:()=>walk(1),prev:()=>walk(-1),widen:()=>zoom(-1),narrow:()=>zoom(1),plain:()=>perspective('plain'),walk:()=>perspective('walk'),dial:()=>perspective('dial'),ring:()=>perspective('dial'),glyph:glyphHandoff,return:returnStep,undo:()=>el('undo').onclick(),redo:()=>el('redo').onclick(),find:()=>{el('find').value=m[2]||'';el('find-form').dispatchEvent(new Event('submit',{cancelable:true}))}};
   if(!actions[name]){status('That move is not supported in this source. The native FIELD map is under SOURCE.');el('space').focus();return false}
   await actions[name]();if(name!=='source'&&el('drawer').hidden)el('space').focus();paint();return true;
  }
