@@ -6,9 +6,13 @@
 const L=window.SleeperLadder,foot=document.getElementById('prov');
 if(!L||!foot)return;
 let overlay=null,frame=null,active=null,ready=false;
+// Two source identities share the same viewport but never share evidence state.
+// Retaining the iframes preserves actual text work, not a reconstruction from a save.
+const frames={read:null,bell:null};
 const css=document.createElement('style');
 css.textContent=[
  '#ladderOverlay{position:fixed;inset:0;z-index:4000;background:#07131c}',
+ '#ladderOverlay[hidden],#ladderOverlay iframe[hidden]{display:none!important}',
  '#ladderFrame{width:100%;height:100%;border:0;display:block}',
  '#ladderClose{position:absolute;z-index:2;top:52px;right:8px;min-height:40px;padding:8px 12px;border:1px solid #697e88;background:#0a1c26;color:#f0d093;font:12px ui-monospace,monospace;cursor:pointer}',
  '#ladderClose:focus-visible{outline:2px solid #f0d093}'
@@ -28,21 +32,39 @@ function label(){
  foot.title=(L.loop&&L.loop())?'The Bell — the loop that outran the line · return to the same walk':'READ '+L.factor(n).en+' ('+L.factor(n).locator+') · return to the same walk';
 }
 function close(){
- if(!overlay)return false;
- const node=overlay;overlay=null;frame=null;active=null;
- node.remove();
+ if(!overlay||overlay.hidden)return false;
+ // The painting/Gate state is authoritative. Returning to it must not erase
+ // reading progress, exact held sentences, authored links or in-flight drafts.
+ overlay.hidden=true;overlay.setAttribute('aria-hidden','true');
+ try{frame?.contentWindow?.postMessage({schema:'sleeper.ladder-reader-pause/v1'},location.origin)}catch(_){}
  foot.focus();label();
  return true;
 }
 function open(){
- const n=nextFactor();if(n===null||overlay)return;
- const bell=!!(L.loop&&L.loop());
+ const n=nextFactor();if(n===null||overlay&&!overlay.hidden)return;
+ const bell=!!(L.loop&&L.loop()),key=bell?'bell':'read';
+ if(!overlay){
+  overlay=document.createElement('div');overlay.id='ladderOverlay';overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  const back=document.createElement('button');back.id='ladderClose';back.type='button';back.textContent='↩ LADDER';back.onclick=close;
+  overlay.append(back);document.body.append(overlay);
+ }
+ let chosen=frames[key];
+ if(!chosen){
+  chosen=document.createElement('iframe');
+  chosen.className='ladderSourceFrame';
+  chosen.title=bell?'The Bell — the loop you are in':'Threadwalk — the eight path factors';
+  chosen.src=bell?'../axis-score.html?bell=1&ladderHost=1':'../axis-score.html?read=1&ladderFactor='+n;
+  chosen.hidden=true;
+  frames[key]=chosen;
+  overlay.insertBefore(chosen,overlay.querySelector('#ladderClose'));
+ }
+ if(frame&&frame!==chosen){frame.hidden=true;frame.removeAttribute('id');}
+ frame=chosen;frame.id='ladderFrame';frame.hidden=false;
  active={factor:n,before:L.state(),bell};
- overlay=document.createElement('div');overlay.id='ladderOverlay';overlay.setAttribute('role','dialog');
- overlay.setAttribute('aria-label',bell?'The Bell — the loop you are in':'Threadwalk source projection');overlay.setAttribute('aria-modal','true');
- const back=document.createElement('button');back.id='ladderClose';back.type='button';back.textContent='↩ LADDER';back.onclick=close;
- frame=document.createElement('iframe');frame.id='ladderFrame';frame.title=bell?'The Bell — the loop you are in':'Threadwalk — the eight path factors';frame.src=bell?'../axis-score.html?bell=1':'../axis-score.html?read=1&ladderFactor='+n;
- overlay.append(frame,back);document.body.append(overlay);back.focus();
+ overlay.setAttribute('aria-label',chosen.title);
+ overlay.hidden=false;overlay.removeAttribute('aria-hidden');
+ overlay.querySelector('#ladderClose').focus();
 }
 foot.addEventListener('click',open);
 foot.addEventListener('keydown',e=>{
@@ -53,7 +75,7 @@ window.addEventListener('message',e=>{
  if(e.data?.schema==='sleeper.ladder-reader-close/v1')close();
 });
 window.addEventListener('keydown',e=>{
- if(e.key==='Escape'&&overlay){e.preventDefault();close();}
+ if(e.key==='Escape'&&overlay&&!overlay.hidden){e.preventDefault();close();}
 });
 L.ready.then(s=>{
  if(s?.error){foot.title='SOURCE GAP / READER UNAVAILABLE';return;}
@@ -61,7 +83,7 @@ L.ready.then(s=>{
 }).catch(()=>{foot.title='SOURCE GAP / READER UNAVAILABLE';});
 foot.addEventListener('pointerenter',label);foot.addEventListener('focus',label);
 window.SleeperLadderRead=Object.freeze({
- current:nextFactor,isOpen:()=>!!overlay,close,
+ current:nextFactor,isOpen:()=>!!overlay&&!overlay.hidden,close,
  before:()=>active?.before||null,refresh:label
 });
 })();
