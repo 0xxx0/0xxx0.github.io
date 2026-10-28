@@ -43,7 +43,7 @@ try{
   await page.waitForFunction(()=>window.RSVPSourceInstrument?.sourceLength()===document.getElementById('wristAperture').A.raw.length);
   assert.equal(await page.locator('#fullSource').textContent(),raw,'phone WRIST keeps whole exact source visible');
   assert.equal(await page.locator('#sourceContour line').count(),72,'source ring encodes actual text structure');
-  assert.equal(await page.locator('#signalLabel').textContent(),'TEXT · STRUCTURE','no fabricated audio waveform');
+  assert.match(await page.locator('#signalLabel').textContent(),/^TEXT · STRUCTURE · /,'source structure stays honestly labeled while aperture is visible');
   assert.equal(await page.locator('#readingField').isVisible(),true,'phone offers large reading alongside RSVP');
   const textBefore=(await page.evaluate(()=>document.getElementById('wristAperture').snapshot())).char_index;
   const ringRect=await page.locator('svg.orbit').boundingBox();
