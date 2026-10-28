@@ -49,6 +49,23 @@ const READING_MAP=[
  {chapter:'Ch. 15',title:'Wise Reflection',lens:'DISCERN',question:'Where did observation become interpretation, attachment, or assumption?',url:'https://buddhadhamma.github.io/wise-reflection.html'},
  {chapter:'Ch. 16–18',title:'Path Factors',lens:'PRACTISE',question:'What can be done skilfully, and which other factors support that action?',url:'https://buddhadhamma.github.io/path-factors.html'}
 ];
+// The Bell is original illustrative prose, NOT Payutto. These are editorial
+// cross-reading invitations: no paragraph equivalence, quote or Gate proof.
+const BELL_MAP=[
+ {phase:'CONTACT',lens:2,factor:6,question:'What was actually heard? Where does pleasant feeling begin, and where is wanting first inferred?',sutta:{id:'SN 12.2',url:'https://suttacentral.net/sn12.2/en/sujato'}},
+ {phase:'RECOGNITION',lens:0,factor:0,question:'Which parts are sound, perception, and memory? Is the remembered bell present now?',sutta:{id:'SN 22.48',url:'https://suttacentral.net/sn22.48/en/sujato'}},
+ {phase:'INTENTION',lens:2,factor:1,question:'Where does feeling become an intention to act? What alternative intention is available?',sutta:{id:'MN 19',url:'https://suttacentral.net/mn19/en/sujato'}},
+ {phase:'FOLLOWING',lens:2,factor:5,question:'Did the movement cause another bell, or only change the listener\'s position?',sutta:{id:'SN 12.2',url:'https://suttacentral.net/sn12.2/en/sujato'}},
+ {phase:'INFERENCE',lens:3,factor:0,question:'Which account is observable—the bell, pleasure, or a promise about the future?',sutta:{id:'MN 117',url:'https://suttacentral.net/mn117/en/sujato'}},
+ {phase:'GRASPING',lens:2,factor:6,question:'What persists after the sound stops? What observable change is needed to loosen the grip?',sutta:{id:'SN 12.2',url:'https://suttacentral.net/sn12.2/en/sujato'}},
+ {phase:'RELEASE',lens:1,factor:1,question:'What changed when the hand opened? Which condition stayed the same?',sutta:{id:'MN 19',url:'https://suttacentral.net/mn19/en/sujato'}},
+ {phase:'WISE REFLECTION',lens:3,factor:0,question:'Separate observation from interpretation; what would make you revise the interpretation?',sutta:{id:'MN 117',url:'https://suttacentral.net/mn117/en/sujato'}}
+];
+function bellLensAt(index){
+ if(!Number.isInteger(index)||index<0||index>=BELL_MAP.length)throw Error('BELL_PASSAGE_INDEX_INVALID');
+ const item=BELL_MAP[index],book=READING_MAP[item.lens];
+ return Object.freeze({...item,book:{...book},sutta:{...item.sutta}});
+}
 const SOURCE_SELECTION_SHA='52891ff29b442cbd51824c715f7a51206863916ef5dcd2384087b59380f8f7c6';
 const FACTOR_TABLE_HASH='ac14d49b';
 function sourceTableHash(rows){
@@ -93,5 +110,5 @@ function selectedIndex(x){
  if(!/^[0-7]$/.test(String(x)))throw Error('LADDER_FACTOR_INDEX_INVALID');
  return Number(x);
 }
-return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS,READING_MAP});
+return Object.freeze({create,validate,selectedIndex,SCHEMA,CANONICAL,REFERENCES,QUESTIONS,READING_MAP,BELL_MAP,bellLensAt});
 });
