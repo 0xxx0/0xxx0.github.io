@@ -93,6 +93,16 @@ try{
   assert.equal(await page.locator('#marksShelf').isVisible(),false,'revisit returns to source, not a new reader');
   const selectedNote=await page.evaluate(()=>RSVPSourceInstrument.marks());
   assert.equal(selectedNote.bound,2);
+  await page.evaluate(()=>{Object.defineProperty(navigator,'clipboard',{configurable:true,value:{
+   writeText:async value=>{window.__sourceReference=value}
+  }})});
+  await page.locator('#editReference').click();
+  await page.waitForFunction(()=>!!window.__sourceReference);
+  const citation=await page.evaluate(()=>window.__sourceReference);
+  assert.match(citation,/\/docs\/\?src=%2F__reading_fixture\.json/,'reference links to the existing READFIELD owner');
+  assert.match(citation,/ap_char=\d+/,'source reference includes a direct character address');
+  assert.ok(citation.includes(authored.source.hash),'source citation includes exact SHA revision');
+  assert.ok(citation.includes('> '),'quoted source bytes are explicitly cited');
   if(width===390&&process.env.SCREENSHOT_DIR){
    fs.mkdirSync(process.env.SCREENSHOT_DIR,{recursive:true});
    await page.screenshot({path:path.join(process.env.SCREENSHOT_DIR,'rsvp-bearing-390.png')});
