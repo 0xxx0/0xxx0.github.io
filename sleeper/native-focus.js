@@ -163,6 +163,7 @@ new MutationObserver(()=>{
 }).observe(app,{attributes:true,attributeFilter:['class']});
 window.SleeperFocus=Object.freeze({open,close,isOpen:()=>opened,
  state:()=>({opened,worldKey:key,scope,index,words:words.length,pending:!!pending,records:records.length}),
- sidecar:()=>({schema:'sleeper.pov-attention-sidecar/v0.1',worldKey:key,authority:'HUMAN_INTERPRETATION_NOT_GATE_PROOF',records:records.map(r=>JSON.parse(JSON.stringify(r)))})
+ selection:()=>{const w=words[index];return w?Object.freeze({word:w.word,start:w.from,end:w.to}):null;},
+ sidecar:()=>({schema:'sleeper.pov-attention-sidecar/v0.1',worldKey:key,authority:'HUMAN_INTERPRETATION_NOT_GATE_PROOF',records:records.map(r=>JSON.parse(JSON.stringify(r))),echo:window.SleeperEcho?.sidecar?.()||null})
 });
 })();
