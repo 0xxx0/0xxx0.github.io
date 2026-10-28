@@ -161,7 +161,7 @@ function render(){
    check.placeholder='What would you notice, try, or check that might change your interpretation?';
    check.setAttribute('aria-label','A test or alternative reading');
    check.maxLength=240;
-   const existing=bellCarry&&bellCarry.bell?.sourceSha256===m.sha256&&bellCarry.bell.passageIndex===i&&bellCarry.ladder.factorIndex===e.index?bellCarry:null;
+   const existing=bellCarry&&bellCarry.bell?.sourceSha256===m.sha256&&bellCarry.bell.passageIndex===i&&bellCarry.ladder.factorIndex===e.index&&w&&bellCarry.bell.span.quoteHash===w.quoteHash&&bellCarry.bell.span.start===w.start&&bellCarry.bell.span.end===w.end?bellCarry:null;
    if(existing){claim.value=existing.interpretation;check.value=existing.check;}
    carry.append(element('p','notice','VIEW: distinguish what the quote says. EFFORT: propose a different reading or action. MINDFULNESS: name what would make you revise it. These are practice prompts, not certified attainment.'));
    carry.append(claim,check);
