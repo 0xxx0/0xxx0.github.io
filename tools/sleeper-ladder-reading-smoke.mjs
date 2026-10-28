@@ -42,7 +42,7 @@ const button=(box,txt)=>[...box.querySelectorAll('button')].find(b=>b.textConten
  const witness=w.SleeperReadingBridge.snapshot().session.witnesses[state.model.nodes[3].id];
  assert(witness.start>=state.model.nodes[3].start&&witness.end<=state.model.nodes[3].end,'witness not bounded');
  // Compare factor 4 to factor 5; authored link changes lawful route.
- w.SleeperReadingBridge.inspect(state.model.nodes[4].id);
+ id('rail').querySelectorAll('button')[4].click(); // Use the reader's actual preview control.
  await wait(()=>id('where')?.textContent.includes('5 / 8'),'factor 5 inspection');
  id('passage').querySelector('.sentence').click();
  if(!id('relation'))id('threadToggle').click();
