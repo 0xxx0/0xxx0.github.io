@@ -1545,6 +1545,7 @@ function renderFeed(){
  if(scope){scope.textContent=feedScope==='HEADS'?'RECENT':'CURRENT HEADS';scope.title=feedScope==='HEADS'?'Show recent route touches; recency is not priority':'Show addressable CURRENT heads; order is not priority';scope.setAttribute('aria-pressed',feedScope==='HEADS'?'true':'false')}
  if(all){all.hidden=feedScope==='HEADS';if(feedScope==='HEADS')all.textContent='ALL'}
  if(hint)hint.textContent=feedScope==='HEADS'?'CURRENT SUBSET · '+xs.length+' of '+routes.length+' · not priority':feedScope==='ALL'?'ALL '+routes.length+' ADDRESSED ROUTES · alphabetic, not priority':'RECENT · route chronology, not priority · select to hold; held route opens on second tap';
+ if(rail)rail.dataset.scope=feedScope;
  if(rail)rail.setAttribute('aria-label',feedScope==='HEADS'?'Curated CURRENT subset, not priority; select ALL to expose every address':feedScope==='ALL'?'All manifest routes in alphabetical order, not priority':'Recently touched routes; recency is not priority');
  if($('feedMeta'))$('feedMeta').textContent=feedScope==='HEADS'?xs.length+' of '+routes.length+' CURRENT · curated, not rank · '+routeGitDrift():xs.length+' of '+routes.length+' routes · order is not rank · '+routeGitDrift();
  if(!xs.length)parts.push('<span class="feedEmpty">'+(feedScope==='HEADS'?'No addressable CURRENT heads.':'No addressed routes available.')+' <a href="./control/">Read CURRENT →</a></span>');
