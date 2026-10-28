@@ -29,7 +29,8 @@ const finish=(ok,o)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(o);
  W().__fieldAct.focus('/port/comms/');
  await wait(()=>W().FieldLensHost.focus()?.href==='/port/comms/','native COMMS hold');
  const owned=new URL($('apOpen').href);
- rec.comms={owner:owned.pathname+owned.search,alternate:W().FieldIndexReadModel.actions('/port/comms/')[0]?.target||null,
+ rec.comms={primary:owned.pathname+owned.search,label:$('apOpen').textContent,
+   alternate:W().FieldIndexReadModel.actions('/port/comms/')[0]?.target||null,
    secondary:[...$('capMoves').querySelectorAll('.capMove[href]')].map(a=>{const u=new URL(a.href);return u.pathname+u.search})};
  W().__fieldAct.focus(head.route);
  await wait(()=>W().FieldLensHost.focus()?.href===head.route,'resume selected head');
@@ -52,7 +53,7 @@ const finish=(ok,o)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(o);
  rec.viewport390=ext();
  frame.style.width='320px';frame.style.height='568px';await sleep(250);rec.viewport320=ext();
  frame.style.width='1280px';frame.style.height='900px';await sleep(250);rec.viewport1280=ext();
- const pass=rec.initial.route===rec.initial.declared&&rec.initial.primary===rec.initial.declared&&rec.initial.cue===source.next_single_action.instruction&&rec.comms.owner==='/port/comms/'&&rec.comms.secondary.includes('/port/comms/?transport=1')&&rec.held===head.route&&rec.cue===head.next_executable.objective&&rec.provenance==='CURRENT'&&
+ const pass=rec.initial.route===rec.initial.declared&&rec.initial.primary===rec.initial.declared&&rec.initial.cue===source.next_single_action.instruction&&rec.comms.primary==='/port/comms/?transport=1'&&rec.comms.label.includes('RELEASE EMAIL')&&rec.comms.secondary.length===0&&rec.held===head.route&&rec.cue===head.next_executable.objective&&rec.provenance==='CURRENT'&&
   ['NEXT','STATUS'].includes(rec.kind)&&rec.nativeOpen.actual===rec.nativeOpen.expected&&rec.openVisible&&rec.doorAtRest==='none'&&
   rec.towerAtBrowse!=='none'&&rec.work.tower==='none'&&rec.work.section!=='none'&&rec.work.open&&rec.work.focus===originalFocus&&
   rec.prove.tower==='none'&&rec.prove.section!=='none'&&rec.map.tower==='none'&&rec.return.tower!=='none'&&
