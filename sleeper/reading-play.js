@@ -124,6 +124,23 @@ function render(){
    for(const ref of entry.references){const a=element('a','',ref.id+' ↗');a.href=ref.url;a.title=ref.label;a.rel='noopener';a.target='_blank';refs.append(a);}
    const bell=element('a','','BELL / CONDITIONS ↗');bell.href='./axis-score.html?bell=1';bell.target='_blank';bell.rel='noopener';refs.append(bell);
    context.append(refs);
+   // Cross-source interpretation stays a visibly distinct illustration.
+   // Reading it cannot mutate the Ladder projection, Threadwalk path, or Gate.
+   const parallel=SleeperLadderThread.bellForFactor(entry.index);
+   if(parallel){
+    const example=element('details','bookMap');example.id='ladderBellParallel';
+    example.append(element('summary','','BELL / SEE THIS FACTOR IN A SITUATION'));
+    const exampleText=DEMO.split('\\n\\n')[parallel.index];
+    if(!exampleText)throw Error('BELL_EXAMPLE_SOURCE_MISSING');
+    example.append(element('div','tiny','ORIGINAL FICTION · BELL PASSAGE '+(parallel.index+1)+'/8 · NOT A PAYUTTO QUOTE'));
+    example.append(element('blockquote','quote',exampleText));
+    example.append(element('p','notice',parallel.question));
+    const open=element('a','','READ THIS EXACT BELL PASSAGE ↗');
+    open.href='./axis-score.html?bell=1&bellAt='+parallel.index;
+    open.target='_blank';open.rel='noopener noreferrer';
+    example.append(open,element('p','tiny','Separate source and reading position; no evidence, Gate or interpretation is transferred.'));
+    context.append(example);
+   }
    const map=document.createElement('details');map.className='bookMap';
    const heading=document.createElement('summary');heading.textContent='BOOK MAP / FIVE QUESTIONS';map.append(heading);
    const list=document.createElement('ol');
@@ -264,7 +281,12 @@ function render(){
  $('rsvp').classList.toggle('hidden',!rsvpVisible);$('ridePlay').onclick=play; $('ridePlay').textContent=playing?'Ⅱ PAUSE':'▶ RIDE';$('rideReset').onclick=()=>{stop();readIndex=0;$('rsvpword').textContent='✳';$('ridePlay').textContent='▶ RIDE'};
  $('scrub').max=m.nodes.length-1;$('scrub').value=i;$('currentNumber').textContent=String(i+1).padStart(2,'0');$('totalNumber').textContent=m.nodes.length+' passages';
  $('scrub').onchange=e=>move(m.nodes[+e.target.value].id,false);
- m.nodes.forEach((n,j)=>{const b=button(String(j+1).padStart(2,'0'),()=>move(n.id,false),n.id===s.focus?'here':n.id===node.id?'preview':'');b.title='Inspect '+(j+1);$('rail').append(b)});
+ m.nodes.forEach((n,j)=>{
+  const name=ladderLesson?.entries[j]?.name||((m.source===DEMO&&window.SleeperLadderThread)?SleeperLadderThread.bellLensAt(j).phase:'');
+  const label=name?String(j+1).padStart(2,'0')+' '+name.toUpperCase():String(j+1).padStart(2,'0');
+  const b=button(label,()=>move(n.id,false),n.id===s.focus?'here':n.id===node.id?'preview':'');
+  b.title='Inspect passage '+(j+1)+(name?' / '+name:'');$('rail').append(b)
+ });
  // Looking ahead is not a move. PREV/NEXT may traverse source order only
  // when the currently displayed passage is the committed reading position.
  const advance=n=>{if(!n)return;move(n.id,here&&T.neighbors(m,s).some(e=>e.id===n.id))};
@@ -351,6 +373,14 @@ async function start(){
  }
  if(query.get('read')==='1'&&!query.has('bell')){sourceOpen=true;render();return;}
  await load(DEMO,'The Bell / original reading study');
+ // Exact passage ingress is inspection, not movement or inherited evidence.
+ if(query.has('bellAt')){
+  const value=query.get('bellAt');
+  if(!/^[0-7]$/.test(value)){status('BELL_PASSAGE_INDEX_INVALID');return;}
+  const m=snap().model;
+  if(m?.source===DEMO&&m.nodes.length===8)B.inspect(m.nodes[Number(value)].id);
+  else status('BELL_SOURCE_CHANGED');
+ }
 }
 start();
 })();
