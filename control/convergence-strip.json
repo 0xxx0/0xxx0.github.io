@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-28T06:45:36.471Z",
+  "generated": "2026-10-28T07:16:37.524Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-28",
-  "commits_in_window": 3,
-  "git_commits_in_window": 44,
-  "telemetry_commits_in_window": 41,
-  "commits_total": 7125,
-  "branch_count": 1107,
+  "commits_in_window": 5,
+  "git_commits_in_window": 49,
+  "telemetry_commits_in_window": 44,
+  "commits_total": 7130,
+  "branch_count": 1110,
   "recent_commits": [
-    "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
-    "calls: refresh (auto — answers changed)"
+    "SLEEPER: source-first five-question reading over existing LADDER/THREADWALK",
+    "SLEEPER: source-exact Ladder ↔ Threadwalk reading aperture",
+    "desk: refresh public field data + root git chronology"
   ],
   "active_fronts": [
     {
