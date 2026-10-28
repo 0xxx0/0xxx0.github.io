@@ -65,6 +65,7 @@ function switchPhase(){
  if(!alive()||L.isOpen()||!leg())return;
  const target=leg();
  if(distance(game.player,target)>.75)return;
+ const previous=run.phase;
  if(run.phase==='seek'){run.phase='return';run.outward=snapshotRoute()}
  else if(run.phase==='seek2'){run.phase='return2';run.outward2=snapshotRoute()}
  else if(run.phase==='return'){
@@ -75,6 +76,7 @@ function switchPhase(){
   run.comparison=E.compare(run.first,run.second);
   run.phase='done';
  }
+ if(run.phase!==previous)describe();
 }
 function describe(){
  if(!alive()||run.phase==='released'||L.isOpen()){hud.hidden=true;return}
