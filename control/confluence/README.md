@@ -48,20 +48,24 @@ Five standing rules:
 
 When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
 
-## Portfolio fold — 2026-09-28
+## Portfolio fold — 2026-10-28
 
 Derived orientation only; this is not a registry, queue, or new authority. Read the apparent project sprawl as six capability families:
 
-- **HOLD / ADDRESS / SCALE** — FIELD, INTERPHASE, FOVEA, Scale Lens, AXIAL.
-- **PATH / TRAVERSAL / RE-ENTRY** — STEP, READ/RIDE, Sleeper RouteWitness.
-- **TRANSFORM / STEERING** — change calculus, I Ching correspondence, J-space/J-Lens.
-- **EXPERIENCE / EXPRESSION** — FOLD//BLOOM, Verse, Sleeper/Nine Gate, Replay/Listen/Ink/Voice.
-- **WORLD LOOPS** — Dayline, HOUSE, Shopping, HUMAN PORT/COMMS.
-- **RECOVERY / PROVENANCE** — vault, migration, exact donors.
+- **HOLD / ADDRESS / SCALE** — one addressed object, focus and native owner.
+- **PATH / TRAVERSAL / RE-ENTRY** — route, order, resume and exact RETURN.
+- **TRANSFORM / STEERING** — calculation/support without permission laundering.
+- **EXPERIENCE / EXPRESSION** — readable/playable/memorable/shareable encounters.
+- **WORLD LOOPS** — real commit, witness, consequence and source-addressed RETURN.
+- **RECOVERY / PROVENANCE** — exact source/lineage only when another family is blocked.
 
-A route, PR, worker, experiment, mode or donor is not automatically a project. CURRENT remains attention authority. Prefer **conversion before coordination**.
+A route, PR, worker, experiment, mode, donor or recent commit is not automatically a project or an active front. **CURRENT remains attention authority.**
+
+The live map is [FIELD / SIX-FAMILY PROJECT MAP](./PROJECT_MAP.md). As of 2026-10-28, CURRENT names one active front: **WORLD LOOPS / air-instrument**. Its exact next move is bounded to **Dayline → phone witness → RETURN → STOP** before any fresh sensor-loop work is authorized.
 
 ## Current confluence packets
+
+- [FIELD / SIX-FAMILY PROJECT MAP](./PROJECT_MAP.md) — one-page dependency/proof/next-move reducer; derived from CURRENT/native evidence and owns no priority or execution authority.
 
 - [CHANGE CALCULUS / shared order-space handoff](../../fold-bloom/convergence/change-calculus/RESEARCH_HANDOFF.md) — canonical successor for the merged Boolean change lattice, prefix-preserving CALCULATION_ONLY steering, projection-only path→INK guide, J-space promotion gate, and the boundary `STATE SPACE ≠ PATH ≠ SUPPORT ≠ PERMISSION ≠ EFFECT`.
 - [FOLD//BLOOM playable convergence handoff](./FOLD_BLOOM_PLAYABLE_CONVERGENCE_HERMES_2026-09-28.md) — post-#492/#507 recovery frame joining exact READ, playable LIVE/DRIVE and the bounded change-calculus/J-space donors without creating a new host authority.
