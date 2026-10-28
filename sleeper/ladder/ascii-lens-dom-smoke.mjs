@@ -19,7 +19,7 @@ const stable=s=>({walk:s.walker,moves:s.moves,breath:s.breath,lit:s.lit,witness:
  const pane=await wait(()=>!d.querySelector('#asciiLens')?.hidden&&d.querySelector('#laMap')?.textContent?.includes('@')&&d.querySelector('#laScrub')?.max>0,'ASCII source and map');
  assert(ascii.state().native.distance==='ENTERED','native entered state, no new engine');
  const base=stable(L.state());
- const map=d.querySelector('#laMap').textContent.split('\\n');
+ const map=d.querySelector('#laMap').textContent.split(String.fromCharCode(10));
  assert(map.length===11&&map.every(l=>[...l].length===21),'21x11 field from same cells');
  assert(d.querySelector('#laAddress').textContent.includes(base.walk.p?'paragraph ':'paragraph '),'source address shown');
  assert(ascii.state().source===L.state().source.sha256,'exact source fingerprint');
