@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-29T02:54:34.755Z",
+  "generated": "2026-10-29T03:26:11.117Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-29",
-  "commits_in_window": 6,
-  "git_commits_in_window": 37,
-  "telemetry_commits_in_window": 31,
-  "commits_total": 7345,
+  "commits_in_window": 14,
+  "git_commits_in_window": 48,
+  "telemetry_commits_in_window": 34,
+  "commits_total": 7356,
   "branch_count": 1137,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: stamp /sleeper/ladder/ (0.6.8 mansion skin, ASCII lens k",
-    "ladder 0.6.8: the mansion behind the loop — the Bell POV opens from the ladder"
+    "fi-mutation-contract: re-stamp /sleeper/ladder/ after rebase (0.6.10)",
+    "fi-mutation-contract: stamp /sleeper/ladder/ (0.6.10 opaque clear)"
   ],
   "active_fronts": [
     {
