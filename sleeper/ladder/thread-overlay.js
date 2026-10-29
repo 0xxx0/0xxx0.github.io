@@ -12,8 +12,41 @@ const frames={read:null};
 let bellLoading=false;
 // The loop door opens the POV world itself, mounted on demand in this document.
 // It is not a page about the Bell; the same SleeperBell the Threadwalk host uses.
+// On the ladder it is skinned as the mansion: one quiet room of conditions.
+function skinMansion(){
+ const root=document.getElementById('bellExperience');if(!root)return;
+ root.classList.add('mansion');
+ if(!document.getElementById('mansionSkin')){
+  const st=document.createElement('style');st.id='mansionSkin';
+  st.textContent=[
+   '#bellExperience.mansion{background:#080c12;color:#c7d0da;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}',
+   '#bellExperience.mansion header{background:#080c12;border-bottom:1px solid rgba(79,87,96,.22)}',
+   '#bellExperience.mansion header b{color:#e6ebf0;font-weight:500;letter-spacing:.1em}',
+   '#bellExperience.mansion button{border:1px solid rgba(79,87,96,.42);background:transparent;color:#dfe6ec;border-radius:0;font:11px ui-monospace,monospace;letter-spacing:.04em}',
+   '#bellExperience.mansion button.gold{background:#dfe6ec;color:#080c12;border-color:#dfe6ec;font-weight:600}',
+   '#bellExperience.mansion #bellCover{background:rgba(5,8,12,.88)}',
+   '#bellExperience.mansion #bellCard{background:#0b1118;border-top:1px solid rgba(198,209,220,.38);box-shadow:none}',
+   '#bellExperience.mansion #bellCard h1{font:400 clamp(30px,5.8vw,50px)/1 ui-monospace,monospace;letter-spacing:-.05em;color:#eef2f6}',
+   '#bellExperience.mansion #bellCard > div{color:#8d99a6!important}',
+   '#bellExperience.mansion #bellCard p{font:14px/1.7 system-ui,sans-serif;color:#c2ccd6}',
+   '#bellExperience.mansion #bellCard small{color:#8d99a6}',
+   '#bellExperience.mansion #bellNote{background:rgba(8,12,18,.86);border-left:1px solid rgba(198,209,220,.35);color:#aeb9c6}',
+   '#bellExperience.mansion #bellPhase{color:#aeb9c6}',
+   '#bellExperience.mansion #bellAction{background:rgba(8,12,18,.94);border:1px solid rgba(198,209,220,.3);box-shadow:none}',
+   '#bellExperience.mansion #bellControls{background:linear-gradient(transparent,#080c12f2 18%)}',
+   '#bellExperience.mansion #bellScene{filter:saturate(.18) contrast(.95) brightness(.9)}',
+   '#bellExperience.mansion #bellRing{filter:saturate(.15)}',
+   '#bellExperience.mansion #bellText{text-shadow:0 2px 14px #000}'
+  ].join('');document.head.append(st);
+ }
+ const h=root.querySelector('header b');if(h)h.innerHTML='HERMES MANSION <span>/ A WORLD OF CONDITIONS</span>';
+ const kick=root.querySelector('#bellCard > div');if(kick)kick.textContent='A ROOM IN THE MANSION / CONDITIONALITY / ORIGINAL ILLUSTRATION';
+ const t=root.querySelector('#bellCardTitle');if(t)t.textContent='THE MANSION';
+ const p=root.querySelector('#bellCardText');if(p)p.innerHTML='Somewhere in this mansion a bell sounds. Its sound is pleasant. You recognize it and want to hear it again.<br><br>Walk the rooms. At the crossroads your action changes what is reachable; the bell itself does not change.';
+ const q=root.querySelector('#bellQuit');if(q)q.textContent='↩ LADDER';
+}
 function openBell(){
- const launch=()=>{const b=document.getElementById('bellEntry');if(b){b.click();return true}return false};
+ const launch=()=>{const b=document.getElementById('bellEntry');if(b){b.click();skinMansion();return true}return false};
  if(launch())return;
  if(bellLoading)return;
  bellLoading=true;
