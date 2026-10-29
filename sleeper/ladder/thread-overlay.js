@@ -5,7 +5,7 @@
 'use strict';
 const L=window.SleeperLadder,foot=document.getElementById('prov');
 if(!L||!foot)return;
-let overlay=null,frame=null,active=null,ready=false;
+let overlay=null,frame=null,active=null,ready=false,currentAddress=null;
 // Two source identities share the same viewport but never share evidence state.
 // Retaining the iframes preserves actual text work, not a reconstruction from a save.
 const frames={read:null};
@@ -94,11 +94,11 @@ function close(){
  foot.focus();label();
  return true;
 }
-function open(){
+function open(address=null){
  const st=L.state();
  if(st.distance==='EXITED'){ label(); L.downloadReturn(); return true; }
  const n=nextFactor();if(n===null||overlay&&!overlay.hidden)return;
- if(L.loop&&L.loop()){label();openBell();return}
+ if(!address&&L.loop&&L.loop()){label();openBell();return}
  const key='read';
  if(!overlay){
   overlay=document.createElement('div');overlay.id='ladderOverlay';overlay.setAttribute('role','dialog');
@@ -113,15 +113,36 @@ function open(){
   chosen.title='Threadwalk — the eight path factors';
   chosen.src='../axis-score.html?read=1&ladderFactor='+n;
   chosen.hidden=true;
+  chosen.addEventListener('load',sendAddress);
   frames[key]=chosen;
   overlay.insertBefore(chosen,overlay.querySelector('#ladderClose'));
  }
  if(frame&&frame!==chosen){frame.hidden=true;frame.removeAttribute('id');}
  frame=chosen;frame.id='ladderFrame';frame.hidden=false;
- active={factor:n,before:L.state()};
+ currentAddress=address;
+ active={factor:n,before:L.state(),sourceAddress:address};
  overlay.setAttribute('aria-label',chosen.title);
  overlay.hidden=false;overlay.removeAttribute('aria-hidden');
  overlay.querySelector('#ladderClose').focus();
+ if(chosen.contentDocument?.readyState==='complete')sendAddress();
+}
+// A cell is an address in the vetted abridged LADDER slice, not an
+// inferred Buddhist passage. The iframe resolves its own copy of the slice.
+function sendAddress(){
+ if(!frame?.contentWindow)return;
+ try{frame.contentWindow.postMessage({schema:'sleeper.ladder-reader-address/v1',address:currentAddress},location.origin)}catch(_){ }
+}
+function openAtAddress(address){
+ const st=L.state();
+ if(!ready||!st.ready||!st.walker||!st.source||!address||
+    !Number.isInteger(address.cell)||address.cell!==st.walker.y*96+st.walker.x||
+    !Number.isInteger(address.paragraph)||address.paragraph!==st.walker.p||
+    address.paragraph<0||address.paragraph>=st.source.districts||
+    !Number.isInteger(address.sentence)||address.sentence<0||
+    !Number.isInteger(address.word)||address.word<0||
+    address.sourceSha256!==st.source.sha256)return false;
+ open(Object.freeze({...address}));
+ return !!overlay&&!overlay.hidden;
 }
 foot.addEventListener('click',open);
 foot.addEventListener('keydown',e=>{
@@ -140,7 +161,7 @@ L.ready.then(s=>{
 }).catch(()=>{foot.title='SOURCE GAP / READER UNAVAILABLE';});
 foot.addEventListener('pointerenter',label);foot.addEventListener('focus',label);
 window.SleeperLadderRead=Object.freeze({
- current:nextFactor,isOpen:()=>!!overlay&&!overlay.hidden,close,
+ current:nextFactor,isOpen:()=>!!overlay&&!overlay.hidden,close,openAtAddress,
  before:()=>active?.before||null,refresh:label
 });
 })();
