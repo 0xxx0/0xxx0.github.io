@@ -724,6 +724,18 @@ section('20 · the wave (a held line rides at its own pace; release at the last 
       const c = CORE.rideAt(CORE.rideNew(), p, p.endMs).charFrac;
       return a === 0 && b > 0 && b < 1 && Math.abs(c - 1) < 1e-9;
     })(), '0 -> 1 across the line');
+  ok('W14 the seal is a pure, deterministic word puzzle from the source',
+    (() => {
+      const ds = derived.districts;
+      const every = ds.every((d) => {
+        const s = CORE.sealOf(d, ds);
+        return s && s.options.length === 3 && s.options[s.correct] === s.answer
+          && s.options.filter((w) => w === s.answer).length === 1;
+      });
+      const a = CORE.sealOf(ds[3], ds), b = CORE.sealOf(ds[3], ds);
+      return every && a && b && JSON.stringify(a) === JSON.stringify(b)
+        && a.blank.includes('____') && CORE.sealOf(null, ds) === null;
+    })(), `${derived.districts.length} districts, 3 options, answer in place, stable`);
   ok('W10 the wave never touches breath (it is attention, not the walk’s stake)',
     !/breath/i.test(CORE.waveOf.toString() + CORE.rideRelease.toString() + CORE.ridePace.toString()),
     'no breath reference in the wave functions');

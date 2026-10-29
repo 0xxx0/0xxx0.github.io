@@ -73,6 +73,7 @@
   const SPEECH_MS = 700;                             // one wrong speech, unsaid
   const STAY_MS = 2400;                              // one point, kept
   const RIDE_MS = 800;                               // hold past the decode = the line rides
+  const SEAL_MS = 900;                               // one candidate per hold-beat
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const MONO = 'ui-monospace, SFMono-Regular, Menlo, monospace';
 
@@ -97,7 +98,7 @@
     note: false,       // the field note (a reveal, no chrome)
     pointers: 0,       // two fingers = the view; measured, never a button
     // 0.6.0 — the wave: a held line rides at its own pace; release at the end
-    ride: null, rideTimer: 0, rides: {}, loop: false,
+    ride: null, rideTimer: 0, rides: {}, loop: false, seal: null, sealed: {},
   };
   let W = 0, H = 0, dpr = 1;
 
@@ -1125,7 +1126,62 @@
     ctx.fillText(note, cx, cy + R + 20);
     ctx.restore();
   }
+  function sealFor(p) {
+    return C.sealOf(S.source && S.source.districts && S.source.districts[p], S.source && S.source.districts);
+  }
+  function drawSealVoice() {
+    const s = S.seal;
+    const now = S.now || 0;
+    if (!s.over) {
+      if (s.hold && !s.t0) s.t0 = now;
+      s.i = s.hold && s.t0 ? Math.floor(Math.max(0, now - s.t0) / SEAL_MS) % 3 : 0;
+    }
+    ctx.save();
+    ctx.fillStyle = 'rgba(6,10,15,0.72)'; ctx.fillRect(0, 0, W, H);
+    const cx = W / 2, cy = H * 0.46;
+    const R = Math.max(96, Math.min(W * 0.34, H * 0.26));
+    const a0 = -Math.PI / 2, TAU = Math.PI * 2;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU);
+    ctx.fillStyle = 'rgba(9,14,20,0.62)'; ctx.fill();
+    // three seats: one per candidate; the current one is lit
+    for (let k = 0; k < 3; k++) {
+      const from = a0 + (k / 3) * TAU + 0.035, to = a0 + ((k + 1) / 3) * TAU - 0.035;
+      ctx.beginPath(); ctx.arc(cx, cy, R, from, to);
+      ctx.lineWidth = k === s.i ? 4 : 1;
+      ctx.strokeStyle = k === s.i ? 'rgba(240,245,250,0.92)' : 'rgba(198,209,220,0.18)';
+      ctx.stroke();
+    }
+    for (let k = 0; k < 3; k++) {
+      const a = a0 + (k / 3) * TAU;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * (R - 8), cy + Math.sin(a) * (R - 8));
+      ctx.lineTo(cx + Math.cos(a) * (R + 6), cy + Math.sin(a) * (R + 6));
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(210,220,230,0.35)'; ctx.stroke();
+    }
+    // the cloze, above the ring; it is the evidence the player is reading
+    const blank = wrapText(s.blank || '', W - 42, 9.5).slice(0, 2);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.font = '9.5px ' + MONO; ctx.globalAlpha = 0.68; ctx.fillStyle = 'rgb(190,201,212)';
+    blank.forEach((line, i) => ctx.fillText(line, cx, cy - R - 36 + i * 12));
+    // the candidate, at the focal point
+    const word = s.options[s.i] || '';
+    let size = Math.min(42, Math.max(24, W * 0.085));
+    ctx.textBaseline = 'middle'; ctx.font = size + 'px ' + MONO;
+    while (ctx.measureText(word).width > R * 1.8 && size > 15) { size -= 2; ctx.font = size + 'px ' + MONO; }
+    ctx.globalAlpha = 0.97; ctx.fillStyle = 'rgb(238,243,248)';
+    ctx.fillText(word, cx, cy);
+    // the instruction / verdict
+    const note = s.over
+      ? (s.win ? 'sealed · the line says “' + s.answer + '”' : 'not this one · the line says “' + s.answer + '”')
+      : (s.hold ? 'release on the missing word' : 'hold · three words · one belongs');
+    ctx.font = '10px ' + MONO; ctx.textBaseline = 'top';
+    ctx.globalAlpha = s.over ? 0.96 : (s.hold ? 0.9 : 0.66);
+    ctx.fillStyle = s.over || s.hold ? 'rgb(232,238,244)' : 'rgb(176,187,198)';
+    ctx.fillText(note, cx, cy + R + 20);
+    ctx.restore();
+  }
   function drawVoice() {
+    if (S.seal) { drawSealVoice(); return; }
     if (S.ride) { drawRideVoice(); return; }
     const lines = voiceLines();
     if (!lines.length) return;
@@ -1321,6 +1377,7 @@
   // a held rise, or a one-shot pulse. Nothing animates unasked.
   let rafId = 0;
   function frameLoop(ts) {
+    S.now = ts;
     rafId = 0;
     let live = false;
     if (S.rise) {
@@ -1940,6 +1997,8 @@
       S.taughtRide = true; S.loop = false;
       if (S.ledger) { S.ledger.rides = S.rides; S.ledger.taught = true; saveLedger(); }
       say(['held to the end'], 'line', 5);
+      S.seal = sealFor(S.ride.p);                   // the line is held; now seal the missing word
+      if (S.seal) { S.seal.t0 = 0; S.seal.hold = false; S.seal.i = 0; }
       if (window.SleeperLadderRead) window.SleeperLadderRead.refresh();
     } else if (out.verdict === 'blown') {
       say(['late · past the end'], 'line', 5);
@@ -1995,6 +2054,12 @@
   }
   cv.addEventListener('pointerdown', (e) => {
     if (!S.field) return;
+    if (S.seal) {
+      if (S.seal.over) { S.seal = null; S.ride = null; draw(); return; }
+      try { if (cv.setPointerCapture && e.pointerId != null) cv.setPointerCapture(e.pointerId); } catch (err) { /* synthetic */ }
+      S.seal.hold = true; S.seal.t0 = e.timeStamp || S.now || 0; S.seal.i = 0;
+      wake(); draw(); return;
+    }
     if (S.ride && S.ride.over) S.ride = null;           // a finished ride clears on the next touch
     S.pointers = (S.pointers || 0) + 1;
     // TWO FINGERS = THE EYE. The view has no button: the second finger is the
@@ -2067,6 +2132,7 @@
     wake();
   });
   cv.addEventListener('pointermove', (e) => {
+    if (S.seal) return;
     if (!S.drag || !S.field) return;
     const dx = e.clientX - S.drag.x, dy = e.clientY - S.drag.y;
     // a thumb is not a mouse: 10 px of natural drift must not cancel a hold.
@@ -2093,6 +2159,19 @@
     wake(); draw();
   }
   cv.addEventListener('pointerup', (e) => {
+    if (S.seal) {
+      if (!S.seal.over) {
+        // choose from elapsed hold time, not from the last painted frame: a
+        // throttled tab must not turn a one-beat hold into the first word.
+        const t = e.timeStamp || S.now || 0;
+        S.seal.i = S.seal.hold ? Math.floor(Math.max(0, t - (S.seal.t0 || 0)) / SEAL_MS) % 3 : 0;
+        S.seal.over = true;
+        S.seal.win = S.seal.i === S.seal.correct;
+        if (S.seal.win) S.sealed[S.seal.p] = true;
+      }
+      S.seal.hold = false; S.drag = null; S.hold = null;
+      wake(); draw(); return;
+    }
     if (S.ride && !S.ride.over) {
       endRide();
       S.drag = null; S.hold = null;
@@ -2136,6 +2215,7 @@
     if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
   });
   cv.addEventListener('pointercancel', (e) => {
+    if (S.seal) { S.seal.hold = false; return; }
     // a browser gesture can cancel a touch mid-ride (iOS does it on a long
     // press that drifts). The release still has to count; never leave a ride
     // running with no finger on it. A rewind already counts as released.
@@ -2356,6 +2436,7 @@
     rides: () => JSON.parse(JSON.stringify(S.rides || {})),
     taught: () => !!S.taughtRide,
     loop: () => !!S.loop,
+    seal: () => (S.seal ? { p: S.seal.p, i: S.seal.i, over: !!S.seal.over, win: !!S.seal.win, hold: !!S.seal.hold, options: S.seal.options.slice(), correct: S.seal.correct, answer: S.seal.answer } : null),
     lines: () => voiceLines(),
     redraw: () => { draw(); return true; },
     rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowCharFrom.toFixed(4), ticks: pl.tickChars.map((c) => +c.toFixed(4)), words: pl.words, chars: pl.chars } : null; },

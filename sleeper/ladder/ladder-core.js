@@ -1006,8 +1006,25 @@
     return Math.round(Math.min(WAVE_MAX, Math.max(WAVE_MIN, plan.beatMs + delta)));
   }
 
+  function sealOf(district, all) {
+    // A deterministic word-choice puzzle from the source projection itself:
+    // the district's own cloze, its true answer, and two distractors drawn from
+    // the other districts' answers. Same source -> same puzzle, no randomness.
+    if (!district || !district.answer) return null;
+    const pool = (all || [])
+      .filter((x) => x && x.p !== district.p && x.answer && x.answer !== district.answer)
+      .map((x) => x.answer);
+    pool.sort((a, b) => (Math.abs(a.length - district.answer.length) - Math.abs(b.length - district.answer.length)) || a.localeCompare(b));
+    const options = [district.answer];
+    for (const w of pool) { if (options.length >= 3) break; if (!options.includes(w)) options.push(w); }
+    while (options.length < 3) options.push('·');
+    const shifted = options.slice(district.p % 3).concat(options.slice(0, district.p % 3));
+    return { p: district.p, blank: district.cloze || district.line, answer: district.answer,
+      options: shifted, correct: shifted.indexOf(district.answer), locator: district.locator || '' };
+  }
+
   return Object.freeze({
-    version: '0.6.8',
+    version: '0.6.9',
     COLS, ROWS, CELLS, SOURCE_PATH, SOURCE_SCHEMA, FINGERPRINT_PREFIX,
     PAINTING_ID, PAINTING_SHA256, DISTRICTS, GATES, LEDGER_GAP,
     CUT_LADDER, WEATHERS, SEEN_AT, BREATH_STEP, BREATH_FAIL, ACT_KINDS,
@@ -1017,7 +1034,7 @@
     gateKind, gateAdmits, riseMet, breathBudget, spendBreath, factorLine,
     floodFill, bfs, placeFactors, factorCard, emptyLedger, ledgerMark, ledgerRead, returnPrompt,
     routeString, routeSeed, step, walk, recompose, downscale64, mad64,
-    waveOf, rideNew, rideAt, rideRelease, ridePace, railOf, WAVE_REWIND,
+    waveOf, rideNew, rideAt, rideRelease, ridePace, railOf, WAVE_REWIND, sealOf,
     changedPx, syntheticPainting, PUNCT,
     FPV, fpvLayout, fpvRow, fpvPoint, fpvQuad, readingHead, wallFaces, openSides, SIDES,
   });
