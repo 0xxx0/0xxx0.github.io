@@ -84,7 +84,7 @@ function describe(){
  const p=leg();
  const count=run.phase.endsWith('2')?'II':'I';
  const phases={seek:'FIND THE WORD',return:'RETURN TO WHERE YOU STOOD',choice:'MEMORY HOLDS',seek2:'FIND IT AGAIN',return2:'RETURN AGAIN',done:'TWO REAL ROUTES'};
- $('eWhere').textContent=(phases[run.phase]||'WORD ECHO')+' · '+count+' / SAME WORLD';
+ $('eWhere').textContent=(phases[run.phase]||'WORD ECHO')+' · '+count+' / WORD '+(run.target.sourceOrdinal+1)+'/'+run.target.sourceTotal+' / SAME WORLD';
  if(p){
   const d=distance(game.player,p),hop=E.nextHop(game,game.player,p);
   $('eDir').textContent=hop?bearing(hop):'×';
@@ -95,7 +95,7 @@ function describe(){
  }else if(run.phase==='done'){
   const r=run.comparison;
   $('eInstruction').textContent=r.overlap==null?'No comparable route':Math.round(r.overlap*100)+'% of the second route occupied cells of the first · '+r.firstLength.toFixed(1)+' / '+r.secondLength.toFixed(1)+' world units walked.';
- }else $('eInstruction').textContent='The word is a projected waypoint, not a translation of the wall. Your movement is native.';
+ }else $('eInstruction').textContent='Source order moves outward through walkable distances. This is a map of reading order, not a translation or a Gate.';
  $('eRepeat').hidden=run.phase!=='choice';
  $('eRelease').textContent=run.phase==='done'?'CLOSE ECHO':'LET PASS';
 }
@@ -179,6 +179,7 @@ function sidecar(){
   worldKey:run.worldKey,sourceHash:run.sourceHash,sourceRange:run.range,
   quote:run.word,origin:[run.origin.x,run.origin.y],
   projectedWaypoint:[run.target.x,run.target.y],projectedSteps:run.target.steps,
+  projection:run.target.mapping,sourceOrdinal:run.target.sourceOrdinal,sourceTotal:run.target.sourceTotal,
   phase:run.phase,first:run.first?run.first.map(p=>p.slice()):null,
   second:run.second?run.second.map(p=>p.slice()):null,
   comparison:run.comparison?{...run.comparison}:null,
