@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-10-29T03:26:11.117Z",
+  "generated": "2026-10-29T05:29:34.865Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-10-29",
-  "commits_in_window": 14,
-  "git_commits_in_window": 48,
-  "telemetry_commits_in_window": 34,
-  "commits_total": 7356,
+  "commits_in_window": 17,
+  "git_commits_in_window": 60,
+  "telemetry_commits_in_window": 43,
+  "commits_total": 7368,
   "branch_count": 1137,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "fi-mutation-contract: re-stamp /sleeper/ladder/ after rebase (0.6.10)",
-    "fi-mutation-contract: stamp /sleeper/ladder/ (0.6.10 opaque clear)"
+    "route stamp: /sleeper/ after ladder 0.6.5",
+    "sleeper: record P0(a)=ladder; P3 is blocked on the ladder's missing return art"
   ],
   "active_fronts": [
     {
