@@ -30,7 +30,7 @@ const probe=[
 ' const point=C.locate(old,{x:old.player.x,y:old.player.y},selected.start,selected.word);',
 ' assert(point&&old.grid[Math.floor(point.y)][Math.floor(point.x)]===0,"word projected to a real open native coordinate");',
 ' assert(JSON.stringify(point)===JSON.stringify(C.locate(old,{x:old.player.x,y:old.player.y},selected.start,selected.word)),"waypoint deterministic");',
-' const exact=[...old.law.source.matchAll(/[\p{L}\p{N}][\p{L}\p{M}\p{N}\x27’\-]*/gu)];',
+' const exact=[...old.law.source.matchAll(/[\\p{L}\\p{N}][\\p{L}\\p{M}\\p{N}\x27’\\-]*/gu)];',
 ' const ordered=exact.map(m=>C.locate(old,old.player,m.index,m[0]));',
 ' assert(ordered.every(p=>p&&p.mapping==="SOURCE_ORDER_TO_WALK_DISTANCE"),"every original source word has ordered projection");',
 ' assert(ordered.every((p,i)=>p.sourceOrdinal===i&&p.sourceTotal===exact.length),"projection carries actual original word ordinal");',
