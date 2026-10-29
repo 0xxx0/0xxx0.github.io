@@ -61,7 +61,7 @@
     '<div class="controls"><span class="ring" id="laRing" aria-label="Word position">0</span>',
     '<button id="laPlay" type="button">▶ RSVP</button><button id="laSpeed" type="button">260 WPM</button></div>',
     '<div class="controls"><input id="laScrub" type="range" min="0" max="0" value="0" aria-label="Scrub word position in source excerpt"></div>',
-    '<div class="address" id="laAddress"></div><div class="controls"><button id="laThread" type="button">PATH FACTOR / THREADWALK ↗</button>',
+    '<div class="address" id="laAddress"></div><div class="controls"><button id="laThread" type="button">READ THIS CELL / THREADWALK ↗</button>',
     '<a id="laSource" class="sourceLink" target="_blank" rel="noopener noreferrer">SOURCE ↗</a></div>',
     '<div class="revisit" id="laRevisit" hidden>Returned to a district. What changed: the words, or what you noticed?</div>',
     '<p class="aside">Excerpts are the published, abridged LADDER selection—not complete Buddhadhamma. Your position and breath belong to the existing city. Reading is not a Gate proof.</p>',
@@ -206,11 +206,15 @@
   $('laSpeed').addEventListener('click',()=>{wpm=wpm===260?320:wpm===320?180:260;$('laSpeed').textContent=wpm+' WPM';if(timer){stop();play();}});
   $('laScrub').addEventListener('input',e=>{stop();position(e.target.value);});
   $('laThread').addEventListener('click',()=>{
-    deactivate();
-    // The native overlay owns the source reader. It may open the next factor,
-    // not the current arbitrary cell; do not claim this is an exact-cell door.
-    if(window.SleeperLadderRead?.openReader) window.SleeperLadderRead.openReader();
-    else document.getElementById('prov')?.click();
+    const st=L.state(),at=textAt(st);
+    if(!src||!at||st.source?.sha256!==src.sha256){
+      $('laNotice').textContent='SOURCE ADDRESS UNAVAILABLE · the current cell is not sealed';return;
+    }
+    // Only an exact address in the published slice; never a full-book quote.
+    const address={cell:at.n,paragraph:at.u.p,sentence:at.u.s,word:at.u.w,sourceSha256:src.sha256};
+    const opened=window.SleeperLadderRead?.openAtAddress?.(address);
+    if(opened)deactivate();
+    else $('laNotice').textContent='READING APERTURE UNAVAILABLE · no other passage substituted';
   });
   window.addEventListener('keydown',e=>{
     if(!open)return;
