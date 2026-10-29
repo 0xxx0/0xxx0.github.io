@@ -5,7 +5,7 @@
   "title": "SLEEPER — converge sleeper and prove it in the world, or shrink it honestly",
   "status": "ACTIVE",
   "purpose": "Converge the sleeper lineages behind one proven law and produce one consequence outside the control plane — a human entering the painting and getting a deterministic artifact back — or shrink Sleeper honestly.",
-  "status_line": "2026-10-24 · P1 (contract + conformance) DONE; P0(a) decision is the only unlock — which surface does the first human enter, /sleeper/ or /sleeper/ladder/?",
+  "status_line": "2026-10-29 · P0(a)=/sleeper/ladder/ (operator decision). P0(b/c) open. The ladder has no artifact return yet — P3 is blocked on that return, not on another mode.",
   "metric": {
     "outside_consequence": "a human on a phone enters the painting and receives the deterministic artifact back; replayed from a fresh session it returns the same city",
     "counted_by": "that human's own report plus two identical artifact shas (world key 0BFPHOW class, byte-equal apart from wall-clock measures)",
@@ -22,30 +22,133 @@
     "lib/moire-ambient.js hash32 (house hash, absorb never fork) · /calls decision queue · showcase-manifest + fi-mutation-contract + check-route-registration"
   ],
   "phases": [
-    { "id": "P0", "label": "decisions (human)", "gate": "operator answers P0(a) in /calls", "state": "open", "steps": ["P0(a) which surface does the first human enter — /sleeper/ or /sleeper/ladder/", "P0(b) donor stays published as labelled non-conforming predecessor, or becomes a redirect (never a deletion)", "P0(c) which text becomes the city's districts when the archive spine becomes substrate"] },
-    { "id": "P1", "label": "contract + conformance", "gate": "harness exits 0 on a fresh checkout with every deviation evidenced", "state": "done", "date": "2026-10-24", "steps": ["sleeper/CONTRACT.md (I1-I4 + verdict rule)", "sleeper/conformance/conformance.mjs — six lineages, headless, real sources", "verdicts: 2 CONFORMS / 2 PROJECTION / 2 NON-CONFORMING, 48+/57 checks"] },
-    { "id": "P2", "label": "corpus-as-substrate", "gate": "public URL + blind reader locates a quoted line by walking; drawn district counts assert against the real source", "state": "blocked-on-P0", "steps": ["one lineage only (native port or ladder) — never a fork", "districts == paragraphs, buildings == sentences, asserted at render time", "every new mark names its measured field (decode overlay)"] },
-    { "id": "P3", "label": "outside consequence", "gate": "one human, one phone, one phrase: enter, walk, return, receive artifact, replay from a fresh session, identical city", "state": "blocked", "steps": ["new fields LAST — nothing new lands before this", "artifact replay by deep link in a private tab"] },
-    { "id": "P4", "label": "shrink-or-keep (human)", "gate": "operator decision: keep as spine, or apply F1", "state": "blocked" }
+    {
+      "id": "P0",
+      "label": "decisions (human)",
+      "gate": "operator answers P0(a) in /calls",
+      "state": "partial",
+      "steps": [
+        "P0(a) which surface does the first human enter — /sleeper/ or /sleeper/ladder/",
+        "P0(b) donor stays published as labelled non-conforming predecessor, or becomes a redirect (never a deletion)",
+        "P0(c) which text becomes the city's districts when the archive spine becomes substrate"
+      ],
+      "decision": {
+        "p0a": {
+          "choice": "/sleeper/ladder/",
+          "at": "2026-10-29",
+          "by": "operator",
+          "note": "reading instrument chosen; ladder must gain a deterministic artifact return before P3"
+        }
+      }
+    },
+    {
+      "id": "P1",
+      "label": "contract + conformance",
+      "gate": "harness exits 0 on a fresh checkout with every deviation evidenced",
+      "state": "done",
+      "date": "2026-10-24",
+      "steps": [
+        "sleeper/CONTRACT.md (I1-I4 + verdict rule)",
+        "sleeper/conformance/conformance.mjs — six lineages, headless, real sources",
+        "verdicts: 2 CONFORMS / 2 PROJECTION / 2 NON-CONFORMING, 48+/57 checks"
+      ]
+    },
+    {
+      "id": "P2",
+      "label": "corpus-as-substrate",
+      "gate": "public URL + blind reader locates a quoted line by walking; drawn district counts assert against the real source",
+      "state": "unblocked-p0a",
+      "steps": [
+        "one lineage only (native port or ladder) — never a fork",
+        "districts == paragraphs, buildings == sentences, asserted at render time",
+        "every new mark names its measured field (decode overlay)"
+      ]
+    },
+    {
+      "id": "P3",
+      "label": "outside consequence",
+      "gate": "one human, one phone, one phrase: enter, walk, return, receive artifact, replay from a fresh session, identical city",
+      "state": "blocked-on-ladder-return",
+      "steps": [
+        "new fields LAST — nothing new lands before this",
+        "artifact replay by deep link in a private tab"
+      ]
+    },
+    {
+      "id": "P4",
+      "label": "shrink-or-keep (human)",
+      "gate": "operator decision: keep as spine, or apply F1",
+      "state": "blocked"
+    }
   ],
   "falsifiers": [
-    { "id": "F1", "rule": "no second consumer of a v2 artifact within 2 moves after P1 -> demote the contract to a note; stop calling it a spine" },
-    { "id": "F2", "rule": "3 moves without an outside consequence -> STOP; report the goal as not proven, keep surfaces, write nothing new" },
-    { "id": "F3", "rule": "P2 fails the blind-reader test -> shrink to deterministic resolution ladder over one document; drop all districts language" },
-    { "id": "F4", "rule": "any new field or route lands before P3 completes -> revert it" },
-    { "id": "F5", "rule": "a projection identity chain breaks (ladder tag changes with unchanged painting bytes) -> freeze that surface until re-proven" },
-    { "id": "F6", "rule": "operator withdraws the paintings or closes the goal -> shrink to archive-only stewardship" }
+    {
+      "id": "F1",
+      "rule": "no second consumer of a v2 artifact within 2 moves after P1 -> demote the contract to a note; stop calling it a spine"
+    },
+    {
+      "id": "F2",
+      "rule": "3 moves without an outside consequence -> STOP; report the goal as not proven, keep surfaces, write nothing new"
+    },
+    {
+      "id": "F3",
+      "rule": "P2 fails the blind-reader test -> shrink to deterministic resolution ladder over one document; drop all districts language"
+    },
+    {
+      "id": "F4",
+      "rule": "any new field or route lands before P3 completes -> revert it"
+    },
+    {
+      "id": "F5",
+      "rule": "a projection identity chain breaks (ladder tag changes with unchanged painting bytes) -> freeze that surface until re-proven"
+    },
+    {
+      "id": "F6",
+      "rule": "operator withdraws the paintings or closes the goal -> shrink to archive-only stewardship"
+    }
   ],
   "counterarguments": [
-    { "rank": 1, "claim": "Nobody will ever walk it; every prior done was a receipt", "cheap_test": "P3 is exactly that test; if P0(a) cannot be answered, F1 fires and this becomes a note" },
-    { "rank": 2, "claim": "A museum of six surfaces, not a system; convergence is vocabulary only", "cheap_test": "P2 must simplify one surface or delete one real duplication" },
-    { "rank": 3, "claim": "The thesis (painting == city at different resolutions) is asserted, not proven", "cheap_test": "a non-builder retells FAR/NEAR/ENTERED/EXITED in their own words; failure shrinks the claim (F3)" },
-    { "rank": 4, "claim": "Corpus-as-substrate becomes text soup (the design spec names this failure)", "cheap_test": "district count == source paragraph count at render time + blind-reader test" },
-    { "rank": 5, "claim": "Hash-derived marks drift into decoration (measured-not-seeded law)", "cheap_test": "every new mark names its measured field; unnamed marks are deleted, not prettified" },
-    { "rank": 6, "claim": "The outside consequence needs the operator's real leisure time and cannot be engineered", "cheap_test": "P0(a) unanswered across two sessions is itself the answer" },
-    { "rank": 7, "claim": "Duplicates other return consumers", "cheap_test": "measured 2026-10-24: lib/sleeper-return-v2.js validates v2, native port emits it, donor refuses it, no second human-facing consumer exists" }
+    {
+      "rank": 1,
+      "claim": "Nobody will ever walk it; every prior done was a receipt",
+      "cheap_test": "P3 is exactly that test; if P0(a) cannot be answered, F1 fires and this becomes a note"
+    },
+    {
+      "rank": 2,
+      "claim": "A museum of six surfaces, not a system; convergence is vocabulary only",
+      "cheap_test": "P2 must simplify one surface or delete one real duplication"
+    },
+    {
+      "rank": 3,
+      "claim": "The thesis (painting == city at different resolutions) is asserted, not proven",
+      "cheap_test": "a non-builder retells FAR/NEAR/ENTERED/EXITED in their own words; failure shrinks the claim (F3)"
+    },
+    {
+      "rank": 4,
+      "claim": "Corpus-as-substrate becomes text soup (the design spec names this failure)",
+      "cheap_test": "district count == source paragraph count at render time + blind-reader test"
+    },
+    {
+      "rank": 5,
+      "claim": "Hash-derived marks drift into decoration (measured-not-seeded law)",
+      "cheap_test": "every new mark names its measured field; unnamed marks are deleted, not prettified"
+    },
+    {
+      "rank": 6,
+      "claim": "The outside consequence needs the operator's real leisure time and cannot be engineered",
+      "cheap_test": "P0(a) unanswered across two sessions is itself the answer"
+    },
+    {
+      "rank": 7,
+      "claim": "Duplicates other return consumers",
+      "cheap_test": "measured 2026-10-24: lib/sleeper-return-v2.js validates v2, native port emits it, donor refuses it, no second human-facing consumer exists"
+    }
   ],
-  "protocol": { "loop": "read live control + goal + falsifiers -> ONE bounded move -> verify -> RETURN (RESULT / PRESERVED / EVIDENCE / OPEN / NEXT) -> replan", "sequel": "none automatic; a second move needs a fresh decision", "return_template": "templates/return.md (RESULTS line carries an outside consequence — a receipts-only move is not a result)" },
+  "protocol": {
+    "loop": "read live control + goal + falsifiers -> ONE bounded move -> verify -> RETURN (RESULT / PRESERVED / EVIDENCE / OPEN / NEXT) -> replan",
+    "sequel": "none automatic; a second move needs a fresh decision",
+    "return_template": "templates/return.md (RESULTS line carries an outside consequence — a receipts-only move is not a result)"
+  },
   "guards": [
     "recovery/ is frozen read-only source of record",
     "frozen shelves (workfield-v1.2 etc.) are contracts with verifiers — never restructure",
@@ -57,6 +160,13 @@
     "contract": "sleeper/CONTRACT.md",
     "harness": "sleeper/conformance/conformance.mjs",
     "run_receipts": "AXIS/work/sleeper-conformance-2026-10-24/receipts/conformance-run-1.txt (+ run-2, fingerprints identical across processes)",
-    "verdicts": { "recovery/sleeper/site-source-2026-09-18": "CONFORMS", "/sleeper/ native": "CONFORMS", "/sleeper/one-return/": "NON-CONFORMING (9 gates, one-return/import-reified-0.2, refuses v2)", "/sleeper/ascii-pov-0.8/": "NON-CONFORMING (4 contracts, no worldKey; selftest false-negative 14/15 diagnosed)", "/sleeper/borrowed-river/": "PROJECTION (EXIT-RECOMPOSE)", "/sleeper/ladder/": "PROJECTION (RESOLUTION-LADDER, tag f0f09635, mad64 0.0000)" }
+    "verdicts": {
+      "recovery/sleeper/site-source-2026-09-18": "CONFORMS",
+      "/sleeper/ native": "CONFORMS",
+      "/sleeper/one-return/": "NON-CONFORMING (9 gates, one-return/import-reified-0.2, refuses v2)",
+      "/sleeper/ascii-pov-0.8/": "NON-CONFORMING (4 contracts, no worldKey; selftest false-negative 14/15 diagnosed)",
+      "/sleeper/borrowed-river/": "PROJECTION (EXIT-RECOMPOSE)",
+      "/sleeper/ladder/": "PROJECTION (RESOLUTION-LADDER, tag f0f09635, mad64 0.0000)"
+    }
   }
 }
