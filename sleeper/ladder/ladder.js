@@ -92,6 +92,8 @@
     factors: null, act: null, breath: null, breathMax: null, ended: null, visited: new Set(),
     // 0.4.0 — the eye, the block, and one note
     fpv: false,        // the first-person view of the same field (a toggle, no chrome)
+    enteredOnce: false,// the first entry stands in the city; the plan stays one gesture away
+    read: {},          // districts whose full source page was opened (a real reading trace)
     eyeK: 0,           // how far the eye has been raised by a held press
     eyeDir: 0,         // +1 raising while held, 0 settling
     block: null,       // the edge the city just refused: {n, dir}
@@ -757,6 +759,48 @@
     ctx.moveTo(W / 2 - 5, FH - 3.5); ctx.lineTo(W / 2, FH - 8.5); ctx.lineTo(W / 2 + 5, FH - 3.5);
     ctx.stroke();
     ctx.restore();
+    drawReadingPlane(alpha);
+  }
+  function wrapCanvas(text, maxWidth, font) {
+    ctx.save(); ctx.font = font;
+    const words = String(text).split(/\s+/), lines = [];
+    let cur = '';
+    for (const w of words) {
+      const t = cur ? cur + ' ' + w : w;
+      if (cur && ctx.measureText(t).width > maxWidth) { lines.push(cur); cur = w; }
+      else cur = t;
+    }
+    if (cur) lines.push(cur);
+    ctx.restore();
+    return lines;
+  }
+  function drawReadingPlane(alpha) {
+    // The city is the index; the sentence is the page's first line. It is drawn
+    // in the world at reading size, not as a tooltip: you read where you stand.
+    const p = S.walker && S.walker.unit ? S.walker.unit.p : -1;
+    const d = p >= 0 && S.source ? (S.source.districts || [])[p] : null;
+    if (!d || !d.line || S.distance !== 'ENTERED') return;
+    const pad = 16, ph = Math.min(100, Math.max(72, H * 0.21));
+    const x = pad, y = H - ph - 38, w = W - pad * 2;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = 'rgb(8,12,18)';
+    ctx.fillRect(x, y, w, ph);
+    ctx.strokeStyle = 'rgba(150,158,168,.30)'; ctx.lineWidth = 1;
+    ctx.strokeRect(x + 0.5, y + 0.5, w - 1, ph - 1);
+    ctx.globalAlpha = alpha * (S.hold ? 0.98 : 0.90);
+    ctx.fillStyle = 'rgb(168,176,186)';
+    ctx.font = '10px ' + MONO; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText((d.locator || '') + '  ·  ' + (d.page || ''), x + 9, y + 8);
+    ctx.fillStyle = 'rgb(232,238,244)';
+    ctx.font = '12.5px ' + MONO;
+    const lines = wrapCanvas(d.line, w - 18, '12.5px ' + MONO).slice(0, 4);
+    let ty = y + 25;
+    for (const line of lines) { ctx.fillText(line, x + 9, ty); ty += 16; }
+    ctx.fillStyle = 'rgb(150,158,168)';
+    ctx.font = '9px ' + MONO;
+    ctx.fillText((S.read && Object.keys(S.read).length ? Object.keys(S.read).length + ' read' : 'source page') + '  ·  the city is the index', x + 9, y + ph - 14);
+    ctx.restore();
   }
   function drawBandFpv(g, p, alpha) {
     const lay = g.lay, camX = g.camX, camY = g.camY;
@@ -1185,6 +1229,9 @@
   function drawVoice() {
     if (S.seal) { drawSealVoice(); return; }
     if (S.ride) { drawRideVoice(); return; }
+    // In the first-person city the reading plane is the page: the old strip would
+    // print the same sentence a second time under it. Gate/act voices still speak.
+    if (S.fpv && S.distance === 'ENTERED' && S.walker && !S.gate && !S.act) return;
     const lines = voiceLines();
     if (!lines.length) return;
     ctx.save();
@@ -1374,7 +1421,7 @@
   }
 
   // doors are drawn after the world so they read as the city's own thresholds
-  function drawDoorStrip() { if (S.distance === 'ENTERED') drawDoors(); }
+  function drawDoorStrip() { if (S.distance === 'ENTERED' && !S.fpv) drawDoors(); }
 
   // rAF only while something is actually moving: a transition, a held shimmer,
   // a held rise, or a one-shot pulse. Nothing animates unasked.
@@ -1476,6 +1523,7 @@
     S.trans = { from: S.distance, to: d, dur: reduced ? 0 : 700, t0: 0, ts: null };
     S.distance = d;
     if (!silent) S.revealed = true;
+    if (d === 'ENTERED' && !S.enteredOnce) { S.enteredOnce = true; S.fpv = true; S.eyeK = 0; }
     if (d === 'ENTERED') districtEnter(S.walker.unit.p, true);
     if (d === 'EXITED') exitVoice();
     if (d === 'FAR' && !silent) S.voice = null;
@@ -1503,7 +1551,9 @@
     if (!S.fpv) { S.eyeK = 0; S.eyeDir = 0; }
     // the eye line is a real field of the view: say it, once, in the world's voice
     say([S.fpv ? 'the eye · standing in the city, looking north · hold to raise the eye' : 'the plan · the city from above'], 'line', 5);
-    updateChrome(); draw(); wake();
+    updateChrome();
+    if (window.SleeperLadderRead) window.SleeperLadderRead.refresh();
+    draw(); wake();
     return S.fpv;
   }
   // the note is a reveal, not a mode: it does not change the field, it covers it
@@ -2341,6 +2391,12 @@
       i, lit: !!S.lit[i], factor: S.factors && S.factors[i] ? S.factors[i].key : null,
       locator: S.factors && S.factors[i] ? S.factors[i].locator : null,
     }));
+    const readP = Object.keys(S.read || {}).map(Number).sort((a, b) => a - b);
+    const reading = {
+      districts: readP,
+      sources: readP.map((p) => sourceUrlFor((S.source.districts || [])[p])),
+      count: readP.length,
+    };
     const artifact = {
       schema: 'sleeper.ladder-return/v0.1', version: 1,
       source: { path: C.SOURCE_PATH, fingerprint: field.source.fingerprint, sha256: field.source.sha256,
@@ -2351,6 +2407,8 @@
       breath: { left: S.breath, max: S.breathMax },
       ledger: { rides: Object.keys(S.rides || {}).length, sealed: Object.keys(S.sealed || {}).length },
       measures: { steps: walk.steps, rides: Object.keys(S.rides || {}).length, seals: Object.keys(S.sealed || {}).length },
+      reading,
+      verified: { source: true, painting: true, city: true, walk: false, reading: false },
     };
     artifact.replay = '?return=' + stride(btoa(unescape(encodeURIComponent(JSON.stringify(artifact)))));
     return artifact;
@@ -2383,13 +2441,30 @@
       const canonical = JSON.stringify({ matter: raw.matter, cells: raw.cells, districts: raw.districts });
       const digest = (await sha256(new TextEncoder().encode(canonical))).slice(0, 8);
       if (!a.city || a.city.digest !== digest) throw new Error('city digest changed');
-      S.returned = { ok: true, digest, route: a.walk && a.walk.route || '' };
-      S.voice = { kind: 'line', lines: ['returned · same city ' + digest, a.walk && a.walk.route ? 'route ' + a.walk.route.slice(0, 30) : 'source + painting verified'], ttl: 12 };
+      S.returned = { ok: true, digest, route: a.walk && a.walk.route || '', reading: a.reading || null };
+      S.voice = { kind: 'line', lines: ['returned · same city ' + digest,
+        (a.walk && a.walk.route ? 'route ' + a.walk.route.slice(0, 26) : 'source + painting verified') +
+        (a.reading && a.reading.count ? ' · ' + a.reading.count + ' read' : '')], ttl: 12 };
     } catch (err) {
       S.returned = { ok: false };
       S.voice = { kind: 'line', lines: ['return refused · ' + String(err.message || err), 'the artifact does not match these bytes'], ttl: 12 };
     }
     draw();
+  }
+  function sourceUrlFor(d) {
+    if (!d || !d.slug) return null;
+    return 'https://buddhadhamma.github.io/' + String(d.slug).replace(/[^a-z0-9-]/gi, '') + '.html';
+  }
+  function readSource() {
+    // The city is the index; the source page is the book. Opening it is a reading
+    // act, so the artifact records which district was actually opened — not a click.
+    const d = state().district;
+    if (!d || !d.url) return false;
+    S.read[d.p] = d.locator;
+    window.open(d.url, '_blank', 'noopener');
+    say([d.locator + ' · ' + d.page + ' · the full page opened', 'the city stays here'], 'line', 7);
+    draw();
+    return true;
   }
   function state() {
     return {
@@ -2402,6 +2477,13 @@
         path: C.SOURCE_PATH, fingerprint: S.field.source.fingerprint, sha256: S.field.source.sha256,
         counts: S.field.source.counts, drawn: S.field.drawn, districts: S.source.districts.length,
       } : null,
+      district: (() => {
+        if (!S.walker || !S.source) return null;
+        const p = S.walker.unit.p, d = (S.source.districts || [])[p];
+        return d ? { p, page: d.page || null, slug: d.slug || null, locator: d.locator || null,
+          line: d.line || null, answer: d.answer || null, url: sourceUrlFor(d) } : null;
+      })(),
+      reading: Object.keys(S.read || {}).map(Number).sort((a, b) => a - b),
       field: S.field ? { cells: S.field.cells.length, walkable: S.field.walkable, reachable: S.field.reachable, cutQ: S.field.cutQ } : null,
       gates: S.gates.map((g, i) => {
         const f = S.factors && S.factors[i];
@@ -2450,6 +2532,9 @@
     gateAt: (n) => { const c = S.field && S.field.cells[n]; if (c) gateAt(c); return state().gate; },
     prompt: (p) => C.returnPrompt(S.ledger, p, S.source.districts, C.LEDGER_GAP),
     districtAt: (p) => (S.source.districts[p] || null),
+    district: () => state().district,
+    reading: () => Object.keys(S.read || {}).map(Number).sort((a, b) => a - b),
+    readSource,
     ledger: () => (S.ledger ? JSON.parse(JSON.stringify(S.ledger)) : null),
     clearLedger: () => { S.ledger = C.emptyLedger(); saveLedger(); return S.ledger; },
     measure: (routes) => Promise.all((routes || [['R', 'D']]).map(measureRoute)),

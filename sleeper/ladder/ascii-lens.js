@@ -209,7 +209,8 @@
     deactivate();
     // The native overlay owns the source reader. It may open the next factor,
     // not the current arbitrary cell; do not claim this is an exact-cell door.
-    document.getElementById('prov')?.click();
+    if(window.SleeperLadderRead?.openReader) window.SleeperLadderRead.openReader();
+    else document.getElementById('prov')?.click();
   });
   window.addEventListener('keydown',e=>{
     if(!open)return;

@@ -5,6 +5,7 @@
 'use strict';
 const L=window.SleeperLadder,foot=document.getElementById('prov');
 if(!L||!foot)return;
+const provText=foot.textContent;
 let overlay=null,frame=null,active=null,ready=false;
 // Two source identities share the same viewport but never share evidence state.
 // Retaining the iframes preserves actual text work, not a reconstruction from a save.
@@ -78,6 +79,14 @@ function label(){
   foot.title='download the ladder return artifact — source, painting and city are checked in the file';
   return;
  }
+ if(st.view && st.view.fpv && st.district){
+  const d=st.district;
+  foot.textContent='text · P. A. Payutto · READ FULL · '+String(d.locator||'SOURCE')+' ↗';
+  foot.title='open the full '+(d.page||'source')+' page on buddhadhamma.github.io · the city is the index, the page is the book';
+  foot.setAttribute('aria-label','Read the full '+(d.page||'source')+' at '+(d.locator||'this district')+' on buddhadhamma.github.io');
+  return;
+ }
+ if(foot.textContent.includes('READ FULL · '))foot.textContent=provText;
  const n=nextFactor();
  if(n===null)return;
  const suffix=(L.loop&&L.loop())?' · THE LOOP ↗':' · READ '+(n+1)+'/8 ↗';
@@ -94,9 +103,10 @@ function close(){
  foot.focus();label();
  return true;
 }
-function open(){
+function open(opts){
  const st=L.state();
  if(st.distance==='EXITED'){ label(); L.downloadReturn(); return true; }
+ if(st.view && st.view.fpv && st.district && !(opts&&opts.reader)){ label(); L.readSource(); return true; }
  const n=nextFactor();if(n===null||overlay&&!overlay.hidden)return;
  if(L.loop&&L.loop()){label();openBell();return}
  const key='read';
@@ -141,6 +151,7 @@ L.ready.then(s=>{
 foot.addEventListener('pointerenter',label);foot.addEventListener('focus',label);
 window.SleeperLadderRead=Object.freeze({
  current:nextFactor,isOpen:()=>!!overlay&&!overlay.hidden,close,
+ openReader:()=>open({reader:true}),
  before:()=>active?.before||null,refresh:label
 });
 })();

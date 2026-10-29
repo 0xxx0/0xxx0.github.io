@@ -325,11 +325,23 @@ SleeperLadder.fpv(on) / eye(k) / note(on) / weatherOf(p) / weatherInk(p) / shape
 SleeperLadder.ledger() / clearLedger() / prompt(p) / decode(n) / closeDecode()
 ```
 
-Selftest: `node sleeper/ladder/ladder-selftest.mjs` (**142 arms**, zero fixtures;
+Selftest: `node sleeper/ladder/ladder-selftest.mjs` (**156 arms**, zero fixtures;
 `--rgba <file> --size WxH` runs the same laws against real painting pixels;
 `BUDDHADHAMMA_CORPUS=<dir>` enables the derivation arms, which re-run the slice and
 the factor table from the local corpus and require the shipped file to be their
 output byte for byte).
+
+## 0.8.0 — the city opens in the eye
+
+The first entry is the POV body, not the plan. At ENTERED the walker stands in
+the city; two fingers (or the corner press) returns the plan. Each district's
+cited sentence is drawn in the world at reading size with its `Ch. · ¶` locator;
+the source line becomes `READ FULL · <locator> ↗` and opens the exact public
+page at `buddhadhamma.github.io/<slug>.html`. The city is the index; the page is
+the book. A return artifact gains `reading`: the district indices, locators and
+source URLs actually opened, marked self-reported. No new route, no new DOM
+element. This is the body and the door; carry/place and the full private reader
+are the next stages (see `AXIS/work/sleeper-wave-0.6-2026-10-27/CRAFT-2026-10-29-DHAMMA-CITY.md`).
 
 ## Known gaps (named, not repaired)
 
