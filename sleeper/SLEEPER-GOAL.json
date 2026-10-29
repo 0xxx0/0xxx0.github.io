@@ -5,7 +5,7 @@
   "title": "SLEEPER — converge sleeper and prove it in the world, or shrink it honestly",
   "status": "ACTIVE",
   "purpose": "Converge the sleeper lineages behind one proven law and produce one consequence outside the control plane — a human entering the painting and getting a deterministic artifact back — or shrink Sleeper honestly.",
-  "status_line": "2026-10-29 · P0(a)=/sleeper/ladder/ (operator). Ladder 0.7.0 now emits `sleeper.ladder-return/v0.1` at EXITED and `?return=` verifies the city (18ac9948). P3 is ready for one human phone run; no new fields until it passes.",
+  "status_line": "2026-10-29 · operator directive: unify the Buddhadhamma work into one reading instrument. P0(a)=/sleeper/ladder/. 0.8.0 is live: first entry is the POV body; the district sentence plane opens the exact source page; the artifact records `reading` (districts + URLs). P3 is redefined as a reading trace — a human opens a passage and can reopen it — not only city sameness. Carry/place and the full reader are next; Bell and seal are on the cut list.",
   "metric": {
     "outside_consequence": "a human on a phone enters the painting and receives the deterministic artifact back; replayed from a fresh session it returns the same city",
     "counted_by": "that human's own report plus two identical artifact shas (world key 0BFPHOW class, byte-equal apart from wall-clock measures)",
@@ -67,12 +67,12 @@
     {
       "id": "P3",
       "label": "outside consequence",
-      "gate": "one human, one phone, one phrase: enter, walk, return, receive artifact, replay from a fresh session, identical city",
+      "gate": "one human, one phone, one passage: enter, read a district, open the exact source page, return; the artifact lists the opened page; a fresh replay reopens the same page and city",
       "state": "ready-for-human",
       "steps": [
-        "one human, one phone, one phrase: enter, walk, exit, download artifact, replay in a fresh tab, identical city",
-        "artifact schema: sleeper.ladder-return/v0.1 (0.7.0); city digest 18ac9948",
-        "new fields LAST — no 0.7.x feature work until P3"
+        "one human, one phone, one passage: enter → read the sentence → READ FULL → return; artifact reading count >= 1",
+        "fresh replay: same city digest + the same source URL in `reading`",
+        "new fields LAST — no 0.8.x feature work until this passes"
       ]
     },
     {
