@@ -343,6 +343,16 @@ source URLs actually opened, marked self-reported. No new route, no new DOM
 element. This is the body and the door; carry/place and the full private reader
 are the next stages (see `AXIS/work/sleeper-wave-0.6-2026-10-27/CRAFT-2026-10-29-DHAMMA-CITY.md`).
 
+## 0.9.0 — the cover stops offering the grid
+
+The `ASCII / WALK` chip is hidden on the first screen. On a phone it was the
+only visible button, so a first-time reader tapped it and landed in the ASCII map
+instead of the city. The painting is the only door: one tap enters the POV body
+directly (no FAR→NEAR→ENTERED ladder), the sentence plane appears, and the footer
+is `READ FULL`. The ASCII lens remains in the repository and is reachable
+programmatically, but it is no longer the first surface. No new route, no new
+field.
+
 ## Known gaps (named, not repaired)
 
 1. NEAR cannot show 96 columns of legible characters on a phone: legibility is

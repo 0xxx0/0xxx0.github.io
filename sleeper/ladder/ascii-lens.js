@@ -41,6 +41,7 @@
   document.head.append(css);
   const launch=document.createElement('button');
   launch.id='asciiLaunch';launch.type='button';launch.textContent='ASCII / WALK';
+  launch.hidden=true;
   launch.setAttribute('aria-label','Open the readable ASCII labyrinth, using the same LADDER city');
   document.body.append(launch);
   const root=document.createElement('section');
@@ -191,7 +192,7 @@
     }catch(e){error='SOURCE GAP: '+e.message;$('laNotice').textContent=error;}
   }
   function deactivate(){
-    stop();open=false;root.hidden=true;launch.hidden=false;launch.focus();
+    stop();open=false;root.hidden=true;launch.hidden=true;
   }
   function move(dir){
     stop();if(!open||!src)return;

@@ -2261,9 +2261,8 @@
     const g = geoFor(S.distance);
     if (hit(noteTickRect(g.dst), p)) { toggleNote(); release(); return; }
     if (hit(notchRect(g.dst), p)) { advance(); release(); return; }
-    // 3. the world itself
-    if (S.distance === 'FAR') setDistance('NEAR');
-    else if (S.distance === 'NEAR') setDistance('ENTERED');
+    // 3. the world itself. One tap enters the eye; the cover is the door.
+    if (S.distance === 'FAR' || S.distance === 'NEAR') setDistance('ENTERED');
     else if (S.distance === 'ENTERED') { const c = cellFromEvent(e); if (c) openDecode(c); }
     else if (S.distance === 'EXITED') resetRoute();
     if (e && e.pointerId != null && cv.releasePointerCapture) { try { cv.releasePointerCapture(e.pointerId); } catch (err) { /* released */ } }
