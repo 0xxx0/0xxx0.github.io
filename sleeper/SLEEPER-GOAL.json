@@ -5,7 +5,7 @@
   "title": "SLEEPER — converge sleeper and prove it in the world, or shrink it honestly",
   "status": "ACTIVE",
   "purpose": "Converge the sleeper lineages behind one proven law and produce one consequence outside the control plane — a human entering the painting and getting a deterministic artifact back — or shrink Sleeper honestly.",
-  "status_line": "2026-10-29 · P0(a)=/sleeper/ladder/ (operator decision). P0(b/c) open. The ladder has no artifact return yet — P3 is blocked on that return, not on another mode.",
+  "status_line": "2026-10-29 · P0(a)=/sleeper/ladder/ (operator). Ladder 0.7.0 now emits `sleeper.ladder-return/v0.1` at EXITED and `?return=` verifies the city (18ac9948). P3 is ready for one human phone run; no new fields until it passes.",
   "metric": {
     "outside_consequence": "a human on a phone enters the painting and receives the deterministic artifact back; replayed from a fresh session it returns the same city",
     "counted_by": "that human's own report plus two identical artifact shas (world key 0BFPHOW class, byte-equal apart from wall-clock measures)",
@@ -68,10 +68,11 @@
       "id": "P3",
       "label": "outside consequence",
       "gate": "one human, one phone, one phrase: enter, walk, return, receive artifact, replay from a fresh session, identical city",
-      "state": "blocked-on-ladder-return",
+      "state": "ready-for-human",
       "steps": [
-        "new fields LAST — nothing new lands before this",
-        "artifact replay by deep link in a private tab"
+        "one human, one phone, one phrase: enter, walk, exit, download artifact, replay in a fresh tab, identical city",
+        "artifact schema: sleeper.ladder-return/v0.1 (0.7.0); city digest 18ac9948",
+        "new fields LAST — no 0.7.x feature work until P3"
       ]
     },
     {
