@@ -11,9 +11,16 @@
  function hash(text){let h=2166136261;for(const c of String(text)){h^=c.codePointAt(0);h=Math.imul(h,16777619)}return h>>>0}
  function locate(g,origin,at,quote){
   if(!g||!g.grid||!g.size||!g.law||!g.law.key||!origin||!Number.isInteger(at)||at<0||!quote)return null;
-  const size=g.size,sx=Math.floor(origin.x),sy=Math.floor(origin.y);
+  const size=g.size,ox=Math.floor(origin.x),oy=Math.floor(origin.y);
+  if(g.grid[oy]?.[ox]!==0)return null;
+  // One exact source order, one stable world origin. Selecting a word at a
+  // different player position must NOT relocate the word's projected address.
+  const lex=[...String(g.law.source).matchAll(/[\p{L}\p{N}][\p{L}\p{M}\p{N}'’\-]*/gu)];
+  const ordinal=lex.findIndex(m=>m.index===at&&m[0]===quote);
+  if(ordinal<0)return null; // never project a fabricated or drifted source quote
+  const sx=Math.floor(g.start.x),sy=Math.floor(g.start.y);
   if(g.grid[sy]?.[sx]!==0)return null;
-  const queue=[[sx,sy,0]],seen=new Set([sy*size+sx]),candidates=[],near=[];
+  const queue=[[sx,sy,0]],seen=new Set([sy*size+sx]),candidates=[];
   for(let i=0;i<queue.length;i++){
    const [x,y,d]=queue[i];
    if(d>=6&&d<=16){
@@ -28,10 +35,12 @@
    }
   }
   if(!candidates.length)return null;
-  // Hash chooses a reachable address; it DOES NOT assert that the source word
-  // occurs in this wall or that the coordinate has doctrinal significance.
-  const index=hash(g.law.key+'|'+at+'|'+quote+'|'+sx+','+sy)%candidates.length;
-  return Object.freeze({...candidates[index],sourceIndex:at,quote});
+  // BFS discovers real open cells in increasing walk-distance from the stable
+  // origin. Source order selects an increasing rank along that distance axis.
+  // This is an explicit ORDER → DISTANCE projection, not semantic translation.
+  const index=Math.min(candidates.length-1,Math.floor((ordinal+.5)*candidates.length/lex.length));
+  return Object.freeze({...candidates[index],sourceIndex:at,quote,
+    sourceOrdinal:ordinal,sourceTotal:lex.length,mapping:'SOURCE_ORDER_TO_WALK_DISTANCE'});
  }
  function nextHop(g,origin,target){
   if(!g?.grid||!g.size||!origin||!target)return null;
