@@ -22,7 +22,7 @@ const host=document.createElement('div');host.id='readingPlay';host.setAttribute
 dom.innerHTML='<style>'+style+bookMapCSS+'</style><div id="app"></div>';
 document.body.append(host);const $=id=>dom.getElementById(id);
 let error='',sourceOpen=false,readIndex=0,playing=false,timer=null,rsvpVisible=false,threadOpen=false,ladderLesson=null;
-let bellComparison=null,bellCarry=null,ladderProjectionPromise=null;
+let bellComparison=null,bellCarry=null,ladderProjectionPromise=null,ladderRaw=null,districtAddress=null;
 // In-memory, exact-source-bound drafts: never copy an interpretation to a new quote.
 const bellDrafts=new Map(),doorDrafts=new Map();
 // This is a reading lens, not a Gate, quiz, or claim that the eight path
@@ -64,6 +64,47 @@ async function compareLadder(index){
  render();
  return bellComparison;
 }
+
+// An exact cell in the abridged LADDER projection, NOT a byte address in
+// Buddhadhamma, a new Threadwalk witness, or a path-factor Gate proof.
+function renderDistrictContext(){
+ const box=$('districtContext');if(!box)return;
+ box.replaceChildren();
+ if(!districtAddress)return;
+ if(!ladderLesson||!ladderRaw){
+  box.append(element('p','notice','RESOLVING THE CELL IN THE SOURCE SLICE…'));return;
+ }
+ const a=districtAddress,r=ladderRaw;
+ const at=n=>parseInt(String(n).slice(a.cell*2,a.cell*2+2),36);
+ if(!Number.isInteger(a.cell)||a.cell<0||a.cell>=3072||
+    !Number.isInteger(a.paragraph)||!Number.isInteger(a.sentence)||!Number.isInteger(a.word)||
+    r.selection?.sha256!==a.sourceSha256||
+    ladderLesson.originalSelectionSha256!==a.sourceSha256||
+    at(r.cells?.p)!==a.paragraph||at(r.cells?.s)!==a.sentence||at(r.cells?.w)!==a.word||
+    !r.districts?.[a.paragraph]){
+  box.append(element('p','notice','CELL SOURCE ADDRESS REJECTED · no substitute source shown'));return;
+ }
+ const d=r.districts[a.paragraph];
+ const page=(r.provenance?.pages||[]).find(u=>u.endsWith('/'+d.slug+'.html'));
+ const questions={
+  'path-factors':'How does a path differ from completing a checklist?',
+  'path-factors-of-wisdom':'What is observed here? What is inferred, and which condition could you change?',
+  'path-factors-of-virtuous-conduct':'Whose wellbeing is affected by a choice or omission? What remains uncertain?',
+  'path-factors-of-concentration':'What would slowing down reveal? Would it actually improve your understanding?'
+ };
+ const panel=element('div','bookMap');
+ panel.append(element('div','kicker','HERE / SAME PAINTING, SAME ADDRESS'));
+ panel.append(element('div','tiny','DISTRICT '+(a.paragraph+1)+' · '+d.locator+' · SENTENCE '+a.sentence+' · WORD '+a.word+' · CELL '+a.cell));
+ panel.append(element('blockquote','quote',d.line||'SOURCE LINE NOT AVAILABLE'));
+ panel.append(element('p','notice',questions[d.slug]||'What can be checked in the original text?'));
+ panel.append(element('p','tiny','ABRIDGED LINE ONLY / the full paragraph and its original byte offsets are not in this source slice. This does not count as a Threadwalk witness or Gate proof.'));
+ if(page){
+  const link=element('a','tiny','READ FULL CHAPTER / '+d.locator+' ↗');
+  link.href=page;link.target='_blank';link.rel='noopener noreferrer';panel.append(link);
+ }
+ box.append(panel);
+}
+
 const snap=()=>B.snapshot(),text=s=>String(s??'');
 function stop(){clearTimeout(timer);timer=null;playing=false;try{speechSynthesis.cancel()}catch(_){}}
 // A LADDER projection is hidden rather than torn down. Keep the exact source
@@ -73,6 +114,11 @@ window.addEventListener('message',e=>{
  if(e.data?.schema==='sleeper.ladder-reader-pause/v1'){
   stop();
   const b=$('ridePlay');if(b)b.textContent='▶ RIDE';
+ }
+ if(e.data?.schema==='sleeper.ladder-reader-address/v1'&&query.has('ladderFactor')){
+  // Coordinates only, independently checked against this reader's source.
+  districtAddress=e.data.address||null;
+  renderDistrictContext();
  }
 });
 function element(tag,className,value){const e=document.createElement(tag);if(className)e.className=className;if(value!==undefined)e.textContent=value;return e;}
@@ -122,7 +168,8 @@ function render(){
  const suggestions=T.suggestions(m,{...s,focus:node.id}).filter(e=>e.id!==node.id);
  let candidates=suggestions.slice(0,3).map(e=>({id:e.id,label:'ECHO · '+e.common.join(' · ')}));
  if(!candidates.length)for(const n of m.nodes){if(n.id===focus.id||Math.abs(m.nodes.indexOf(n)-m.nodes.indexOf(focus))<2)continue;candidates.push({id:n.id,label:'DISTANT / inspect only'});if(candidates.length===3)break}
- $('app').innerHTML='<div class="top"><div class="identity"><i>回</i> SLEEPER <span class="tiny">/ READ</span></div><div class="actions"><button id="threadToggle">THREADS</button><button id="mySource">MY TEXT</button><button id="fullField">FIELD ↗</button><button id="exit">EXIT</button></div></div><div class="progress"><i id="fill"></i></div><div class="layout"><main class="page"><div class="tiny" id="title"></div><h1 id="readingTitle"></h1><div class="deck">Tap a sentence to hold evidence. Find an echo. Compare passages. Make a door the text earns.</div><div class="paper" id="paper"><div class="kicker" id="where"></div><div id="passage" class="passage"></div><div class="hint" id="hint"></div><div id="ladderContext"></div><div id="quickThreads" class="quick" aria-label="Source echoes"></div><div class="status" id="stateStatus" role="status"></div><div class="handle" id="actions"></div><div class="rsvp hidden" id="rsvp"><div class="tiny">RIDE / THIS PASSAGE</div><div class="rsvpword" id="rsvpword">✳</div><div class="controls"><button id="ridePlay">▶ RIDE</button><button id="rideReset">↶</button><label class="tiny">WPM <select id="rate"><option>180</option><option selected>260</option><option>360</option><option>480</option></select></label></div></div><div class="scrub"><span id="currentNumber"></span><input id="scrub" type="range" min="0" step="1" aria-label="Preview passage"><span id="totalNumber"></span></div><div class="rail" id="rail"></div></div></main><aside class="side" id="threadPane"><section><h2>01 / THREADS TO INSPECT</h2><div class="tiny">Lexical echo ≠ agreement</div><div id="echoList"></div></section><section class="compare"><h2>02 / TWO EXACT WITNESSES</h2><div id="compare"></div><div id="compareError" class="notice" role="status"></div></section><section><h2>03 / WHAT CHANGED?</h2><div id="payoff"></div></section><section><h2>RETURN / SAME SOURCE</h2><div id="return"></div></section></aside></div><div class="nextbar"><div class="left"><button id="prev">← PREV</button><button id="next" class="gold">NEXT →</button></div><div class="left"><button id="bottomThreads">THREADS</button><button id="here">HERE ↩</button><button id="origin">ORIGIN</button></div></div>';
+ $('app').innerHTML='<div class="top"><div class="identity"><i>回</i> SLEEPER <span class="tiny">/ READ</span></div><div class="actions"><button id="threadToggle">THREADS</button><button id="mySource">MY TEXT</button><button id="fullField">FIELD ↗</button><button id="exit">EXIT</button></div></div><div class="progress"><i id="fill"></i></div><div class="layout"><main class="page"><div class="tiny" id="title"></div><h1 id="readingTitle"></h1><div class="deck">Tap a sentence to hold evidence. Find an echo. Compare passages. Make a door the text earns.</div><div class="paper" id="paper"><div class="kicker" id="where"></div><div id="districtContext"></div><div id="passage" class="passage"></div><div class="hint" id="hint"></div><div id="ladderContext"></div><div id="quickThreads" class="quick" aria-label="Source echoes"></div><div class="status" id="stateStatus" role="status"></div><div class="handle" id="actions"></div><div class="rsvp hidden" id="rsvp"><div class="tiny">RIDE / THIS PASSAGE</div><div class="rsvpword" id="rsvpword">✳</div><div class="controls"><button id="ridePlay">▶ RIDE</button><button id="rideReset">↶</button><label class="tiny">WPM <select id="rate"><option>180</option><option selected>260</option><option>360</option><option>480</option></select></label></div></div><div class="scrub"><span id="currentNumber"></span><input id="scrub" type="range" min="0" step="1" aria-label="Preview passage"><span id="totalNumber"></span></div><div class="rail" id="rail"></div></div></main><aside class="side" id="threadPane"><section><h2>01 / THREADS TO INSPECT</h2><div class="tiny">Lexical echo ≠ agreement</div><div id="echoList"></div></section><section class="compare"><h2>02 / TWO EXACT WITNESSES</h2><div id="compare"></div><div id="compareError" class="notice" role="status"></div></section><section><h2>03 / WHAT CHANGED?</h2><div id="payoff"></div></section><section><h2>RETURN / SAME SOURCE</h2><div id="return"></div></section></aside></div><div class="nextbar"><div class="left"><button id="prev">← PREV</button><button id="next" class="gold">NEXT →</button></div><div class="left"><button id="bottomThreads">THREADS</button><button id="here">HERE ↩</button><button id="origin">ORIGIN</button></div></div>';
+ renderDistrictContext();
  $('title').textContent='SOURCE '+m.sha256.slice(0,12)+' · '+m.nodes.length+' PASSAGES';$('readingTitle').textContent=m.meta.title; $('threadPane').classList.toggle('open',threadOpen);
  $('fill').style.width=((i+1)/m.nodes.length*100)+'%';
  $('where').textContent=(here?'HERE':'INSPECT / NOT TRAVERSED')+' · '+(i+1)+' / '+m.nodes.length+' · CHAR '+node.start+'–'+node.end;
@@ -414,7 +461,8 @@ async function start(){
    const index=SleeperLadderThread.selectedIndex(query.get('ladderFactor'));
    const response=await fetch('./ladder/source-dhamma.json',{cache:'no-store'});
    if(!response.ok)throw Error('LADDER_SOURCE_HTTP_'+response.status);
-   const projection=SleeperLadderThread.create(await response.json());
+   ladderRaw=await response.json();
+   const projection=SleeperLadderThread.create(ladderRaw);
    await load(projection.text,projection.title,'',true);
    if(!snap().model||snap().model.nodes.length!==8)throw Error('LADDER_PROJECTION_MISMATCH');
    ladderLesson=projection;B.inspect(snap().model.nodes[index].id);render();
