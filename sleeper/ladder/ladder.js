@@ -140,6 +140,7 @@
       octx.drawImage(img, 0, 0);
       S.rgba = octx.getImageData(0, 0, S.iw, S.ih).data;
       S.source = C.readDerived(derived);                     // strict: a bad slice is a gap
+      S.derived = derived;                                   // the raw slice is the city's canonical bytes
       S.field = C.buildField(S.rgba, S.iw, S.ih, S.source);
       S.walker = S.field.start;
       S.visited = new Set([S.field.start.n]);
@@ -165,6 +166,7 @@
       S.ready = true;
       fit(); updateChrome(); draw();
       readHash();
+      readReturn();
       return state();
     })
     .catch((err) => {
@@ -1478,6 +1480,7 @@
     if (d === 'EXITED') exitVoice();
     if (d === 'FAR' && !silent) S.voice = null;
     updateChrome();
+    if (window.SleeperLadderRead) window.SleeperLadderRead.refresh();
     wake(); if (reduced) draw();
     return true;
   }
@@ -2321,6 +2324,73 @@
     }
     return mv;
   }
+  async function returnArtifact() {
+    // The ladder's return: one deterministic object from source + painting + walk.
+    // No wall clock, no randomness, no state outside the page's own fields.
+    if (!S.field || !S.source) return null;
+    const source = S.source, field = S.field, raw = S.derived || source;
+    const canonical = JSON.stringify({ matter: raw.matter, cells: raw.cells, districts: raw.districts });
+    const city = await sha256(new TextEncoder().encode(canonical));
+    const stride = (s) => String(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const walk = {
+      seed: routeSeedHex(), route: C.routeString(S.moves), moves: S.moves.slice(),
+      start: field.start ? [field.start.cx, field.start.cy] : null,
+      end: S.walker ? [S.walker.cx, S.walker.cy] : null, steps: S.moves.length,
+    };
+    const gates = S.gates.map((g, i) => ({
+      i, lit: !!S.lit[i], factor: S.factors && S.factors[i] ? S.factors[i].key : null,
+      locator: S.factors && S.factors[i] ? S.factors[i].locator : null,
+    }));
+    const artifact = {
+      schema: 'sleeper.ladder-return/v0.1', version: 1,
+      source: { path: C.SOURCE_PATH, fingerprint: field.source.fingerprint, sha256: field.source.sha256,
+        districts: source.districts.length },
+      painting: { id: C.PAINTING_ID, sha256: C.PAINTING_SHA256 },
+      city: { digest: city.slice(0, 8) },
+      walk, gates,
+      breath: { left: S.breath, max: S.breathMax },
+      ledger: { rides: Object.keys(S.rides || {}).length, sealed: Object.keys(S.sealed || {}).length },
+      measures: { steps: walk.steps, rides: Object.keys(S.rides || {}).length, seals: Object.keys(S.sealed || {}).length },
+    };
+    artifact.replay = '?return=' + stride(btoa(unescape(encodeURIComponent(JSON.stringify(artifact)))));
+    return artifact;
+  }
+  async function downloadReturn() {
+    const a = await returnArtifact(); if (!a) return false;
+    const blob = new Blob([JSON.stringify(a, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url; link.download = 'ladder-return-' + a.city.digest + '.json';
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    return true;
+  }
+  async function readReturn() {
+    // A replay is a claim: same source, same painting, same city. It is checked
+    // against the live bytes before any line is spoken.
+    const q = new URLSearchParams(location.search).get('return');
+    if (!q) return;
+    try {
+      const pad = q.length % 4 ? '='.repeat(4 - q.length % 4) : '';
+      const decoded = decodeURIComponent(escape(atob(q.replace(/-/g, '+').replace(/_/g, '/') + pad)));
+      const a = JSON.parse(decoded);
+      if (a.schema !== 'sleeper.ladder-return/v0.1') throw new Error('not a ladder return');
+      const sameSource = a.source && a.source.fingerprint === S.field.source.fingerprint && a.source.sha256 === S.field.source.sha256;
+      const samePainting = a.painting && a.painting.sha256 === C.PAINTING_SHA256;
+      if (!sameSource) throw new Error('source changed');
+      if (!samePainting) throw new Error('painting changed');
+      const raw = S.derived || S.source;
+      const canonical = JSON.stringify({ matter: raw.matter, cells: raw.cells, districts: raw.districts });
+      const digest = (await sha256(new TextEncoder().encode(canonical))).slice(0, 8);
+      if (!a.city || a.city.digest !== digest) throw new Error('city digest changed');
+      S.returned = { ok: true, digest, route: a.walk && a.walk.route || '' };
+      S.voice = { kind: 'line', lines: ['returned · same city ' + digest, a.walk && a.walk.route ? 'route ' + a.walk.route.slice(0, 30) : 'source + painting verified'], ttl: 12 };
+    } catch (err) {
+      S.returned = { ok: false };
+      S.voice = { kind: 'line', lines: ['return refused · ' + String(err.message || err), 'the artifact does not match these bytes'], ttl: 12 };
+    }
+    draw();
+  }
   function state() {
     return {
       distance: S.distance, ready: !!S.ready, error: S.error,
@@ -2438,6 +2508,9 @@
     taught: () => !!S.taughtRide,
     loop: () => !!S.loop,
     seal: () => (S.seal ? { p: S.seal.p, i: S.seal.i, over: !!S.seal.over, win: !!S.seal.win, hold: !!S.seal.hold, options: S.seal.options.slice(), correct: S.seal.correct, answer: S.seal.answer } : null),
+    returned: () => S.returned || null,
+    returnArtifact: () => returnArtifact(),
+    downloadReturn: () => downloadReturn(),
     lines: () => voiceLines(),
     redraw: () => { draw(); return true; },
     rail: () => { if (S.distance !== 'ENTERED' || !S.field) return null; const cell = S.decodeCell != null ? S.field.cells[S.decodeCell] : S.walker; const pl = planForCell(cell); return pl ? { windowFrom: +pl.windowCharFrom.toFixed(4), ticks: pl.tickChars.map((c) => +c.toFixed(4)), words: pl.words, chars: pl.chars } : null; },

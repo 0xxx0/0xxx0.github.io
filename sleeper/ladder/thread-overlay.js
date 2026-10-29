@@ -71,6 +71,13 @@ function nextFactor(){
  return st.gates.find(g=>!g.lit)?.i??0;
 }
 function label(){
+ const st=L.state();
+ if(st.distance==='EXITED'){
+  const clean=foot.textContent.replace(/ · (READ [0-8]\/8|THE LOOP|RETURN) [↗↓]$/,'');
+  if(!clean.includes(' · RETURN ↓'))foot.textContent=clean+' · RETURN ↓';
+  foot.title='download the ladder return artifact — source, painting and city are checked in the file';
+  return;
+ }
  const n=nextFactor();
  if(n===null)return;
  const suffix=(L.loop&&L.loop())?' · THE LOOP ↗':' · READ '+(n+1)+'/8 ↗';
@@ -88,6 +95,8 @@ function close(){
  return true;
 }
 function open(){
+ const st=L.state();
+ if(st.distance==='EXITED'){ label(); L.downloadReturn(); return true; }
  const n=nextFactor();if(n===null||overlay&&!overlay.hidden)return;
  if(L.loop&&L.loop()){label();openBell();return}
  const key='read';
