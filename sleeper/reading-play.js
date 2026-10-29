@@ -72,7 +72,10 @@ function renderDistrictContext(){
  box.replaceChildren();
  if(!districtAddress)return;
  if(!ladderLesson||!ladderRaw){
-  box.append(element('p','notice','RESOLVING THE CELL IN THE SOURCE SLICE…'));return;
+  box.append(element('p','notice','CELL ADDRESS HELD · waiting for verified Ladder source'));return;
+ }
+ if(snap().model?.source!==ladderLesson.text){
+  box.append(element('p','notice','CELL ADDRESS HELD · factor source changed, no cross-source witness inferred'));return;
  }
  const a=districtAddress,r=ladderRaw;
  const at=n=>parseInt(String(n).slice(a.cell*2,a.cell*2+2),36);
@@ -173,6 +176,7 @@ function render(){
  $('title').textContent='SOURCE '+m.sha256.slice(0,12)+' · '+m.nodes.length+' PASSAGES';$('readingTitle').textContent=m.meta.title; $('threadPane').classList.toggle('open',threadOpen);
  $('fill').style.width=((i+1)/m.nodes.length*100)+'%';
  $('where').textContent=(here?'HERE':'INSPECT / NOT TRAVERSED')+' · '+(i+1)+' / '+m.nodes.length+' · CHAR '+node.start+'–'+node.end;
+ if(districtAddress&&ladderLesson)$('where').textContent='FACTOR STUDY / SEPARATE FROM WALKED CELL · '+(i+1)+' / '+m.nodes.length+' · FACTOR EXCERPT';
  $('paper').classList.toggle('remote',!here);
  const heldText=comp?quote(m,s.witnesses[mark.id]):'';
  const sourceTerms=heldText?T.words(heldText):new Set(),visibleTerms=T.words(node.text);
