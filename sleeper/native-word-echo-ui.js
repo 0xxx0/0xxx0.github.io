@@ -11,6 +11,10 @@ let bound=null,run=null,drawnAt=0;
 const css=document.createElement('style');
 css.textContent=[
  '#eFollow{border-color:#d7b775!important;color:#ffdfaa!important;background:#17241c!important}',
+ '#ePreview{border-left:2px solid #a88e5d;padding:7px 10px;margin:8px 0;color:#c9d5d2;font:11px/1.45 ui-monospace,monospace}',
+ '#ePreview .rail{height:3px;background:#263538;margin:7px 0 4px;overflow:hidden}',
+ '#ePreview .rail i{display:block;height:100%;background:#dfbf80}',
+ '#ePreview .sub{color:#a0b4b7}',
  '#eHud{position:absolute;z-index:10;left:50%;top:66px;transform:translateX(-50%);width:min(310px,calc(100% - 20px));padding:9px 10px;text-align:center;pointer-events:auto;background:rgba(5,11,13,.91);border:1px solid #725f42;color:#f2e9d2;font:11px/1.4 ui-monospace,monospace;text-shadow:0 1px 2px #000}',
  '#eHud[hidden],#eHud [hidden]{display:none!important}',
  '#eHud .sub{color:#bbc3c0;font-size:10px;margin-top:4px}',
@@ -25,6 +29,21 @@ document.head.append(css);
 const follow=document.createElement('button');follow.id='eFollow';follow.type='button';follow.textContent='⌖ FOLLOW THIS WORD';
 follow.setAttribute('aria-label','Project this exact source word onto a reachable position in the same first-person labyrinth');
 const row=focus.querySelector('#fOffset');row.parentElement.insertBefore(follow,row.nextSibling);
+const preview=document.createElement('div');preview.id='ePreview';preview.setAttribute('role','status');
+preview.innerHTML='<div id="ePreviewLine"></div><div class="rail"><i id="ePreviewMark"></i></div><div class="sub">Earlier source words are nearer the world origin. Distance follows actual open corridors.</div>';
+follow.after(preview);
+function previewSource(){
+ if(!game||!L.isOpen()){preview.hidden=true;return}
+ const selected=L.selection?.();
+ const p=selected&&E.locate(game,game.player,selected.start,selected.word);
+ if(!p){preview.hidden=true;return}
+ preview.hidden=false;
+ preview.querySelector('#ePreviewLine').textContent=
+  'WORD '+(p.sourceOrdinal+1)+' / '+p.sourceTotal+
+  '  →  '+p.steps+' walkable steps from the origin · same native maze';
+ preview.querySelector('#ePreviewMark').style.width=Math.max(0,Math.min(100,(p.steps-6)/10*100))+'%';
+}
+new MutationObserver(previewSource).observe(row,{childList:true,characterData:true,subtree:true});
 const hud=document.createElement('section');hud.id='eHud';hud.hidden=true;hud.setAttribute('aria-label','Native word echo and route memory');hud.setAttribute('role','status');
 hud.innerHTML=[
  '<div class="anchor" id="eName"></div><div class="sub" id="eWhere"></div>',
