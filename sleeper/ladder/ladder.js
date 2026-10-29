@@ -1227,6 +1227,7 @@
     return drawEntered(g, alpha);
   }
   function draw() {
+    ctx.globalAlpha = 1;                              // the clear must be opaque; a previous frame's alpha can ghost its words
     ctx.fillStyle = 'rgb(8,12,18)';
     ctx.fillRect(0, 0, W, H);
     if (!S.img) { drawVoice(); return; }
