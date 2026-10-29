@@ -1313,6 +1313,7 @@
       drawPainting(srcFor(b), to.src, to.dst, to.imgA * t);
       if (from.glyphA > 0) drawField(from, from.glyphA * (1 - t), null, null);
       if (to.glyphA > 0) drawField(to, to.glyphA * t, S.hold, b === 'NEAR' && a === 'FAR' ? t : null);
+      if (a === 'FAR' && b === 'ENTERED') drawPixelVeil(t);
       if (t >= 1) { S.trans = null; frame(to.dst); }
     }
     const d = geoFor(S.distance);
@@ -1358,6 +1359,27 @@
     ctx.restore();
   }
 
+  // 0.10.0: the cover becomes pixels on the way in. The painting is resampled
+  // into coarser and coarser blocks as the city resolves; nothing is stored and
+  // nothing random — the same painting, one deterministic dissolve.
+  function drawPixelVeil(t) {
+    if (!S.img) return;
+    const FH = fieldH();
+    const block = Math.max(3, Math.round(4 + 44 * t));
+    const cols = Math.max(8, Math.ceil(W / block)), rows = Math.max(8, Math.ceil(FH / block));
+    if (!S.pix) S.pix = document.createElement('canvas');
+    const c = S.pix;
+    if (c.width !== cols || c.height !== rows) { c.width = cols; c.height = rows; }
+    const octx = c.getContext('2d');
+    octx.imageSmoothingEnabled = false;
+    octx.clearRect(0, 0, cols, rows);
+    octx.drawImage(S.img, 0, 0, cols, rows);
+    ctx.save();
+    ctx.imageSmoothingEnabled = false;
+    ctx.globalAlpha = 0.72 * (1 - t);
+    ctx.drawImage(c, 0, 0, W, FH);
+    ctx.restore();
+  }
   // ── the field note (a reveal, not a panel) ────────────────────────────────
   // The operator's own reading of the build, verbatim, set in the same quiet
   // type. It is not help and not a caption: it is the self-critique, and the

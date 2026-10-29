@@ -353,6 +353,19 @@ is `READ FULL`. The ASCII lens remains in the repository and is reachable
 programmatically, but it is no longer the first surface. No new route, no new
 field.
 
+## 0.10.0 — the painting becomes pixels
+
+On entry the cover is resampled into coarser and coarser blocks as the city
+resolves: the first frame after a tap is the painting as a pixel mosaic, then the
+same field's cells come through it. It is a deterministic dissolve of the same
+painting, not a new image, a random effect, or a stored transition. No new route,
+no new field.
+
+The native ONE RETURN raycast was trialled for the eye and rejected: over this
+96×32 edge-field it collapsed into one slab wall rather than a city. The
+ground-plane camera remains the body; the borrowed thing from ONE RETURN is the
+loop, not the renderer.
+
 ## Known gaps (named, not repaired)
 
 1. NEAR cannot show 96 columns of legible characters on a phone: legibility is
