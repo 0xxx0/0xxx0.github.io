@@ -144,7 +144,7 @@ function openAtAddress(address){
  open(Object.freeze({...address}));
  return !!overlay&&!overlay.hidden;
 }
-foot.addEventListener('click',open);
+foot.addEventListener('click',()=>open());
 foot.addEventListener('keydown',e=>{
  if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();open();}
 });
