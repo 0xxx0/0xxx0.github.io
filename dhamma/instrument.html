@@ -121,14 +121,17 @@ const S = {
 
 /* ---------- load ---------- */
 async function boot(){
+  const which = new URLSearchParams(location.search).get('c') === 'convo' ? 'convo' : 'book';
+  const file = which === 'convo' ? 'convo-reader.json' : 'dhamma-reader.json';
   const [c,g] = await Promise.all([
-    fetch('dhamma-reader.json').then(r=>r.json()),
-    fetch('gates.json').then(r=>r.json())
+    fetch(file).then(r=>r.json()),
+    fetch('gates.json').then(r=>r.ok?r.json():null).catch(()=>null)
   ]);
-  S.corpus = c; S.gates = g;
-  for(const x of g.gates) S.gateMap.set(x.ch+':'+x.i, x);
-  const saved = Number(localStorage.getItem('dhamma.pos.'+S.chId)||0);
-  setChapter(Number(localStorage.getItem('dhamma.ch')||8), saved);
+  S.which = which; S.corpus = c;
+  S.gates = (which === 'book' && g) ? g : {count:0, gates:[], chapters:[]};
+  for(const x of (S.gates.gates||[])) S.gateMap.set(x.ch+':'+x.i, x);
+  const saved = Number(localStorage.getItem('dhamma.pos.'+which+'.'+S.chId)||0);
+  setChapter(Number(localStorage.getItem('dhamma.ch.'+which)||(which==='convo'?1:8)), saved);
   $('#wpm').textContent = S.wpm+' wpm'; $('#build').textContent = BUILD;
   requestAnimationFrame(frame);
 }
@@ -425,10 +428,14 @@ function renderSections(){
   }
   return '<h2>sections · '+esc(S.ch.title)+'</h2>'+out.join('');
 }
+function corpusSwitch(){
+  const mk=(k,label)=> '<a class="row" href="?c='+k+'"><span class="t">'+label+(S.which===k?' · reading':'')+'</span></a>';
+  return '<h2>corpora</h2><p class="big">One reader, two bodies of text.</p>'+mk('book','Buddhadhamma — the book')+mk('convo','Conversations — this machine\'s own backlog');
+}
 function renderText(){
   const ps=S.ch.blocks.filter(b=>b[0]==='p').map(b=>'<p>'+esc(b[1])+'</p>').join('');
   const hs=S.ch.blocks.filter(b=>b[0]==='h2').map(b=>'<h3>'+esc(b[1])+'</h3>').join('');
-  return '<h2>text · '+esc(S.ch.title)+'</h2>'+hs+ps;
+  return '<h2>text · '+esc(S.ch.title)+'</h2>'+hs+ps+corpusSwitch();
 }
 function renderReturn(){
   const rows=[]; let ok=0,bad=0,passed=0,kept=S.keep.length;
@@ -467,13 +474,13 @@ window.__maze = {layout};
 window.__selftest = function(){
   const out=[]; const ok=(n,c)=>out.push((c?'PASS ':'FAIL ')+n);
   const SAMPLE = !!(S.corpus && S.corpus.sample);
-  ok('corpus loaded ('+((S.corpus&&S.corpus.chapters.length)||0)+' chapters)', !!S.corpus && S.corpus.chapters.length >= (SAMPLE?1:33));
-  ok('corpus words > 600k', S.corpus && S.corpus.words>600000);
-  ok('gate bank ('+((S.gates&&S.gates.count)||0)+' gates)', S.gates && S.gates.count >= (SAMPLE?1:200));
+  ok('corpus loaded ('+((S.corpus&&S.corpus.chapters.length)||0)+' chapters)', !!S.corpus && S.corpus.chapters.length >= ((SAMPLE||(S.corpus&&S.corpus.kind==='conversation'))?1:33));
+  ok('corpus words ('+Math.round((S.corpus.words||0)/1000)+'k)', (S.corpus.words||0) > ((S.corpus.kind==='conversation')?1000:600000));
+  ok('gate bank ('+((S.gates&&S.gates.count)||0)+' gates)', S.gates && S.gates.count >= (SAMPLE||S.corpus.kind==='conversation'?0:200));
   ok('current chapter has tokens', S.tokens.length>1000);
   ok('current chapter has edges', S.edges.length>2);
   const gs=S.gates.gates.filter(g=>g.ch===S.chId).length;
-  ok('chapter has gates ('+gs+')', gs>0);
+  ok('chapter has gates ('+gs+')', gs>0 || (S.corpus.kind==='conversation'));
   const o=opticWitness({currentSpeed:1.6,currentGrade:0,currentBend:0,points:[]},1000,12);
   ok('pov engine imported (stars=12)', o.stars.length===12);
   ok('pov schema', o.schema==='fold-bloom-pov/v0.2');
