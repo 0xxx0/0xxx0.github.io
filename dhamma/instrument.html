@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0d">
+<title>DHAMMA — one crossing</title>
+<style>
+  :root{
+    --bg:#0b0b0d; --panel:#101014; --ink:#e7e3ea; --dim:#8b8792; --faint:#5a5762;
+    --hair:#1e1c23; --mag:#e06a9c; --ok:#86a878; --bad:#c98080;
+    --sans:ui-sans-serif,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);overflow:hidden;
+    -webkit-tap-highlight-color:transparent}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  #sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+  /* ---------- the word ---------- */
+  #stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    pointer-events:none;padding:0 18px}
+  #word{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  #stage{display:block;justify-content:flex-start;top:18px;bottom:auto;padding:0 16px;z-index:3}
+  #strip{margin:0;font:10px/1.7 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+    color:var(--faint);text-align:center;max-width:100%;min-height:2.6em}
+  #strip b{color:var(--dim);font-weight:500}
+
+  #strip .ok{color:var(--ok)} #strip .bad{color:var(--bad)} #strip .mag{color:var(--mag)}
+  /* ---------- gate ---------- */
+  #gate{position:fixed;inset:0;display:none;pointer-events:none}
+  #gate.on{display:block}
+  .opt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  body.gating #strip{position:fixed;left:0;right:0;bottom:66px;margin:0;padding:0 18px;z-index:6;
+    background:linear-gradient(180deg,transparent,rgba(11,11,13,.92) 30%)}
+  body.gating #word{opacity:.28}
+  .opt .k{display:block;font-size:9px;letter-spacing:.2em;color:var(--faint);margin-bottom:6px}
+  .opt.aim{opacity:1;color:var(--ink);border-color:var(--mag)}
+  .opt.done-t{color:var(--ok);border-color:var(--ok);opacity:1}
+  .opt.done-f{color:var(--bad);border-color:var(--bad);opacity:1}
+  /* ---------- bar ---------- */
+  #bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:2px;align-items:center;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(11,11,13,.92) 40%);
+    font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  #bar button{padding:7px 8px;color:var(--faint);border-radius:2px}
+  #bar button.on{color:var(--ink)}
+  #bar button:hover{color:var(--ink)}
+  #play{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
+  #play .tri{width:0;height:0;border-left:7px solid currentColor;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;margin-left:2px}
+  #play .pause{width:7px;height:11px;border-left:2px solid currentColor;border-right:2px solid currentColor}
+  #prog{margin-left:auto;display:flex;align-items:center;gap:8px;font:9px var(--mono);color:var(--faint)}
+  #bar.playing #play{color:var(--mag)}
+  /* ---------- panels ---------- */
+  #panel{position:fixed;inset:0;background:var(--bg);display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:56px 22px 90px;z-index:5}
+  #panel.on{display:block}
+  #panel h2{font:600 10px var(--mono);letter-spacing:.3em;color:var(--mag);text-transform:uppercase;margin:0 0 18px}
+  #panel h3{font:500 15px/1.4 var(--sans);margin:26px 0 6px;color:var(--ink)}
+  #panel p{font:14px/1.75 var(--sans);color:var(--dim);margin:0 0 14px;max-width:66ch}
+  #panel .why{font:11px/1.6 var(--mono);color:var(--faint)}
+  #panel .row{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--hair);width:100%;text-align:left}
+  #panel .row .t{font:13px/1.4 var(--sans);color:var(--ink)}
+  #panel .row .m{margin-left:auto;font:9px var(--mono);color:var(--faint);white-space:nowrap}
+  #panel .row:hover .t{color:var(--mag)}
+  #panel .back{position:fixed;top:14px;left:14px;font:9px var(--mono);letter-spacing:.2em;color:var(--dim);
+    background:var(--bg);padding:8px 10px;border:1px solid var(--hair);z-index:6}
+  #panel .big{font:500 22px/1.3 var(--sans);color:var(--ink);margin:0 0 18px;max-width:30ch}
+  .marks{font:10px/1.9 var(--mono);color:var(--faint)}
+  .marks .ok{color:var(--ok)} .marks .bad{color:var(--bad)}
+  @media (max-width:430px){
+    #word{font-size:34px}
+    .opt{width:42vw;font-size:10px;padding:9px}
+  }
+  @media (prefers-reduced-motion:reduce){#word,#strip{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div id="stage">
+  <div id="word">tap to begin</div>
+  <div id="strip"><b>DHAMMA</b> · one crossing</div>
+</div>
+
+<div id="gate">
+  <div class="opt l" data-side="0"><span class="k">← its opening</span><span class="tx"></span></div>
+  <div class="opt r" data-side="1"><span class="k">its opening →</span><span class="tx"></span></div>
+</div>
+
+<div id="bar">
+  <button id="play" aria-label="play or pause"><span class="tri"></span></button>
+  <button data-v="start">start</button>
+  <button data-v="path">path</button>
+  <button data-v="sections">sections</button>
+  <button data-v="text">text</button>
+  <button data-v="return">return</button>
+  <div id="prog"><span id="pct">—</span><span id="wpm">300</span><span id="build"></span></div>
+</div>
+
+<div id="panel"><button class="back" data-v="cross">← cross</button><div id="pbody"></div></div>
+
+<script type="module">
+import {opticWitness} from './pov-effects.js';
+import {layout, camera, drawWalk, drawHaze} from './maze.js';
+import {drawStupa, drawText, drawFork, stupaStats} from './stupa.js';
+
+const $ = s => document.querySelector(s);
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const BG = '#0b0b0d';
+const S = {
+  corpus:null, gates:null, gateMap:new Map(),
+  ch:null, chId:8, tokens:[], edges:[],
+  pos:0, playing:false, wpm:300, acc:0, last:0,
+  mark:JSON.parse(localStorage.getItem('dhamma.mark')||'{}'),
+  keep:JSON.parse(localStorage.getItem('dhamma.keep')||'[]'),
+  view:'cross', gate:null, srcEvent:null, burst:0, burstAt:0,
+  aim:0, pointerSide:0,
+  lay:null, paint:null, zoom:0, posS:0, edgeStart:0
+};
+
+/* ---------- load ---------- */
+async function boot(){
+  const [c,g] = await Promise.all([
+    fetch('dhamma-reader.json').then(r=>r.json()),
+    fetch('gates.json').then(r=>r.json())
+  ]);
+  S.corpus = c; S.gates = g;
+  for(const x of g.gates) S.gateMap.set(x.ch+':'+x.i, x);
+  const saved = Number(localStorage.getItem('dhamma.pos.'+S.chId)||0);
+  setChapter(Number(localStorage.getItem('dhamma.ch')||8), saved);
+  $('#wpm').textContent = S.wpm+' wpm'; $('#build').textContent = BUILD;
+  requestAnimationFrame(frame);
+}
+
+/* ---------- flatten ---------- */
+const WORD = /[A-Za-zĀ-ſ0-9'’\-]+/g;
+function countWords(s){ return (String(s).match(WORD)||[]).length; }
+
+function flatten(ch){
+  const toks=[]; const edges=[]; let wi=0;
+  for(const [k,t] of ch.blocks){
+    if(k==='h1'||k==='h2'){
+      edges.push({i:edges.length, title:String(t), start:wi});
+      // heading words occupy positions but are not read as words
+      for(const w of String(t).split(/\s+/)) { if(!w) continue; toks.push({h:1,t:w}); wi++; }
+      continue;
+    }
+    if(k!=='p'){ // images/captions etc still occupy word positions
+      for(let n=countWords(t);n>0;n--){ toks.push({h:1,t:''}); wi++; }
+      continue;
+    }
+    const re=/[^\s]+/g; let m;
+    while((m=re.exec(t))){
+      const raw=m[0];
+      toks.push({w:raw, end:/[.!?…]["'”’)\]]?$/.test(raw), soft:/[,;:]["'”’)\]]?$/.test(raw)});
+      wi++;
+    }
+  }
+  return {toks,edges};
+}
+
+function setChapter(id,pos=0){
+  const ch=S.corpus.chapters.find(c=>c.id===id) || S.corpus.chapters.find(c=>c.id===8);
+  S.chId=ch.id; S.ch=ch;
+  const f=flatten(ch); S.tokens=f.toks; S.edges=f.edges;
+  S.lay=layout(S.tokens);
+  for(const e of S.edges) e.startS=S.lay.cum[e.start];
+  S.pos=clamp(pos,0,S.tokens.length-1);
+  skipHeadings();
+  if(S.pos<((S.edges[0]&&S.edges[0].start)||0)) S.pos=(S.edges[0]&&S.edges[0].start)||0;
+  skipHeadings();
+  localStorage.setItem('dhamma.ch',ch.id);
+  S.posS=(S.lay.cum[S.pos]||0)+0.35;
+  buildPainting();
+  paintWord();
+}
+function skipHeadings(){
+  while(S.tokens[S.pos] && S.tokens[S.pos].h) S.pos++;
+  if(S.pos>=S.tokens.length) S.pos=Math.max(0,S.tokens.length-1);
+}
+
+/* ---------- gate helpers ---------- */
+function gateAtStart(edgeIdx){ return S.gateMap.get(S.chId+':'+edgeIdx) || null; }
+function nextGateAhead(){
+  // nearest gate whose start is ahead of pos
+  for(let i=0;i<S.edges.length;i++){
+    const e=S.edges[i]; if(e.start<=S.pos) continue;
+    const g=gateAtStart(i); if(!g) continue;
+    if(S.mark[g.ch+':'+g.i]!==undefined) continue;
+    return {g,e};
+  }
+  return null;
+}
+function armGate(g,e){
+  if(S.gate) return;
+  S.gate={g,e,chosen:null,t0:performance.now()};
+  $('#gate').classList.add('on'); document.body.classList.add('gating');
+  const L=$('.opt.l'), R=$('.opt.r');
+  L.querySelector('.tx').textContent=g.options[0]; R.querySelector('.tx').textContent=g.options[1];
+  S.edgeStart=e.startS||0;
+  S.playing=false; $('#bar').classList.remove('playing'); setPlayIcon(false);
+  S.zoom=Math.max(S.zoom,0.62);
+  $('#strip').innerHTML='<b>'+esc(g.heading)+'</b> · aim up or down, release to commit';
+  S.srcEvent={kind:'GATE',strength:1};
+}
+function passGate(){
+  if(!S.gate||S.gate.chosen!==null) return;
+  const {g}=S.gate;
+  S.mark[g.ch+':'+g.i]={a:null,ok:false,passed:true,at:Date.now()};
+  localStorage.setItem('dhamma.mark',JSON.stringify(S.mark));
+  $('#strip').innerHTML='<span class="bad">— passed without deciding</span><br><b>'+esc(g.heading)+'</b>';
+  closeGate();
+}
+function commit(side){
+  if(!S.gate||S.gate.chosen!==null) return;
+  const {g,e}=S.gate; const correct=side===g.answer;
+  S.gate.chosen=side;
+  S.mark[g.ch+':'+g.i]={a:side,ok:correct,at:Date.now()};
+  localStorage.setItem('dhamma.mark',JSON.stringify(S.mark));
+  S.edgeStart=S.lay.cum[e.start]+0.35;
+  S.burstAt=performance.now(); S.burst=correct?1:.6;
+  showVerdict(g,correct);
+  setTimeout(()=>{ closeGate(); }, 1150);
+}
+function closeGate(){
+  $('#gate').classList.remove('on');
+  document.body.classList.remove('gating');
+  S.gate=null; S.srcEvent=null;
+  $('#bar').classList.add('playing'); $('#play').textContent='■';
+  S.playing=true; S.acc=0;
+}
+function showVerdict(g,correct){
+  $('#strip').innerHTML = (correct?'<span class="ok">✓ as you thought</span>':'<span class="bad">✗ not this time — returned to you</span>')
+    + '<br><b>'+esc(g.heading)+'</b>';
+}
+function setPlayIcon(on){ $('#play').innerHTML = on? '<span class="pause"></span>' : '<span class="tri"></span>'; }
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- reading ---------- */
+function paintWord(){
+  const t=S.tokens[S.pos];
+  const el=$('#word');
+  if(!t){ el.textContent='—'; return; }
+  if(t.h){ el.textContent=t.t||'·'; el.classList.add('dim'); }
+  else { el.textContent=t.w; el.classList.remove('dim'); }
+  S.posS=(S.lay? (S.lay.cum[S.pos]||0):0)+0.35;
+  const pct=Math.round(100*S.pos/Math.max(1,S.tokens.length));
+  $('#pct').textContent=(pct<10?pct.toFixed(1):Math.round(pct))+'%';
+  const e=S.edges.filter(x=>x.start<=S.pos).pop();
+  if(!S.gate) $('#strip').innerHTML = '<b>'+esc(S.ch.title)+'</b>'+(e?' · '+esc(e.title):'');
+}
+function tick(dt){
+  if(!S.playing||S.gate||S.view!=='cross') return;
+  S.acc+=dt;
+  const t=S.tokens[S.pos];
+  let iv=60000/S.wpm;
+  if(t){ if(t.end) iv*=2.6; else if(t.soft) iv*=1.7; }
+  while(S.acc>=iv && S.playing && !S.gate){
+    S.acc-=iv;
+    S.pos++;
+    skipHeadings();
+    S.posS=(S.lay.cum[S.pos]||0)+0.35;
+    if(S.pos>=S.tokens.length){ finishChapter(); return; }
+    const nx=S.tokens[S.pos];
+    iv=60000/S.wpm * (nx? (nx.end?2.6:nx.soft?1.7:1):1);
+    // arm the next gate when it is 90 words ahead
+    const a=nextGateAhead();
+    if(a && a.e.start - S.pos <= 90) armGate(a.g,a.e);
+    paintWord();
+  }
+}
+function finishChapter(){
+  S.playing=false; setPlayIcon(false); $('#bar').classList.remove('playing');
+  localStorage.setItem('dhamma.pos.'+S.chId,0);
+  $('#strip').innerHTML='<span class="mag">chapter crossed</span> · '+esc(S.ch.title);
+  showReturn();
+}
+
+/* ---------- sky ---------- */
+const cv=$('#sky'), ctx=cv.getContext('2d');
+let W=0,H=0,DPR=1;
+function size(){ DPR=Math.min(2,devicePixelRatio||1); W=innerWidth;H=innerHeight;
+  cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+'px';cv.style.height=H+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0); }
+addEventListener('resize',()=>{ size(); if(S.lay) buildPainting(); }); size();
+function buildPainting(){ /* the stupa is drawn live; no pre-render */ }
+
+function hash(s){ let h=2166136261; for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);} return (h>>>0)/4294967295; }
+
+const BUILD = '30·07:03';
+function draw(t){
+  ctx.fillStyle=BG; ctx.fillRect(0,0,W,H);
+  if(!S.lay) return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  drawStupa(ctx,S,W,H,t,1);
+  if(S.gate && S.gate.chosen===null) drawFork(ctx,S,W,H,t);
+  else drawText(ctx,S,W,H,t,1);
+  // the instruction, when nothing is moving and no fork is open
+  if(!S.playing && !S.gate){
+    ctx.textAlign='center'; ctx.font='10px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle='rgba(200,196,206,.80)';
+    ctx.fillText('tap to walk · drag to scrub', W/2, H-118);
+    ctx.textAlign='left';
+  }
+  const optic=opticWitness({currentSpeed:S.playing?1.6:.7,currentGrade:0,currentBend:0,points:[]},t,W<430?14:22);
+  drawHaze(ctx,W,H,t,S.playing,reduce,optic.stars);
+}
+function frame(t){
+  const dt=S.last?Math.min(120,t-S.last):16; S.last=t;
+  if(S.gate && S.gate.chosen===null && performance.now()-S.gate.t0>12000) passGate();
+  const zt=0;
+  S.zoom += (zt-S.zoom)*Math.min(1,dt/(S.gate?110:260));
+  tick(dt); draw(t);
+  requestAnimationFrame(frame);
+}
+
+/* ---------- input ---------- */
+$('#play').onclick=()=>{
+  if(S.view!=='cross'){ setView('cross'); }
+  S.playing=!S.playing; setPlayIcon(S.playing);
+  $('#bar').classList.toggle('playing',S.playing); S.acc=0;
+};
+addEventListener('keydown',e=>{
+  if(S.gate){
+    if(e.key==='ArrowUp'||e.key==='ArrowLeft') S.pointerSide=0;
+    if(e.key==='ArrowDown'||e.key==='ArrowRight') S.pointerSide=1;
+    if(e.key==='Enter'||e.key===' ') commit(S.pointerSide);
+    if(e.key==='Escape') closeGate();
+    return;
+  }
+  if(e.key===' '){e.preventDefault();$('#play').click();}
+});
+document.addEventListener('pointermove',e=>{
+  if(!S.gate) return;
+  S.pointerSide=e.clientY<innerHeight*0.57?0:1;
+});
+document.addEventListener('pointerup',e=>{
+  if(!S.gate||S.gate.chosen!==null) return;
+  commit(e.clientY<innerHeight*0.57?0:1);
+});
+/* ---------- canvas gestures: tap = play/pause, drag = scrub ---------- */
+let g0=null;
+cv.addEventListener('pointerdown',e=>{ g0={x:e.clientX,y:e.clientY,lx:e.clientX,ly:e.clientY,t:Date.now(),pos:S.pos}; });
+cv.addEventListener('pointermove',e=>{ if(g0){ g0.lx=e.clientX; g0.ly=e.clientY; } });
+cv.addEventListener('pointercancel',()=>{ g0=null; });
+cv.addEventListener('pointerup',e=>{
+  if(!g0) return;
+  const ex=(e.clientX||g0.lx), ey=(e.clientY||g0.ly);
+  const dx=ex-g0.x, dy=ey-g0.y, dt=Date.now()-g0.t;
+  if(S.gate){ g0=null; return; }                  // the gate owns the gesture
+  if(Math.abs(dx)>36 && Math.abs(dx)>Math.abs(dy)){   // scrub
+    const step=Math.round(dx/6);
+    S.pos=clamp(S.pos+step,0,S.tokens.length-1); skipHeadings();
+    S.posS=(S.lay.cum[S.pos]||0)+0.35; paintWord();
+    S.zoom=Math.max(S.zoom,0.9); S.playing=false; setPlayIcon(false);
+    g0=null; return;
+  }
+  if(dt<600 && Math.abs(dx)<24 && Math.abs(dy)<24){   // tap
+    S.playing=!S.playing; setPlayIcon(S.playing);
+    $('#bar').classList.toggle('playing',S.playing); S.acc=0;
+    if(S.view!=='cross') setView('cross');
+  }
+  g0=null;
+});
+
+/* ---------- views ---------- */
+document.querySelectorAll('#bar button[data-v]').forEach(b=>b.onclick=()=>setView(b.dataset.v));
+document.querySelector('#panel .back').onclick=()=>setView('cross');
+function setView(v){
+  S.view=v;
+  document.querySelectorAll('#bar button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  const p=$('#panel'), body=$('#pbody');
+  if(v==='cross'){ p.classList.remove('on'); S.playing=false; setPlayIcon(false); $('#bar').classList.remove('playing'); return; }
+  S.playing=false; setPlayIcon(false); $('#bar').classList.remove('playing');
+  p.classList.add('on'); body.innerHTML=render(v);
+  body.querySelectorAll('[data-jump]').forEach(el=>el.onclick=()=>{
+    const [c,i]=el.dataset.jump.split(':').map(Number);
+    setChapter(c, i? (S.edges[i]?.start||0) : 0);
+    if(!i) S.pos=0;
+    setView('cross'); paintWord();
+  });
+}
+function render(v){
+  if(v==='start') return renderStart();
+  if(v==='path') return renderPath();
+  if(v==='sections') return renderSections();
+  if(v==='text') return renderText();
+  if(v==='return') return renderReturn();
+  return '';
+}
+function renderStart(){
+  const ch=S.corpus.chapters.find(c=>c.id===32);
+  const ps=ch?ch.blocks.filter(b=>b[0]==='p').map(b=>'<p>'+esc(b[1])+'</p>').join(''):'';
+  const h2=ch?ch.blocks.filter(b=>b[0]==='h2').map(b=>'<h3>'+esc(b[1])+'</h3>').join(''):'';
+  return '<h2>start here</h2><p class="big">The whole argument in ~2,250 words, then the book itself — one crossing at a time.</p>'
+    + h2 + ps
+    + '<button class="row" data-jump="8:0"><span class="t">Begin · Six Sense Spheres</span><span class="m">18,322 words</span></button>';
+}
+const PATH=[8,10,21,14,11,25,16];  // preferred order; renderPath filters to what exists
+const WHY={8:'where experience is assembled — the closest thing in the book to an instrument reading',
+ 10:'the process account: how one moment conditions the next, without a self in the middle',
+ 21:'the discriminative faculty — how attention is aimed before it becomes action',
+ 14:'the two modes of cultivation and why one without the other stalls',
+ 11:'intention as the load-bearing cause; the part Western readings flatten',
+ 25:'the compression of the whole teaching into one diagnostic form',
+ 16:'the longest chapter, arguing happiness is a skill with conditions'};
+function renderPath(){
+  // never assume the PATH ids exist: a sample corpus (or any subset) must still render
+  let ids = (typeof PATH!=='undefined'? PATH : []).filter(id=>S.corpus.chapters.some(c=>c.id===id));
+  if(ids.length<3) ids = S.corpus.chapters.filter(c=>(c.words||0)>150).slice(0,7).map(c=>c.id);
+  if(!ids.length) ids = S.corpus.chapters.filter(c=>(c.words||0)>400).slice(0,7).map(c=>c.id);
+  if(!ids.length) ids = S.corpus.chapters.slice(0,7).map(c=>c.id);
+  return '<h2>path</h2><p class="big">'+ids.length+' chapters, in this order. Each row is one sitting at 300 wpm.</p>'
+   + ids.map(id=>{ const c=S.corpus.chapters.find(x=>x.id===id); if(!c) return '';
+      return '<button class="row" data-jump="'+id+':0"><span class="t">'+esc(c.title)+'<br><span class="why">'+esc(WHY[id]||'')+'</span></span><span class="m">'+Math.round(c.words/300)+' min</span></button>';
+    }).join('');
+}
+function renderSections(){
+  const out=[];
+  for(let i=0;i<S.edges.length;i++){
+    const e=S.edges[i], g=gateAtStart(i), m=S.mark[S.chId+':'+i];
+    const mark=m?(m.ok?'<span class="ok">✓</span>':'<span class="bad">✗</span>'):(g?'·':'');
+    out.push('<button class="row" data-jump="'+S.chId+':'+i+'"><span class="t">'+esc(e.title)+'</span><span class="m">'+mark+' '+e.start+'</span></button>');
+  }
+  return '<h2>sections · '+esc(S.ch.title)+'</h2>'+out.join('');
+}
+function renderText(){
+  const ps=S.ch.blocks.filter(b=>b[0]==='p').map(b=>'<p>'+esc(b[1])+'</p>').join('');
+  const hs=S.ch.blocks.filter(b=>b[0]==='h2').map(b=>'<h3>'+esc(b[1])+'</h3>').join('');
+  return '<h2>text · '+esc(S.ch.title)+'</h2>'+hs+ps;
+}
+function renderReturn(){
+  const rows=[]; let ok=0,bad=0,passed=0,kept=S.keep.length;
+  for(const [k,m] of Object.entries(S.mark)){
+    if(!m) continue;
+    if(m.passed){passed++;} else if(m.ok){ok++;} else {bad++;}
+    const [c,i]=k.split(':').map(Number);
+    const ch=S.corpus.chapters.find(x=>x.id===c);
+    const lab=m.passed?'<span class="bad">passed</span>':(m.ok?'<span class="ok">held</span>':'<span class="bad">returned</span>');
+    rows.push('<button class="row" data-jump="'+c+':'+i+'"><span class="t">'+esc((ch?ch.title:'?'))+' · '+esc((S.gateMap.get(k)||{}).heading||'')+'</span><span class="m">'+lab+'</span></button>');
+  }
+  const total=Object.keys(S.mark).length;
+  const art={schema:'dhamma.crossing/v1',at:new Date().toISOString(),chapter:S.ch.title,
+    answered:total,held:ok,returned:bad,passed:passed,kept:S.keep,marks:S.mark};
+  const blob='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(art,null,1));
+  return '<h2>return</h2><p class="big">'+(total?bad+' edge'+(bad===1?'':'s')+' returned to you. That is the reading you owe.' :'Nothing crossed yet. The instrument only remembers what you got wrong.')+'</p>'
+   + '<p class="marks">held <span class="ok">'+ok+'</span> · returned <span class="bad">'+bad+'</span> · passed <span class="bad">'+passed+'</span> · kept '+kept+'</p>'
+   + rows.join('')
+   + (total?'<p style="margin-top:24px"><a class="row" download="dhamma-crossing.json" href="'+blob+'"><span class="t">download the crossing</span><span class="m">dhamma.crossing/v1</span></a></p>':'');
+}
+function showReturn(){ setView('return'); }
+
+/* a backgrounded tab must not spend the gate's window: rAF stops when hidden,
+   so give the decision back the time it lost */
+let hiddenAt=0;
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){ hiddenAt=performance.now(); }
+  else if(hiddenAt && S.gate && S.gate.chosen===null){
+    S.gate.t0 += performance.now()-hiddenAt; hiddenAt=0;
+  } else hiddenAt=0;
+});
+
+/* ---------- test hooks (read-only surface for verification) ---------- */
+window.__dh = {S, setChapter, armGate, commit, passGate, setView, render, nextGateAhead};
+window.__maze = {layout};
+window.__selftest = function(){
+  const out=[]; const ok=(n,c)=>out.push((c?'PASS ':'FAIL ')+n);
+  const SAMPLE = !!(S.corpus && S.corpus.sample);
+  ok('corpus loaded ('+((S.corpus&&S.corpus.chapters.length)||0)+' chapters)', !!S.corpus && S.corpus.chapters.length >= (SAMPLE?1:33));
+  ok('corpus words > 600k', S.corpus && S.corpus.words>600000);
+  ok('gate bank ('+((S.gates&&S.gates.count)||0)+' gates)', S.gates && S.gates.count >= (SAMPLE?1:200));
+  ok('current chapter has tokens', S.tokens.length>1000);
+  ok('current chapter has edges', S.edges.length>2);
+  const gs=S.gates.gates.filter(g=>g.ch===S.chId).length;
+  ok('chapter has gates ('+gs+')', gs>0);
+  const o=opticWitness({currentSpeed:1.6,currentGrade:0,currentBend:0,points:[]},1000,12);
+  ok('pov engine imported (stars=12)', o.stars.length===12);
+  ok('pov schema', o.schema==='fold-bloom-pov/v0.2');
+  ok('start view renders essence', /start here/i.test(render('start')));
+  ok('path view renders', (render('path').match(/data-jump=/g)||[]).length >= (SAMPLE?1:7));
+  ok('sections view lists edges', (render('sections').match(/data-jump=/g)||[]).length===S.edges.length);
+  ok('return view renders', /return/i.test(render('return')));
+  ok('word painted', ($('#word').textContent||'').length>0);
+  ok('spiral laid (units>tokens)', !!S.lay && S.lay.U>S.tokens.length);
+  ok('every edge has an arc position', S.edges.every(e=>isFinite(e.startS)&&e.startS>=0));
+  const st=stupaStats(S); ok('stupa terraces filled ('+st.filled+'/'+st.terraces+')', st.filled>=6);
+  ok('every section assigned to a terrace', st.perTerrace.reduce((a,b)=>a+b,0)===st.sections);
+  ok('pos inside the chapter', Number.isFinite(S.pos) && S.pos>=0 && S.pos<S.tokens.length);
+  ok('zoom finite', Number.isFinite(S.zoom));
+  ok('walk position finite', isFinite(S.posS));
+  return out;
+};
+
+addEventListener('error',e=>{ window.__err=(e.message||'')+' @'+(e.lineno||0); });
+window.__stupa=()=>({stats:stupaStats(S), zoom:S.zoom});
+/* ---------- boot ---------- */
+boot().catch(e=>{ $('#word').textContent='corpus unreadable'; $('#strip').textContent=String(e.message||e); });
+</script>
+</body>
+</html>
