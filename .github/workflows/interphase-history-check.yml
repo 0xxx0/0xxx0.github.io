@@ -76,6 +76,7 @@ jobs:
         run: |
           node tools/interphase-door-selftest.mjs
           node tools/interphase-navigation-selftest.mjs
+          node tools/interphase-warrant-selftest.mjs
           node tools/interphase-workflow-selftest.mjs
           node tools/interphase-extensions-selftest.mjs
           node tools/interphase-compositor-selftest.mjs
