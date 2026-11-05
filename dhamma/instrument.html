@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0b0d">
-<title>DHAMMA — one crossing</title>
+<title>Dhamma — one crossing</title>
 <style>
   :root{
-    --bg:#0b0b0d; --panel:#101014; --ink:#e7e3ea; --dim:#8b8792; --faint:#5a5762;
+    --bg:#0b0b0d; --panel:#101014; --ink:#e7e3ea; --dim:#8b8792; --faint:#807c88;
     --hair:#1e1c23; --mag:#e06a9c; --ok:#86a878; --bad:#c98080;
     --sans:ui-sans-serif,-apple-system,"Helvetica Neue",Arial,sans-serif;
     --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -18,60 +18,51 @@
   button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   #sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
   /* ---------- the word ---------- */
-  #stage{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    pointer-events:none;padding:0 18px}
+  #stage{position:fixed;left:0;right:0;top:16px;bottom:auto;display:block;pointer-events:none;
+    padding:0 20px;z-index:3;text-align:center}
   #word{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
     clip:rect(0 0 0 0);white-space:nowrap;border:0}
-  #stage{display:block;justify-content:flex-start;top:18px;bottom:auto;padding:0 16px;z-index:3}
-  #strip{margin:0;font:10px/1.7 var(--mono);letter-spacing:.12em;text-transform:uppercase;
-    color:var(--faint);text-align:center;max-width:100%;min-height:2.6em}
+  #strip{margin:0;font:12px/18px var(--mono);letter-spacing:.01em;color:var(--faint);
+    text-align:center;max-width:100%;min-height:36px;display:-webkit-box;-webkit-line-clamp:2;
+    -webkit-box-orient:vertical;overflow:hidden}
   #strip b{color:var(--dim);font-weight:500}
 
   #strip .ok{color:var(--ok)} #strip .bad{color:var(--bad)} #strip .mag{color:var(--mag)}
   /* ---------- gate ---------- */
-  #gate{position:fixed;inset:0;display:none;pointer-events:none}
-  #gate.on{display:block}
-  .opt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   body.gating #strip{position:fixed;left:0;right:0;bottom:66px;margin:0;padding:0 18px;z-index:6;
     background:linear-gradient(180deg,transparent,rgba(11,11,13,.92) 30%)}
   body.gating #word{opacity:.28}
-  .opt .k{display:block;font-size:9px;letter-spacing:.2em;color:var(--faint);margin-bottom:6px}
-  .opt.aim{opacity:1;color:var(--ink);border-color:var(--mag)}
-  .opt.done-t{color:var(--ok);border-color:var(--ok);opacity:1}
-  .opt.done-f{color:var(--bad);border-color:var(--bad);opacity:1}
   /* ---------- bar ---------- */
-  #bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:2px;align-items:center;
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(11,11,13,.92) 40%);
-    font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-  #bar button{padding:7px 8px;color:var(--faint);border-radius:2px}
+  #bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:4px;align-items:center;
+    padding:6px 12px calc(6px + env(safe-area-inset-bottom));background:linear-gradient(180deg,transparent,rgba(11,11,13,.92) 40%);
+    font:12px/16px var(--mono);letter-spacing:0;text-transform:none;color:var(--faint)}
+  #bar button{padding:0 8px;min-height:44px;display:inline-flex;align-items:center;color:var(--faint);border-radius:8px}
   #bar button.on{color:var(--ink)}
   #bar button:hover{color:var(--ink)}
-  #play{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
-  #play .tri{width:0;height:0;border-left:7px solid currentColor;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;margin-left:2px}
-  #play .pause{width:7px;height:11px;border-left:2px solid currentColor;border-right:2px solid currentColor}
-  #prog{margin-left:auto;display:flex;align-items:center;gap:8px;font:9px var(--mono);color:var(--faint)}
+  #play{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px}
+  #play .tri{width:0;height:0;border-left:10px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:2px}
+  #play .pause{width:10px;height:14px;border-left:2px solid currentColor;border-right:2px solid currentColor}
+  #prog{margin-left:auto;display:flex;align-items:center;gap:10px;font:12px/16px var(--mono);
+    color:var(--faint);font-variant-numeric:tabular-nums}
+  #build,#wpm{display:none}
   #bar.playing #play{color:var(--mag)}
   /* ---------- panels ---------- */
   #panel{position:fixed;inset:0;background:var(--bg);display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;
-    padding:56px 22px 90px;z-index:5}
+    padding:56px 20px 80px;z-index:5}
   #panel.on{display:block}
-  #panel h2{font:600 10px var(--mono);letter-spacing:.3em;color:var(--mag);text-transform:uppercase;margin:0 0 18px}
-  #panel h3{font:500 15px/1.4 var(--sans);margin:26px 0 6px;color:var(--ink)}
-  #panel p{font:14px/1.75 var(--sans);color:var(--dim);margin:0 0 14px;max-width:66ch}
-  #panel .why{font:11px/1.6 var(--mono);color:var(--faint)}
-  #panel .row{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--hair);width:100%;text-align:left}
-  #panel .row .t{font:13px/1.4 var(--sans);color:var(--ink)}
-  #panel .row .m{margin-left:auto;font:9px var(--mono);color:var(--faint);white-space:nowrap}
-  #panel .row:hover .t{color:var(--mag)}
-  #panel .back{position:fixed;top:14px;left:14px;font:9px var(--mono);letter-spacing:.2em;color:var(--dim);
-    background:var(--bg);padding:8px 10px;border:1px solid var(--hair);z-index:6}
-  #panel .big{font:500 22px/1.3 var(--sans);color:var(--ink);margin:0 0 18px;max-width:30ch}
-  .marks{font:10px/1.9 var(--mono);color:var(--faint)}
+  #panel h2{font:500 12px/16px var(--mono);letter-spacing:.01em;color:var(--dim);text-transform:none;margin:0 0 16px}
+  #panel h3{font:500 17px/24px var(--sans);margin:24px 0 8px;color:var(--ink)}
+  #panel p{font:14px/24px var(--sans);color:var(--dim);margin:0 0 16px;max-width:66ch}
+  #panel .why{font:12px/18px var(--mono);color:var(--faint)}
+  #panel .row{display:flex;gap:10px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--hair);width:100%;text-align:left}
+  #panel .row .t{font:14px/20px var(--sans);color:var(--ink)}
+  #panel .row .m{margin-left:auto;font:12px/16px var(--mono);color:var(--faint);white-space:nowrap;font-variant-numeric:tabular-nums}
+  #panel .row:hover .t{color:var(--ink)}
+  #panel .back{position:fixed;top:8px;left:8px;font:12px/16px var(--mono);letter-spacing:0;color:var(--dim);
+    background:var(--bg);min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border:1px solid var(--hair);border-radius:8px;z-index:6}
+  #panel .big{font:500 20px/28px var(--sans);color:var(--ink);margin:0 0 16px;max-width:30ch}
+  .marks{font:12px/20px var(--mono);color:var(--faint)}
   .marks .ok{color:var(--ok)} .marks .bad{color:var(--bad)}
-  @media (max-width:430px){
-    #word{font-size:34px}
-    .opt{width:42vw;font-size:10px;padding:9px}
-  }
   @media (prefers-reduced-motion:reduce){#word,#strip{transition:none}}
 </style>
 </head>
@@ -249,7 +240,7 @@ function paintWord(){
   else { el.textContent=t.w; el.classList.remove('dim'); }
   S.posS=(S.lay? (S.lay.cum[S.pos]||0):0)+0.35;
   const pct=Math.round(100*S.pos/Math.max(1,S.tokens.length));
-  $('#pct').textContent=(pct<10?pct.toFixed(1):Math.round(pct))+'%';
+  $('#pct').textContent=Math.round(pct)+'%';
   const e=S.edges.filter(x=>x.start<=S.pos).pop();
   if(!S.gate) $('#strip').innerHTML = '<b>'+esc(S.ch.title)+'</b>'+(e?' · '+esc(e.title):'');
 }
@@ -301,9 +292,9 @@ function draw(t){
   else drawText(ctx,S,W,H,t,1);
   // the instruction, when nothing is moving and no fork is open
   if(!S.playing && !S.gate){
-    ctx.textAlign='center'; ctx.font='10px ui-monospace, SFMono-Regular, Menlo, monospace';
-    ctx.fillStyle='rgba(200,196,206,.80)';
-    ctx.fillText('tap to walk · drag to scrub', W/2, H-118);
+    ctx.textAlign='center'; ctx.font='12px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle='rgba(231,227,234,.55)';
+    ctx.fillText('tap to walk · drag to scrub', W/2, H-132);
     ctx.textAlign='left';
   }
   const optic=opticWitness({currentSpeed:S.playing?1.6:.7,currentGrade:0,currentBend:0,points:[]},t,W<430?14:22);

@@ -13,9 +13,9 @@ const MAG = a => 'rgba(224,106,156,' + a.toFixed(3) + ')';
 
 export function planGrid(W, H) {
   const cw = 10, ch = 10;                      // square cells: a plan, not a chart
-  const cols = Math.max(20, Math.floor((W - 8) / cw));
+  const cols = Math.max(20, Math.floor((W - 36) / cw));
   const rows = Math.min(cols, Math.max(12, Math.floor((H * 0.34) / ch)));
-  return { cw, ch, cols, rows, ox: (W - cols * cw) / 2, oy: 34 };
+  return { cw, ch, cols, rows, ox: (W - cols * cw) / 2, oy: 52 };
 }
 
 /* terrace assignment: sections -> nine rings, by word count, keeping order */
@@ -166,16 +166,14 @@ export function drawText(ctx, S, W, H, t, alpha) {
   ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
   ctx.font = fs + 'px ui-monospace, SFMono-Regular, Menlo, monospace';
   window.__textNow = lines.flat().filter(c => c.now).length;
-  const maxLines = Math.max(3, Math.floor((H - top - 92) / lh));
+  const maxLines = Math.max(3, Math.floor((H - top - 96) / lh));
   lines.slice(0, maxLines).forEach((ln, r) => {
-    let x = 18;
+    let x = 20;
     const y = top + r * lh;
     for (const cell of ln) {
-      ctx.fillStyle = cell.now ? INK(1) : INK(0.42 * alpha);
-      if (cell.now) { ctx.save(); ctx.shadowColor = 'rgba(231,227,234,.30)'; ctx.shadowBlur = 10; }
+      ctx.fillStyle = cell.now ? INK(1) : INK(0.60 * alpha);
       ctx.fillText(cell.g, x, y);
       if (cell.now) {
-        ctx.restore();
         ctx.strokeStyle = MAG(0.95); ctx.lineWidth = 1.4;
         ctx.beginPath(); ctx.moveTo(x, y + 13); ctx.lineTo(x + ctx.measureText(cell.g).width, y + 13); ctx.stroke();
       }
@@ -188,19 +186,19 @@ export function drawText(ctx, S, W, H, t, alpha) {
 export function drawFork(ctx, S, W, H, t) {
   const g = planGrid(W, H);
   const top = g.oy + g.rows * g.ch + 14;
-  const cy0 = top + 28;
+  const cy0 = top + 36;
   const laneW = W - 36;
   ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
   for (let k = 0; k < 2; k++) {
     const sgn = k === 0 ? -1 : 1;
     const aim = S.pointerSide === k;
-    const ly = cy0 + (k === 0 ? 0 : 128);
+    const ly = cy0 + (k === 0 ? 0 : 136);
     ctx.strokeStyle = aim ? MAG(0.55) : INK(0.20);
     ctx.lineWidth = aim ? 1.3 : 0.7;
     ctx.beginPath(); ctx.moveTo(18, ly); ctx.lineTo(W - 18, ly); ctx.stroke();
     if (aim) { ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(15, ly); ctx.lineTo(31, ly); ctx.stroke(); }
-    ctx.font = '12px ui-monospace, SFMono-Regular, Menlo, monospace';
-    ctx.fillStyle = aim ? INK(0.97) : INK(0.48);
+    ctx.font = '14px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillStyle = aim ? INK(0.97) : INK(0.62);
     const words = (S.gate.g.options[k] || '').split(/\s+/).slice(0, 18);
     let line = '', lines = [];
     for (const w of words) {
@@ -208,7 +206,7 @@ export function drawFork(ctx, S, W, H, t) {
       else line += ' ' + w;
     }
     if (line.trim()) lines.push(line.trim() + (words.length >= 18 ? '…' : ''));
-    lines.slice(0, 2).forEach((ln, j) => ctx.fillText(ln, 22, ly + sgn * (8 + (1 - j) * 16)));
+    lines.slice(0, 3).forEach((ln, j) => ctx.fillText(ln, 22, ly + sgn * (8 + (2 - j) * 20)));
   }
 }
 
