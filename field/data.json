@@ -1,606 +1,267 @@
 {
  "schema": "field-delta/v0.1",
- "generated_at": "2026-10-29T16:45:14+08:00",
+ "generated_at": "2026-11-05T11:22:32+08:00",
  "window_hours": 24,
  "source_window_hours": 72,
  "law": "measured rows only; machine clockwork collapses to one counted row; no priority, no ranking, no second store",
  "sources": {
   "repo": {
-   "rows": 428,
+   "rows": 215,
    "error": null
   },
   "route": {
-   "rows": 7,
+   "rows": 1,
    "error": null
   },
   "call": {
-   "rows": 1,
+   "rows": 0,
    "error": null
   },
   "run": {
-   "rows": 2148,
+   "rows": 2150,
    "error": null
   },
   "return": {
-   "rows": 1,
+   "rows": 0,
    "error": null,
    "newest": "2026-10-28T00:00:00+08:00",
    "newest_file": "SIX_FAMILY_PROJECT_MAP_2026-10-28.json"
   }
  },
  "counts": {
-  "repo": 209,
-  "route": 7,
+  "repo": 73,
+  "route": 1,
   "call": 0,
   "run": 19,
   "return": 0,
-  "run_fail": 0,
-  "repo_field": 87,
-  "repo_machine": 122
+  "run_fail": 1,
+  "repo_field": 0,
+  "repo_machine": 73
  },
  "counts_earlier": {
-  "repo": 219,
+  "repo": 142,
   "route": 0,
-  "call": 1,
-  "run": 21,
-  "return": 1,
-  "run_fail": 0,
-  "repo_field": 37,
-  "repo_machine": 182
+  "call": 0,
+  "run": 20,
+  "return": 0,
+  "run_fail": 1,
+  "repo_field": 0,
+  "repo_machine": 142
  },
  "now": [
   {
-   "at": "2026-10-29T16:44:23.476000+08:00",
+   "at": "2026-11-05T11:21:22.074000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×480 · exit 0 · 0.06s",
+   "detail": "×480 · exit 0 · 0.14s",
    "href": "",
    "runs": [
     {
-     "t": "16:44:23",
+     "t": "11:21:22",
      "exit": 0,
-     "dur": 0.056
+     "dur": 0.137
     },
     {
-     "t": "16:41:23",
+     "t": "11:18:22",
      "exit": 0,
-     "dur": 0.066
+     "dur": 0.57
     },
     {
-     "t": "16:38:23",
+     "t": "11:15:22",
      "exit": 0,
-     "dur": 0.055
+     "dur": 0.052
     },
     {
-     "t": "16:35:23",
+     "t": "11:12:22",
      "exit": 0,
-     "dur": 0.055
+     "dur": 0.052
     },
     {
-     "t": "16:32:23",
+     "t": "11:09:21",
      "exit": 0,
-     "dur": 0.059
+     "dur": 0.052
     }
    ]
   },
   {
-   "at": "2026-10-29T16:35:27.015000+08:00",
+   "at": "2026-11-05T11:20:25.851000+08:00",
    "kind": "run",
    "key": "run:comms-page",
    "title": "comms-page",
-   "detail": "×47 · exit 0 · 5.61s",
+   "detail": "×47 · exit 0 · 4.62s",
    "href": "",
    "runs": [
     {
-     "t": "16:35:27",
+     "t": "11:20:25",
      "exit": 0,
-     "dur": 5.612
+     "dur": 4.619
     },
     {
-     "t": "16:04:26",
+     "t": "10:49:25",
      "exit": 0,
-     "dur": 4.272
+     "dur": 6.27
     },
     {
-     "t": "15:33:30",
+     "t": "10:18:29",
      "exit": 0,
-     "dur": 4.488
+     "dur": 4.31
     },
     {
-     "t": "15:02:30",
+     "t": "09:47:28",
      "exit": 0,
-     "dur": 28.458
+     "dur": 4.417
     },
     {
-     "t": "14:31:30",
+     "t": "09:16:28",
      "exit": 0,
-     "dur": 4.202
+     "dur": 4.383
     }
    ]
   },
   {
-   "at": "2026-10-29T16:35:23.505000+08:00",
+   "at": "2026-11-05T11:20:22.273000+08:00",
    "kind": "run",
    "key": "run:surfaces-push",
    "title": "surfaces-push",
-   "detail": "×47 · exit 0 · 10.07s",
+   "detail": "×47 · exit 0 · 9.17s",
    "href": "",
    "runs": [
     {
-     "t": "16:35:23",
+     "t": "11:20:22",
      "exit": 0,
-     "dur": 10.074
+     "dur": 9.174
     },
     {
-     "t": "16:04:23",
+     "t": "10:49:21",
      "exit": 0,
-     "dur": 7.944
+     "dur": 10.628
     },
     {
-     "t": "15:33:23",
+     "t": "10:18:22",
      "exit": 0,
-     "dur": 12.511
+     "dur": 12.206
     },
     {
-     "t": "15:02:23",
+     "t": "09:47:22",
      "exit": 0,
-     "dur": 36.209
+     "dur": 12.229
     },
     {
-     "t": "14:31:23",
+     "t": "09:16:22",
      "exit": 0,
-     "dur": 11.462
+     "dur": 11.871
     }
    ]
   },
   {
-   "at": "2026-10-29T16:31:23.532000+08:00",
+   "at": "2026-11-05T11:16:22.105000+08:00",
    "kind": "run",
    "key": "run:state-sync",
    "title": "state-sync",
-   "detail": "×47 · exit 0 · 0.18s",
+   "detail": "×47 · 47 fails · last exit 1 · 0.18s",
    "href": "",
+   "fails": 47,
    "runs": [
     {
-     "t": "16:31:23",
-     "exit": 0,
-     "dur": 0.179
+     "t": "11:16:22",
+     "exit": 1,
+     "dur": 0.177
     },
     {
-     "t": "16:00:23",
-     "exit": 0,
-     "dur": 0.184
+     "t": "10:45:22",
+     "exit": 1,
+     "dur": 0.202
     },
     {
-     "t": "15:29:23",
-     "exit": 0,
-     "dur": 0.19
+     "t": "10:14:22",
+     "exit": 1,
+     "dur": 0.176
     },
     {
-     "t": "14:58:23",
-     "exit": 0,
-     "dur": 0.174
+     "t": "09:43:22",
+     "exit": 1,
+     "dur": 0.173
     },
     {
-     "t": "14:27:23",
-     "exit": 0,
-     "dur": 0.174
+     "t": "09:12:22",
+     "exit": 1,
+     "dur": 0.199
     }
    ]
   },
   {
-   "at": "2026-10-29T16:31:23.440000+08:00",
+   "at": "2026-11-05T11:16:22.023000+08:00",
    "kind": "run",
    "key": "run:loops-tick",
    "title": "loops-tick",
-   "detail": "×47 · exit 0 · 5.61s",
+   "detail": "×47 · exit 0 · 4.21s",
    "href": "",
    "runs": [
     {
-     "t": "16:31:23",
+     "t": "11:16:22",
      "exit": 0,
-     "dur": 5.613
+     "dur": 4.208
     },
     {
-     "t": "16:00:23",
+     "t": "10:45:22",
      "exit": 0,
-     "dur": 5.152
+     "dur": 6.384
     },
     {
-     "t": "15:29:23",
+     "t": "10:14:22",
      "exit": 0,
-     "dur": 4.992
+     "dur": 5.019
     },
     {
-     "t": "14:58:23",
+     "t": "09:43:22",
      "exit": 0,
-     "dur": 4.385
+     "dur": 4.142
     },
     {
-     "t": "14:27:23",
+     "t": "09:12:22",
      "exit": 0,
-     "dur": 5.566
+     "dur": 4.768
     }
    ]
   },
   {
-   "at": "2026-10-29T16:19:23.482000+08:00",
-   "kind": "run",
-   "key": "run:convergence-loop",
-   "title": "convergence-loop",
-   "detail": "×6 · exit 0 · 0.07s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:19:23",
-     "exit": 0,
-     "dur": 0.073
-    },
-    {
-     "t": "12:18:23",
-     "exit": 0,
-     "dur": 0.071
-    },
-    {
-     "t": "08:17:23",
-     "exit": 0,
-     "dur": 0.081
-    },
-    {
-     "t": "04:16:23",
-     "exit": 0,
-     "dur": 0.125
-    },
-    {
-     "t": "00:15:23",
-     "exit": 0,
-     "dur": 0.075
-    }
-   ]
-  },
-  {
-   "at": "2026-10-29T16:00:23.771000+08:00",
+   "at": "2026-11-05T11:00:22.116000+08:00",
    "kind": "run",
    "key": "run:fi-contract-stamp",
    "title": "fi-contract-stamp",
-   "detail": "×24 · exit 0 · 21.46s",
+   "detail": "×24 · exit 0 · 22.52s",
    "href": "",
    "runs": [
     {
-     "t": "16:00:23",
+     "t": "11:00:22",
      "exit": 0,
-     "dur": 21.457
+     "dur": 22.516
     },
     {
-     "t": "15:00:23",
+     "t": "10:00:22",
      "exit": 0,
-     "dur": 21.354
+     "dur": 23.795
     },
     {
-     "t": "14:00:23",
+     "t": "09:00:22",
      "exit": 0,
-     "dur": 21.782
+     "dur": 23.661
     },
     {
-     "t": "13:00:23",
+     "t": "08:00:22",
      "exit": 0,
-     "dur": 21.709
+     "dur": 23.824
     },
     {
-     "t": "12:00:23",
+     "t": "07:00:22",
      "exit": 0,
-     "dur": 21.202
+     "dur": 27.468
     }
    ]
   },
   {
-   "at": "2026-10-29T16:00:23.585000+08:00",
-   "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×6 · exit 0 · 0.02s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:00:23",
-     "exit": 0,
-     "dur": 0.022
-    },
-    {
-     "t": "12:00:23",
-     "exit": 0,
-     "dur": 0.045
-    },
-    {
-     "t": "08:00:23",
-     "exit": 0,
-     "dur": 0.044
-    },
-    {
-     "t": "04:00:23",
-     "exit": 0,
-     "dur": 0.077
-    },
-    {
-     "t": "00:00:23",
-     "exit": 0,
-     "dur": 0.063
-    }
-   ]
-  },
-  {
-   "at": "2026-10-29T14:00:23.593000+08:00",
-   "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×3 · exit 0 · 4.90s",
-   "href": "",
-   "runs": [
-    {
-     "t": "14:00:23",
-     "exit": 0,
-     "dur": 4.903
-    },
-    {
-     "t": "06:00:23",
-     "exit": 0,
-     "dur": 0.033
-    },
-    {
-     "t": "22:00:23",
-     "exit": 0,
-     "dur": 0.031
-    }
-   ]
-  },
-  {
-   "at": "2026-10-29T13:37:47+08:00",
-   "kind": "repo",
-   "key": "repo:theme:repo · other",
-   "title": "repo · other",
-   "detail": "last · route stamp: /sleeper/ after P3-ready goal record",
-   "href": "",
-   "count": 35,
-   "commits": [
-    {
-     "t": "29 13:37",
-     "title": "route stamp: /sleeper/ after P3-ready goal record",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6f3be3179e21d9a0d22515e966ca48cff434dce0",
-     "sha": "6f3be317"
-    },
-    {
-     "t": "29 13:37",
-     "title": "sleeper: P3 ready — ladder 0.7.0 emits a verified return artifact; one human phone run remains",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0011d595061474e4e996b414e3d30fdf607d0937",
-     "sha": "0011d595"
-    },
-    {
-     "t": "29 13:35",
-     "title": "ladder 0.7.0: the walk can return — EXITED downloads sleeper.ladder-return/v0.1 (source, painting, city digest 18ac9948, route, gates, breath, ledger); ?return= recomputes the city and verifies or refuses",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/d03eb3b3a94a34a1d3de872d566f3b365cb0df69",
-     "sha": "d03eb3b3"
-    },
-    {
-     "t": "29 13:23",
-     "title": "route stamp: /sleeper/ after ladder 0.6.5",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/07ead48f8487a12f7d74673e2f2021e8ead5bafa",
-     "sha": "07ead48f"
-    },
-    {
-     "t": "29 13:23",
-     "title": "sleeper: record P0(a)=ladder; P3 is blocked on the ladder's missing return artifact, not on another mode",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/cf2fbf2d1df440fd7b286ae612cbee8eb60a8c14",
-     "sha": "cf2fbf2d"
-    },
-    {
-     "t": "29 11:11",
-     "title": "ladder 0.6.10: clear the canvas at full alpha — no ghost line under the ring",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/cc46230dee71c3397bf5939f61a3ab2ab12d4f7a",
-     "sha": "cc46230d"
-    },
-    {
-     "t": "29 11:05",
-     "title": "ladder 0.6.9: the held line becomes a seal — three source-derived words, hold to cycle, release on the missing one; ink lab gains MAGENTA: drag to play, hold to bloom",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fa733424142e9b4e469b56f522d01c1399bb7bd6",
-     "sha": "fa733424"
-    },
-    {
-     "t": "29 10:43",
-     "title": "ladder 0.6.8: the mansion behind the loop — the Bell POV opens from the ladder in the ladder's quiet palette, named HERMES MANSION; same model, same source",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/76bf810c9c43dacdc029c1f7387b6d05a9b59a82",
-     "sha": "76bf810c"
-    },
-    {
-     "t": "28 21:45",
-     "title": "field-index v2: THE CHART — five corpus-derived targets, one lock each, proximity sonar, fading chart marks; spec + falsifiers appended [P3, P5, P7, measured-not-seeded, homoiconic]",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/43daa2884ebe0539f3bcb9a8f99b30b52aa1e661",
-     "sha": "43daa288"
-    },
-    {
-     "t": "28 20:29",
-     "title": "ladder 0.6.7: the release window reads at a glance — the bright arc is 0.82 alpha and 4.5 px, not a faint line",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/1863de287629c0838ab8fdc01cd4aef8f4010819",
-     "sha": "1863de28"
-    },
-    {
-     "t": "28 20:25",
-     "title": "ladder 0.6.6: the ride becomes a ring — RSVP word at the focal point, clause ticks and the release window on the circumference; the hold survives thumb drift and never double-releases; the loop opens the Bell POV in-page",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ce752a6c76b7ce29b20bfcdec348cc64d680dfc5",
-     "sha": "ce752a6c"
-    },
-    {
-     "t": "28 20:05",
-     "title": "ladder 0.6.5: the first run says what to do — a play line at each distance, and three early releases open the Bell at the same address; the artifact names its repository",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/39e1faea61e9c217ca346f2bc54af7b84625974a",
-     "sha": "39e1faea"
-    },
-    {
-     "t": "28 18:26",
-     "title": "FIELD scope: all-address glyph rail is an explicit bounded scroll aperture; resting CURRENT stays one screen",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7c9c119f6f1d9c2866b0e50a9b0f394175d29aee",
-     "sha": "7c9c119f"
-    },
-    {
-     "t": "28 18:26",
-     "title": "FIELD scope: all-address glyph rail is an explicit bounded scroll aperture; resting CURRENT stays one screen",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/d4b4d47306a83d071e21b1179f6df14f456b9d3e",
-     "sha": "d4b4d473"
-    },
-    {
-     "t": "28 18:24",
-     "title": "Browser proof: CURRENT glyphs are a reversible subset of all 218 native routes at 320/390",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/dd87dc02b859def50fc7afba7d069aeb029254d4",
-     "sha": "dd87dc02"
-    },
-    {
-     "t": "28 18:23",
-     "title": "FIELD glyph rail: make CURRENT↔ALL scope reachable by touch and keyboard without extra screen",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0e6e102d353722f064d1991e4114ddf25c1aea17",
-     "sha": "0e6e102d"
-    },
-    {
-     "t": "28 18:19",
-     "title": "CI cache gate: prove new DOOR compact CSS v0.3 after warm v0.2 remains cached",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/eec357f2e633c23b664106c22bea189bfe8d6dee",
-     "sha": "eec357f2"
-    },
-    {
-     "t": "28 18:10",
-     "title": "Browser proof: wait for asynchronous source snapshot before dereferencing native route",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/dedc91fd4ec31582c7ac4018ebe7e1a535c8b478",
-     "sha": "dedc91fd"
-    },
-    {
-     "t": "28 18:07",
-     "title": "DOOR browser fixture: assert accessible exact citation address, not abbreviated display text",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4c08fa4e9f51c062bc5aff129ededb8b12c8f1e5",
-     "sha": "4c08fa4e"
-    },
-    {
-     "t": "28 18:07",
-     "title": "DOOR source map coverage: every actual manifest href admits one safe handoff",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/66661e5b1f0bc95266454e73f693e027a4ab9dd1",
-     "sha": "66661e5b"
-    },
-    {
-     "t": "28 18:05",
-     "title": "Browser proof: visible FIELD DOOR, declared source receipt and exact two-level RETURN at 320/390",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/84a166ae1eb975b71895c59dacad148cead753a5",
-     "sha": "84a166ae"
-    },
-    {
-     "t": "28 18:05",
-     "title": "FIELD URLbar: test DOOR exact route/caller and no arbitrary priority",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c27dc99f9c0f61c93f68b370cfab5bf544d7227a",
-     "sha": "c27dc99f"
-    },
-    {
-     "t": "28 18:05",
-     "title": "DOOR native-range tests: explicit JSON contract/receipt/return and parked/external rejection",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/804af49923b5d97e05548677e050c39c000a4d71",
-     "sha": "804af499"
-    },
-    {
-     "t": "28 17:49",
-     "title": "Confluence: six-family project map / current reducer (#1039)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2c0e3a0c9f2f68adc4d2d716e83de27645177c5a",
-     "sha": "2c0e3a0c"
-    },
-    {
-     "t": "28 17:47",
-     "title": "DOOR delivery: couple cache keys and host-native RETURN across existing entrances",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5c1615997a0b3782a27db0ebf425d92649665d94",
-     "sha": "5c161599"
-    },
-    {
-     "t": "28 17:47",
-     "title": "DOOR delivery: couple cache keys and host-native RETURN across existing entrances",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/76d23b7da9575065e693af6595a030cd4fedee62",
-     "sha": "76d23b7d"
-    },
-    {
-     "t": "28 17:47",
-     "title": "DOOR delivery: couple cache keys and host-native RETURN across existing entrances",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ed38f161ff5dd1c8ea2b0dd150c5384fb00bb02c",
-     "sha": "ed38f161"
-    },
-    {
-     "t": "28 17:47",
-     "title": "DOOR delivery: couple cache keys and host-native RETURN across existing entrances",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/bb8985ff17bd86e7de9ecb0962f209c8986e7ff5",
-     "sha": "bb8985ff"
-    },
-    {
-     "t": "28 17:46",
-     "title": "DOOR selftest: source-relative Markdown references and external-host refusal",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/412425e4a08c381cfd4919a8f218248db39d74da",
-     "sha": "412425e4"
-    },
-    {
-     "t": "28 17:44",
-     "title": "DOOR smoke: assert shared validator's fail-closed native-range diagnostic",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/94f98eef21343e53ffa085d0349ec0db975d28d2",
-     "sha": "94f98eef"
-    },
-    {
-     "t": "28 17:42",
-     "title": "Fix DOOR selftest: await digest outside synchronous assertion",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/cc73c6cf1fccb2f1d201968dbb6b2174d6f69820",
-     "sha": "cc73c6cf"
-    },
-    {
-     "t": "28 17:41",
-     "title": "DOOR proof: reuse workflow Playwright dependencies",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5a646dfbe95b0e310768d18c27d02414117f4377",
-     "sha": "5a646dfb"
-    },
-    {
-     "t": "28 17:41",
-     "title": "DOOR browser proof: use actual Playwright completion instead of early --dump-dom snapshot",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/31216ac39d88181b4fa584eb375131bd469585b9",
-     "sha": "31216ac3"
-    },
-    {
-     "t": "28 17:40",
-     "title": "DOOR portable-core test: exact source identity, citation, native range, authority limits",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/06de7526a4d38c3af0fa793b19dca2fab52cb04c",
-     "sha": "06de7526"
-    },
-    {
-     "t": "28 17:00",
-     "title": "ladder 0.6.4: the rail sits under the sentence — clause ticks and the playhead are character positions, an early release says so while the line walks back, and the 0.6.3 cache-bust conflict markers are resolved",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4bb3c132ffa8892751b143251b564c948b673d53",
-     "sha": "4bb3c132"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-29T13:37:40+08:00",
-   "kind": "route",
-   "key": "route:/sleeper/",
-   "title": "SLEEPER // ONE RETURN v2",
-   "detail": "/sleeper/ · ACTIVE",
-   "href": "/sleeper/"
-  },
-  {
-   "at": "2026-10-29T13:35:39+08:00",
-   "kind": "route",
-   "key": "route:/sleeper/ladder/",
-   "title": "SLEEPER // LADDER 0.7.0",
-   "detail": "/sleeper/ladder/ · CANDIDATE",
-   "href": "/sleeper/ladder/"
-  },
-  {
-   "at": "2026-10-29T11:05:46+08:00",
-   "kind": "route",
-   "key": "route:/fold-bloom/ink/",
-   "title": "FOLD//BLOOM · INK FIELD 0.4",
-   "detail": "/fold-bloom/ink/ · CANDIDATE",
-   "href": "/fold-bloom/ink/"
-  },
-  {
-   "at": "2026-10-29T10:30:23.651000+08:00",
+   "at": "2026-11-05T10:30:21.984000+08:00",
    "kind": "run",
    "key": "run:calls-say",
    "title": "calls-say",
@@ -608,29 +269,29 @@
    "href": "",
    "runs": [
     {
-     "t": "10:30:23",
+     "t": "10:30:21",
      "exit": 0,
-     "dur": 0.062
+     "dur": 0.06
     }
    ]
   },
   {
-   "at": "2026-10-29T09:20:23.573000+08:00",
+   "at": "2026-11-05T09:20:22.062000+08:00",
    "kind": "run",
    "key": "run:signal",
    "title": "signal",
-   "detail": "×1 · exit 0 · 1.14s",
+   "detail": "×1 · exit 0 · 3.12s",
    "href": "",
    "runs": [
     {
-     "t": "09:20:23",
+     "t": "09:20:22",
      "exit": 0,
-     "dur": 1.142
+     "dur": 3.12
     }
    ]
   },
   {
-   "at": "2026-10-29T09:00:24.010000+08:00",
+   "at": "2026-11-05T09:00:22.244000+08:00",
    "kind": "run",
    "key": "run:anchor-digest",
    "title": "anchor-digest",
@@ -638,79 +299,174 @@
    "href": "",
    "runs": [
     {
-     "t": "09:00:24",
+     "t": "09:00:22",
      "exit": 0,
      "dur": 0.056
     },
     {
-     "t": "21:00:23",
+     "t": "21:00:22",
      "exit": 0,
-     "dur": 0.048
+     "dur": 0.142
     }
    ]
   },
   {
-   "at": "2026-10-29T09:00:23.953000+08:00",
+   "at": "2026-11-05T09:00:22.196000+08:00",
    "kind": "run",
    "key": "run:pack-doctor",
    "title": "pack-doctor",
-   "detail": "×1 · exit 0 · 14.52s",
+   "detail": "×1 · exit 0 · 15.06s",
    "href": "",
    "runs": [
     {
-     "t": "09:00:23",
+     "t": "09:00:22",
      "exit": 0,
-     "dur": 14.522
+     "dur": 15.06
     }
    ]
   },
   {
-   "at": "2026-10-29T07:00:23.671000+08:00",
+   "at": "2026-11-05T08:59:22.312000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×6 · exit 0 · 0.09s",
+   "href": "",
+   "runs": [
+    {
+     "t": "08:59:22",
+     "exit": 0,
+     "dur": 0.088
+    },
+    {
+     "t": "04:58:22",
+     "exit": 0,
+     "dur": 0.129
+    },
+    {
+     "t": "00:57:22",
+     "exit": 0,
+     "dur": 0.067
+    },
+    {
+     "t": "20:56:22",
+     "exit": 0,
+     "dur": 0.071
+    },
+    {
+     "t": "16:55:22",
+     "exit": 0,
+     "dur": 0.152
+    }
+   ]
+  },
+  {
+   "at": "2026-11-05T08:00:22.238000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×6 · exit 0 · 0.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "08:00:22",
+     "exit": 0,
+     "dur": 0.043
+    },
+    {
+     "t": "04:00:22",
+     "exit": 0,
+     "dur": 0.068
+    },
+    {
+     "t": "00:00:22",
+     "exit": 0,
+     "dur": 0.027
+    },
+    {
+     "t": "20:00:22",
+     "exit": 0,
+     "dur": 0.102
+    },
+    {
+     "t": "16:00:22",
+     "exit": 0,
+     "dur": 0.024
+    }
+   ]
+  },
+  {
+   "at": "2026-11-05T07:00:22.097000+08:00",
    "kind": "run",
    "key": "run:integrity-audit",
    "title": "integrity-audit",
-   "detail": "×1 · exit 0 · 15.14s",
+   "detail": "×1 · exit 0 · 10.22s",
    "href": "",
    "runs": [
     {
-     "t": "07:00:23",
+     "t": "07:00:22",
      "exit": 0,
-     "dur": 15.144
+     "dur": 10.216
     }
    ]
   },
   {
-   "at": "2026-10-29T06:00:23.702000+08:00",
+   "at": "2026-11-05T06:00:22.127000+08:00",
    "kind": "run",
    "key": "run:field-index-rebuild",
    "title": "field-index-rebuild",
-   "detail": "×1 · exit 0 · 8.08s",
+   "detail": "×1 · exit 0 · 8.15s",
    "href": "",
    "runs": [
     {
-     "t": "06:00:23",
+     "t": "06:00:22",
      "exit": 0,
-     "dur": 8.077
+     "dur": 8.146
     }
    ]
   },
   {
-   "at": "2026-10-29T05:00:23.827000+08:00",
+   "at": "2026-11-05T06:00:22.090000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×3 · exit 0 · 0.03s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:22",
+     "exit": 0,
+     "dur": 0.033
+    },
+    {
+     "t": "22:00:22",
+     "exit": 0,
+     "dur": 0.031
+    },
+    {
+     "t": "14:00:22",
+     "exit": 0,
+     "dur": 8.183
+    }
+   ]
+  },
+  {
+   "at": "2026-11-05T05:00:22.225000+08:00",
    "kind": "run",
    "key": "run:daily-trunk-summary",
    "title": "daily-trunk-summary",
-   "detail": "×1 · exit 0 · 0.10s",
+   "detail": "×1 · exit 0 · 0.86s",
    "href": "",
    "runs": [
     {
-     "t": "05:00:23",
+     "t": "05:00:22",
      "exit": 0,
-     "dur": 0.102
+     "dur": 0.856
     }
    ]
   },
   {
-   "at": "2026-10-29T04:23:24+08:00",
+   "at": "2026-11-05T04:22:23+08:00",
    "kind": "route",
    "key": "route:/calls/",
    "title": "CALLS — the decision queue",
@@ -718,1065 +474,275 @@
    "href": "/calls/"
   },
   {
-   "at": "2026-10-29T02:00:23.695000+08:00",
+   "at": "2026-11-05T02:00:22.085000+08:00",
    "kind": "run",
    "key": "run:media-curator-nightly",
    "title": "media-curator-nightly",
-   "detail": "×1 · exit 0 · 0.02s",
+   "detail": "×1 · exit 0 · 0.09s",
    "href": "",
    "runs": [
     {
-     "t": "02:00:23",
+     "t": "02:00:22",
      "exit": 0,
-     "dur": 0.016
+     "dur": 0.093
     }
    ]
   },
   {
-   "at": "2026-10-29T01:50:23.706000+08:00",
+   "at": "2026-11-05T01:50:22.099000+08:00",
    "kind": "run",
    "key": "run:evolution-eval-gate",
    "title": "evolution-eval-gate",
-   "detail": "×1 · exit 0 · 77.55s",
+   "detail": "×1 · exit 0 · 62.45s",
    "href": "",
    "runs": [
     {
-     "t": "01:50:23",
+     "t": "01:50:22",
      "exit": 0,
-     "dur": 77.55
+     "dur": 62.446
     }
    ]
   },
   {
-   "at": "2026-10-28T22:09:25+08:00",
-   "kind": "repo",
-   "key": "repo:theme:ONE",
-   "title": "ONE",
-   "detail": "last · ONE RETURN ECHO: route arrow follows the real walkable labyrinth",
-   "href": "",
-   "count": 3,
-   "commits": [
-    {
-     "t": "28 22:09",
-     "title": "ONE RETURN ECHO: route arrow follows the real walkable labyrinth",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c174a56728b606dbec1e2ef2c5404a96544a6168",
-     "sha": "c174a567"
-    },
-    {
-     "t": "28 22:03",
-     "title": "ONE RETURN: source-word wayfinding and self-authored echo in native ASCII POV",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/87bd9a1e52a0e498f0fb0006f0bdbadd8e88e93a",
-     "sha": "87bd9a1e"
-    },
-    {
-     "t": "28 21:02",
-     "title": "ONE RETURN POV: fix controls and unify LOOK → RSVP → native action → RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4fed907b290e1eb39b002ef69cba523c398b5b0f",
-     "sha": "4fed907b"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T21:54:08+08:00",
-   "kind": "repo",
-   "key": "repo:theme:SLEEPER",
-   "title": "SLEEPER",
-   "detail": "last · SLEEPER: one interdependent path and source-bound three-support reader",
-   "href": "",
-   "count": 8,
-   "commits": [
-    {
-     "t": "28 21:54",
-     "title": "SLEEPER: one interdependent path and source-bound three-support reader",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/27c8a4c45ae6826f8c1d91475b17b24587181f0e",
-     "sha": "27c8a4c4"
-    },
-    {
-     "t": "28 20:32",
-     "title": "SLEEPER: exact Bell cross-readings over Ladder and Threadwalk",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ab581d4dbb8e6b47b2700c826d7db67cfcd81ccf",
-     "sha": "ab581d4d"
-    },
-    {
-     "t": "28 20:12",
-     "title": "SLEEPER: preserve Bell and Threadwalk inside one reversible Ladder aperture",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/811a6a7789eeec9681e07a8f663569c572b06dc6",
-     "sha": "811a6a77"
-    },
-    {
-     "t": "28 19:30",
-     "title": "SLEEPER: preserve source-bound reading drafts and compare Bell continuations",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6a4af1982cc3ddc8b5a103c10c11b677a2214344",
-     "sha": "6a4af198"
-    },
-    {
-     "t": "28 18:49",
-     "title": "SLEEPER: source-bound Bell–LADDER distinction with falsifier",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f8369798fb53d0590d7f77395452fd6b98eeda4d",
-     "sha": "f8369798"
-    },
-    {
-     "t": "28 17:42",
-     "title": "SLEEPER: source-exact Gallery ↔ READFIELD interpretation ↔ RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/ac936a1a6856baf3b196ce502fa5999c03a6cce4",
-     "sha": "ac936a1a"
-    },
-    {
-     "t": "28 17:31",
-     "title": "SLEEPER: keep remote reading previews lawful; reveal MN117 support thread",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6fd203b55c675989794942e5b11dd480406efaaf",
-     "sha": "6fd203b5"
-    },
-    {
-     "t": "28 17:02",
-     "title": "SLEEPER: bridge Bell reading to cited Ladder factors without altering Threadwalk state",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2522e7863736c0f2314dfe1ce4240a2ef99ea86b",
-     "sha": "2522e786"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T21:48:19+08:00",
-   "kind": "repo",
-   "key": "repo:theme:INTERPHASE",
-   "title": "INTERPHASE",
-   "detail": "last · INTERPHASE: exact revision-bound source visitation",
-   "href": "",
-   "count": 7,
-   "commits": [
-    {
-     "t": "28 21:48",
-     "title": "INTERPHASE: exact revision-bound source visitation",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2e8650768cc7967cd813937224573f1897318d60",
-     "sha": "2e865076"
-    },
-    {
-     "t": "28 18:40",
-     "title": "INTERPHASE: cache-coherent delivery of native DOOR on both existing entries",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/25c6bc4d021acd0d358ae132524b57080eeef4b6",
-     "sha": "25c6bc4d"
-    },
-    {
-     "t": "28 18:09",
-     "title": "INTERPHASE: specify DOOR as a typed partial correspondence and measurable return law, not glyph ontology",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/285d1a6ff9c10c35b9bbdb3ece4023e8db46c4a0",
-     "sha": "285d1a6f"
-    },
-    {
-     "t": "28 18:04",
-     "title": "INTERPHASE: route-addressed DOOR preserves FIELD caller; show typed source provenance",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/af25a57cfccdb11cf5e56f4fc8e6014c8aab89f7",
-     "sha": "af25a57c"
-    },
-    {
-     "t": "28 18:04",
-     "title": "INTERPHASE: route-addressed DOOR preserves FIELD caller; show typed source provenance",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/441c0350c95a025e50cc656b895a2ec2f5de0587",
-     "sha": "441c0350"
-    },
-    {
-     "t": "28 18:03",
-     "title": "INTERPHASE: source glyphs as exact reversible native controls",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0602c434c4afe1078e97defbe26a48c201b0565e",
-     "sha": "0602c434"
-    },
-    {
-     "t": "28 17:51",
-     "title": "INTERPHASE: source-true DOOR across existing works, exact RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5ee9ca1eca605ac7b46c7b8414c66bc181349184",
-     "sha": "5ee9ca1e"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T21:45:26+08:00",
-   "kind": "route",
-   "key": "route:/keel/",
-   "title": "THE KEEL — collected reports & finds",
-   "detail": "/keel/ · ACTIVE",
-   "href": "/keel/"
-  },
-  {
-   "at": "2026-10-28T21:45:26+08:00",
-   "kind": "route",
-   "key": "route:/field-index/",
-   "title": "FIELD INDEX — the memory field",
-   "detail": "/field-index/ · ACTIVE",
-   "href": "/field-index/"
-  },
-  {
-   "at": "2026-10-28T20:34:37+08:00",
-   "kind": "repo",
-   "key": "repo:theme:LADDER",
-   "title": "LADDER",
-   "detail": "last · LADDER: one source-addressed ASCII walk, AXIS focus and RSVP scrub",
-   "href": "",
-   "count": 1,
-   "commits": [
-    {
-     "t": "28 20:34",
-     "title": "LADDER: one source-addressed ASCII walk, AXIS focus and RSVP scrub",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3bdd883a89598aac4c19688c236185b9a6c2b797",
-     "sha": "3bdd883a"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T20:30:21+08:00",
-   "kind": "repo",
-   "key": "repo:theme:RSVP",
-   "title": "RSVP",
-   "detail": "last · RSVP: native aperture through explicit Dayline work and exact RETURN",
-   "href": "",
-   "count": 3,
-   "commits": [
-    {
-     "t": "28 20:30",
-     "title": "RSVP: native aperture through explicit Dayline work and exact RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/827db3c9ae99ac21d33aa5bdec992503f9ef2dec",
-     "sha": "827db3c9"
-    },
-    {
-     "t": "28 19:54",
-     "title": "RSVP / READFIELD: exact source bearings, mark/annotation inverse and revision-bound resume",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/94162448762aaef2d14c28ec47f42b88a0f8ad9d",
-     "sha": "94162448"
-    },
-    {
-     "t": "28 18:57",
-     "title": "RSVP / WRIST: exact full text and native LISTEN energy ring",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f8f99afaf79670703c2f48bc62d80187f9768292",
-     "sha": "f8f99afa"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T19:43:21+08:00",
-   "kind": "repo",
-   "key": "repo:theme:FIELD",
-   "title": "FIELD",
-   "detail": "last · FIELD: source-backed held cue and reduced projection clutter",
-   "href": "",
-   "count": 8,
-   "commits": [
-    {
-     "t": "28 19:43",
-     "title": "FIELD: source-backed held cue and reduced projection clutter",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/12f294e4b10569b41690c30d7955e6e3d0c6e239",
-     "sha": "12f294e4"
-    },
-    {
-     "t": "28 18:33",
-     "title": "FIELD: DOOR belongs to any held route; typed source links, exact RETURN and CURRENT ⇄ ALL",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8890f013437c17f063a17cfc56394c8e8d27772a",
-     "sha": "8890f013"
-    },
-    {
-     "t": "28 18:25",
-     "title": "FIELD: distinguish canonical root from 11 ordinary CURRENT glyphs; all 218 routes remain addressable",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3e88e2605624eb35dc6bb9a3b8507ff93496f83a",
-     "sha": "3e88e260"
-    },
-    {
-     "t": "28 18:25",
-     "title": "FIELD: distinguish canonical root from 11 ordinary CURRENT glyphs; all 218 routes remain addressable",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/a55b1e68ff9a31fa70ddab1b4cca502d893ae944",
-     "sha": "a55b1e68"
-    },
-    {
-     "t": "28 18:23",
-     "title": "FIELD: optional all-address glyph scope within existing compact rail; curated CURRENT is no longer a hidden privilege",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/978aad56eb8ebf9021164ff4ffa692e03a49fe8b",
-     "sha": "978aad56"
-    },
-    {
-     "t": "28 18:09",
-     "title": "FIELD: DOOR alongside native OPEN; compact interface must not retire a lawful host action",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/395cb67b11aa28cab724291cc3a46b8b1355cf36",
-     "sha": "395cb67b"
-    },
-    {
-     "t": "28 18:03",
-     "title": "FIELD: visible exact DOOR for any held route; CURRENT glyphs are an alphabetical scope, not a ranked universe",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/56884fc893f2ddf920f599d947319fde38e97968",
-     "sha": "56884fc8"
-    },
-    {
-     "t": "28 17:44",
-     "title": "FIELD: native tower binding and exact source-backed aperture",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/72fdcbd195506b3043510e5453bc3c04d617d0e6",
-     "sha": "72fdcbd1"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T18:45:23.815000+08:00",
+   "at": "2026-11-04T18:45:22.168000+08:00",
    "kind": "run",
    "key": "run:day-digest",
    "title": "day-digest",
-   "detail": "×1 · exit 0 · 0.77s",
+   "detail": "×1 · exit 0 · 1.26s",
    "href": "",
    "runs": [
     {
-     "t": "18:45:23",
+     "t": "18:45:22",
      "exit": 0,
-     "dur": 0.769
+     "dur": 1.265
     }
    ]
   },
   {
-   "at": "2026-10-28T18:35:57+08:00",
-   "kind": "repo",
-   "key": "repo:theme:DOOR",
-   "title": "DOOR",
-   "detail": "last · DOOR: couple existing FIELD WORK and INTERPHASE module tree to a fresh cache key",
-   "href": "",
-   "count": 18,
-   "commits": [
-    {
-     "t": "28 18:35",
-     "title": "DOOR: couple existing FIELD WORK and INTERPHASE module tree to a fresh cache key",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2c7c16aa1d96020648096eb28bb440bdd16d0268",
-     "sha": "2c7c16aa"
-    },
-    {
-     "t": "28 18:35",
-     "title": "DOOR: couple existing FIELD WORK and INTERPHASE module tree to a fresh cache key",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/bd2b4278996b9958767a57170a0eec007c452bde",
-     "sha": "bd2b4278"
-    },
-    {
-     "t": "28 18:35",
-     "title": "DOOR: couple existing FIELD WORK and INTERPHASE module tree to a fresh cache key",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/800972b4994155efa2ed8b91533f399cea2482a4",
-     "sha": "800972b4"
-    },
-    {
-     "t": "28 18:17",
-     "title": "DOOR: reconcile current glyph-native INTERPHASE with exact FIELD route entry and verified return",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3bc189ec8f6469314bf8438b0687c6bd34bb08a1",
-     "sha": "3bc189ec"
-    },
-    {
-     "t": "28 18:14",
-     "title": "DOOR: cache-couple root lens→URLbar command and compact CSS delivery",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/14cd5150148009052bd4b997bb29852eb8e58e18",
-     "sha": "14cd5150"
-    },
-    {
-     "t": "28 18:13",
-     "title": "DOOR: cache-couple root lens→URLbar command and compact CSS delivery",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/dc9eb7dab20a735e12a068694d00575be86f6c1a",
-     "sha": "dc9eb7da"
-    },
-    {
-     "t": "28 18:13",
-     "title": "DOOR: cache-couple root lens→URLbar command and compact CSS delivery",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/60121b9042b1fc0d22f083029d400a52fd6185db",
-     "sha": "60121b90"
-    },
-    {
-     "t": "28 18:11",
-     "title": "DOOR: typed caller frame cannot pretend non-manifest text owns a FIELD route",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e7584a21743b00cc1ec452317c4c04523c66e80a",
-     "sha": "e7584a21"
-    },
-    {
-     "t": "28 18:11",
-     "title": "DOOR: exact RETURN restores native manifest route identity only after validating route/span/hash",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3fc3c64941451be35c0de69952c7a4bffbb2fd29",
-     "sha": "3fc3c649"
-    },
-    {
-     "t": "28 18:07",
-     "title": "DOOR: accept all declared manifest routes including .html/.svg without query or traversal",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/a071928866e547a4466ec6d0f95d4f6f1b626792",
-     "sha": "a0719288"
-    },
-    {
-     "t": "28 18:04",
-     "title": "DOOR: typed links from existing JSON route records and authored text citations, no inferred graph",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/0643d45acd7076a244bff416a43fb2d0e71ba56e",
-     "sha": "0643d45a"
-    },
-    {
-     "t": "28 18:04",
-     "title": "DOOR: one native bar command and compact held-object action, no new shell",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/2292cb921ffdc1e272c921c85d1bb369b4c85510",
-     "sha": "2292cb92"
-    },
-    {
-     "t": "28 18:04",
-     "title": "DOOR: one native bar command and compact held-object action, no new shell",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/938fa0b8e8f6cf05d2c4094369d0b9135d382098",
-     "sha": "938fa0b8"
-    },
-    {
-     "t": "28 18:03",
-     "title": "DOOR: one native bar command and compact held-object action, no new shell",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/d5a3282cbcb15923f6ea388eaa6b22128194efb6",
-     "sha": "d5a3282c"
-    },
-    {
-     "t": "28 18:03",
-     "title": "DOOR: canonical exact route-to-source handoff, no inferred priority",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f52a97d15bbe5cf2603275d4a9302d5e3650f197",
-     "sha": "f52a97d1"
-    },
-    {
-     "t": "28 17:46",
-     "title": "DOOR: reuse explicit Markdown relative-source links as cited doors, no new registry",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6a00bd39ef54807cc12913d457a55a6d4aec63df",
-     "sha": "6a00bd39"
-    },
-    {
-     "t": "28 17:40",
-     "title": "DOOR: fail closed for empty/non-addressed endpoints",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6adca117c81cf27f5293df34f4442870c7dbf176",
-     "sha": "6adca117"
-    },
-    {
-     "t": "28 17:39",
-     "title": "DOOR: rebase onto current INTERPHASE, preserve annotations, carry source-true relation and RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/cd8636760a523033aa2b9ecffe26a4b5a1d77ec9",
-     "sha": "cd863676"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T18:11:57+08:00",
-   "kind": "repo",
-   "key": "repo:theme:CI",
-   "title": "CI",
-   "detail": "last · CI: DOOR root, bar, source and browser smoke changes all trigger the same history …",
-   "href": "",
-   "count": 4,
-   "commits": [
-    {
-     "t": "28 18:11",
-     "title": "CI: DOOR root, bar, source and browser smoke changes all trigger the same history gate",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/dec75d60c70fb86db25268c6accb644aec561893",
-     "sha": "dec75d60"
-    },
-    {
-     "t": "28 18:06",
-     "title": "CI: browser gate root 320/390 FIELD DOOR → source evidence → exact caller return",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/482234b55f69e5e222be5769d4c4eed415443068",
-     "sha": "482234b5"
-    },
-    {
-     "t": "28 17:45",
-     "title": "CI: fail fast on exact DOOR before long native regression suite",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7f5535b79b94d0ca3703559768fb6f8b5e5750bd",
-     "sha": "7f5535b7"
-    },
-    {
-     "t": "28 17:40",
-     "title": "CI: test cross-host source identity independently of browser UI",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4e6a6335df1692cc4eb2d75a0816dff53759154e",
-     "sha": "4e6a6335"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T17:35:00+08:00",
-   "kind": "route",
-   "key": "route:/control/confluence/",
-   "title": "CONFLUENCE",
-   "detail": "/control/confluence/ · ACTIVE",
-   "href": "/control/confluence/"
-  },
-  {
-   "at": "2026-10-29T16:35:28+08:00",
+   "at": "2026-11-05T11:20:27+08:00",
    "kind": "repo",
    "key": "repo:machine",
    "title": "machine refresh",
-   "detail": "×122 · last comms: refresh machine-room page (2026-10-29T08:35Z)",
+   "detail": "×73 · last comms: refresh machine-room page (2026-11-05T03:20Z)",
    "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 122,
+   "count": 73,
    "machine": true
   }
  ],
  "earlier": [
   {
-   "at": "2026-10-28T16:44:23.930000+08:00",
+   "at": "2026-11-04T11:22:22.295000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×961 · exit 0 · 0.06s",
+   "detail": "×961 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
-     "t": "16:44:23",
+     "t": "11:22:22",
      "exit": 0,
-     "dur": 0.064
+     "dur": 0.052
     },
     {
-     "t": "16:41:23",
-     "exit": 0,
-     "dur": 0.075
-    },
-    {
-     "t": "16:38:23",
-     "exit": 0,
-     "dur": 0.056
-    },
-    {
-     "t": "16:35:23",
-     "exit": 0,
-     "dur": 0.055
-    },
-    {
-     "t": "16:32:23",
-     "exit": 0,
-     "dur": 0.06
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:18:31.629000+08:00",
-   "kind": "run",
-   "key": "run:comms-page",
-   "title": "comms-page",
-   "detail": "×92 · exit 0 · 4.73s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:18:31",
-     "exit": 0,
-     "dur": 4.729
-    },
-    {
-     "t": "15:47:30",
-     "exit": 0,
-     "dur": 4.109
-    },
-    {
-     "t": "15:16:30",
-     "exit": 0,
-     "dur": 5.908
-    },
-    {
-     "t": "14:45:30",
-     "exit": 0,
-     "dur": 5.415
-    },
-    {
-     "t": "14:14:31",
-     "exit": 0,
-     "dur": 4.418
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:18:23.825000+08:00",
-   "kind": "run",
-   "key": "run:surfaces-push",
-   "title": "surfaces-push",
-   "detail": "×92 · exit 0 · 16.84s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:18:23",
-     "exit": 0,
-     "dur": 16.84
-    },
-    {
-     "t": "15:47:23",
-     "exit": 0,
-     "dur": 14.484
-    },
-    {
-     "t": "15:16:23",
-     "exit": 0,
-     "dur": 16.831
-    },
-    {
-     "t": "14:45:23",
-     "exit": 0,
-     "dur": 15.366
-    },
-    {
-     "t": "14:14:23",
-     "exit": 0,
-     "dur": 12.44
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:14:23.779000+08:00",
-   "kind": "run",
-   "key": "run:state-sync",
-   "title": "state-sync",
-   "detail": "×92 · exit 0 · 0.21s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:14:23",
-     "exit": 0,
-     "dur": 0.214
-    },
-    {
-     "t": "15:43:23",
-     "exit": 0,
-     "dur": 0.181
-    },
-    {
-     "t": "15:12:23",
-     "exit": 0,
-     "dur": 0.177
-    },
-    {
-     "t": "14:41:23",
-     "exit": 0,
-     "dur": 0.183
-    },
-    {
-     "t": "14:10:23",
-     "exit": 0,
-     "dur": 0.174
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:14:23.698000+08:00",
-   "kind": "run",
-   "key": "run:loops-tick",
-   "title": "loops-tick",
-   "detail": "×92 · exit 0 · 12.29s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:14:23",
-     "exit": 0,
-     "dur": 12.288
-    },
-    {
-     "t": "15:43:23",
-     "exit": 0,
-     "dur": 5.886
-    },
-    {
-     "t": "15:12:23",
-     "exit": 0,
-     "dur": 5.152
-    },
-    {
-     "t": "14:41:23",
-     "exit": 0,
-     "dur": 4.178
-    },
-    {
-     "t": "14:10:23",
-     "exit": 0,
-     "dur": 4.559
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:13:23.905000+08:00",
-   "kind": "run",
-   "key": "run:convergence-loop",
-   "title": "convergence-loop",
-   "detail": "×12 · exit 0 · 0.17s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:13:23",
-     "exit": 0,
-     "dur": 0.172
-    },
-    {
-     "t": "12:12:23",
-     "exit": 0,
-     "dur": 0.073
-    },
-    {
-     "t": "08:11:23",
-     "exit": 0,
-     "dur": 0.074
-    },
-    {
-     "t": "04:10:24",
-     "exit": 0,
-     "dur": 0.071
-    },
-    {
-     "t": "00:09:24",
-     "exit": 0,
-     "dur": 0.071
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:03:31+08:00",
-   "kind": "repo",
-   "key": "repo:theme:INTERPHASE",
-   "title": "INTERPHASE",
-   "detail": "last · INTERPHASE: exact source → GLYPHFIELD → RETURN (#1031)",
-   "href": "",
-   "count": 5,
-   "commits": [
-    {
-     "t": "28 16:03",
-     "title": "INTERPHASE: exact source → GLYPHFIELD → RETURN (#1031)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b954bba4351c8091aa13dc9e140d27660c54f4f0",
-     "sha": "b954bba4"
-    },
-    {
-     "t": "28 15:59",
-     "title": "INTERPHASE: expose explicit glyph-to-exact-source RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/29ebb4945df18fb28e690368411b015495016fda",
-     "sha": "29ebb494"
-    },
-    {
-     "t": "28 15:57",
-     "title": "INTERPHASE: reconcile exact glyph handoff onto current master; drop unrelated browser/CSS drift",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/3f52ad4934eba3ca2d66d9faa6a3ff84177b5206",
-     "sha": "3f52ad49"
-    },
-    {
-     "t": "28 15:23",
-     "title": "INTERPHASE: signal workbench readiness after projection registration",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5ecd4cdcd294cdd1a68ecab36a3d0a10624db32e",
-     "sha": "5ecd4cdc"
-    },
-    {
-     "t": "28 15:15",
-     "title": "INTERPHASE: preserve exact held route through GLYPHFIELD handoff",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/42e4db68f39938bf1f9cac88377d6c7703f17099",
-     "sha": "42e4db68"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:00:24.022000+08:00",
-   "kind": "run",
-   "key": "run:fi-contract-stamp",
-   "title": "fi-contract-stamp",
-   "detail": "×48 · exit 0 · 18.32s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:00:24",
-     "exit": 0,
-     "dur": 18.318
-    },
-    {
-     "t": "15:00:23",
-     "exit": 0,
-     "dur": 17.918
-    },
-    {
-     "t": "14:00:23",
-     "exit": 0,
-     "dur": 17.446
-    },
-    {
-     "t": "13:00:23",
-     "exit": 0,
-     "dur": 18.489
-    },
-    {
-     "t": "12:00:24",
-     "exit": 0,
-     "dur": 17.512
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:00:23.851000+08:00",
-   "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×12 · exit 0 · 0.08s",
-   "href": "",
-   "runs": [
-    {
-     "t": "16:00:23",
-     "exit": 0,
-     "dur": 0.082
-    },
-    {
-     "t": "12:00:23",
+     "t": "11:19:22",
      "exit": 0,
      "dur": 0.053
     },
     {
-     "t": "08:00:24",
+     "t": "11:16:22",
      "exit": 0,
-     "dur": 0.043
+     "dur": 0.053
     },
     {
-     "t": "04:00:23",
+     "t": "11:13:22",
      "exit": 0,
-     "dur": 0.041
+     "dur": 0.055
     },
     {
-     "t": "00:00:23",
+     "t": "11:10:22",
      "exit": 0,
-     "dur": 0.044
+     "dur": 0.052
     }
    ]
   },
   {
-   "at": "2026-10-28T15:59:36+08:00",
-   "kind": "repo",
-   "key": "repo:theme:repo · other",
-   "title": "repo · other",
-   "detail": "last · test: enact GLYPHFIELD RETURN through actual UI control",
-   "href": "",
-   "count": 25,
-   "commits": [
-    {
-     "t": "28 15:59",
-     "title": "test: enact GLYPHFIELD RETURN through actual UI control",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/70f806aec5104694797edbcb09c7a2672b39fae4",
-     "sha": "70f806ae"
-    },
-    {
-     "t": "28 15:45",
-     "title": "Reconcile current FIELD ring-to-source circuit with INTERPHASE glyph bridge",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8949670b48e522651a43cd9fac0a3e7904e3a8a8",
-     "sha": "8949670b"
-    },
-    {
-     "t": "28 15:45",
-     "title": "Reconcile current ring-to-source release tests with GLYPHFIELD return proof",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/d6139ae661475782647491ec3dd984191424b711",
-     "sha": "d6139ae6"
-    },
-    {
-     "t": "28 15:44",
-     "title": "Reconcile native ring-to-source circuit with exact GLYPHFIELD handoff",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/30ed9b825453b23db5be4947cc0ff88053b699fb",
-     "sha": "30ed9b82"
-    },
-    {
-     "t": "28 15:43",
-     "title": "test: respect public CI slow-run budget in source spine smoke",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e714f62ccd816f88042acf4e4ce008c53c81a60c",
-     "sha": "e714f62c"
-    },
-    {
-     "t": "28 15:40",
-     "title": "test: honor public suite SMOKE_SLOW budget in LIVE READ-RIDE runner",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/6ffa79c63617735dc4fdcbe16eec2c8ac041f54b",
-     "sha": "6ffa79c6"
-    },
-    {
-     "t": "28 15:35",
-     "title": "test: record all visible direct MAIN children before 320px glyph regression",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/089299225828e8fcbe6ee968e6d6305385dfbcee",
-     "sha": "08929922"
-    },
-    {
-     "t": "28 15:30",
-     "title": "test: expose exact 320px FIELD vertical geometry when visibility gate fails",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/9800d8f877e92e1d0f41af122b5de13178fd6dc3",
-     "sha": "9800d8f8"
-    },
-    {
-     "t": "28 15:26",
-     "title": "test: explicit OTHER stays residue while lawful glyph coordinates render",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/df85039d4a363d065ba8b54be0d65b2d6e954641",
-     "sha": "df85039d"
-    },
-    {
-     "t": "28 15:26",
-     "title": "fix: render lawful fold classes while keeping OTHER visibly unplaced",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/c44c38642a2f5df2b44a8c138aefa1682ddebecc",
-     "sha": "c44c3864"
-    },
-    {
-     "t": "28 15:24",
-     "title": "test: bound glyph re-entry wait with source/host diagnostics",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/98146f617d4bc49255016b873783c11cdf09493c",
-     "sha": "98146f61"
-    },
-    {
-     "t": "28 15:23",
-     "title": "fix: event-driven exact GLYPHFIELD re-entry, remove 600ms race",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5e8e745f4cd34da83ad341678e2cb9ddade0a79f",
-     "sha": "5e8e745f"
-    },
-    {
-     "t": "28 15:19",
-     "title": "fix: expose exact-route GLYPHFIELD alongside visible reader actions",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/45312bc74d25b84a11c003ef6d5105943864f08b",
-     "sha": "45312bc7"
-    },
-    {
-     "t": "28 15:18",
-     "title": "Merge current master into INTERPHASE glyph handoff proof",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/4c6e5eeeaf8b07bcda0bfa59554aa278a6691a21",
-     "sha": "4c6e5eee"
-    },
-    {
-     "t": "28 15:18",
-     "title": "fix: propagate fail-closed glyph command result to caller",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b4d62774a8116f9c4c39d847981acaca0c038806",
-     "sha": "b4d62774"
-    },
-    {
-     "t": "28 15:16",
-     "title": "test: exact GLYPHFIELD route handoff, cursor RETURN, and local refusal",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/48500dafd160ee1a125660c5027c113ef0de5e10",
-     "sha": "48500daf"
-    },
-    {
-     "t": "27 19:47",
-     "title": "ladder 0.6.2: the verdict is drawn at full strength after release",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/96b074588aca445b3cbfffa4535cd11b3654d9a3",
-     "sha": "96b07458"
-    },
-    {
-     "t": "27 19:42",
-     "title": "ladder 0.6.1: make the ride visible before it is played — rail, first-run line, release mark",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/def0a2b08466a1cab62a3ee59478c3c7682f67a1",
-     "sha": "def0a2b0"
-    },
-    {
-     "t": "27 18:43",
-     "title": "ladder 0.6.0: the wave — a held line rides at its own pace, release at the last arch",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e4478396a9295945fc96ef09f7c446903b8037c1",
-     "sha": "e4478396"
-    },
-    {
-     "t": "27 15:34",
-     "title": "sleeper/ladder 0.5.0 — correct the selftest breakdown and the gate-district note",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e960e7d6a105294e702e4629204dbd510badaa37",
-     "sha": "e960e7d6"
-    },
-    {
-     "t": "27 15:18",
-     "title": "field index: register SLEEPER // LADDER 0.5.0 (IMPLEMENT, VERIFY)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/a3499cece9e553787127b2c8495772141a6da46b",
-     "sha": "a3499cec"
-    },
-    {
-     "t": "27 15:18",
-     "title": "sleeper/ladder 0.5.0 — the eight gates become the eight path factors, and the walk costs breath",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/08f4bb6477b4699324873147901425ca943acf4d",
-     "sha": "08f4bb64"
-    },
-    {
-     "t": "27 14:22",
-     "title": "ladder 0.4.0: the note survives its own corner hold (a release is not a dismiss)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/7efa7ffe7f1a54cf157c99a46a7521bdeb3516a3",
-     "sha": "7efa7ffe"
-    },
-    {
-     "t": "27 14:20",
-     "title": "ladder 0.4.0 — the first walk: the boundary drawn, the eye, the reading head, the note (P1 P3 P5 P8)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/266e08ebaaa3f1459f9fbcdd01ad4a4d74644d36",
-     "sha": "266e08eb"
-    },
-    {
-     "t": "26 19:01",
-     "title": "ladder 0.3.0 — the doctrine-mechanic slice: one gate enacted, weather carried",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/25fca58ad294e56c84576e92cf69aefa007d5bc9",
-     "sha": "25fca58a"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T15:53:00+08:00",
-   "kind": "call",
-   "key": "call:money-topup:2026-10-28T15:53:00+08:00",
-   "title": "money-topup → A · Top up Nous",
-   "detail": "answered",
-   "href": "/calls/#money-topup"
-  },
-  {
-   "at": "2026-10-28T15:40:38+08:00",
-   "kind": "repo",
-   "key": "repo:theme:FIELD",
-   "title": "FIELD",
-   "detail": "last · FIELD / INTERPHASE: ring-to-source circuit with exact authored RETURN",
-   "href": "",
-   "count": 3,
-   "commits": [
-    {
-     "t": "28 15:40",
-     "title": "FIELD / INTERPHASE: ring-to-source circuit with exact authored RETURN",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/492882cbc74e71044de7b8ddd4d1df382f3bbad5",
-     "sha": "492882cb"
-    },
-    {
-     "t": "28 15:37",
-     "title": "FIELD: remove 449px TOWER flow obstruction only from compact BROWSE",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fda94b3c3393fd2a39cb438f22351430fa8ae9c0",
-     "sha": "fda94b3c"
-    },
-    {
-     "t": "28 15:33",
-     "title": "FIELD: collapse dormant instrument host so 320px glyph field fits one screen",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/e422774b80e67f42d6594ccc93ed1641d79c6619",
-     "sha": "e422774b"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T15:01:49+08:00",
-   "kind": "repo",
-   "key": "repo:theme:SLEEPER",
-   "title": "SLEEPER",
-   "detail": "last · SLEEPER: source-first five-question reading over existing LADDER/THREADWALK",
-   "href": "",
-   "count": 2,
-   "commits": [
-    {
-     "t": "28 15:01",
-     "title": "SLEEPER: source-first five-question reading over existing LADDER/THREADWALK",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/27a0f4ff631ce639e94f09994ab1931e56107f46",
-     "sha": "27a0f4ff"
-    },
-    {
-     "t": "28 14:57",
-     "title": "SLEEPER: source-exact Ladder ↔ Threadwalk reading aperture",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/bc62f56e11ed88fae100ce1c9cd517a244f7dff6",
-     "sha": "bc62f56e"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T14:00:23.826000+08:00",
+   "at": "2026-11-04T11:03:25.572000+08:00",
    "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×6 · exit 0 · 5.34s",
+   "key": "run:comms-page",
+   "title": "comms-page",
+   "detail": "×93 · exit 0 · 4.03s",
    "href": "",
    "runs": [
     {
-     "t": "14:00:23",
+     "t": "11:03:25",
      "exit": 0,
-     "dur": 5.336
+     "dur": 4.03
     },
     {
-     "t": "06:00:23",
+     "t": "10:32:29",
      "exit": 0,
-     "dur": 0.032
+     "dur": 3.972
     },
     {
-     "t": "22:00:23",
+     "t": "10:01:28",
      "exit": 0,
-     "dur": 0.032
+     "dur": 4.504
     },
     {
-     "t": "14:00:24",
+     "t": "09:30:28",
      "exit": 0,
-     "dur": 6.756
+     "dur": 3.727
     },
     {
-     "t": "06:00:24",
+     "t": "08:59:28",
      "exit": 0,
-     "dur": 0.031
+     "dur": 3.957
     }
    ]
   },
   {
-   "at": "2026-10-28T10:30:23.880000+08:00",
+   "at": "2026-11-04T11:03:22.345000+08:00",
+   "kind": "run",
+   "key": "run:surfaces-push",
+   "title": "surfaces-push",
+   "detail": "×93 · exit 0 · 8.15s",
+   "href": "",
+   "runs": [
+    {
+     "t": "11:03:22",
+     "exit": 0,
+     "dur": 8.155
+    },
+    {
+     "t": "10:32:22",
+     "exit": 0,
+     "dur": 11.504
+    },
+    {
+     "t": "10:01:22",
+     "exit": 0,
+     "dur": 12.026
+    },
+    {
+     "t": "09:30:22",
+     "exit": 0,
+     "dur": 10.622
+    },
+    {
+     "t": "08:59:22",
+     "exit": 0,
+     "dur": 11.014
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T11:00:22.417000+08:00",
+   "kind": "run",
+   "key": "run:fi-contract-stamp",
+   "title": "fi-contract-stamp",
+   "detail": "×48 · exit 0 · 22.70s",
+   "href": "",
+   "runs": [
+    {
+     "t": "11:00:22",
+     "exit": 0,
+     "dur": 22.702
+    },
+    {
+     "t": "10:00:22",
+     "exit": 0,
+     "dur": 22.07
+    },
+    {
+     "t": "09:00:22",
+     "exit": 0,
+     "dur": 23.552
+    },
+    {
+     "t": "08:00:22",
+     "exit": 0,
+     "dur": 23.024
+    },
+    {
+     "t": "07:00:22",
+     "exit": 0,
+     "dur": 26.105
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T10:59:22.393000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×93 · 16 fails · last exit 1 · 0.18s",
+   "href": "",
+   "fails": 16,
+   "runs": [
+    {
+     "t": "10:59:22",
+     "exit": 1,
+     "dur": 0.181
+    },
+    {
+     "t": "10:28:22",
+     "exit": 1,
+     "dur": 0.176
+    },
+    {
+     "t": "09:57:22",
+     "exit": 1,
+     "dur": 0.173
+    },
+    {
+     "t": "09:26:22",
+     "exit": 1,
+     "dur": 0.175
+    },
+    {
+     "t": "08:55:22",
+     "exit": 1,
+     "dur": 0.175
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T10:59:22.289000+08:00",
+   "kind": "run",
+   "key": "run:loops-tick",
+   "title": "loops-tick",
+   "detail": "×93 · exit 0 · 5.36s",
+   "href": "",
+   "runs": [
+    {
+     "t": "10:59:22",
+     "exit": 0,
+     "dur": 5.361
+    },
+    {
+     "t": "10:28:22",
+     "exit": 0,
+     "dur": 5.024
+    },
+    {
+     "t": "09:57:22",
+     "exit": 0,
+     "dur": 4.369
+    },
+    {
+     "t": "09:26:22",
+     "exit": 0,
+     "dur": 4.325
+    },
+    {
+     "t": "08:55:22",
+     "exit": 0,
+     "dur": 4.55
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T10:30:22.351000+08:00",
    "kind": "run",
    "key": "run:calls-say",
    "title": "calls-say",
@@ -1784,39 +750,39 @@
    "href": "",
    "runs": [
     {
-     "t": "10:30:23",
+     "t": "10:30:22",
      "exit": 0,
      "dur": 0.062
     },
     {
-     "t": "10:30:24",
+     "t": "10:30:22",
      "exit": 0,
      "dur": 0.062
     }
    ]
   },
   {
-   "at": "2026-10-28T09:20:23.861000+08:00",
+   "at": "2026-11-04T09:20:22.395000+08:00",
    "kind": "run",
    "key": "run:signal",
    "title": "signal",
-   "detail": "×2 · exit 0 · 1.69s",
+   "detail": "×2 · exit 0 · 1.36s",
    "href": "",
    "runs": [
     {
-     "t": "09:20:23",
+     "t": "09:20:22",
      "exit": 0,
-     "dur": 1.688
+     "dur": 1.361
     },
     {
-     "t": "09:20:24",
+     "t": "09:20:22",
      "exit": 0,
-     "dur": 1.484
+     "dur": 1.091
     }
    ]
   },
   {
-   "at": "2026-10-28T09:00:24.243000+08:00",
+   "at": "2026-11-04T09:00:22.460000+08:00",
    "kind": "run",
    "key": "run:anchor-digest",
    "title": "anchor-digest",
@@ -1824,242 +790,290 @@
    "href": "",
    "runs": [
     {
-     "t": "09:00:24",
+     "t": "09:00:22",
      "exit": 0,
-     "dur": 0.063
+     "dur": 0.059
     },
     {
-     "t": "21:00:24",
+     "t": "21:00:22",
+     "exit": 0,
+     "dur": 0.05
+    },
+    {
+     "t": "09:00:22",
+     "exit": 0,
+     "dur": 0.055
+    },
+    {
+     "t": "21:00:22",
      "exit": 0,
      "dur": 0.048
-    },
-    {
-     "t": "09:00:24",
-     "exit": 0,
-     "dur": 0.054
-    },
-    {
-     "t": "21:00:24",
-     "exit": 0,
-     "dur": 0.053
     }
    ]
   },
   {
-   "at": "2026-10-28T09:00:24.131000+08:00",
+   "at": "2026-11-04T09:00:22.408000+08:00",
    "kind": "run",
    "key": "run:pack-doctor",
    "title": "pack-doctor",
-   "detail": "×2 · exit 0 · 13.28s",
+   "detail": "×2 · exit 0 · 12.78s",
    "href": "",
    "runs": [
     {
-     "t": "09:00:24",
+     "t": "09:00:22",
      "exit": 0,
-     "dur": 13.283
+     "dur": 12.784
     },
     {
-     "t": "09:00:24",
+     "t": "09:00:22",
      "exit": 0,
-     "dur": 12.988
+     "dur": 11.053
     }
    ]
   },
   {
-   "at": "2026-10-28T08:40:23.944000+08:00",
+   "at": "2026-11-04T08:53:22.284000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×11 · exit 0 · 0.08s",
+   "href": "",
+   "runs": [
+    {
+     "t": "08:53:22",
+     "exit": 0,
+     "dur": 0.076
+    },
+    {
+     "t": "00:51:22",
+     "exit": 0,
+     "dur": 0.066
+    },
+    {
+     "t": "20:50:22",
+     "exit": 0,
+     "dur": 0.075
+    },
+    {
+     "t": "16:49:22",
+     "exit": 0,
+     "dur": 0.114
+    },
+    {
+     "t": "12:48:22",
+     "exit": 0,
+     "dur": 0.071
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T08:40:22.322000+08:00",
    "kind": "run",
    "key": "run:discovery-radar",
    "title": "discovery-radar",
-   "detail": "×1 · exit 0 · 0.04s",
+   "detail": "×1 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
-     "t": "08:40:23",
+     "t": "08:40:22",
      "exit": 0,
-     "dur": 0.045
+     "dur": 0.047
     }
    ]
   },
   {
-   "at": "2026-10-28T06:00:23.795000+08:00",
+   "at": "2026-11-04T08:00:22.488000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×12 · exit 0 · 0.02s",
+   "href": "",
+   "runs": [
+    {
+     "t": "08:00:22",
+     "exit": 0,
+     "dur": 0.022
+    },
+    {
+     "t": "04:00:22",
+     "exit": 0,
+     "dur": 0.088
+    },
+    {
+     "t": "00:00:22",
+     "exit": 0,
+     "dur": 0.051
+    },
+    {
+     "t": "20:00:22",
+     "exit": 0,
+     "dur": 0.025
+    },
+    {
+     "t": "16:00:22",
+     "exit": 0,
+     "dur": 0.02
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T06:00:22.378000+08:00",
    "kind": "run",
    "key": "run:field-index-rebuild",
    "title": "field-index-rebuild",
-   "detail": "×2 · exit 0 · 1.83s",
+   "detail": "×2 · exit 0 · 9.09s",
    "href": "",
    "runs": [
     {
-     "t": "06:00:23",
+     "t": "06:00:22",
      "exit": 0,
-     "dur": 1.835
+     "dur": 9.088
     },
     {
-     "t": "06:00:24",
+     "t": "06:00:22",
      "exit": 0,
-     "dur": 1.785
+     "dur": 2.147
     }
    ]
   },
   {
-   "at": "2026-10-28T05:00:24.090000+08:00",
+   "at": "2026-11-04T06:00:22.343000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×6 · exit 0 · 0.03s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:22",
+     "exit": 0,
+     "dur": 0.032
+    },
+    {
+     "t": "22:00:22",
+     "exit": 0,
+     "dur": 5.451
+    },
+    {
+     "t": "14:00:22",
+     "exit": 0,
+     "dur": 47.31
+    },
+    {
+     "t": "06:00:22",
+     "exit": 0,
+     "dur": 0.033
+    },
+    {
+     "t": "22:00:22",
+     "exit": 0,
+     "dur": 0.034
+    }
+   ]
+  },
+  {
+   "at": "2026-11-04T05:00:22.412000+08:00",
    "kind": "run",
    "key": "run:daily-trunk-summary",
    "title": "daily-trunk-summary",
-   "detail": "×2 · exit 0 · 0.10s",
+   "detail": "×2 · exit 0 · 0.67s",
    "href": "",
    "runs": [
     {
-     "t": "05:00:24",
+     "t": "05:00:22",
      "exit": 0,
-     "dur": 0.095
+     "dur": 0.665
     },
     {
-     "t": "05:00:24",
+     "t": "05:00:22",
      "exit": 0,
-     "dur": 0.089
+     "dur": 0.695
     }
    ]
   },
   {
-   "at": "2026-10-28T02:00:23.813000+08:00",
+   "at": "2026-11-04T02:00:22.260000+08:00",
    "kind": "run",
    "key": "run:media-curator-nightly",
    "title": "media-curator-nightly",
-   "detail": "×2 · exit 0 · 0.01s",
+   "detail": "×2 · exit 0 · 0.02s",
    "href": "",
    "runs": [
     {
-     "t": "02:00:23",
-     "exit": 0,
-     "dur": 0.013
-    },
-    {
-     "t": "02:00:24",
+     "t": "02:00:22",
      "exit": 0,
      "dur": 0.016
+    },
+    {
+     "t": "02:00:22",
+     "exit": 0,
+     "dur": 0.011
     }
    ]
   },
   {
-   "at": "2026-10-28T01:50:23.844000+08:00",
+   "at": "2026-11-04T01:50:22.333000+08:00",
    "kind": "run",
    "key": "run:evolution-eval-gate",
    "title": "evolution-eval-gate",
-   "detail": "×2 · exit 0 · 70.79s",
+   "detail": "×2 · exit 0 · 63.96s",
    "href": "",
    "runs": [
     {
-     "t": "01:50:23",
+     "t": "01:50:22",
      "exit": 0,
-     "dur": 70.794
+     "dur": 63.962
     },
     {
-     "t": "01:50:24",
+     "t": "01:50:22",
      "exit": 0,
-     "dur": 71.839
+     "dur": 73.789
     }
    ]
   },
   {
-   "at": "2026-10-28T00:00:00+08:00",
-   "kind": "return",
-   "key": "return:SIX_FAMILY_PROJECT_MAP_2026-10-28.json",
-   "title": "SIX FAMILY PROJECT MAP 2026-10-28",
-   "detail": "confluence-return/v0.1",
-   "href": "/returns/"
-  },
-  {
-   "at": "2026-10-27T18:45:23.971000+08:00",
+   "at": "2026-11-03T18:45:22.488000+08:00",
    "kind": "run",
    "key": "run:day-digest",
    "title": "day-digest",
-   "detail": "×2 · exit 0 · 1.38s",
+   "detail": "×2 · exit 0 · 2.04s",
    "href": "",
    "runs": [
     {
-     "t": "18:45:23",
+     "t": "18:45:22",
      "exit": 0,
-     "dur": 1.384
+     "dur": 2.043
     },
     {
-     "t": "18:45:24",
+     "t": "18:45:22",
      "exit": 0,
-     "dur": 1.566
+     "dur": 2.263
     }
    ]
   },
   {
-   "at": "2026-10-27T17:28:13+08:00",
-   "kind": "repo",
-   "key": "repo:theme:READFIELD",
-   "title": "READFIELD",
-   "detail": "last · READFIELD: compact reading, human interpretation and folded review (#1027)",
-   "href": "",
-   "count": 1,
-   "commits": [
-    {
-     "t": "27 17:28",
-     "title": "READFIELD: compact reading, human interpretation and folded review (#1027)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/b23c1cf652c330d8da38583d41f382287d43ca13",
-     "sha": "b23c1cf6"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-27T07:00:24.162000+08:00",
+   "at": "2026-11-03T07:00:22.624000+08:00",
    "kind": "run",
    "key": "run:integrity-audit",
    "title": "integrity-audit",
-   "detail": "×1 · exit 0 · 10.33s",
+   "detail": "×1 · exit 0 · 9.88s",
    "href": "",
    "runs": [
     {
-     "t": "07:00:24",
+     "t": "07:00:22",
      "exit": 0,
-     "dur": 10.327
+     "dur": 9.878
     }
    ]
   },
   {
-   "at": "2026-10-26T19:02:42+08:00",
-   "kind": "repo",
-   "key": "repo:theme:LANDING",
-   "title": "LANDING",
-   "detail": "last · LANDING: the strips are a tower now — the index is one object you can turn",
-   "href": "",
-   "count": 1,
-   "commits": [
-    {
-     "t": "26 19:02",
-     "title": "LANDING: the strips are a tower now — the index is one object you can turn",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/54ecb2a63cb4627e3cd1db093d9e87cac72baf8a",
-     "sha": "54ecb2a6"
-    }
-   ]
-  },
-  {
-   "at": "2026-10-26T17:31:23.451000+08:00",
-   "kind": "run",
-   "key": "run:sleeper-doctrine-slice",
-   "title": "sleeper-doctrine-slice",
-   "detail": "×1 · exit 0 · 5700.00s",
-   "href": "",
-   "runs": [
-    {
-     "t": "17:31:23",
-     "exit": 0,
-     "dur": 5700.0
-    }
-   ]
-  },
-  {
-   "at": "2026-10-28T16:18:37+08:00",
+   "at": "2026-11-04T11:03:26+08:00",
    "kind": "repo",
    "key": "repo:machine",
    "title": "machine refresh",
-   "detail": "×182 · last convergence: strip refresh (2026-10-28T08:18Z)",
+   "detail": "×142 · last comms: refresh machine-room page (2026-11-04T03:03Z)",
    "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 182,
+   "count": 142,
    "machine": true
   }
  ]
