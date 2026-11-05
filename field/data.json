@@ -1,12 +1,12 @@
 {
  "schema": "field-delta/v0.1",
- "generated_at": "2026-11-05T11:23:08+08:00",
+ "generated_at": "2026-11-05T11:24:50+08:00",
  "window_hours": 24,
  "source_window_hours": 72,
  "law": "measured rows only; machine clockwork collapses to one counted row; no priority, no ranking, no second store",
  "sources": {
   "repo": {
-   "rows": 222,
+   "rows": 225,
    "error": null
   },
   "route": {
@@ -29,14 +29,14 @@
   }
  },
  "counts": {
-  "repo": 80,
+  "repo": 83,
   "route": 1,
   "call": 0,
   "run": 19,
   "return": 0,
   "run_fail": 1,
-  "repo_field": 3,
-  "repo_machine": 77
+  "repo_field": 4,
+  "repo_machine": 79
  },
  "counts_earlier": {
   "repo": 142,
@@ -50,42 +50,18 @@
  },
  "now": [
   {
-   "at": "2026-11-05T11:23:04+08:00",
-   "kind": "repo",
-   "key": "repo:theme:repo · other",
-   "title": "repo · other",
-   "detail": "last · field: refresh change ledger (auto)",
-   "href": "",
-   "count": 3,
-   "commits": [
-    {
-     "t": "05 11:23",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/acf93735b6867373f748f025b7c97f7b9a2b9769",
-     "sha": "acf93735"
-    },
-    {
-     "t": "05 11:23",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5b171b04102592d271f2d8db556113d2ba230e77",
-     "sha": "5b171b04"
-    },
-    {
-     "t": "05 11:22",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8f0d5aaf517740e271cd044ce194fefb751d6f6a",
-     "sha": "8f0d5aaf"
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T11:21:22.074000+08:00",
+   "at": "2026-11-05T11:24:22.036000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×480 · exit 0 · 0.14s",
+   "detail": "×481 · exit 0 · 0.10s",
    "href": "",
    "runs": [
+    {
+     "t": "11:24:22",
+     "exit": 0,
+     "dur": 0.104
+    },
     {
      "t": "11:21:22",
      "exit": 0,
@@ -105,11 +81,41 @@
      "t": "11:12:22",
      "exit": 0,
      "dur": 0.052
+    }
+   ]
+  },
+  {
+   "at": "2026-11-05T11:23:08+08:00",
+   "kind": "repo",
+   "key": "repo:theme:repo · other",
+   "title": "repo · other",
+   "detail": "last · field: refresh change ledger (auto)",
+   "href": "",
+   "count": 4,
+   "commits": [
+    {
+     "t": "05 11:23",
+     "title": "field: refresh change ledger (auto)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f81ca667fdcafabe8da28351cb95bb7650b59a80",
+     "sha": "f81ca667"
     },
     {
-     "t": "11:09:21",
-     "exit": 0,
-     "dur": 0.052
+     "t": "05 11:23",
+     "title": "field: refresh change ledger (auto)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/acf93735b6867373f748f025b7c97f7b9a2b9769",
+     "sha": "acf93735"
+    },
+    {
+     "t": "05 11:23",
+     "title": "field: refresh change ledger (auto)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5b171b04102592d271f2d8db556113d2ba230e77",
+     "sha": "5b171b04"
+    },
+    {
+     "t": "05 11:22",
+     "title": "field: refresh change ledger (auto)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8f0d5aaf517740e271cd044ce194fefb751d6f6a",
+     "sha": "8f0d5aaf"
     }
    ]
   },
@@ -548,13 +554,13 @@
    ]
   },
   {
-   "at": "2026-11-05T11:23:04+08:00",
+   "at": "2026-11-05T11:23:22+08:00",
    "kind": "repo",
    "key": "repo:machine",
    "title": "machine refresh",
-   "detail": "×77 · last fi-mutation-contract: stamp /field/ (auto)",
+   "detail": "×79 · last desk: refresh public field data + root git chronology",
    "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 77,
+   "count": 79,
    "machine": true
   }
  ],
@@ -564,7 +570,7 @@
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×961 · exit 0 · 0.05s",
+   "detail": "×960 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
