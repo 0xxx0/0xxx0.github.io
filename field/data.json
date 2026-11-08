@@ -1,12 +1,12 @@
 {
  "schema": "field-delta/v0.1",
- "generated_at": "2026-11-05T11:24:50+08:00",
+ "generated_at": "2026-11-08T20:34:27+08:00",
  "window_hours": 24,
  "source_window_hours": 72,
  "law": "measured rows only; machine clockwork collapses to one counted row; no priority, no ranking, no second store",
  "sources": {
   "repo": {
-   "rows": 225,
+   "rows": 210,
    "error": null
   },
   "route": {
@@ -18,7 +18,7 @@
    "error": null
   },
   "run": {
-   "rows": 2150,
+   "rows": 2147,
    "error": null
   },
   "return": {
@@ -29,274 +29,348 @@
   }
  },
  "counts": {
-  "repo": 83,
+  "repo": 71,
   "route": 1,
+  "call": 0,
+  "run": 18,
+  "return": 0,
+  "run_fail": 0,
+  "repo_field": 0,
+  "repo_machine": 71
+ },
+ "counts_earlier": {
+  "repo": 139,
+  "route": 0,
   "call": 0,
   "run": 19,
   "return": 0,
   "run_fail": 1,
-  "repo_field": 4,
-  "repo_machine": 79
- },
- "counts_earlier": {
-  "repo": 142,
-  "route": 0,
-  "call": 0,
-  "run": 20,
-  "return": 0,
-  "run_fail": 1,
   "repo_field": 0,
-  "repo_machine": 142
+  "repo_machine": 139
  },
  "now": [
   {
-   "at": "2026-11-05T11:24:22.036000+08:00",
-   "kind": "run",
-   "key": "run:calltap",
-   "title": "calltap",
-   "detail": "×481 · exit 0 · 0.10s",
-   "href": "",
-   "runs": [
-    {
-     "t": "11:24:22",
-     "exit": 0,
-     "dur": 0.104
-    },
-    {
-     "t": "11:21:22",
-     "exit": 0,
-     "dur": 0.137
-    },
-    {
-     "t": "11:18:22",
-     "exit": 0,
-     "dur": 0.57
-    },
-    {
-     "t": "11:15:22",
-     "exit": 0,
-     "dur": 0.052
-    },
-    {
-     "t": "11:12:22",
-     "exit": 0,
-     "dur": 0.052
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T11:23:08+08:00",
-   "kind": "repo",
-   "key": "repo:theme:repo · other",
-   "title": "repo · other",
-   "detail": "last · field: refresh change ledger (auto)",
-   "href": "",
-   "count": 4,
-   "commits": [
-    {
-     "t": "05 11:23",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/f81ca667fdcafabe8da28351cb95bb7650b59a80",
-     "sha": "f81ca667"
-    },
-    {
-     "t": "05 11:23",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/acf93735b6867373f748f025b7c97f7b9a2b9769",
-     "sha": "acf93735"
-    },
-    {
-     "t": "05 11:23",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/5b171b04102592d271f2d8db556113d2ba230e77",
-     "sha": "5b171b04"
-    },
-    {
-     "t": "05 11:22",
-     "title": "field: refresh change ledger (auto)",
-     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/8f0d5aaf517740e271cd044ce194fefb751d6f6a",
-     "sha": "8f0d5aaf"
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T11:20:25.851000+08:00",
+   "at": "2026-11-08T20:32:24.383000+08:00",
    "kind": "run",
    "key": "run:comms-page",
    "title": "comms-page",
-   "detail": "×47 · exit 0 · 4.62s",
+   "detail": "×47 · exit 0 · 4.38s",
    "href": "",
    "runs": [
     {
-     "t": "11:20:25",
+     "t": "20:32:24",
      "exit": 0,
-     "dur": 4.619
+     "dur": 4.377
     },
     {
-     "t": "10:49:25",
+     "t": "20:01:27",
      "exit": 0,
-     "dur": 6.27
+     "dur": 3.986
     },
     {
-     "t": "10:18:29",
+     "t": "19:30:24",
      "exit": 0,
-     "dur": 4.31
+     "dur": 7.733
     },
     {
-     "t": "09:47:28",
+     "t": "18:59:24",
      "exit": 0,
-     "dur": 4.417
+     "dur": 4.291
     },
     {
-     "t": "09:16:28",
+     "t": "18:28:24",
      "exit": 0,
-     "dur": 4.383
+     "dur": 4.158
     }
    ]
   },
   {
-   "at": "2026-11-05T11:20:22.273000+08:00",
+   "at": "2026-11-08T20:32:21.319000+08:00",
+   "kind": "run",
+   "key": "run:calltap",
+   "title": "calltap",
+   "detail": "×481 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:32:21",
+     "exit": 0,
+     "dur": 0.058
+    },
+    {
+     "t": "20:29:21",
+     "exit": 0,
+     "dur": 0.058
+    },
+    {
+     "t": "20:26:21",
+     "exit": 0,
+     "dur": 0.055
+    },
+    {
+     "t": "20:23:21",
+     "exit": 0,
+     "dur": 0.067
+    },
+    {
+     "t": "20:20:21",
+     "exit": 0,
+     "dur": 0.055
+    }
+   ]
+  },
+  {
+   "at": "2026-11-08T20:32:21.218000+08:00",
    "kind": "run",
    "key": "run:surfaces-push",
    "title": "surfaces-push",
-   "detail": "×47 · exit 0 · 9.17s",
+   "detail": "×47 · exit 0 · 8.48s",
    "href": "",
    "runs": [
     {
-     "t": "11:20:22",
+     "t": "20:32:21",
      "exit": 0,
-     "dur": 9.174
+     "dur": 8.481
     },
     {
-     "t": "10:49:21",
+     "t": "20:01:21",
      "exit": 0,
-     "dur": 10.628
+     "dur": 10.732
     },
     {
-     "t": "10:18:22",
+     "t": "19:30:21",
      "exit": 0,
-     "dur": 12.206
+     "dur": 12.045
     },
     {
-     "t": "09:47:22",
+     "t": "18:59:21",
      "exit": 0,
-     "dur": 12.229
+     "dur": 8.43
     },
     {
-     "t": "09:16:22",
+     "t": "18:28:21",
      "exit": 0,
-     "dur": 11.871
+     "dur": 8.59
     }
    ]
   },
   {
-   "at": "2026-11-05T11:16:22.105000+08:00",
-   "kind": "run",
-   "key": "run:state-sync",
-   "title": "state-sync",
-   "detail": "×47 · 47 fails · last exit 1 · 0.18s",
-   "href": "",
-   "fails": 47,
-   "runs": [
-    {
-     "t": "11:16:22",
-     "exit": 1,
-     "dur": 0.177
-    },
-    {
-     "t": "10:45:22",
-     "exit": 1,
-     "dur": 0.202
-    },
-    {
-     "t": "10:14:22",
-     "exit": 1,
-     "dur": 0.176
-    },
-    {
-     "t": "09:43:22",
-     "exit": 1,
-     "dur": 0.173
-    },
-    {
-     "t": "09:12:22",
-     "exit": 1,
-     "dur": 0.199
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T11:16:22.023000+08:00",
+   "at": "2026-11-08T20:24:21.305000+08:00",
    "kind": "run",
    "key": "run:loops-tick",
    "title": "loops-tick",
-   "detail": "×47 · exit 0 · 4.21s",
+   "detail": "×47 · exit 0 · 4.75s",
    "href": "",
    "runs": [
     {
-     "t": "11:16:22",
+     "t": "20:24:21",
      "exit": 0,
-     "dur": 4.208
+     "dur": 4.749
     },
     {
-     "t": "10:45:22",
+     "t": "19:53:21",
      "exit": 0,
-     "dur": 6.384
+     "dur": 5.44
     },
     {
-     "t": "10:14:22",
+     "t": "19:22:21",
      "exit": 0,
-     "dur": 5.019
+     "dur": 12.186
     },
     {
-     "t": "09:43:22",
+     "t": "18:51:21",
      "exit": 0,
-     "dur": 4.142
+     "dur": 4.419
     },
     {
-     "t": "09:12:22",
+     "t": "18:20:21",
      "exit": 0,
-     "dur": 4.768
+     "dur": 4.281
     }
    ]
   },
   {
-   "at": "2026-11-05T11:00:22.116000+08:00",
+   "at": "2026-11-08T20:23:21.378000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×48 · exit 0 · 0.20s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:23:21",
+     "exit": 0,
+     "dur": 0.205
+    },
+    {
+     "t": "20:09:47",
+     "exit": 0,
+     "dur": 0.182
+    },
+    {
+     "t": "19:52:21",
+     "exit": 0,
+     "dur": 0.19
+    },
+    {
+     "t": "19:21:21",
+     "exit": 0,
+     "dur": 0.19
+    },
+    {
+     "t": "18:50:21",
+     "exit": 0,
+     "dur": 0.175
+    }
+   ]
+  },
+  {
+   "at": "2026-11-08T20:00:21.538000+08:00",
    "kind": "run",
    "key": "run:fi-contract-stamp",
    "title": "fi-contract-stamp",
-   "detail": "×24 · exit 0 · 22.52s",
+   "detail": "×24 · exit 0 · 27.77s",
    "href": "",
    "runs": [
     {
-     "t": "11:00:22",
+     "t": "20:00:21",
      "exit": 0,
-     "dur": 22.516
+     "dur": 27.775
     },
     {
-     "t": "10:00:22",
+     "t": "19:00:21",
      "exit": 0,
-     "dur": 23.795
+     "dur": 23.078
     },
     {
-     "t": "09:00:22",
+     "t": "18:00:21",
      "exit": 0,
-     "dur": 23.661
+     "dur": 22.969
     },
     {
-     "t": "08:00:22",
+     "t": "17:00:21",
      "exit": 0,
-     "dur": 23.824
+     "dur": 23.775
     },
     {
-     "t": "07:00:22",
+     "t": "16:00:21",
      "exit": 0,
-     "dur": 27.468
+     "dur": 22.812
     }
    ]
   },
   {
-   "at": "2026-11-05T10:30:21.984000+08:00",
+   "at": "2026-11-08T20:00:21.402000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×6 · exit 0 · 0.05s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:21",
+     "exit": 0,
+     "dur": 0.046
+    },
+    {
+     "t": "16:00:21",
+     "exit": 0,
+     "dur": 0.051
+    },
+    {
+     "t": "12:00:21",
+     "exit": 0,
+     "dur": 0.062
+    },
+    {
+     "t": "08:00:21",
+     "exit": 0,
+     "dur": 0.051
+    },
+    {
+     "t": "04:00:21",
+     "exit": 0,
+     "dur": 0.063
+    }
+   ]
+  },
+  {
+   "at": "2026-11-08T18:45:21.274000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×1 · exit 0 · 1.62s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:21",
+     "exit": 0,
+     "dur": 1.618
+    }
+   ]
+  },
+  {
+   "at": "2026-11-08T17:30:22.030000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×6 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "17:30:22",
+     "exit": 0,
+     "dur": 0.073
+    },
+    {
+     "t": "13:29:21",
+     "exit": 0,
+     "dur": 0.071
+    },
+    {
+     "t": "09:28:21",
+     "exit": 0,
+     "dur": 0.119
+    },
+    {
+     "t": "05:27:21",
+     "exit": 0,
+     "dur": 0.072
+    },
+    {
+     "t": "01:26:21",
+     "exit": 0,
+     "dur": 0.078
+    }
+   ]
+  },
+  {
+   "at": "2026-11-08T14:00:21.408000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×3 · exit 0 · 12.52s",
+   "href": "",
+   "runs": [
+    {
+     "t": "14:00:21",
+     "exit": 0,
+     "dur": 12.518
+    },
+    {
+     "t": "06:00:21",
+     "exit": 0,
+     "dur": 0.031
+    },
+    {
+     "t": "22:00:21",
+     "exit": 0,
+     "dur": 0.031
+    }
+   ]
+  },
+  {
+   "at": "2026-11-08T10:30:21.467000+08:00",
    "kind": "run",
    "key": "run:calls-say",
    "title": "calls-say",
@@ -311,197 +385,87 @@
    ]
   },
   {
-   "at": "2026-11-05T09:20:22.062000+08:00",
+   "at": "2026-11-08T09:20:21.350000+08:00",
    "kind": "run",
    "key": "run:signal",
    "title": "signal",
-   "detail": "×1 · exit 0 · 3.12s",
+   "detail": "×1 · exit 0 · 2.49s",
    "href": "",
    "runs": [
     {
-     "t": "09:20:22",
+     "t": "09:20:21",
      "exit": 0,
-     "dur": 3.12
+     "dur": 2.488
     }
    ]
   },
   {
-   "at": "2026-11-05T09:00:22.244000+08:00",
+   "at": "2026-11-08T09:00:21.712000+08:00",
    "kind": "run",
    "key": "run:anchor-digest",
    "title": "anchor-digest",
-   "detail": "×2 · exit 0 · 0.06s",
+   "detail": "×2 · exit 0 · 0.08s",
    "href": "",
    "runs": [
     {
-     "t": "09:00:22",
+     "t": "09:00:21",
      "exit": 0,
-     "dur": 0.056
+     "dur": 0.078
     },
     {
-     "t": "21:00:22",
+     "t": "21:00:21",
      "exit": 0,
-     "dur": 0.142
+     "dur": 0.046
     }
    ]
   },
   {
-   "at": "2026-11-05T09:00:22.196000+08:00",
+   "at": "2026-11-08T09:00:21.627000+08:00",
    "kind": "run",
    "key": "run:pack-doctor",
    "title": "pack-doctor",
-   "detail": "×1 · exit 0 · 15.06s",
+   "detail": "×1 · exit 0 · 14.44s",
    "href": "",
    "runs": [
     {
-     "t": "09:00:22",
+     "t": "09:00:21",
      "exit": 0,
-     "dur": 15.06
+     "dur": 14.437
     }
    ]
   },
   {
-   "at": "2026-11-05T08:59:22.312000+08:00",
-   "kind": "run",
-   "key": "run:convergence-loop",
-   "title": "convergence-loop",
-   "detail": "×6 · exit 0 · 0.09s",
-   "href": "",
-   "runs": [
-    {
-     "t": "08:59:22",
-     "exit": 0,
-     "dur": 0.088
-    },
-    {
-     "t": "04:58:22",
-     "exit": 0,
-     "dur": 0.129
-    },
-    {
-     "t": "00:57:22",
-     "exit": 0,
-     "dur": 0.067
-    },
-    {
-     "t": "20:56:22",
-     "exit": 0,
-     "dur": 0.071
-    },
-    {
-     "t": "16:55:22",
-     "exit": 0,
-     "dur": 0.152
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T08:00:22.238000+08:00",
-   "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×6 · exit 0 · 0.04s",
-   "href": "",
-   "runs": [
-    {
-     "t": "08:00:22",
-     "exit": 0,
-     "dur": 0.043
-    },
-    {
-     "t": "04:00:22",
-     "exit": 0,
-     "dur": 0.068
-    },
-    {
-     "t": "00:00:22",
-     "exit": 0,
-     "dur": 0.027
-    },
-    {
-     "t": "20:00:22",
-     "exit": 0,
-     "dur": 0.102
-    },
-    {
-     "t": "16:00:22",
-     "exit": 0,
-     "dur": 0.024
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T07:00:22.097000+08:00",
-   "kind": "run",
-   "key": "run:integrity-audit",
-   "title": "integrity-audit",
-   "detail": "×1 · exit 0 · 10.22s",
-   "href": "",
-   "runs": [
-    {
-     "t": "07:00:22",
-     "exit": 0,
-     "dur": 10.216
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T06:00:22.127000+08:00",
+   "at": "2026-11-08T06:00:21.412000+08:00",
    "kind": "run",
    "key": "run:field-index-rebuild",
    "title": "field-index-rebuild",
-   "detail": "×1 · exit 0 · 8.15s",
+   "detail": "×1 · exit 0 · 1.75s",
    "href": "",
    "runs": [
     {
-     "t": "06:00:22",
+     "t": "06:00:21",
      "exit": 0,
-     "dur": 8.146
+     "dur": 1.749
     }
    ]
   },
   {
-   "at": "2026-11-05T06:00:22.090000+08:00",
-   "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×3 · exit 0 · 0.03s",
-   "href": "",
-   "runs": [
-    {
-     "t": "06:00:22",
-     "exit": 0,
-     "dur": 0.033
-    },
-    {
-     "t": "22:00:22",
-     "exit": 0,
-     "dur": 0.031
-    },
-    {
-     "t": "14:00:22",
-     "exit": 0,
-     "dur": 8.183
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T05:00:22.225000+08:00",
+   "at": "2026-11-08T05:00:21.590000+08:00",
    "kind": "run",
    "key": "run:daily-trunk-summary",
    "title": "daily-trunk-summary",
-   "detail": "×1 · exit 0 · 0.86s",
+   "detail": "×1 · exit 0 · 4.75s",
    "href": "",
    "runs": [
     {
-     "t": "05:00:22",
+     "t": "05:00:21",
      "exit": 0,
-     "dur": 0.856
+     "dur": 4.747
     }
    ]
   },
   {
-   "at": "2026-11-05T04:22:23+08:00",
+   "at": "2026-11-08T04:23:22+08:00",
    "kind": "route",
    "key": "route:/calls/",
    "title": "CALLS — the decision queue",
@@ -509,64 +473,49 @@
    "href": "/calls/"
   },
   {
-   "at": "2026-11-05T02:00:22.085000+08:00",
+   "at": "2026-11-08T02:00:21.510000+08:00",
    "kind": "run",
    "key": "run:media-curator-nightly",
    "title": "media-curator-nightly",
-   "detail": "×1 · exit 0 · 0.09s",
+   "detail": "×1 · exit 0 · 0.01s",
    "href": "",
    "runs": [
     {
-     "t": "02:00:22",
+     "t": "02:00:21",
      "exit": 0,
-     "dur": 0.093
+     "dur": 0.011
     }
    ]
   },
   {
-   "at": "2026-11-05T01:50:22.099000+08:00",
+   "at": "2026-11-08T01:50:21.398000+08:00",
    "kind": "run",
    "key": "run:evolution-eval-gate",
    "title": "evolution-eval-gate",
-   "detail": "×1 · exit 0 · 62.45s",
+   "detail": "×1 · exit 0 · 69.44s",
    "href": "",
    "runs": [
     {
-     "t": "01:50:22",
+     "t": "01:50:21",
      "exit": 0,
-     "dur": 62.446
+     "dur": 69.439
     }
    ]
   },
   {
-   "at": "2026-11-04T18:45:22.168000+08:00",
-   "kind": "run",
-   "key": "run:day-digest",
-   "title": "day-digest",
-   "detail": "×1 · exit 0 · 1.26s",
-   "href": "",
-   "runs": [
-    {
-     "t": "18:45:22",
-     "exit": 0,
-     "dur": 1.265
-    }
-   ]
-  },
-  {
-   "at": "2026-11-05T11:23:22+08:00",
+   "at": "2026-11-08T20:32:25+08:00",
    "kind": "repo",
    "key": "repo:machine",
    "title": "machine refresh",
-   "detail": "×79 · last desk: refresh public field data + root git chronology",
+   "detail": "×71 · last comms: refresh machine-room page (2026-11-08T12:32Z)",
    "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 79,
+   "count": 71,
    "machine": true
   }
  ],
  "earlier": [
   {
-   "at": "2026-11-04T11:22:22.295000+08:00",
+   "at": "2026-11-07T20:32:21.582000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
@@ -574,210 +523,335 @@
    "href": "",
    "runs": [
     {
-     "t": "11:22:22",
+     "t": "20:32:21",
      "exit": 0,
-     "dur": 0.052
+     "dur": 0.05
     },
     {
-     "t": "11:19:22",
+     "t": "20:29:21",
      "exit": 0,
-     "dur": 0.053
+     "dur": 0.051
     },
     {
-     "t": "11:16:22",
+     "t": "20:26:21",
      "exit": 0,
-     "dur": 0.053
+     "dur": 0.049
     },
     {
-     "t": "11:13:22",
+     "t": "20:23:21",
      "exit": 0,
-     "dur": 0.055
+     "dur": 0.05
     },
     {
-     "t": "11:10:22",
+     "t": "20:20:21",
      "exit": 0,
-     "dur": 0.052
+     "dur": 0.05
     }
    ]
   },
   {
-   "at": "2026-11-04T11:03:25.572000+08:00",
+   "at": "2026-11-07T20:14:31.738000+08:00",
    "kind": "run",
    "key": "run:comms-page",
    "title": "comms-page",
-   "detail": "×93 · exit 0 · 4.03s",
+   "detail": "×93 · exit 0 · 4.11s",
    "href": "",
    "runs": [
     {
-     "t": "11:03:25",
+     "t": "20:14:31",
      "exit": 0,
-     "dur": 4.03
+     "dur": 4.105
     },
     {
-     "t": "10:32:29",
+     "t": "19:43:24",
      "exit": 0,
-     "dur": 3.972
+     "dur": 5.483
     },
     {
-     "t": "10:01:28",
+     "t": "19:12:25",
      "exit": 0,
-     "dur": 4.504
+     "dur": 4.652
     },
     {
-     "t": "09:30:28",
+     "t": "18:41:24",
      "exit": 0,
-     "dur": 3.727
+     "dur": 4.16
     },
     {
-     "t": "08:59:28",
+     "t": "18:10:29",
      "exit": 0,
-     "dur": 3.957
+     "dur": 4.135
     }
    ]
   },
   {
-   "at": "2026-11-04T11:03:22.345000+08:00",
+   "at": "2026-11-07T20:14:21.489000+08:00",
    "kind": "run",
    "key": "run:surfaces-push",
    "title": "surfaces-push",
-   "detail": "×93 · exit 0 · 8.15s",
+   "detail": "×93 · exit 0 · 15.13s",
    "href": "",
    "runs": [
     {
-     "t": "11:03:22",
+     "t": "20:14:21",
      "exit": 0,
-     "dur": 8.155
+     "dur": 15.131
     },
     {
-     "t": "10:32:22",
+     "t": "19:43:21",
      "exit": 0,
-     "dur": 11.504
+     "dur": 9.479
     },
     {
-     "t": "10:01:22",
+     "t": "19:12:21",
      "exit": 0,
-     "dur": 12.026
+     "dur": 9.605
     },
     {
-     "t": "09:30:22",
+     "t": "18:41:21",
      "exit": 0,
-     "dur": 10.622
+     "dur": 8.316
     },
     {
-     "t": "08:59:22",
+     "t": "18:10:21",
      "exit": 0,
-     "dur": 11.014
+     "dur": 12.812
     }
    ]
   },
   {
-   "at": "2026-11-04T11:00:22.417000+08:00",
-   "kind": "run",
-   "key": "run:fi-contract-stamp",
-   "title": "fi-contract-stamp",
-   "detail": "×48 · exit 0 · 22.70s",
-   "href": "",
-   "runs": [
-    {
-     "t": "11:00:22",
-     "exit": 0,
-     "dur": 22.702
-    },
-    {
-     "t": "10:00:22",
-     "exit": 0,
-     "dur": 22.07
-    },
-    {
-     "t": "09:00:22",
-     "exit": 0,
-     "dur": 23.552
-    },
-    {
-     "t": "08:00:22",
-     "exit": 0,
-     "dur": 23.024
-    },
-    {
-     "t": "07:00:22",
-     "exit": 0,
-     "dur": 26.105
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T10:59:22.393000+08:00",
-   "kind": "run",
-   "key": "run:state-sync",
-   "title": "state-sync",
-   "detail": "×93 · 16 fails · last exit 1 · 0.18s",
-   "href": "",
-   "fails": 16,
-   "runs": [
-    {
-     "t": "10:59:22",
-     "exit": 1,
-     "dur": 0.181
-    },
-    {
-     "t": "10:28:22",
-     "exit": 1,
-     "dur": 0.176
-    },
-    {
-     "t": "09:57:22",
-     "exit": 1,
-     "dur": 0.173
-    },
-    {
-     "t": "09:26:22",
-     "exit": 1,
-     "dur": 0.175
-    },
-    {
-     "t": "08:55:22",
-     "exit": 1,
-     "dur": 0.175
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T10:59:22.289000+08:00",
+   "at": "2026-11-07T20:07:21.553000+08:00",
    "kind": "run",
    "key": "run:loops-tick",
    "title": "loops-tick",
-   "detail": "×93 · exit 0 · 5.36s",
+   "detail": "×92 · exit 0 · 4.44s",
    "href": "",
    "runs": [
     {
-     "t": "10:59:22",
+     "t": "20:07:21",
      "exit": 0,
-     "dur": 5.361
+     "dur": 4.443
     },
     {
-     "t": "10:28:22",
+     "t": "19:36:21",
      "exit": 0,
-     "dur": 5.024
+     "dur": 4.66
     },
     {
-     "t": "09:57:22",
+     "t": "19:05:21",
      "exit": 0,
-     "dur": 4.369
+     "dur": 4.752
     },
     {
-     "t": "09:26:22",
+     "t": "18:34:21",
      "exit": 0,
-     "dur": 4.325
+     "dur": 4.278
     },
     {
-     "t": "08:55:22",
+     "t": "18:03:21",
      "exit": 0,
-     "dur": 4.55
+     "dur": 4.417
     }
    ]
   },
   {
-   "at": "2026-11-04T10:30:22.351000+08:00",
+   "at": "2026-11-07T20:06:21.598000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×92 · 1 fail · last exit 0 · 0.17s",
+   "href": "",
+   "fails": 1,
+   "runs": [
+    {
+     "t": "20:06:21",
+     "exit": 0,
+     "dur": 0.17
+    },
+    {
+     "t": "19:35:21",
+     "exit": 0,
+     "dur": 0.185
+    },
+    {
+     "t": "19:04:21",
+     "exit": 0,
+     "dur": 0.172
+    },
+    {
+     "t": "18:33:21",
+     "exit": 0,
+     "dur": 0.175
+    },
+    {
+     "t": "18:02:21",
+     "exit": 0,
+     "dur": 0.173
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T20:00:21.682000+08:00",
+   "kind": "run",
+   "key": "run:fi-contract-stamp",
+   "title": "fi-contract-stamp",
+   "detail": "×48 · exit 0 · 22.99s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:21",
+     "exit": 0,
+     "dur": 22.994
+    },
+    {
+     "t": "19:00:21",
+     "exit": 0,
+     "dur": 23.048
+    },
+    {
+     "t": "18:00:21",
+     "exit": 0,
+     "dur": 22.754
+    },
+    {
+     "t": "17:00:21",
+     "exit": 0,
+     "dur": 23.466
+    },
+    {
+     "t": "16:00:21",
+     "exit": 0,
+     "dur": 22.824
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T20:00:21.514000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×12 · exit 0 · 0.05s",
+   "href": "",
+   "runs": [
+    {
+     "t": "20:00:21",
+     "exit": 0,
+     "dur": 0.05
+    },
+    {
+     "t": "16:00:21",
+     "exit": 0,
+     "dur": 0.041
+    },
+    {
+     "t": "12:00:21",
+     "exit": 0,
+     "dur": 0.023
+    },
+    {
+     "t": "08:00:21",
+     "exit": 0,
+     "dur": 0.024
+    },
+    {
+     "t": "04:00:21",
+     "exit": 0,
+     "dur": 0.067
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T18:45:21.619000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×2 · exit 0 · 1.02s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:21",
+     "exit": 0,
+     "dur": 1.024
+    },
+    {
+     "t": "18:45:21",
+     "exit": 0,
+     "dur": 1.045
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T17:24:21.685000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×11 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "17:24:21",
+     "exit": 0,
+     "dur": 0.07
+    },
+    {
+     "t": "13:23:21",
+     "exit": 0,
+     "dur": 0.075
+    },
+    {
+     "t": "09:22:21",
+     "exit": 0,
+     "dur": 0.073
+    },
+    {
+     "t": "01:20:21",
+     "exit": 0,
+     "dur": 0.139
+    },
+    {
+     "t": "21:19:21",
+     "exit": 0,
+     "dur": 0.075
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T14:00:21.483000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×6 · exit 0 · 5.58s",
+   "href": "",
+   "runs": [
+    {
+     "t": "14:00:21",
+     "exit": 0,
+     "dur": 5.58
+    },
+    {
+     "t": "06:00:21",
+     "exit": 0,
+     "dur": 0.033
+    },
+    {
+     "t": "22:00:21",
+     "exit": 0,
+     "dur": 5.194
+    },
+    {
+     "t": "14:00:21",
+     "exit": 0,
+     "dur": 16.825
+    },
+    {
+     "t": "06:00:21",
+     "exit": 0,
+     "dur": 0.033
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T10:30:21.767000+08:00",
    "kind": "run",
    "key": "run:calls-say",
    "title": "calls-say",
@@ -785,54 +859,54 @@
    "href": "",
    "runs": [
     {
-     "t": "10:30:22",
+     "t": "10:30:21",
      "exit": 0,
      "dur": 0.062
     },
     {
-     "t": "10:30:22",
+     "t": "10:30:21",
      "exit": 0,
-     "dur": 0.062
+     "dur": 0.063
     }
    ]
   },
   {
-   "at": "2026-11-04T09:20:22.395000+08:00",
+   "at": "2026-11-07T09:20:21.713000+08:00",
    "kind": "run",
    "key": "run:signal",
    "title": "signal",
-   "detail": "×2 · exit 0 · 1.36s",
+   "detail": "×2 · exit 0 · 1.56s",
    "href": "",
    "runs": [
     {
-     "t": "09:20:22",
+     "t": "09:20:21",
      "exit": 0,
-     "dur": 1.361
+     "dur": 1.56
     },
     {
-     "t": "09:20:22",
+     "t": "09:20:21",
      "exit": 0,
-     "dur": 1.091
+     "dur": 1.426
     }
    ]
   },
   {
-   "at": "2026-11-04T09:00:22.460000+08:00",
+   "at": "2026-11-07T09:00:21.784000+08:00",
    "kind": "run",
    "key": "run:anchor-digest",
    "title": "anchor-digest",
-   "detail": "×4 · exit 0 · 0.06s",
+   "detail": "×4 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
-     "t": "09:00:22",
+     "t": "09:00:21",
      "exit": 0,
-     "dur": 0.059
+     "dur": 0.053
     },
     {
-     "t": "21:00:22",
+     "t": "21:00:21",
      "exit": 0,
-     "dur": 0.05
+     "dur": 0.048
     },
     {
      "t": "09:00:22",
@@ -840,275 +914,135 @@
      "dur": 0.055
     },
     {
-     "t": "21:00:22",
+     "t": "21:00:21",
      "exit": 0,
-     "dur": 0.048
+     "dur": 0.052
     }
    ]
   },
   {
-   "at": "2026-11-04T09:00:22.408000+08:00",
+   "at": "2026-11-07T09:00:21.730000+08:00",
    "kind": "run",
    "key": "run:pack-doctor",
    "title": "pack-doctor",
-   "detail": "×2 · exit 0 · 12.78s",
+   "detail": "×2 · exit 0 · 14.66s",
    "href": "",
    "runs": [
+    {
+     "t": "09:00:21",
+     "exit": 0,
+     "dur": 14.658
+    },
     {
      "t": "09:00:22",
      "exit": 0,
-     "dur": 12.784
-    },
-    {
-     "t": "09:00:22",
-     "exit": 0,
-     "dur": 11.053
+     "dur": 14.466
     }
    ]
   },
   {
-   "at": "2026-11-04T08:53:22.284000+08:00",
-   "kind": "run",
-   "key": "run:convergence-loop",
-   "title": "convergence-loop",
-   "detail": "×11 · exit 0 · 0.08s",
-   "href": "",
-   "runs": [
-    {
-     "t": "08:53:22",
-     "exit": 0,
-     "dur": 0.076
-    },
-    {
-     "t": "00:51:22",
-     "exit": 0,
-     "dur": 0.066
-    },
-    {
-     "t": "20:50:22",
-     "exit": 0,
-     "dur": 0.075
-    },
-    {
-     "t": "16:49:22",
-     "exit": 0,
-     "dur": 0.114
-    },
-    {
-     "t": "12:48:22",
-     "exit": 0,
-     "dur": 0.071
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T08:40:22.322000+08:00",
-   "kind": "run",
-   "key": "run:discovery-radar",
-   "title": "discovery-radar",
-   "detail": "×1 · exit 0 · 0.05s",
-   "href": "",
-   "runs": [
-    {
-     "t": "08:40:22",
-     "exit": 0,
-     "dur": 0.047
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T08:00:22.488000+08:00",
-   "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×12 · exit 0 · 0.02s",
-   "href": "",
-   "runs": [
-    {
-     "t": "08:00:22",
-     "exit": 0,
-     "dur": 0.022
-    },
-    {
-     "t": "04:00:22",
-     "exit": 0,
-     "dur": 0.088
-    },
-    {
-     "t": "00:00:22",
-     "exit": 0,
-     "dur": 0.051
-    },
-    {
-     "t": "20:00:22",
-     "exit": 0,
-     "dur": 0.025
-    },
-    {
-     "t": "16:00:22",
-     "exit": 0,
-     "dur": 0.02
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T06:00:22.378000+08:00",
-   "kind": "run",
-   "key": "run:field-index-rebuild",
-   "title": "field-index-rebuild",
-   "detail": "×2 · exit 0 · 9.09s",
-   "href": "",
-   "runs": [
-    {
-     "t": "06:00:22",
-     "exit": 0,
-     "dur": 9.088
-    },
-    {
-     "t": "06:00:22",
-     "exit": 0,
-     "dur": 2.147
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T06:00:22.343000+08:00",
-   "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×6 · exit 0 · 0.03s",
-   "href": "",
-   "runs": [
-    {
-     "t": "06:00:22",
-     "exit": 0,
-     "dur": 0.032
-    },
-    {
-     "t": "22:00:22",
-     "exit": 0,
-     "dur": 5.451
-    },
-    {
-     "t": "14:00:22",
-     "exit": 0,
-     "dur": 47.31
-    },
-    {
-     "t": "06:00:22",
-     "exit": 0,
-     "dur": 0.033
-    },
-    {
-     "t": "22:00:22",
-     "exit": 0,
-     "dur": 0.034
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T05:00:22.412000+08:00",
-   "kind": "run",
-   "key": "run:daily-trunk-summary",
-   "title": "daily-trunk-summary",
-   "detail": "×2 · exit 0 · 0.67s",
-   "href": "",
-   "runs": [
-    {
-     "t": "05:00:22",
-     "exit": 0,
-     "dur": 0.665
-    },
-    {
-     "t": "05:00:22",
-     "exit": 0,
-     "dur": 0.695
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T02:00:22.260000+08:00",
-   "kind": "run",
-   "key": "run:media-curator-nightly",
-   "title": "media-curator-nightly",
-   "detail": "×2 · exit 0 · 0.02s",
-   "href": "",
-   "runs": [
-    {
-     "t": "02:00:22",
-     "exit": 0,
-     "dur": 0.016
-    },
-    {
-     "t": "02:00:22",
-     "exit": 0,
-     "dur": 0.011
-    }
-   ]
-  },
-  {
-   "at": "2026-11-04T01:50:22.333000+08:00",
-   "kind": "run",
-   "key": "run:evolution-eval-gate",
-   "title": "evolution-eval-gate",
-   "detail": "×2 · exit 0 · 63.96s",
-   "href": "",
-   "runs": [
-    {
-     "t": "01:50:22",
-     "exit": 0,
-     "dur": 63.962
-    },
-    {
-     "t": "01:50:22",
-     "exit": 0,
-     "dur": 73.789
-    }
-   ]
-  },
-  {
-   "at": "2026-11-03T18:45:22.488000+08:00",
-   "kind": "run",
-   "key": "run:day-digest",
-   "title": "day-digest",
-   "detail": "×2 · exit 0 · 2.04s",
-   "href": "",
-   "runs": [
-    {
-     "t": "18:45:22",
-     "exit": 0,
-     "dur": 2.043
-    },
-    {
-     "t": "18:45:22",
-     "exit": 0,
-     "dur": 2.263
-    }
-   ]
-  },
-  {
-   "at": "2026-11-03T07:00:22.624000+08:00",
+   "at": "2026-11-07T07:00:21.709000+08:00",
    "kind": "run",
    "key": "run:integrity-audit",
    "title": "integrity-audit",
-   "detail": "×1 · exit 0 · 9.88s",
+   "detail": "×1 · exit 0 · 14.62s",
    "href": "",
    "runs": [
     {
-     "t": "07:00:22",
+     "t": "07:00:21",
      "exit": 0,
-     "dur": 9.878
+     "dur": 14.621
     }
    ]
   },
   {
-   "at": "2026-11-04T11:03:26+08:00",
+   "at": "2026-11-07T06:00:21.655000+08:00",
+   "kind": "run",
+   "key": "run:field-index-rebuild",
+   "title": "field-index-rebuild",
+   "detail": "×2 · exit 0 · 8.44s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:21",
+     "exit": 0,
+     "dur": 8.442
+    },
+    {
+     "t": "06:00:21",
+     "exit": 0,
+     "dur": 2.165
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T05:00:21.902000+08:00",
+   "kind": "run",
+   "key": "run:daily-trunk-summary",
+   "title": "daily-trunk-summary",
+   "detail": "×2 · exit 0 · 0.72s",
+   "href": "",
+   "runs": [
+    {
+     "t": "05:00:21",
+     "exit": 0,
+     "dur": 0.72
+    },
+    {
+     "t": "05:00:22",
+     "exit": 0,
+     "dur": 0.667
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T02:00:21.630000+08:00",
+   "kind": "run",
+   "key": "run:media-curator-nightly",
+   "title": "media-curator-nightly",
+   "detail": "×2 · exit 0 · 0.01s",
+   "href": "",
+   "runs": [
+    {
+     "t": "02:00:21",
+     "exit": 0,
+     "dur": 0.012
+    },
+    {
+     "t": "02:00:21",
+     "exit": 0,
+     "dur": 0.013
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T01:50:21.785000+08:00",
+   "kind": "run",
+   "key": "run:evolution-eval-gate",
+   "title": "evolution-eval-gate",
+   "detail": "×2 · exit 0 · 68.10s",
+   "href": "",
+   "runs": [
+    {
+     "t": "01:50:21",
+     "exit": 0,
+     "dur": 68.104
+    },
+    {
+     "t": "01:50:21",
+     "exit": 0,
+     "dur": 64.922
+    }
+   ]
+  },
+  {
+   "at": "2026-11-07T20:14:32+08:00",
    "kind": "repo",
    "key": "repo:machine",
    "title": "machine refresh",
-   "detail": "×142 · last comms: refresh machine-room page (2026-11-04T03:03Z)",
+   "detail": "×139 · last comms: refresh machine-room page (2026-11-07T12:14Z)",
    "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 142,
+   "count": 139,
    "machine": true
   }
  ]
