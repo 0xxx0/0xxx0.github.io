@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0b">
+<meta name="robots" content="noindex,nofollow">
+<title>VEIL — temporal resolution</title>
+<meta name="description" content="A phone instrument for the clock surface: temporal bisection, tap asynchrony, and a resonance breath pacer. Within-person deltas, not absolute truths.">
+<style>
+:root{--bg:#080a0b;--panel:#0b0f11;--ink:#edf1ed;--muted:#7f8b91;--line:#30383d;--gold:#d5ad68;--dim:#101619}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button{font:inherit;cursor:pointer;border-radius:0}
+body{padding:max(18px,env(safe-area-inset-top)) 16px max(34px,env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+main{width:min(640px,100%);margin:auto}
+.ey{font-size:9px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+h1{margin:10px 0 2px;font:800 clamp(52px,17vw,88px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.06em}
+.sub{color:#aab3b6;margin:10px 0 0;max-width:52ch}
+.rule{height:1px;background:var(--line);margin:18px 0}
+.panel{border:1px solid var(--line);background:var(--panel)}
+.ph{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);font-size:9px;letter-spacing:.14em;color:var(--muted)}
+.ph b{color:var(--ink);font-weight:600}
+.pad{padding:14px 12px}
+.hide{display:none!important}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}
+.big button{min-height:76px;background:var(--dim);color:var(--ink);border:0;font-size:11px;letter-spacing:.14em}
+.big button:active{background:#1a2328}
+.big button:disabled{color:#4d575c}
+.wide{display:block;width:100%;min-height:56px;background:var(--dim);color:var(--ink);border:1px solid var(--line);font-size:10px;letter-spacing:.16em;margin-top:12px}
+.wide:active{background:#1a2328}
+.stage{position:relative;height:190px;border:1px solid var(--line);background:#050707;overflow:hidden;display:grid;place-items:center;margin-top:12px}
+#flash{width:100%;height:70px;background:#e9e4d6;opacity:0}
+#halo{position:absolute;width:150px;height:150px;border:1px solid #3b4a50;border-radius:50%;transition:none}
+#halo b{position:absolute;inset:0;display:grid;place-items:center;font:10px/1 ui-monospace;letter-spacing:.2em;color:#9fb0b6}
+.meta{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.12em;color:var(--muted);margin-top:8px}
+.bar{height:3px;background:#1b2327;margin-top:8px}.bar i{display:block;height:3px;width:0;background:var(--gold)}
+pre{white-space:pre-wrap;margin:0;font:12px/1.6 ui-monospace;color:#cfd8d4}
+.k{color:var(--gold)}
+a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.small{font-size:11px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}
+.grid2 div{background:var(--dim);padding:10px}
+.grid2 b{display:block;font-size:9px;letter-spacing:.14em;color:var(--muted);font-weight:500}
+.grid2 span{font-size:20px;letter-spacing:-.02em}
+footer{margin-top:22px;color:#66757a;font-size:10px;line-height:1.7}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="ey">Temporal resolution · instrument 001</div>
+  <h1>VEIL</h1>
+  <p class="sub">Three readings of the clock surface: where your perception of duration sits, how tightly you can tap a beat, and what five minutes of slow breathing does to both. Within-person deltas. Not absolute truths.</p>
+  <div class="meta"><span id="stamp">build —</span><span id="phaseLabel">IDLE</span></div>
+</header>
+
+<section class="panel" style="margin-top:16px">
+  <div class="ph"><b>01 · BASELINE</b><span id="b0">—</span></div>
+  <div class="pad">
+    <p class="small" id="intro">You will see two flashes. Judge whether the gap between them is shorter or longer than the standard gap you saw first (600 ms). Trust the first answer. 36 trials, about two minutes.</p>
+    <button class="wide" id="startBtn">BEGIN BASELINE</button>
+    <div class="stage hide" id="bisectStage">
+      <div id="flash"></div>
+      <div class="meta" style="position:absolute;bottom:8px;left:10px;right:10px"><span id="trialN">trial 0/36</span><span id="lastIv">—</span></div>
+    </div>
+    <div class="big hide" id="answerBtns">
+      <button id="shorter">SHORTER</button>
+      <button id="longer">LONGER</button>
+    </div>
+    <div class="bar"><i id="prog"></i></div>
+  </div>
+</section>
+
+<section class="panel hide" id="tapPanel" style="margin-top:12px">
+  <div class="ph"><b>02 · TAP</b><span>60 bpm · 24 taps</span></div>
+  <div class="pad">
+    <p class="small">Four clicks to set the pulse, then tap the plate on every click. Don't chase it — let it drift and see where it lands.</p>
+    <button class="wide" id="tapPlate" style="min-height:120px" disabled>TAP</button>
+    <div class="meta"><span id="tapN">0/24</span><span id="tapLive">—</span></div>
+  </div>
+</section>
+
+<section class="panel hide" id="breathPanel" style="margin-top:12px">
+  <div class="ph"><b>03 · BREATHE</b><span id="breathRate">5.5 / min</span></div>
+  <div class="pad">
+    <p class="small">Nasal inhale, long exhale, through the whole cycle. Hum on the exhale if your nose is blocked — it raises nasal nitric oxide about 15-fold.</p>
+    <div class="stage" style="height:230px"><div id="halo"><b id="haloLabel">READY</b></div></div>
+    <div class="meta"><span id="breathClock">5:00</span><span id="cycleCount">0 cycles</span></div>
+    <button class="wide" id="breathBtn">START 5:00</button>
+  </div>
+</section>
+
+<section class="panel hide" id="resultPanel" style="margin-top:12px">
+  <div class="ph"><b>RESULT</b><span id="resultStamp">—</span></div>
+  <div class="pad">
+    <div class="grid2">
+      <div><b>PSE (ms)</b><span id="pse0">—</span></div>
+      <div><b>PSE after</b><span id="pse1">—</span></div>
+      <div><b>TAP SD (ms)</b><span id="sd0">—</span></div>
+      <div><b>TAP SD after</b><span id="sd1">—</span></div>
+    </div>
+    <pre id="verdict" style="margin-top:14px">—</pre>
+    <button class="wide" id="exportBtn">EXPORT SESSION JSON</button>
+    <button class="wide" id="againBtn">RUN AGAIN</button>
+  </div>
+</section>
+
+<footer>
+  <div class="rule"></div>
+  <p><b>What this measures.</b> PSE is the interval your clock calls “equal” to 600 ms — the bisection point. Tap SD is your timing precision at 60 bpm. Both are state-dependent: arousal, temperature, caffeine and breath shift them.</p>
+  <p><b>Limits.</b> A phone screen refreshes at 60–120 Hz and setTimeout jitters by a few ms; that is why the instrument records the interval it actually presented, and why it reports within-person deltas rather than absolute thresholds. Headphones help the tap test; silence helps the bisection.</p>
+  <p><b>Protocol.</b> Same time of day, same light, no caffeine inside 90 minutes. Baseline → 5 minutes at ~5.5 breaths/min → retest. The number to watch is the shift in PSE, not the PSE itself.</p>
+  <p><a href="/">FIELD INDEX</a></p>
+</footer>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const now = () => performance.now();
+  const FAST = location.search.includes('fast');
+  const state = { phase:'idle', fast:FAST, trials:[], baseline:null, after:null, tap:{base:null,after:null}, breath:{bpm:5.5}, history:[] };
+  window.__veil = state;
+
+  const INTERVALS = FAST ? [450,525,600,675,750] : [300,375,450,525,600,675,750,825,900];
+  const STANDARD = 600;
+  const REPS = FAST ? 3 : 4;
+  const TAP_BEATS = 24, TAP_PERIOD = FAST?250:1000; // 60 bpm
+
+  function setPhase(p){ state.phase=p; $('phaseLabel').textContent=p.toUpperCase(); }
+
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+  function makeTrials(){
+    const t=[];
+    for(let r=0;r<REPS;r++) for(const iv of INTERVALS) t.push({nominal:iv, x:iv, y:null});
+    return shuffle(t);
+  }
+
+  // ---------- bisection ----------
+  let bisect = null;
+
+  function flashOnce(ms=60){
+    return new Promise(res=>{
+      const el=$('flash');
+      el.style.opacity='1';
+      setTimeout(()=>{ el.style.opacity='0'; res(now()); }, ms);
+    });
+  }
+
+  async function runTrial(i){
+    const tr = bisect.trials[i];
+    const t0 = now();
+    await flashOnce(55);
+    await new Promise(r=>setTimeout(r, Math.max(20, tr.nominal - 55)));
+    const t1 = now();
+    tr.presented = Math.round(t1 - t0);          // onset-to-onset of the two flashes
+    await flashOnce(55);
+    tr.ready = true; state.lastPresented = tr.presented;
+    $('trialN').textContent = `trial ${i+1}/${bisect.trials.length}`;
+    $('lastIv').textContent = `${tr.presented} ms shown`;
+    $('answerBtns').classList.remove('hide');
+    $('shorter').disabled=false; $('longer').disabled=false;
+  }
+
+  function answer(longer){
+    const tr = bisect.trials[bisect.i];
+    if(!tr || !tr.ready) return;
+    tr.y = longer ? 1 : 0;
+    tr.x = tr.presented;
+    tr.ready = false;
+    $('answerBtns').classList.add('hide');
+    bisect.i++;
+    $('prog').style.width = (100*bisect.i/bisect.trials.length)+'%';
+    if(bisect.i >= bisect.trials.length) finishBisect();
+    else setTimeout(()=>runTrial(bisect.i), FAST?10:420);
+  }
+
+  function startBisect(n, round){
+    bisect = { trials: makeTrials(), i:0, round: round||'base' };
+    $('intro').classList.add('hide');
+    $('startBtn').classList.add('hide');
+    $('bisectStage').classList.remove('hide');
+    $('prog').style.width='0%';
+    setPhase(bisect.round==='after'?'retest':'bisect');
+    // practice standard
+    (async()=>{
+      for(let k=0;k<2;k++){
+        await flashOnce(55);
+        await new Promise(r=>setTimeout(r, STANDARD));
+      }
+      runTrial(0);
+    })();
+  }
+
+  function finishBisect(){
+    const rows = bisect.trials.filter(t=>t.y!==null);
+    const fit = logisticFit(rows); state.fit = fit; state.fitRows = rows.map(r=>[r.x,r.y]);
+    if(bisect.round==='base'){ state.baseline = {pse:fit.pse, slope:fit.slope, wf:fit.wf, unstable:fit.unstable, rows:rows.length}; startTap('base'); }
+    else { state.after = {pse:fit.pse, slope:fit.slope, wf:fit.wf, unstable:fit.unstable, rows:rows.length}; startTap('after'); }
+  }
+
+  // weighted logit regression: z = a + b*x ; PSE = -a/b ; WF = (1/b)/PSE
+  function logisticFit(rows){
+    const by = new Map();
+    for(const r of rows){ const k=Math.round(r.x/5)*5; if(!by.has(k)) by.set(k,{k,n:0,s:0}); const o=by.get(k); o.n++; o.s+=r.y; }
+    const pts=[...by.values()].sort((a,b)=>a.k-b.k);
+    let sx=0,sy=0,sxx=0,sxy=0,n=0;
+    for(const p of pts){
+      const prop=(p.s+0.5)/(p.n+1);
+      const z=Math.log(prop/(1-prop));
+      const w=Math.sqrt(p.n);
+      sx+=p.k*w; sy+=z*w; sxx+=p.k*p.k*w; sxy+=p.k*z*w; n+=w;
+    }
+    const den=(n*sxx - sx*sx)||1e-9;
+    const b=(n*sxy - sx*sy)/den;
+    const a=(sy - b*sx)/n;
+    const pse = b!==0 ? -a/b : NaN;
+    const wf = (b!==0 && pse>0) ? (1/Math.abs(b))/pse : NaN;
+    const unstable = !(b>0) || !(pse>150) || !(pse<1500);
+    return {pse, slope:b, wf, unstable};
+  }
+
+  // ---------- tap ----------
+  let ac=null;
+  function audio(){ if(!ac) ac=new (window.AudioContext||window.webkitAudioContext)(); return ac; }
+  function click(at){
+    const ctx=audio(); const o=ctx.createOscillator(); const g=ctx.createGain();
+    o.frequency.value=1200; g.gain.setValueAtTime(0.0001,at); g.gain.exponentialRampToValueAtTime(0.25,at+0.004); g.gain.exponentialRampToValueAtTime(0.0001,at+0.05);
+    o.connect(g); g.connect(ctx.destination); o.start(at); o.stop(at+0.06);
+  }
+
+  let tapRun=null;
+  function startTap(which){
+    $('tapPanel').classList.remove('hide');
+    $('tapPanel').scrollIntoView({block:'center'});
+    setPhase('tap');
+    const plate=$('tapPlate'); plate.disabled=true; plate.textContent='LISTEN';
+    const ctx=audio(); const t0=now(); const a0=ctx.currentTime+0.25;
+    const beats=4+TAP_BEATS;
+    for(let k=0;k<beats;k++) click(a0+k*TAP_PERIOD/1000);
+    const startK=4;
+    tapRun={which, t0, a0, taps:[], startK, plate};
+    $('tapN').textContent=`0/${TAP_BEATS}`;
+    setTimeout(()=>{ plate.disabled=false; plate.textContent='TAP'; }, 4*TAP_PERIOD);
+  }
+
+  function onTap(){
+    if(!tapRun || tapRun.plate.disabled) return;
+    const t=now(); tapRun.taps.push(t);
+    const beat = tapRun.t0 + (tapRun.startK + tapRun.taps.length-1)*TAP_PERIOD;
+    let d = t - beat; d = ((d % TAP_PERIOD)+TAP_PERIOD*1.5)%TAP_PERIOD - TAP_PERIOD/2;
+    $('tapN').textContent=`${tapRun.taps.length}/${TAP_BEATS}`;
+    $('tapLive').textContent=`${d>0?'+':''}${d.toFixed(0)} ms`;
+    if(tapRun.taps.length>=TAP_BEATS) endTap();
+  }
+
+  function endTap(){
+    const tr=tapRun; tr.plate.disabled=true; tr.plate.textContent='DONE';
+    const offs=tr.taps.map((t,i)=>{ let d=t-(tr.t0+(tr.startK+i)*TAP_PERIOD); return ((d%TAP_PERIOD)+TAP_PERIOD*1.5)%TAP_PERIOD-TAP_PERIOD/2; });
+    const mean=offs.reduce((a,b)=>a+b,0)/offs.length;
+    const sd=Math.sqrt(offs.reduce((a,b)=>a+(b-mean)**2,0)/Math.max(1,offs.length-1));
+    const res={mean:mean, sd:sd, n:offs.length};
+    if(tr.which==='base'){ state.tap.base=res; startBreath(); }
+    else { state.tap.after=res; finishAll(); }
+    tapRun=null;
+  }
+
+  // ---------- breath ----------
+  let breathTimer=null;
+  function startBreath(){
+    $('breathPanel').classList.remove('hide');
+    $('breathPanel').scrollIntoView({block:'center'});
+    setPhase('breathe');
+    $('breathBtn').textContent='START 5:00';
+    $('breathBtn').disabled=false;
+    $('haloLabel').textContent='READY';
+  }
+
+  function runBreath(){
+    const bpm=state.breath.bpm, cycle=60/bpm, total=FAST?6:300;
+    let t0=now(), cycles=0, running=true;
+    $('breathBtn').disabled=true; $('breathBtn').textContent='BREATHING';
+    setPhase('breathe');
+    function frame(){
+      if(!running) return;
+      const el=(now()-t0)/1000;
+      if(el>=total){ running=false; clearInterval(iv); $('haloLabel').textContent='DONE'; $('breathBtn').textContent='CONTINUE'; $('breathBtn').disabled=false; setTimeout(startRetest, 400); return; }
+      const ph=(el%cycle)/cycle;
+      const inh = ph < 0.4;
+      const s = inh ? 0.55 + 0.45*(ph/0.4) : 1 - 0.45*((ph-0.4)/0.6);
+      const halo=$('halo'); halo.style.transform=`scale(${s.toFixed(3)})`;
+      $('haloLabel').textContent = inh ? 'IN' : 'OUT — hum';
+      $('breathClock').textContent = `${Math.ceil(total-el)}s`;
+      const c=Math.floor(el/cycle); if(c!==cycles){ cycles=c; $('cycleCount').textContent=`${cycles} cycles`; }
+    }
+    const iv=setInterval(frame, 50); frame();
+    breathTimer=()=>{ running=false; clearInterval(iv); };
+  }
+
+  function startRetest(){
+    $('intro').classList.remove('hide');
+    $('intro').textContent='Retest. Same judgement, same standard: 600 ms.';
+    $('startBtn').classList.remove('hide');
+    $('startBtn').textContent='BEGIN RETEST';
+    $('startBtn').onclick=()=>{ $('startBtn').onclick=null; startBisect(36,'after'); };
+    setPhase('retest');
+  }
+
+  function finishAll(){
+    $('resultPanel').classList.remove('hide');
+    $('resultPanel').scrollIntoView({block:'center'});
+    const b=state.baseline, a=state.after, tb=state.tap.base, ta=state.tap.after;
+    $('pse0').textContent=fmt(b?.pse,0); $('pse1').textContent=fmt(a?.pse,0);
+    $('sd0').textContent=fmt(tb?.sd,0); $('sd1').textContent=fmt(ta?.sd,0);
+    const dp = (a&&b)? (a.pse-b.pse):null, ds=(ta&&tb)?(ta.sd-tb.sd):null;
+    const bad = (b&&b.unstable)||(a&&a.unstable);
+    $('verdict').textContent =
+      (bad?'FIT UNSTABLE — responses were close to random; run again.\n\n':'')+
+      `PSE shift      ${sgn(dp,0)} ms\n`+
+      `TAP SD shift   ${sgn(ds,0)} ms\n`+
+      `Weber fraction ${fmt(b?.wf,3)} → ${fmt(a?.wf,3)}\n`+
+      `\n${interpret(dp,ds)}`;
+    const rec={at:new Date().toISOString(), pse:[b?.pse,a?.pse], tapSd:[tb?.sd,ta?.sd], wf:[b?.wf,a?.wf], bpm:state.breath.bpm};
+    state.history.push(rec); try{ localStorage.setItem('veil.sessions', JSON.stringify(state.history.slice(-20))); }catch(e){}
+    $('resultStamp').textContent=rec.at.slice(0,16).replace('T',' ');
+    setPhase('done');
+  }
+
+  function interpret(dp,ds){
+    if(dp===null) return 'Incomplete session.';
+    const dir = dp<-15?'earlier (time ran fast)':dp>15?'later (time ran slow)':'unchanged';
+    const t = ds===null?'':(ds<-3?' Tapping tightened.':ds>3?' Tapping loosened.':' Tapping unchanged.');
+    return `After breathing, your bisection point moved ${dir}.${t} A shift under 15 ms is noise at this sample size — run it again before believing it.`;
+  }
+
+  function fmt(v,d){ return (v===null||v===undefined||Number.isNaN(v))?'—':Number(v).toFixed(d); }
+  function sgn(v,d){ return (v===null||v===undefined||Number.isNaN(v))?'—':(v>0?'+':'')+Number(v).toFixed(d); }
+
+  // ---------- controls ----------
+  $('startBtn').onclick=()=>{ $('startBtn').onclick=null; startBisect(36,'base'); };
+  $('shorter').onclick=()=>answer(false);
+  $('longer').onclick=()=>answer(true);
+  $('tapPlate').onclick=onTap;
+  $('breathBtn').onclick=()=>{ if($('breathBtn').textContent==='CONTINUE'){ startRetest(); return; } runBreath(); };
+  $('againBtn').onclick=()=>location.reload();
+  $('exportBtn').onclick=()=>{
+    const blob=new Blob([JSON.stringify(state, null, 1)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='veil-session.json'; a.click();
+  };
+
+  // ---------- selftest ----------
+  if(location.search.includes('selftest')){
+    const rows=[];
+    const truePse=600, slope=0.02;
+    for(const x of INTERVALS){ for(let r=0;r<80;r++){ const p=1/(1+Math.exp(-slope*(x-truePse))); rows.push({x, y:Math.random()<p?1:0}); } }
+    const f=logisticFit(rows);
+    const offs=[]; for(let i=0;i<200;i++){ const u=Math.random()||1e-9, v=Math.random(); const g=Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); offs.push(25*g); }
+    const mean=offs.reduce((a,b)=>a+b,0)/offs.length;
+    const sd=Math.sqrt(offs.reduce((a,b)=>a+(b-mean)**2,0)/(offs.length-1));
+    const passFit=Math.abs(f.pse-truePse)<20, passSd=Math.abs(sd-25)<3;
+    const verdict=`selftest: fit ${passFit?'PASS':'FAIL'} pse=${f.pse.toFixed(1)} | sd ${passSd?'PASS':'FAIL'} sd=${sd.toFixed(1)}`;
+    document.title = verdict;
+    const pre=document.createElement('pre'); pre.id='selftest'; pre.textContent=verdict; pre.style.cssText='margin-top:16px;color:#d5ad68';
+    document.querySelector('main').prepend(pre);
+    window.__veil.selftest={passFit, passSd, pse:f.pse, sd};
+    console.log(verdict);
+  }
+
+  $('stamp').textContent='build 2026-11-08 · v1';
+})();
+</script>
+</body>
+</html>
