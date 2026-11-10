@@ -100,6 +100,7 @@ footer{margin-top:22px;color:#66757a;font-size:10px;line-height:1.7}
       <div><b>TAP SD after</b><span id="sd1">—</span></div>
     </div>
     <pre id="verdict" style="margin-top:14px">—</pre>
+    <p class="sub" style="font-size:11px">A phone screen renders flicker no faster than half its refresh rate, so critical flicker fusion is not measurable here; that needs an LED and a microcontroller. What this page measures is timing judgement and motor timing, against its own error bar.</p>
     <button class="wide" id="exportBtn">EXPORT SESSION JSON</button>
     <button class="wide" id="againBtn">RUN AGAIN</button>
   </div>
@@ -196,8 +197,9 @@ footer{margin-top:22px;color:#66757a;font-size:10px;line-height:1.7}
   function finishBisect(){
     const rows = bisect.trials.filter(t=>t.y!==null);
     const fit = logisticFit(rows); state.fit = fit; state.fitRows = rows.map(r=>[r.x,r.y]);
-    if(bisect.round==='base'){ state.baseline = {pse:fit.pse, slope:fit.slope, wf:fit.wf, unstable:fit.unstable, rows:rows.length}; startTap('base'); }
-    else { state.after = {pse:fit.pse, slope:fit.slope, wf:fit.wf, unstable:fit.unstable, rows:rows.length}; startTap('after'); }
+    fit.se = pseSE(fit, rows);
+    if(bisect.round==='base'){ state.baseline = {pse:fit.pse, slope:fit.slope, wf:fit.wf, se:fit.se, unstable:fit.unstable, rows:rows.length}; startTap('base'); }
+    else { state.after = {pse:fit.pse, slope:fit.slope, wf:fit.wf, se:fit.se, unstable:fit.unstable, rows:rows.length}; startTap('after'); }
   }
 
   // weighted logit regression: z = a + b*x ; PSE = -a/b ; WF = (1/b)/PSE
@@ -219,6 +221,14 @@ footer{margin-top:22px;color:#66757a;font-size:10px;line-height:1.7}
     const wf = (b!==0 && pse>0) ? (1/Math.abs(b))/pse : NaN;
     const unstable = !(b>0) || !(pse>150) || !(pse<1500);
     return {pse, slope:b, wf, unstable};
+  }
+
+  // Fisher information for the bisection point: I = sum b^2 p(1-p); SE = 1/sqrt(I)
+  function pseSE(fit, rows){
+    const b=fit.slope; if(!(b>0) || !Number.isFinite(fit.pse)) return NaN;
+    const a=-b*fit.pse; let info=0;
+    for(const r of rows){ const p=1/(1+Math.exp(-(a+b*r.x))); info += b*b*p*(1-p); }
+    return info>0 ? 1/Math.sqrt(info) : NaN;
   }
 
   // ---------- tap ----------
@@ -314,24 +324,28 @@ footer{margin-top:22px;color:#66757a;font-size:10px;line-height:1.7}
     $('pse0').textContent=fmt(b?.pse,0); $('pse1').textContent=fmt(a?.pse,0);
     $('sd0').textContent=fmt(tb?.sd,0); $('sd1').textContent=fmt(ta?.sd,0);
     const dp = (a&&b)? (a.pse-b.pse):null, ds=(ta&&tb)?(ta.sd-tb.sd):null;
+    const seDiff = (a&&b&&Number.isFinite(a.se)&&Number.isFinite(b.se))? Math.sqrt(a.se*a.se+b.se*b.se):null;
+    const res = seDiff? 1.96*seDiff : null;
     const bad = (b&&b.unstable)||(a&&a.unstable);
     $('verdict').textContent =
       (bad?'FIT UNSTABLE — responses were close to random; run again.\n\n':'')+
       `PSE shift      ${sgn(dp,0)} ms\n`+
       `TAP SD shift   ${sgn(ds,0)} ms\n`+
       `Weber fraction ${fmt(b?.wf,3)} → ${fmt(a?.wf,3)}\n`+
-      `\n${interpret(dp,ds)}`;
+      `Resolution     ±${fmt(res,0)} ms (95%, shift)\n`+
+      `\n${interpret(dp,ds,res)}`;
     const rec={at:new Date().toISOString(), pse:[b?.pse,a?.pse], tapSd:[tb?.sd,ta?.sd], wf:[b?.wf,a?.wf], bpm:state.breath.bpm};
     state.history.push(rec); try{ localStorage.setItem('veil.sessions', JSON.stringify(state.history.slice(-20))); }catch(e){}
     $('resultStamp').textContent=rec.at.slice(0,16).replace('T',' ');
     setPhase('done');
   }
 
-  function interpret(dp,ds){
+  function interpret(dp,ds,res){
     if(dp===null) return 'Incomplete session.';
-    const dir = dp<-15?'earlier (time ran fast)':dp>15?'later (time ran slow)':'unchanged';
+    const lim = (res&&Number.isFinite(res))? res : 60;
+    const dir = dp<-lim?'earlier (time ran fast)':dp>lim?'later (time ran slow)':'inside the noise';
     const t = ds===null?'':(ds<-3?' Tapping tightened.':ds>3?' Tapping loosened.':' Tapping unchanged.');
-    return `After breathing, your bisection point moved ${dir}.${t} A shift under 15 ms is noise at this sample size — run it again before believing it.`;
+    return `After breathing, your bisection point moved ${dir}.${t} A shift smaller than ±${Math.round(lim)} ms is not resolved by one session at this trial count — pool four sessions before believing it.`;
   }
 
   function fmt(v,d){ return (v===null||v===undefined||Number.isNaN(v))?'—':Number(v).toFixed(d); }
@@ -367,7 +381,7 @@ footer{margin-top:22px;color:#66757a;font-size:10px;line-height:1.7}
     console.log(verdict);
   }
 
-  $('stamp').textContent='build 2026-11-08 · v1';
+  $('stamp').textContent='build 2026-11-10 · v2';
 })();
 </script>
 </body>
