@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-11-10T04:22:22+08:00",
+  "updated": "2026-11-10T22:00:36+08:00",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -10895,6 +10895,38 @@
         ]
       },
       "tier": "FIELD"
+    },
+    {
+      "href": "/veil/",
+      "title": "VEIL — the clock surface, measured",
+      "kind": "instrument",
+      "parent": "/",
+      "operation": "OBSERVE",
+      "state": "CANDIDATE",
+      "family": "FIELD / CLOCK",
+      "version": "1.0",
+      "tier": "FIELD",
+      "role": "A phone instrument over three readings of time: temporal bisection (PSE, Weber fraction), tap asynchrony at 60 bpm, and a resonance breath pacer at ~5.5 breaths/min, with a baseline → breathe → retest delta. Reports within-person shifts, not absolute thresholds; a built-in selftest (?selftest=1) can fail.",
+      "index": {
+        "updated_at": "2026-11-10T22:00:36+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "selftest: logistic fit recovers a synthetic PSE within 20 ms and a synthetic timing SD within 3 ms (?selftest=1)",
+          "end-to-end fast session driven at 390x844: bisection → tap → 6 s pacer → retest → result, verdict rendered, session stored",
+          "records presented onset-to-onset intervals, so setTimeout jitter is measured rather than assumed"
+        ],
+        "limits": [
+          "phone display refresh and timer jitter bound absolute accuracy; only within-person deltas are meaningful",
+          "tap test wants headphones; bisection wants silence"
+        ],
+        "return_path": "/veil/"
+      }
     }
   ],
   "release_law": [
