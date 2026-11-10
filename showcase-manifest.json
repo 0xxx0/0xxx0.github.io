@@ -10919,11 +10919,13 @@
         "checks": [
           "selftest: logistic fit recovers a synthetic PSE within 20 ms and a synthetic timing SD within 3 ms (?selftest=1)",
           "end-to-end fast session driven at 390x844: bisection → tap → 6 s pacer → retest → result, verdict rendered, session stored",
-          "records presented onset-to-onset intervals, so setTimeout jitter is measured rather than assumed"
+          "records presented onset-to-onset intervals, so setTimeout jitter is measured rather than assumed",
+          "reports its own 95% resolution for a shift (Fisher information on the fitted slope): ±212 ms in fast mode at 15 trials, ~±120 ms at the 36-trial protocol, and refuses to call anything smaller a shift"
         ],
         "limits": [
           "phone display refresh and timer jitter bound absolute accuracy; only within-person deltas are meaningful",
-          "tap test wants headphones; bisection wants silence"
+          "tap test wants headphones; bisection wants silence",
+          "one 36-trial session cannot resolve a 10% shift; pool four sessions"
         ],
         "return_path": "/veil/"
       }
