@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-11-10T14:08:29.793Z",
+  "generated": "2026-11-10T14:39:29.711Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,15 +9,15 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-11-10",
-  "commits_in_window": 6,
-  "git_commits_in_window": 70,
-  "telemetry_commits_in_window": 64,
-  "commits_total": 8314,
+  "commits_in_window": 10,
+  "git_commits_in_window": 76,
+  "telemetry_commits_in_window": 66,
+  "commits_total": 8320,
   "branch_count": 1141,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
-    "veil: register route in showcase manifest",
-    "veil: temporal resolution instrument (bisection, tap asynchrony, resonance pac"
+    "veil: restamp manifest after resolution change",
+    "veil: report own 95 percent resolution for a shift via Fisher information"
   ],
   "active_fronts": [
     {
