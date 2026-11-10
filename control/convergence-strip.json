@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-11-10T13:37:35.655Z",
+  "generated": "2026-11-10T14:08:29.793Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,12 +9,16 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-11-10",
-  "commits_in_window": 3,
-  "git_commits_in_window": 65,
-  "telemetry_commits_in_window": 62,
-  "commits_total": 8309,
+  "commits_in_window": 6,
+  "git_commits_in_window": 70,
+  "telemetry_commits_in_window": 64,
+  "commits_total": 8314,
   "branch_count": 1141,
-  "recent_commits": [],
+  "recent_commits": [
+    "desk: refresh public field data + root git chronology",
+    "veil: register route in showcase manifest",
+    "veil: temporal resolution instrument (bisection, tap asynchrony, resonance pac"
+  ],
   "active_fronts": [
     {
       "id": "air-instrument",
