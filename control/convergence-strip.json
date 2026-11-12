@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-11-12T06:26:32.703Z",
+  "generated": "2026-11-12T12:07:39.192Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -10,13 +10,12 @@
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-11-12",
   "commits_in_window": 2,
-  "git_commits_in_window": 47,
-  "telemetry_commits_in_window": 45,
-  "commits_total": 8443,
+  "git_commits_in_window": 63,
+  "telemetry_commits_in_window": 61,
+  "commits_total": 8459,
   "branch_count": 1142,
   "recent_commits": [
-    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
-    "calls: refresh (auto — answers changed)"
+    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)"
   ],
   "active_fronts": [
     {
