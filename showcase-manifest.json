@@ -10930,6 +10930,58 @@
         ],
         "return_path": "/veil/"
       }
+    },
+    {
+      "href": "/dhamma/",
+      "title": "DHAMMA / ONE CROSSING",
+      "kind": "alias",
+      "parent": "/",
+      "operation": "READ / WALK / RETURN",
+      "state": "CANDIDATE",
+      "family": "experience-expression",
+      "role": "Public entry into the existing Dhamma reading/crossing instrument. Redirects to the native instrument; does not own source, progress, FIELD attention, or effect authority.",
+      "index": {
+        "updated_at": "2026-11-05T11:34:29+08:00",
+        "work_modes": [
+          "READ",
+          "PLAY",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        "/dhamma/instrument.html",
+        "/dhamma/dhamma-reader.json",
+        "/dhamma/gates.json",
+        "https://github.com/0xxx0/0xxx0.github.io/commit/58b63f548f0492170fcc1ffc1b5f6d6f4f4ae757",
+        "https://github.com/0xxx0/0xxx0.github.io/commit/c52eb40d76f0ff0d63ed4aa6bd68e158db42f921"
+      ]
+    },
+    {
+      "href": "/dhamma/instrument.html",
+      "title": "DHAMMA — THE TEXT IS THE PLACE",
+      "kind": "artifact",
+      "parent": "/dhamma/",
+      "operation": "READ / WALK / CHOOSE / RETURN",
+      "state": "CANDIDATE",
+      "family": "path-traversal",
+      "role": "Deterministic public reading instrument: source text becomes an addressed walk with section-edge gates, scrub/play traversal, local browser marks, and RETURN. The shipped corpus is a bounded projection; source authority remains with its declared corpus/provenance.",
+      "index": {
+        "updated_at": "2026-11-05T11:34:29+08:00",
+        "work_modes": [
+          "READ",
+          "PLAY",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        "/dhamma/dhamma-reader.json",
+        "/dhamma/convo-reader.json",
+        "/dhamma/gates.json",
+        "/dhamma/maze.js",
+        "/dhamma/stupa.js",
+        "https://github.com/0xxx0/0xxx0.github.io/commit/58b63f548f0492170fcc1ffc1b5f6d6f4f4ae757",
+        "https://github.com/0xxx0/0xxx0.github.io/commit/9a474442c90197025b32a7c203f108e09ec68e95"
+      ]
     }
   ],
   "release_law": [
