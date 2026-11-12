@@ -1,0 +1,50 @@
+/* Structural DOM is canonical. This sheet changes reading geometry, not program nodes. */
+.projectionChoice{display:flex;align-items:center;gap:6px;padding:0 8px;border-right:1px solid var(--line);background:#0c1316;color:var(--gold);white-space:nowrap;font-size:9px}
+.projectionChoice select{min-height:38px;max-width:160px;padding:6px;border:1px solid var(--line2);background:#06090a;color:var(--ink);font-size:10px}
+body[data-projection="plain"] .viewport{overflow:auto;touch-action:pan-y;scroll-snap-type:y proximity}
+body[data-projection="plain"] .axis{display:none}
+body[data-projection="plain"] #program{display:flex;flex-direction:column;align-items:stretch;gap:10px;min-width:0;width:min(920px,100%);height:auto;min-height:100%;margin:auto;padding:44px 14px 32px}
+body[data-projection="plain"] #program>.block{width:100%;min-width:0;min-height:0}
+body[data-projection="plain"] .block{scroll-snap-align:start;transform:none}
+body[data-projection="plain"] .block.focused{border-left:3px solid var(--ink);transform:none}
+body[data-projection="plain"] .block>summary{height:auto;min-height:42px;font-size:13px;padding:11px}
+body[data-projection="plain"] .block .body{padding:12px}
+body[data-projection="plain"] .desc{font-size:12px;min-height:0;line-height:1.6;color:#c1cbce}
+body[data-projection="plain"] .op,body[data-projection="plain"] .meta{font-size:10px}
+body[data-projection="plain"] .seam{margin:12px -12px -12px;height:44px}
+body[data-projection="plain"] .seam strong{font-size:10px}
+body[data-projection="plain"] .cassette[open],body[data-projection="plain"] .block.scope-host{width:100%;min-width:0}
+body[data-projection="plain"] .cassette>.body>.children{display:flex;flex-direction:column;gap:8px;overflow:visible}
+body[data-projection="plain"] .cassette>.body>.children>.block{width:100%;min-width:0;min-height:0}
+body[data-projection="plain"] .cassette>.body>.children>.block .desc{min-height:0}
+body[data-projection="plain"] .bindGrid input{min-height:32px;font-size:12px}
+body[data-projection="plain"] .bindResult{font-size:10px}
+#roomLens{display:none;position:absolute;inset:0;z-index:2;overflow:auto;padding:12px 10px;flex-direction:column;align-items:center;justify-content:space-between;background:#050708}
+body[data-projection="room"] .viewport,body[data-projection="room"] .axis{display:none}
+body[data-projection="room"] #roomLens{display:flex}
+.roomLensHead{width:100%;display:flex;justify-content:space-between;gap:12px;color:#a6b2b5;font-size:9px;letter-spacing:.05em}
+.roomLensHead b{color:var(--gold)}
+.cubeStage{--side:min(65vw,38vh,310px);display:grid;place-items:center;flex:1;min-height:calc(var(--side) + 54px);width:100%;perspective:940px;overflow:hidden}
+.relationCube{width:var(--side);height:var(--side);position:relative;transform-style:preserve-3d;transform:rotateX(var(--cube-rx,0deg)) rotateY(var(--cube-ry,0deg));transition:transform .45s cubic-bezier(.2,.78,.18,1)}
+.cubeFace{position:absolute;inset:0;border:1px solid #66808d;background:linear-gradient(160deg,#111b20,#06090b);backface-visibility:hidden;pointer-events:none;overflow:auto}
+.cubeFace.active{border-color:var(--gold);pointer-events:auto}
+.cubeFace[data-face="F"]{transform:translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="B"]{transform:rotateY(180deg) translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="L"]{transform:rotateY(-90deg) translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="R"]{transform:rotateY(90deg) translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="U"]{transform:rotateX(-90deg) translateZ(calc(var(--side)/2))}
+.cubeFace[data-face="D"]{transform:rotateX(90deg) translateZ(calc(var(--side)/2))}
+.cubeContent{padding:clamp(10px,2.4vw,20px);display:flex;flex-direction:column;gap:9px;min-height:100%}
+.cubeEy{color:var(--cool);font-size:9px;letter-spacing:.1em}
+.cubeTitle{font:800 clamp(14px,3.5vw,23px)/1.1 system-ui,sans-serif;overflow-wrap:anywhere}
+.cubeDetail{white-space:pre-line;color:#d1dddf;font-size:clamp(10px,2.5vw,12px);line-height:1.45;overflow-wrap:anywhere}
+.cubeAction{margin-top:auto;text-align:left;min-height:40px;padding:7px;border:1px solid #566c73;background:#101a20;color:#fff;font-size:10px}
+.roomLensBottom{width:min(580px,100%);display:grid;gap:8px}
+.faceNavigation{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+.faceNavigation button,#unfoldRoom{border:1px solid var(--line2);background:#0d1417;color:var(--ink);min-height:42px;padding:7px;font-size:12px}
+.faceNavigation button[aria-pressed="true"]{background:var(--gold);color:#050708;font-weight:800}
+.roomReadout{margin:0;color:#aab7ba;font-size:10px;min-height:16px}
+#unfoldRoom{font-weight:800;text-align:center;color:var(--gold)}
+.projectionTest{position:absolute;bottom:2px;left:2px;z-index:5;font-size:8px;color:var(--ok)}
+@media(max-width:760px){.projectionChoice{padding:0 6px}.projectionChoice select{max-width:136px}body[data-projection="plain"] footer{min-height:75px}body[data-projection="plain"] #program{padding:34px 10px}.roomLensHead{font-size:8px}.cubeStage{--side:min(68vw,38vh,280px)}}
+@media(prefers-reduced-motion:reduce){.relationCube{transition:none}body[data-projection="plain"] #program{transition:none}}

@@ -1,0 +1,22 @@
+name: ROOM projection proof
+on:
+  pull_request:
+    paths:
+      - 'foundry/room/**'
+      - '.github/workflows/room-projection-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  room-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse ROOM projection script
+        run: node --check foundry/room/projection-bridge.js
+      - name: Verify actual ROOM DOM at phone and desktop widths
+        run: node foundry/room/projection-browser-proof.mjs
