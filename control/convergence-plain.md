@@ -4,9 +4,9 @@
 > Current convergence: [FIELD live derivation](/#convRead) = QUEUE + federation-atlas, composed on read. CURRENT separately owns NOW.
 > Do not use this file to choose NOW/NEXT or to claim current truth.
 
-_Captured 2026-11-11T20:37:32.709Z by scripts/generate-convergence-strip.mjs_
+_Captured 2026-11-12T00:14:31.760Z by scripts/generate-convergence-strip.mjs_
 
-At capture, the field had **5 material commits on 2026-11-11** across **1141 branches** (88 exact Git commits in the window; 83 generated telemetry; 8412 on master all-time).
+At capture, the field had **2 material commits on 2026-11-12** across **1141 branches** (28 exact Git commits in the window; 26 generated telemetry; 8424 on master all-time).
 At capture, **1/2** fronts were marked live, against **12** captured current heads.
 
 ## Captured active fronts
