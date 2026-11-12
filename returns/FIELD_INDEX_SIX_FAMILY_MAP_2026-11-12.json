@@ -119,5 +119,18 @@
     "lived_reentry": "UNKNOWN"
   },
   "falsifier": "Remove or further contract the map if it becomes a second backlog/status system, duplicates CURRENT, or does not reduce cross-project re-entry.",
-  "stop": "No /projects/ route, no family registry, no family-owned priority, no seventh coordination layer."
+  "stop": "No /projects/ route, no family registry, no family-owned priority, no seventh coordination layer.",
+  "baseline_truth_repair": {
+    "trigger": "Route Registration rejected two live master pages invisible to showcase-manifest.",
+    "pages": [
+      "/dhamma/",
+      "/dhamma/instrument.html"
+    ],
+    "disposition": "REGISTER_EXISTING_ONLY",
+    "evidence": [
+      "dhamma public instrument commits 58b63f54, c52eb40d, 9a474442",
+      "no open PR owned the registration drift"
+    ],
+    "non_claim": "Registration makes existing public pages addressable; it does not promote Dhamma to CURRENT, NOW, or a new family authority."
+  }
 }
