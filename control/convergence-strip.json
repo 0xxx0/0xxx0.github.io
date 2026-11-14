@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-11-14T13:44:33.513Z",
+  "generated": "2026-11-14T20:27:35.832Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,12 +9,16 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-11-14",
-  "commits_in_window": 3,
-  "git_commits_in_window": 65,
-  "telemetry_commits_in_window": 62,
-  "commits_total": 8610,
+  "commits_in_window": 6,
+  "git_commits_in_window": 91,
+  "telemetry_commits_in_window": 85,
+  "commits_total": 8636,
   "branch_count": 1142,
-  "recent_commits": [],
+  "recent_commits": [
+    "desk: refresh public field data + root git chronology",
+    "fi-mutation-contract: stamp /calls/ (OPERATE,VERIFY)",
+    "calls: refresh (auto — answers changed)"
+  ],
   "active_fronts": [
     {
       "id": "air-instrument",
