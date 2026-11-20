@@ -1,0 +1,136 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_SIX_FAMILY_MAP_2026-11-12",
+  "date": "2026-11-12",
+  "object": "FIELD INDEX / CONVERGENCE READ / SIX-FAMILY PROJECT MAP",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "before": "FIELD had a live convergence read for QUEUE + federation-atlas horizons, but no compact current map connecting the six recurring capability families to their native hosts, proof posture, dependencies, and one concrete move.",
+  "delta": [
+    "Embed one six-family project map inside the existing FIELD CONVERGENCE READ; no new route or dashboard.",
+    "Expose the dependency circuit RECOVER → HOLD → PATH → TRANSFORM → EXPERIENCE/WORLD → RETURN.",
+    "Derive host links and proof posture from CURRENT current_heads + showcase-manifest rather than creating project state.",
+    "Derive WORLD NEXT directly from CURRENT.next_single_action so the project map cannot independently choose NOW/NEXT.",
+    "Keep stable family laws/relationships as interpretation only; CURRENT remains attention authority and native hosts retain domain/effect authority.",
+    "Keep QUEUE + federation-atlas live/held/horizon readings beneath the family map as unequal secondary projections."
+  ],
+  "families": [
+    {
+      "id": "hold",
+      "name": "HOLD / ADDRESS / SCALE",
+      "depends_on": [
+        "recovery"
+      ],
+      "current_hosts": [
+        "/",
+        "/fold-bloom/lens/",
+        "/foundry/axial/"
+      ],
+      "next": "Hold one current head → exact source through DOOR/INTERPHASE → one native action → RETURN."
+    },
+    {
+      "id": "path",
+      "name": "PATH / TRAVERSAL",
+      "depends_on": [
+        "hold"
+      ],
+      "current_hosts": [
+        "/docs/",
+        "/sleeper/",
+        "/fold-bloom/"
+      ],
+      "next": "One real source: exact resume → traversal → exact source/cursor RETURN; compare against plain."
+    },
+    {
+      "id": "transform",
+      "name": "TRANSFORM / STEERING",
+      "depends_on": [
+        "hold",
+        "path"
+      ],
+      "current_hosts": [
+        "/fold-bloom/",
+        "/forward-field-proof/triangle/"
+      ],
+      "next": "Attack one named failed proof obligation; otherwise preserve PREVIEW/CALCULATION_ONLY."
+    },
+    {
+      "id": "experience",
+      "name": "EXPERIENCE / EXPRESSION",
+      "depends_on": [
+        "hold",
+        "path"
+      ],
+      "optional_input": [
+        "transform"
+      ],
+      "current_hosts": [
+        "/fold-bloom/",
+        "/poetry/map/",
+        "/sleeper/"
+      ],
+      "next": "Cold-open one shipped experience with no project lore; record first friction + first value as RETURN."
+    },
+    {
+      "id": "world",
+      "name": "WORLD LOOPS",
+      "depends_on": [
+        "hold",
+        "native_authority"
+      ],
+      "consumes": [
+        "transform",
+        "experience"
+      ],
+      "current_hosts": [
+        "/atlas-dayline/",
+        "/house/",
+        "/shopping/",
+        "/port/comms/"
+      ],
+      "next_source": "/control/CURRENT.json#next_single_action"
+    },
+    {
+      "id": "recovery",
+      "name": "RECOVERY / PROVENANCE",
+      "feeds": [
+        "all"
+      ],
+      "receives": [
+        "return"
+      ],
+      "current_hosts": [
+        "/recovery/"
+      ],
+      "next": "Recover only exact source/bytes required by selected conversion; otherwise HOLD."
+    }
+  ],
+  "authority": {
+    "attention": "/control/CURRENT.json",
+    "route_state": "/showcase-manifest.json",
+    "domain": "native host",
+    "proof": "native RETURN/evidence",
+    "project_map": "READ_ONLY_DERIVED_PROJECTION"
+  },
+  "current_world_next": "Rotate the day's lines into /dayline/ and witness the result on phone. RETURN the observed fit/friction. STOP before wiring the air-instrument sensor loop; that is a fresh SOURCE/HOLD after RETURN.",
+  "verification": {
+    "static_contract": "PENDING",
+    "route_registration": "PENDING",
+    "browser_layout": "PENDING",
+    "lived_reentry": "UNKNOWN"
+  },
+  "falsifier": "Remove or further contract the map if it becomes a second backlog/status system, duplicates CURRENT, or does not reduce cross-project re-entry.",
+  "stop": "No /projects/ route, no family registry, no family-owned priority, no seventh coordination layer.",
+  "baseline_truth_repair": {
+    "trigger": "Route Registration rejected two live master pages invisible to showcase-manifest.",
+    "pages": [
+      "/dhamma/",
+      "/dhamma/instrument.html"
+    ],
+    "disposition": "REGISTER_EXISTING_ONLY",
+    "evidence": [
+      "dhamma public instrument commits 58b63f54, c52eb40d, 9a474442",
+      "no open PR owned the registration drift"
+    ],
+    "non_claim": "Registration makes existing public pages addressable; it does not promote Dhamma to CURRENT, NOW, or a new family authority."
+  }
+}

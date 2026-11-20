@@ -368,6 +368,15 @@ check(home.includes('Φ / CURRENT')&&home.includes('id="syncFocus"'),'root missi
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
 check(home.includes('project-head-glyph.js')&&home.includes('HEAD GLYPH'),'root missing latent current-head project glyph wiring');
+check(
+  home.includes('SIX FAMILIES / PROJECT MAP')&&
+  ['HOLD / ADDRESS / SCALE','PATH / TRAVERSAL','TRANSFORM / STEERING','EXPERIENCE / EXPRESSION','WORLD LOOPS','RECOVERY / PROVENANCE'].every(x=>home.includes(x)),
+  'FIELD convergence read missing six-family project map'
+);
+check(home.includes("current?.next_single_action?.instruction"),'six-family WORLD next must derive from CURRENT.next_single_action');
+check(home.includes("data-family=\"")&&home.includes("data-active=\""),'six-family map missing derived family/activity witness');
+check(!home.includes('href="./projects/"')&&!home.includes("href='/projects/'"),'six-family map regressed into a separate /projects/ dashboard');
+if(fi)check(String(fi.ui_contract?.root_convergence||'').includes('six-family')&&String(fi.ui_contract?.root_convergence||'').includes('CURRENT.next_single_action'),'FIELD contract missing six-family convergence authority boundary');
 check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
 check(home.includes('field-aperture.js'),'FIELD root missing reusable Aperture component');
 check(home.includes('id="apInspect"')&&home.includes('>READ</button>'),'FIELD root missing focused READFIELD action');
