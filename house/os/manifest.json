@@ -1,0 +1,96 @@
+{
+  "schema": "house-os-manifest/v0.1",
+  "updated": "2026-10-04",
+  "status": "REFERENCE_VERTICAL_SLICE",
+  "purpose": "Small normative HOUSE seam above private runtimes. Own identity, observations, intent, evidence and projections; outsource protocol/device churn.",
+  "law": "One physical world, stable HOUSE identities, many unequal projections, explicit authority boundaries, append-only evidence, bounded effects, exact RETURN.",
+  "kernel": {
+    "nouns": [
+      "OBJECT",
+      "RELATION",
+      "CAPABILITY",
+      "OBSERVATION",
+      "INTENT",
+      "RECEIPT"
+    ],
+    "rule": "If a feature cannot be expressed as one of these nouns or a pure projection over them, it is not kernel state."
+  },
+  "authority": {
+    "HOUSE": [
+      "stable object identity",
+      "relations and spatial address",
+      "capability semantics",
+      "observation/evidence history",
+      "intent",
+      "policy boundary",
+      "receipts",
+      "human projections"
+    ],
+    "HOME_ASSISTANT_HOUSEBUS": [
+      "device/entity runtime truth",
+      "protocol integrations",
+      "transport",
+      "permissions",
+      "actuation",
+      "runtime automation"
+    ],
+    "PROJECTIONS": [
+      "render",
+      "filter",
+      "compare",
+      "navigate",
+      "draft bounded intent"
+    ]
+  },
+  "flow": "SOURCE -> OBSERVATION -> HOUSE STATE -> PROJECTION -> INTENT -> POLICY -> ADAPTER -> WORLD -> OBSERVATION + RECEIPT -> RETURN",
+  "modules": {
+    "core": {
+      "path": "/house/os/core.js",
+      "side_effects": "none",
+      "owns": [
+        "normalized records",
+        "state reduction",
+        "freshness",
+        "connection state machine",
+        "receipts",
+        "deterministic replay"
+      ]
+    },
+    "home_assistant_adapter": {
+      "path": "/house/os/ha-adapter.contract.json",
+      "side_effects": "external only when mode=act",
+      "default_mode": "shadow"
+    },
+    "handoff": {
+      "path": "/house/os/handoff.json",
+      "authority": "NONE / COORDINATION ONLY",
+      "purpose": "Allow another human or agent to resume HOUSE work without private chat history."
+    }
+  },
+  "existing_assets": {
+    "/house/": "canonical human projection; keep",
+    "/house/expert.html": "deep read-only runtime projection; keep",
+    "/house/spatial/model.json": "spatial substrate; keep",
+    "/house/state.json": "public-safe timestamped witness; keep",
+    "/house/design-engine.js": "optional DESIGN projection/plugin",
+    "/house/reality-harness.js": "optional REALITY navigation/plugin",
+    "/house/crew-seam.js": "optional coordination/plugin",
+    "/house/human-harness.js": "optional coordination/plugin",
+    "/house/confluence.json": "lineage/donor map; informative, not runtime kernel"
+  },
+  "non_goals": [
+    "new home automation runtime",
+    "new Zigbee or Tuya stack",
+    "new automation DSL",
+    "universal dashboard framework",
+    "duplicate canonical truth",
+    "HA entity IDs as HOUSE identity",
+    "LLM direct arbitrary device control"
+  ],
+  "promotion": {
+    "phase_1": "READ: bind 10 real HA capabilities and normalize observations.",
+    "phase_2": "SHADOW: compile intents to WOULD_SEND receipts with no external effect.",
+    "phase_3": "ACT: permit only explicitly allowlisted low-risk capabilities after replay/reconnect tests pass."
+  },
+  "return": "/house/"
+}
