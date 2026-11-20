@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210">
+  <title>PHYSICAL / MEDIA PIPELINE v0.1</title>
+  <desc>Digital source through plate transforms, printer/process adapters, carrier/interface/substrate/process/finish, then physical RETURN.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#111"/>
+    </marker>
+    <style>
+      .box{fill:#fff;stroke:#111;stroke-width:.7}
+      .soft{fill:#f4f4f0;stroke:#111;stroke-width:.45}
+      .hold{fill:#fff;stroke:#8c271e;stroke-width:.7}
+      .t{font:6px monospace;fill:#111}
+      .s{font:4px monospace;fill:#333}
+      .h{font:bold 9px monospace;fill:#111}
+      .r{font:bold 5px monospace;fill:#8c271e}
+      .line{stroke:#111;stroke-width:.7;fill:none;marker-end:url(#arrow)}
+      .thin{stroke:#111;stroke-width:.35;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+
+  <rect x="4" y="4" width="289" height="202" fill="#faf9f3" stroke="#111" stroke-width=".8"/>
+  <text x="10" y="16" class="h">PHYSICAL / MEDIA PIPELINE · v0.1</text>
+  <text x="10" y="24" class="s">SOURCE → PLATE → ADAPTER → CARRIER → INTERFACE → SUBSTRATE → PROCESS → FINISH → RETURN</text>
+  <text x="287" y="16" text-anchor="end" class="r">HOLD / DONOR / AUTHORITY NONE</text>
+
+  <!-- spine -->
+  <g transform="translate(10 36)">
+    <rect class="box" x="0" y="0" width="27" height="28"/>
+    <text class="t" x="3" y="9">SOURCE</text>
+    <text class="s" x="3" y="16">SVG · IMG</text><text class="s" x="3" y="21">PDF · FIELD</text>
+
+    <path class="line" d="M27 14 H34"/>
+    <rect class="box" x="35" y="0" width="33" height="28"/>
+    <text class="t" x="38" y="9">PLATE</text>
+    <text class="s" x="38" y="16">scale · mirror</text><text class="s" x="38" y="21">dither · tile</text>
+
+    <path class="line" d="M68 14 H75"/>
+    <rect class="box" x="76" y="0" width="31" height="28"/>
+    <text class="t" x="79" y="9">ADAPTER</text>
+    <text class="s" x="79" y="16">printer / UV</text><text class="s" x="79" y="21">manual</text>
+
+    <path class="line" d="M107 14 H114"/>
+    <rect class="box" x="115" y="0" width="31" height="28"/>
+    <text class="t" x="118" y="9">CARRIER</text>
+    <text class="s" x="118" y="16">paper · film</text><text class="s" x="118" y="21">plate · resist</text>
+
+    <path class="line" d="M146 14 H153"/>
+    <rect class="box" x="154" y="0" width="33" height="28"/>
+    <text class="t" x="157" y="9">INTERFACE</text>
+    <text class="s" x="157" y="16">direct · release</text><text class="s" x="157" y="21">mask · contact</text>
+
+    <path class="line" d="M187 14 H194"/>
+    <rect class="box" x="195" y="0" width="31" height="28"/>
+    <text class="t" x="198" y="9">SUBSTRATE</text>
+    <text class="s" x="198" y="16">paper · metal</text><text class="s" x="198" y="21">wood · fabric</text>
+
+    <path class="line" d="M226 14 H233"/>
+    <rect class="box" x="234" y="0" width="31" height="28"/>
+    <text class="t" x="237" y="9">PROCESS</text>
+    <text class="s" x="237" y="16">print · etch</text><text class="s" x="237" y="21">expose · wet</text>
+  </g>
+
+  <path class="line" d="M275 50 V82 H250"/>
+  <rect class="box" x="215" y="70" width="35" height="28"/>
+  <text class="t" x="218" y="79">FINISH</text>
+  <text class="s" x="218" y="86">dry · wash</text><text class="s" x="218" y="91">mount · trim</text>
+  <path class="line" d="M215 84 H205"/>
+  <rect class="hold" x="165" y="70" width="40" height="28"/>
+  <text class="t" x="168" y="79">RETURN</text>
+  <text class="s" x="168" y="86">photo + scale</text><text class="s" x="168" y="91">settings + result</text>
+
+  <!-- adapter branches -->
+  <text x="10" y="83" class="t">ADAPTER LANES</text>
+  <g transform="translate(10 90)">
+    <rect class="soft" x="0" y="0" width="50" height="25"/>
+    <text class="t" x="3" y="8">INKJET / DIRECT</text><text class="s" x="3" y="15">Xuan · photo · decal</text><text class="s" x="3" y="20">controlled bleed</text>
+
+    <rect class="soft" x="55" y="0" width="50" height="25"/>
+    <text class="t" x="58" y="8">INKJET / MASK</text><text class="s" x="58" y="15">digital negative</text><text class="s" x="58" y="20">UV / photoresist</text>
+
+    <rect class="soft" x="110" y="0" width="50" height="25"/>
+    <text class="t" x="113" y="8">LASER / TRANSFER</text><text class="s" x="113" y="15">toner resist · gel</text><text class="s" x="113" y="20">foil</text>
+
+    <rect class="soft" x="165" y="0" width="50" height="25"/>
+    <text class="t" x="168" y="8">LASER / PLATE</text><text class="s" x="168" y="15">polyester litho</text><text class="s" x="168" y="20">film positive</text>
+
+    <rect class="soft" x="220" y="0" width="57" height="25"/>
+    <text class="t" x="223" y="8">RESIST → ETCH</text><text class="s" x="223" y="15">current + charge density</text><text class="s" x="223" y="20">RETURN depth / undercut</text>
+  </g>
+
+  <text x="10" y="131" class="t">PLATE COMPILER · one source, many physical interfaces</text>
+  <g transform="translate(10 138)">
+    <rect class="box" x="0" y="0" width="31" height="18"/><text class="s" x="4" y="11">MIRROR</text>
+    <rect class="box" x="34" y="0" width="31" height="18"/><text class="s" x="38" y="11">NEGATIVE</text>
+    <rect class="box" x="68" y="0" width="31" height="18"/><text class="s" x="72" y="11">THRESHOLD</text>
+    <rect class="box" x="102" y="0" width="31" height="18"/><text class="s" x="106" y="11">DITHER</text>
+    <rect class="box" x="136" y="0" width="31" height="18"/><text class="s" x="140" y="11">SEPARATE</text>
+    <rect class="box" x="170" y="0" width="31" height="18"/><text class="s" x="174" y="11">TILE</text>
+    <rect class="box" x="204" y="0" width="31" height="18"/><text class="s" x="208" y="11">REGISTER</text>
+    <rect class="box" x="238" y="0" width="39" height="18"/><text class="s" x="242" y="11">CALIBRATE</text>
+  </g>
+
+  <text x="10" y="173" class="t">PROOF LAW</text>
+  <text x="10" y="181" class="s">Digital preview proves geometry only. Physical claim requires measured specimen evidence.</text>
+  <text x="10" y="188" class="s">Change one process axis at a time. Preserve source identity, scale, orientation, material identity and settings.</text>
+  <text x="10" y="195" class="s">No new route until ≥3 real specimens across ≥2 mechanisms show one reusable transform.</text>
+  <text x="287" y="200" text-anchor="end" class="s">/physical/media-lab/physical-media-pipeline-v0.1.svg</text>
+</svg>
