@@ -68,14 +68,17 @@ function patch(model,span,replacement){
  if(model.kind==='JSON')JSON.parse(raw);
  return{raw,changed:raw!==model.raw,span:{start:span.start,end:span.start+replacement.length}};
 }
-function relation(model,hash,from,to,type){
+function warrantOK(w){return w===undefined||(typeof w==='string'&&w.length<=320&&w.trim()===w&&!/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/.test(w))}
+function relation(model,hash,from,to,type,warrant=''){
  if(!RELATIONS.includes(type)||!exactSpan(model,from)||!exactSpan(model,to))throw Error('Select two source ranges and a relation.');
+ if(typeof warrant!=='string'||!warrantOK(warrant.trim()))throw Error('Relation reason must be at most 320 characters.');
+ warrant=warrant.trim();
  if(from.end-from.start>20000||to.end-to.start>20000)throw Error('Narrow scope before linking; each quote is limited to 20,000 characters.');
  if(from.start===to.start&&from.end===to.end)throw Error('Select a different destination.');
  const endpoint=span=>{const match=model.levels.find(l=>(!span.scope||l.id===span.scope)&&l.units.some(u=>u.start===span.start&&u.end===span.end));if(!match)throw Error('Relation must name a native source range.');return{start:span.start,end:span.end,scope:match.id,quote:model.raw.slice(span.start,span.end)}};
- return{type,hash,from:endpoint(from),to:endpoint(to),authority:'INTERPRETATION_ONLY'};
+ return{type,hash,from:endpoint(from),to:endpoint(to),authority:'INTERPRETATION_ONLY',...(warrant?{warrant}:{})};
 }
-function validRelation(model,hash,r){return !!r&&r.hash===hash&&r.authority==='INTERPRETATION_ONLY'&&RELATIONS.includes(r.type)&&[r.from,r.to].every(s=>exactSpan(model,s)&&s.end-s.start<=20000&&s.quote===model.raw.slice(s.start,s.end)&&model.levels.some(l=>l.id===s.scope&&l.units.some(u=>u.start===s.start&&u.end===s.end)))&&!(r.from.start===r.to.start&&r.from.end===r.to.end)}
+function validRelation(model,hash,r){return !!r&&r.hash===hash&&r.authority==='INTERPRETATION_ONLY'&&RELATIONS.includes(r.type)&&warrantOK(r.warrant)&&[r.from,r.to].every(s=>exactSpan(model,s)&&s.end-s.start<=20000&&s.quote===model.raw.slice(s.start,s.end)&&model.levels.some(l=>l.id===s.scope&&l.units.some(u=>u.start===s.start&&u.end===s.end)))&&!(r.from.start===r.to.start&&r.from.end===r.to.end)}
 function relationDoors(model,hash,links,char){return links.filter(r=>validRelation(model,hash,r)).flatMap(r=>[...(char>=r.from.start&&char<r.from.end?[{...r,destination:r.to,direction:'→'}]:[]),...(char>=r.to.start&&char<r.to.end?[{...r,destination:r.from,direction:'←'}]:[])])}
 // Two honest coordinates sharing one source: the outer dial is absolute
 // character position; the inner dial is position inside the currently held
