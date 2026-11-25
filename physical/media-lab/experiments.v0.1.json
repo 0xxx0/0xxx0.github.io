@@ -1,0 +1,180 @@
+{
+  "schema": "field-physical-media-lab/v0.1",
+  "status": "HOLD_DONOR",
+  "authority": "NONE",
+  "updated": "2026-10-08",
+  "purpose": "Small editable ledger for printer/media/transfer/etch specimens. It is not a queue, route, inventory authority, or recipe database.",
+  "anchors": {
+    "physical_return_fixture": "/physical/print-01/",
+    "digital_media_host": "/20261007-art-atlas/",
+    "submission_contract": "/control/SUBMISSION_CONTRACT.json"
+  },
+  "inventory_snapshot": [
+    {"id": "printer:epson-l18050", "class": "INKJET_DYE", "state": "KNOWN"},
+    {"id": "printer:brother-mono-laser", "class": "LASER_MONO", "state": "MODEL_MEDIA_LIMITS_TO_INVENTORY"},
+    {"id": "media:xuan-roll", "class": "ABSORBENT_PAPER", "state": "SIZING_WEIGHT_UNKNOWN"},
+    {"id": "media:siliconised-roll", "class": "RELEASE_PAPER", "state": "LASER_COMPATIBILITY_UNVERIFIED"}
+  ],
+  "pipeline": [
+    "SOURCE",
+    "PLATE",
+    "ADAPTER",
+    "CARRIER",
+    "INTERFACE",
+    "SUBSTRATE",
+    "PROCESS",
+    "FINISH",
+    "RETURN"
+  ],
+  "plate_transforms": [
+    "CROP",
+    "SCALE",
+    "MIRROR",
+    "NEGATIVE",
+    "THRESHOLD",
+    "DITHER",
+    "SEPARATE",
+    "TILE",
+    "REGISTER"
+  ],
+  "record_contract": {
+    "required": [
+      "test_id",
+      "source_ref",
+      "printer_or_process",
+      "media_or_carrier",
+      "settings",
+      "physical_scale_check",
+      "evidence_ref",
+      "observed_result",
+      "verdict"
+    ],
+    "verdict_enum": ["PASS", "FAIL", "INTERESTING", "UNKNOWN"]
+  },
+  "safety_laws": [
+    "Unknown coated, waxed, siliconised, vinyl, acetate, or inkjet-only stock does not enter the laser. Use media explicitly rated for the exact printer or a known laser-safe transfer carrier.",
+    "Electro-etch chemistry is selected by substrate metal; voltage alone is not a process specification.",
+    "Chloride electrolyte is not the default experimental electrolyte.",
+    "Do not develop the first electro-etch process on stainless steel. Anodic/transpassive dissolution can release chromium species including Cr(VI); define capture, waste, and exposure controls before any stainless trial.",
+    "All spent electro-etch electrolyte is treated as metal-bearing waste; do not pour it to drain.",
+    "Stop a wet/electrical test on unexpected heating, vigorous gas evolution, odour, unusual colour change, exposed wiring, resist delamination, or unstable current.",
+    "No chemistry, heated transfer, cutting, or powered etch work when fatigued or nodding off."
+  ],
+  "electrochem_measurement": {
+    "primary_variables": [
+      "exposed_area_cm2",
+      "current_A",
+      "current_density_mA_cm2",
+      "elapsed_s",
+      "charge_C",
+      "charge_density_C_cm2",
+      "electrolyte_identity",
+      "electrolyte_concentration",
+      "temperature_C",
+      "electrode_gap_mm",
+      "counterelectrode_material"
+    ],
+    "derived": {
+      "current_density_mA_cm2": "1000 * current_A / exposed_area_cm2",
+      "charge_C_constant_current": "current_A * elapsed_s",
+      "charge_density_C_cm2": "charge_C / exposed_area_cm2",
+      "faraday_mass_g_ideal": "molar_mass_g_mol * charge_C / (electron_count * 96485.33212)"
+    },
+    "research_window_note": "Published electrochemical etching/machining literature spans roughly single-digit to hundreds of mA/cm2 depending on metal/electrolyte/flow. Treat 1-100 mA/cm2 as an instrumentation/logging envelope for small non-stainless coupon research, not as a universal operating recipe. First bounded coupon should start at the low end and rise only on observed need.",
+    "first_coupon_guard": {
+      "substrate": "COPPER_OR_MILD_STEEL",
+      "stainless": "HOLD",
+      "chloride": "HOLD",
+      "initial_current_density_ceiling_mA_cm2": 10,
+      "goal": "Find minimum charge density giving legible material removal with acceptable edge undercut."
+    }
+  },
+  "experiments": [
+    {
+      "id": "P0-DEVICE-BASELINE",
+      "state": "READY",
+      "priority": 0,
+      "move": "Print media-test-plate-v0.1.svg at 100 percent actual size on ordinary known-good paper on the L18050 and Brother laser.",
+      "proof": ["100 mm bar measurement", "full-sheet photo", "smallest surviving line/gap", "visible banding or scaling error"],
+      "stop": "If scale is outside 99-101 mm, resolve driver scaling before exotic media."
+    },
+    {
+      "id": "P1-XUAN-INKJET",
+      "state": "READY_AFTER_P0",
+      "priority": 1,
+      "move": "Print the same diagnostic plate on the Xuan/rice-paper roll across a small ink-load/quality matrix; selectively wet one sacrificial print after initial dry-down.",
+      "vary_one_axis": ["driver media preset", "quality", "source density", "post-wet amount"],
+      "proof": ["edge spread mm", "line survival", "colour migration", "cockling", "dry-back photo"],
+      "stop": "Do not tune several axes at once."
+    },
+    {
+      "id": "P2-TONER-TRANSFER-RESIST",
+      "state": "READY_AFTER_P0",
+      "priority": 1,
+      "move": "Use dedicated or verified laser-safe transfer stock to move the diagnostic feature ladder onto a copper or mild-steel coupon. No etch yet.",
+      "proof": ["transfer completeness", "pinholes", "edge lift", "smallest surviving positive line", "smallest surviving negative gap"],
+      "stop": "If resist is not continuous, repair transfer mechanics before adding chemistry."
+    },
+    {
+      "id": "P3-ELECTROETCH-COUPON",
+      "state": "BLOCKED_ON_P2_PASS",
+      "priority": 2,
+      "move": "Current-limited DC etch of the P2 non-stainless coupon with a deliberately selected non-chloride electrolyte; log current density and charge density.",
+      "proof": ["before/after mass if practical", "macro photo with scale", "depth estimate", "undercut estimate", "current/time log"],
+      "stop": "Stop on unexpected heat, vigorous gas, odour, colour change, resist failure, or unstable current."
+    },
+    {
+      "id": "P4-TONER-FOIL",
+      "state": "OPTION",
+      "priority": 3,
+      "move": "Laser-print dense black diagnostic marks on known laser-safe smooth stock; apply toner-reactive foil with controlled heat/pressure.",
+      "proof": ["coverage", "pinholes", "edge fidelity", "minimum feature", "repeatability over two small specimens"]
+    },
+    {
+      "id": "P5-DIGITAL-NEGATIVE",
+      "state": "OPTION",
+      "priority": 3,
+      "move": "Use the L18050 with inkjet-coated transparency as a calibrated contact-print negative/positive for cyanotype or another selected UV process.",
+      "proof": ["step wedge", "contact sharpness", "maximum useful UV density", "curve needed for tonal separation"],
+      "note": "Visual blackness is not sufficient evidence of UV blocking."
+    },
+    {
+      "id": "P6-POLYESTER-LITHO",
+      "state": "OPTION",
+      "priority": 3,
+      "move": "Print a reduced-halftone diagnostic image on laser-compatible polyester lithography plate and pull one hand-printed impression.",
+      "proof": ["toner adhesion", "water/ink discrimination", "print fidelity", "plate wear after several pulls"]
+    },
+    {
+      "id": "P7-GEL-TRANSFER",
+      "state": "OPTION",
+      "priority": 4,
+      "move": "Transfer one mirrored laser print through acrylic/image-transfer medium onto one rigid scrap substrate rather than feeding the substrate through a printer.",
+      "proof": ["paper-fibre residue", "image loss", "edge quality", "surface compatibility"]
+    },
+    {
+      "id": "P8-LARGE-STRIP-IMPOSITION",
+      "state": "OPTION_AFTER_P1",
+      "priority": 4,
+      "move": "Use existing tiling/imposition software to compile one 1.2-1.8 m composition into registered vertical strips; preserve seams as explicit geometry rather than pretending to have a wide-format printer.",
+      "proof": ["assembled dimensions", "registration error", "seam behavior", "mounting distortion"]
+    },
+    {
+      "id": "P9-HYBRID-REGISTER",
+      "state": "PARK",
+      "priority": 5,
+      "move": "Compose colour, toner, foil, wet-media, or resist layers through separate registered carriers. Do not cross-feed media through another printer unless that media/process is independently rated for the second printer.",
+      "proof": ["registration error mm", "layer interaction", "failure mode after finish"]
+    }
+  ],
+  "promotion_gate": {
+    "minimum_real_returns": 3,
+    "minimum_distinct_mechanisms": 2,
+    "must_show": [
+      "same source identity survives digital-to-physical transformation",
+      "settings/materials are sufficient to reproduce a useful result",
+      "one reusable transform or diagnostic actually reduces the next experiment cost"
+    ],
+    "otherwise": "PARK_OR_DELETE; DO_NOT_REGISTER_ROUTE"
+  }
+}
