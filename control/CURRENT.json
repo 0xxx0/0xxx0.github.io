@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-10-25T14:30:00+08:00",
+  "updated": "2026-11-12T14:06:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -36,10 +36,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / INTERPHASE 0.10.6 · FOLDED WORDS / HELD TOOL",
+      "head": "FIELD INDEX / INTERPHASE 0.10.7 · SIX-FAMILY CONVERGENCE READ / HELD TOOL",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "One address bar, one held tool and its native move, compact addressed tool targets. Aa unfolds the same descriptions/history/status in place; it does not change identity or create another app. First visit has no automatic introduction; layout/history scroll cannot reselect an object. Explicit source-intent semantics remain generic: READ / RIDE / SOURCE never silently chooses a story. Current map/reader and the original Drive CODE/FU/INTERPHASE continuation remain preserved depth.",
+      "retained_function": "One address bar, one held tool with its native action, and compact addressed tools. Aa unfolds original descriptions/history/status without moving focus. CONVERGE / READ now additionally derives a six-family project map — HOLD/ADDRESS/SCALE, PATH/TRAVERSAL, TRANSFORM/STEERING, EXPERIENCE/EXPRESSION, WORLD LOOPS, RECOVERY/PROVENANCE — from CURRENT + manifest. The map names dependencies, host proof posture and one next move; WORLD NEXT is read directly from CURRENT.next_single_action. It creates no project registry, backlog, priority or effect authority.",
       "evidence": [
         "https://github.com/0xxx0/0xxx0.github.io/pull/999",
         "/returns/FIELD_INDEX_INTERPHASE_CONTINUUM_2026-10-24.json",
@@ -106,10 +106,11 @@
         "/returns/FIELD_INDEX_CURRENT_HEADS_ENTRY_0831_2026-10-02.json",
         "/returns/FIELD_INDEX_ADVANCE_AS_SCALE_0830_2026-10-02.json",
         "/returns/FIELD_INDEX_WORK_DEPTH_0832_2026-10-02.json",
-        "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json"
+        "/returns/VISUAL_LAW_ARCHAEOLOGY_MOIRE_2026-10-02.json",
+        "/returns/FIELD_INDEX_SIX_FAMILY_MAP_2026-11-12.json"
       ],
-      "version": "0.10.6",
-      "latest_return": "/interphase/SPEC.md",
+      "version": "0.10.7",
+      "latest_return": "/returns/FIELD_INDEX_SIX_FAMILY_MAP_2026-11-12.json",
       "repo_verification": {
         "status": "SEE_EXACT_HEAD_CI / HUMAN_USE_UNPROVED",
         "evidence": "/interphase/SPEC.md",
