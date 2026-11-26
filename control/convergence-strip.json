@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/convergence-strip/v0.1",
-  "generated": "2026-11-26T07:23:36.591Z",
+  "generated": "2026-11-26T20:49:36.503Z",
   "generator": "scripts/generate-convergence-strip.mjs",
   "role": "DERIVED_SNAPSHOT",
   "authority": "NONE",
@@ -9,10 +9,10 @@
   "authority_note": "Captured projection only. Never grants NOW, NEXT, or current truth.",
   "activity_semantics": "material_excluding_generated_telemetry",
   "commits_window": "2026-11-26",
-  "commits_in_window": 19,
-  "git_commits_in_window": 22,
-  "telemetry_commits_in_window": 3,
-  "commits_total": 9273,
+  "commits_in_window": 22,
+  "git_commits_in_window": 65,
+  "telemetry_commits_in_window": 43,
+  "commits_total": 9316,
   "branch_count": 1142,
   "recent_commits": [
     "desk: refresh public field data + root git chronology",
