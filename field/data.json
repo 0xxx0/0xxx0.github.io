@@ -1,12 +1,12 @@
 {
  "schema": "field-delta/v0.1",
- "generated_at": "2026-11-08T20:34:27+08:00",
+ "generated_at": "2026-11-27T07:30:24+08:00",
  "window_hours": 24,
  "source_window_hours": 72,
  "law": "measured rows only; machine clockwork collapses to one counted row; no priority, no ranking, no second store",
  "sources": {
   "repo": {
-   "rows": 210,
+   "rows": 73,
    "error": null
   },
   "route": {
@@ -18,7 +18,7 @@
    "error": null
   },
   "run": {
-   "rows": 2147,
+   "rows": 2151,
    "error": null
   },
   "return": {
@@ -29,443 +29,368 @@
   }
  },
  "counts": {
-  "repo": 71,
+  "repo": 73,
   "route": 1,
-  "call": 0,
-  "run": 18,
-  "return": 0,
-  "run_fail": 0,
-  "repo_field": 0,
-  "repo_machine": 71
- },
- "counts_earlier": {
-  "repo": 139,
-  "route": 0,
   "call": 0,
   "run": 19,
   "return": 0,
-  "run_fail": 1,
+  "run_fail": 5,
   "repo_field": 0,
-  "repo_machine": 139
+  "repo_machine": 73
+ },
+ "counts_earlier": {
+  "repo": 0,
+  "route": 0,
+  "call": 0,
+  "run": 20,
+  "return": 0,
+  "run_fail": 5,
+  "repo_field": 0,
+  "repo_machine": 0
  },
  "now": [
   {
-   "at": "2026-11-08T20:32:24.383000+08:00",
-   "kind": "run",
-   "key": "run:comms-page",
-   "title": "comms-page",
-   "detail": "×47 · exit 0 · 4.38s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:32:24",
-     "exit": 0,
-     "dur": 4.377
-    },
-    {
-     "t": "20:01:27",
-     "exit": 0,
-     "dur": 3.986
-    },
-    {
-     "t": "19:30:24",
-     "exit": 0,
-     "dur": 7.733
-    },
-    {
-     "t": "18:59:24",
-     "exit": 0,
-     "dur": 4.291
-    },
-    {
-     "t": "18:28:24",
-     "exit": 0,
-     "dur": 4.158
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T20:32:21.319000+08:00",
+   "at": "2026-11-27T07:28:23.755000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×481 · exit 0 · 0.06s",
+   "detail": "×478 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
-     "t": "20:32:21",
+     "t": "07:28:23",
      "exit": 0,
-     "dur": 0.058
+     "dur": 0.051
     },
     {
-     "t": "20:29:21",
-     "exit": 0,
-     "dur": 0.058
-    },
-    {
-     "t": "20:26:21",
-     "exit": 0,
-     "dur": 0.055
-    },
-    {
-     "t": "20:23:21",
-     "exit": 0,
-     "dur": 0.067
-    },
-    {
-     "t": "20:20:21",
-     "exit": 0,
-     "dur": 0.055
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T20:32:21.218000+08:00",
-   "kind": "run",
-   "key": "run:surfaces-push",
-   "title": "surfaces-push",
-   "detail": "×47 · exit 0 · 8.48s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:32:21",
-     "exit": 0,
-     "dur": 8.481
-    },
-    {
-     "t": "20:01:21",
-     "exit": 0,
-     "dur": 10.732
-    },
-    {
-     "t": "19:30:21",
-     "exit": 0,
-     "dur": 12.045
-    },
-    {
-     "t": "18:59:21",
-     "exit": 0,
-     "dur": 8.43
-    },
-    {
-     "t": "18:28:21",
-     "exit": 0,
-     "dur": 8.59
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T20:24:21.305000+08:00",
-   "kind": "run",
-   "key": "run:loops-tick",
-   "title": "loops-tick",
-   "detail": "×47 · exit 0 · 4.75s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:24:21",
-     "exit": 0,
-     "dur": 4.749
-    },
-    {
-     "t": "19:53:21",
-     "exit": 0,
-     "dur": 5.44
-    },
-    {
-     "t": "19:22:21",
-     "exit": 0,
-     "dur": 12.186
-    },
-    {
-     "t": "18:51:21",
-     "exit": 0,
-     "dur": 4.419
-    },
-    {
-     "t": "18:20:21",
-     "exit": 0,
-     "dur": 4.281
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T20:23:21.378000+08:00",
-   "kind": "run",
-   "key": "run:state-sync",
-   "title": "state-sync",
-   "detail": "×48 · exit 0 · 0.20s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:23:21",
-     "exit": 0,
-     "dur": 0.205
-    },
-    {
-     "t": "20:09:47",
-     "exit": 0,
-     "dur": 0.182
-    },
-    {
-     "t": "19:52:21",
-     "exit": 0,
-     "dur": 0.19
-    },
-    {
-     "t": "19:21:21",
-     "exit": 0,
-     "dur": 0.19
-    },
-    {
-     "t": "18:50:21",
-     "exit": 0,
-     "dur": 0.175
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T20:00:21.538000+08:00",
-   "kind": "run",
-   "key": "run:fi-contract-stamp",
-   "title": "fi-contract-stamp",
-   "detail": "×24 · exit 0 · 27.77s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:00:21",
-     "exit": 0,
-     "dur": 27.775
-    },
-    {
-     "t": "19:00:21",
-     "exit": 0,
-     "dur": 23.078
-    },
-    {
-     "t": "18:00:21",
-     "exit": 0,
-     "dur": 22.969
-    },
-    {
-     "t": "17:00:21",
-     "exit": 0,
-     "dur": 23.775
-    },
-    {
-     "t": "16:00:21",
-     "exit": 0,
-     "dur": 22.812
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T20:00:21.402000+08:00",
-   "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×6 · exit 0 · 0.05s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:00:21",
+     "t": "07:25:23",
      "exit": 0,
      "dur": 0.046
     },
     {
-     "t": "16:00:21",
+     "t": "07:22:23",
      "exit": 0,
-     "dur": 0.051
+     "dur": 0.055
     },
     {
-     "t": "12:00:21",
+     "t": "07:19:23",
      "exit": 0,
-     "dur": 0.062
+     "dur": 0.046
     },
     {
-     "t": "08:00:21",
+     "t": "07:16:23",
      "exit": 0,
-     "dur": 0.051
-    },
-    {
-     "t": "04:00:21",
-     "exit": 0,
-     "dur": 0.063
+     "dur": 0.046
     }
    ]
   },
   {
-   "at": "2026-11-08T18:45:21.274000+08:00",
+   "at": "2026-11-27T07:24:28.048000+08:00",
    "kind": "run",
-   "key": "run:day-digest",
-   "title": "day-digest",
-   "detail": "×1 · exit 0 · 1.62s",
+   "key": "run:comms-page",
+   "title": "comms-page",
+   "detail": "×47 · 15 fails · last exit 0 · 4.71s",
+   "href": "",
+   "fails": 15,
+   "runs": [
+    {
+     "t": "07:24:28",
+     "exit": 0,
+     "dur": 4.711
+    },
+    {
+     "t": "06:53:27",
+     "exit": 0,
+     "dur": 4.689
+    },
+    {
+     "t": "06:22:30",
+     "exit": 0,
+     "dur": 4.441
+    },
+    {
+     "t": "05:51:30",
+     "exit": 0,
+     "dur": 4.468
+    },
+    {
+     "t": "05:20:27",
+     "exit": 0,
+     "dur": 4.495
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T07:24:23.781000+08:00",
+   "kind": "run",
+   "key": "run:surfaces-push",
+   "title": "surfaces-push",
+   "detail": "×47 · 15 fails · last exit 0 · 9.98s",
+   "href": "",
+   "fails": 15,
+   "runs": [
+    {
+     "t": "07:24:23",
+     "exit": 0,
+     "dur": 9.981
+    },
+    {
+     "t": "06:53:23",
+     "exit": 0,
+     "dur": 9.067
+    },
+    {
+     "t": "06:22:23",
+     "exit": 0,
+     "dur": 11.841
+    },
+    {
+     "t": "05:51:23",
+     "exit": 0,
+     "dur": 12.422
+    },
+    {
+     "t": "05:20:23",
+     "exit": 0,
+     "dur": 8.827
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T07:12:23.772000+08:00",
+   "kind": "run",
+   "key": "run:loops-tick",
+   "title": "loops-tick",
+   "detail": "×46 · exit 0 · 6.05s",
    "href": "",
    "runs": [
     {
-     "t": "18:45:21",
+     "t": "07:12:23",
      "exit": 0,
-     "dur": 1.618
+     "dur": 6.055
+    },
+    {
+     "t": "06:41:23",
+     "exit": 0,
+     "dur": 4.568
+    },
+    {
+     "t": "06:10:23",
+     "exit": 0,
+     "dur": 4.636
+    },
+    {
+     "t": "05:39:23",
+     "exit": 0,
+     "dur": 4.924
+    },
+    {
+     "t": "05:08:23",
+     "exit": 0,
+     "dur": 4.844
     }
    ]
   },
   {
-   "at": "2026-11-08T17:30:22.030000+08:00",
+   "at": "2026-11-27T07:09:23.814000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×46 · 14 fails · last exit 0 · 0.18s",
+   "href": "",
+   "fails": 14,
+   "runs": [
+    {
+     "t": "07:09:23",
+     "exit": 0,
+     "dur": 0.176
+    },
+    {
+     "t": "06:38:23",
+     "exit": 0,
+     "dur": 0.17
+    },
+    {
+     "t": "06:07:23",
+     "exit": 0,
+     "dur": 0.178
+    },
+    {
+     "t": "05:36:23",
+     "exit": 0,
+     "dur": 0.172
+    },
+    {
+     "t": "05:05:23",
+     "exit": 0,
+     "dur": 0.172
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T07:00:23.829000+08:00",
+   "kind": "run",
+   "key": "run:fi-contract-stamp",
+   "title": "fi-contract-stamp",
+   "detail": "×24 · exit 0 · 33.28s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:00:23",
+     "exit": 0,
+     "dur": 33.276
+    },
+    {
+     "t": "06:00:23",
+     "exit": 0,
+     "dur": 32.536
+    },
+    {
+     "t": "05:00:23",
+     "exit": 0,
+     "dur": 30.68
+    },
+    {
+     "t": "04:00:23",
+     "exit": 0,
+     "dur": 31.132
+    },
+    {
+     "t": "03:00:23",
+     "exit": 0,
+     "dur": 38.57
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T07:00:23.667000+08:00",
+   "kind": "run",
+   "key": "run:integrity-audit",
+   "title": "integrity-audit",
+   "detail": "×7 · 5 fails · last exit 1 · 9.85s",
+   "href": "",
+   "fails": 5,
+   "runs": [
+    {
+     "t": "07:00:23",
+     "exit": 1,
+     "dur": 9.854
+    },
+    {
+     "t": "15:07:19",
+     "exit": 0,
+     "dur": 6.568
+    },
+    {
+     "t": "15:06:59",
+     "exit": 1,
+     "dur": 6.629
+    },
+    {
+     "t": "15:06:49",
+     "exit": 1,
+     "dur": 6.371
+    },
+    {
+     "t": "15:06:24",
+     "exit": 0,
+     "dur": 11.199
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T06:00:23.797000+08:00",
+   "kind": "run",
+   "key": "run:field-index-rebuild",
+   "title": "field-index-rebuild",
+   "detail": "×1 · exit 0 · 2.14s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:23",
+     "exit": 0,
+     "dur": 2.137
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T06:00:23.762000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×3 · 1 fail · last exit 0 · 0.03s",
+   "href": "",
+   "fails": 1,
+   "runs": [
+    {
+     "t": "06:00:23",
+     "exit": 0,
+     "dur": 0.03
+    },
+    {
+     "t": "22:00:23",
+     "exit": 0,
+     "dur": 4.024
+    },
+    {
+     "t": "14:00:18",
+     "exit": 1,
+     "dur": 0.146
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T05:00:23.866000+08:00",
+   "kind": "run",
+   "key": "run:daily-trunk-summary",
+   "title": "daily-trunk-summary",
+   "detail": "×1 · exit 0 · 0.63s",
+   "href": "",
+   "runs": [
+    {
+     "t": "05:00:23",
+     "exit": 0,
+     "dur": 0.63
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T04:27:23.987000+08:00",
    "kind": "run",
    "key": "run:convergence-loop",
    "title": "convergence-loop",
-   "detail": "×6 · exit 0 · 0.07s",
+   "detail": "×6 · exit 0 · 0.11s",
    "href": "",
    "runs": [
     {
-     "t": "17:30:22",
+     "t": "04:27:23",
+     "exit": 0,
+     "dur": 0.108
+    },
+    {
+     "t": "00:26:23",
+     "exit": 0,
+     "dur": 0.139
+    },
+    {
+     "t": "20:25:23",
      "exit": 0,
      "dur": 0.073
     },
     {
-     "t": "13:29:21",
+     "t": "16:24:23",
      "exit": 0,
-     "dur": 0.071
+     "dur": 0.074
     },
     {
-     "t": "09:28:21",
+     "t": "12:19:18",
      "exit": 0,
-     "dur": 0.119
-    },
-    {
-     "t": "05:27:21",
-     "exit": 0,
-     "dur": 0.072
-    },
-    {
-     "t": "01:26:21",
-     "exit": 0,
-     "dur": 0.078
+     "dur": 0.13
     }
    ]
   },
   {
-   "at": "2026-11-08T14:00:21.408000+08:00",
-   "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×3 · exit 0 · 12.52s",
-   "href": "",
-   "runs": [
-    {
-     "t": "14:00:21",
-     "exit": 0,
-     "dur": 12.518
-    },
-    {
-     "t": "06:00:21",
-     "exit": 0,
-     "dur": 0.031
-    },
-    {
-     "t": "22:00:21",
-     "exit": 0,
-     "dur": 0.031
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T10:30:21.467000+08:00",
-   "kind": "run",
-   "key": "run:calls-say",
-   "title": "calls-say",
-   "detail": "×1 · exit 0 · 0.06s",
-   "href": "",
-   "runs": [
-    {
-     "t": "10:30:21",
-     "exit": 0,
-     "dur": 0.06
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T09:20:21.350000+08:00",
-   "kind": "run",
-   "key": "run:signal",
-   "title": "signal",
-   "detail": "×1 · exit 0 · 2.49s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:20:21",
-     "exit": 0,
-     "dur": 2.488
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T09:00:21.712000+08:00",
-   "kind": "run",
-   "key": "run:anchor-digest",
-   "title": "anchor-digest",
-   "detail": "×2 · exit 0 · 0.08s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:00:21",
-     "exit": 0,
-     "dur": 0.078
-    },
-    {
-     "t": "21:00:21",
-     "exit": 0,
-     "dur": 0.046
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T09:00:21.627000+08:00",
-   "kind": "run",
-   "key": "run:pack-doctor",
-   "title": "pack-doctor",
-   "detail": "×1 · exit 0 · 14.44s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:00:21",
-     "exit": 0,
-     "dur": 14.437
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T06:00:21.412000+08:00",
-   "kind": "run",
-   "key": "run:field-index-rebuild",
-   "title": "field-index-rebuild",
-   "detail": "×1 · exit 0 · 1.75s",
-   "href": "",
-   "runs": [
-    {
-     "t": "06:00:21",
-     "exit": 0,
-     "dur": 1.749
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T05:00:21.590000+08:00",
-   "kind": "run",
-   "key": "run:daily-trunk-summary",
-   "title": "daily-trunk-summary",
-   "detail": "×1 · exit 0 · 4.75s",
-   "href": "",
-   "runs": [
-    {
-     "t": "05:00:21",
-     "exit": 0,
-     "dur": 4.747
-    }
-   ]
-  },
-  {
-   "at": "2026-11-08T04:23:22+08:00",
+   "at": "2026-11-27T04:22:24+08:00",
    "kind": "route",
    "key": "route:/calls/",
    "title": "CALLS — the decision queue",
@@ -473,530 +398,523 @@
    "href": "/calls/"
   },
   {
-   "at": "2026-11-08T02:00:21.510000+08:00",
+   "at": "2026-11-27T04:00:23.914000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×6 · exit 0 · 0.03s",
+   "href": "",
+   "runs": [
+    {
+     "t": "04:00:23",
+     "exit": 0,
+     "dur": 0.033
+    },
+    {
+     "t": "00:00:23",
+     "exit": 0,
+     "dur": 0.107
+    },
+    {
+     "t": "20:00:23",
+     "exit": 0,
+     "dur": 0.03
+    },
+    {
+     "t": "16:00:23",
+     "exit": 0,
+     "dur": 0.067
+    },
+    {
+     "t": "12:00:18",
+     "exit": 0,
+     "dur": 0.023
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T02:00:23.771000+08:00",
    "kind": "run",
    "key": "run:media-curator-nightly",
    "title": "media-curator-nightly",
-   "detail": "×1 · exit 0 · 0.01s",
+   "detail": "×1 · exit 0 · 0.03s",
    "href": "",
    "runs": [
     {
-     "t": "02:00:21",
+     "t": "02:00:23",
      "exit": 0,
-     "dur": 0.011
+     "dur": 0.025
     }
    ]
   },
   {
-   "at": "2026-11-08T01:50:21.398000+08:00",
+   "at": "2026-11-27T01:50:23.761000+08:00",
    "kind": "run",
    "key": "run:evolution-eval-gate",
    "title": "evolution-eval-gate",
-   "detail": "×1 · exit 0 · 69.44s",
+   "detail": "×1 · exit 0 · 88.24s",
    "href": "",
    "runs": [
     {
-     "t": "01:50:21",
+     "t": "01:50:23",
      "exit": 0,
-     "dur": 69.439
+     "dur": 88.236
     }
    ]
   },
   {
-   "at": "2026-11-08T20:32:25+08:00",
+   "at": "2026-11-26T21:00:23.890000+08:00",
+   "kind": "run",
+   "key": "run:anchor-digest",
+   "title": "anchor-digest",
+   "detail": "×2 · exit 0 · 0.05s",
+   "href": "",
+   "runs": [
+    {
+     "t": "21:00:23",
+     "exit": 0,
+     "dur": 0.052
+    },
+    {
+     "t": "09:00:18",
+     "exit": 0,
+     "dur": 0.058
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T18:45:23.760000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×1 · exit 0 · 3.40s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:23",
+     "exit": 0,
+     "dur": 3.405
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T10:30:18.356000+08:00",
+   "kind": "run",
+   "key": "run:calls-say",
+   "title": "calls-say",
+   "detail": "×1 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "10:30:18",
+     "exit": 0,
+     "dur": 0.066
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T09:20:18.123000+08:00",
+   "kind": "run",
+   "key": "run:signal",
+   "title": "signal",
+   "detail": "×1 · exit 0 · 0.90s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:20:18",
+     "exit": 0,
+     "dur": 0.902
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T09:00:18.360000+08:00",
+   "kind": "run",
+   "key": "run:pack-doctor",
+   "title": "pack-doctor",
+   "detail": "×1 · exit 0 · 154.17s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:18",
+     "exit": 0,
+     "dur": 154.168
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T07:24:29+08:00",
    "kind": "repo",
    "key": "repo:machine",
    "title": "machine refresh",
-   "detail": "×71 · last comms: refresh machine-room page (2026-11-08T12:32Z)",
+   "detail": "×73 · last comms: refresh machine-room page (2026-11-26T23:24Z)",
    "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 71,
+   "count": 73,
    "machine": true
   }
  ],
  "earlier": [
   {
-   "at": "2026-11-07T20:32:21.582000+08:00",
+   "at": "2026-11-26T07:30:18.207000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×960 · exit 0 · 0.05s",
+   "detail": "×961 · exit 0 · 0.06s",
    "href": "",
    "runs": [
     {
-     "t": "20:32:21",
+     "t": "07:30:18",
      "exit": 0,
-     "dur": 0.05
+     "dur": 0.057
     },
     {
-     "t": "20:29:21",
+     "t": "07:27:18",
+     "exit": 0,
+     "dur": 0.066
+    },
+    {
+     "t": "07:24:18",
+     "exit": 0,
+     "dur": 0.057
+    },
+    {
+     "t": "07:21:18",
      "exit": 0,
      "dur": 0.051
     },
     {
-     "t": "20:26:21",
-     "exit": 0,
-     "dur": 0.049
-    },
-    {
-     "t": "20:23:21",
-     "exit": 0,
-     "dur": 0.05
-    },
-    {
-     "t": "20:20:21",
+     "t": "07:18:18",
      "exit": 0,
      "dur": 0.05
     }
    ]
   },
   {
-   "at": "2026-11-07T20:14:31.738000+08:00",
-   "kind": "run",
-   "key": "run:comms-page",
-   "title": "comms-page",
-   "detail": "×93 · exit 0 · 4.11s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:14:31",
-     "exit": 0,
-     "dur": 4.105
-    },
-    {
-     "t": "19:43:24",
-     "exit": 0,
-     "dur": 5.483
-    },
-    {
-     "t": "19:12:25",
-     "exit": 0,
-     "dur": 4.652
-    },
-    {
-     "t": "18:41:24",
-     "exit": 0,
-     "dur": 4.16
-    },
-    {
-     "t": "18:10:29",
-     "exit": 0,
-     "dur": 4.135
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T20:14:21.489000+08:00",
-   "kind": "run",
-   "key": "run:surfaces-push",
-   "title": "surfaces-push",
-   "detail": "×93 · exit 0 · 15.13s",
-   "href": "",
-   "runs": [
-    {
-     "t": "20:14:21",
-     "exit": 0,
-     "dur": 15.131
-    },
-    {
-     "t": "19:43:21",
-     "exit": 0,
-     "dur": 9.479
-    },
-    {
-     "t": "19:12:21",
-     "exit": 0,
-     "dur": 9.605
-    },
-    {
-     "t": "18:41:21",
-     "exit": 0,
-     "dur": 8.316
-    },
-    {
-     "t": "18:10:21",
-     "exit": 0,
-     "dur": 12.812
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T20:07:21.553000+08:00",
+   "at": "2026-11-26T07:27:18.145000+08:00",
    "kind": "run",
    "key": "run:loops-tick",
    "title": "loops-tick",
-   "detail": "×92 · exit 0 · 4.44s",
+   "detail": "×93 · exit 0 · 6.33s",
    "href": "",
    "runs": [
     {
-     "t": "20:07:21",
+     "t": "07:27:18",
      "exit": 0,
-     "dur": 4.443
+     "dur": 6.334
     },
     {
-     "t": "19:36:21",
+     "t": "06:56:18",
      "exit": 0,
-     "dur": 4.66
+     "dur": 6.3
     },
     {
-     "t": "19:05:21",
+     "t": "06:25:18",
      "exit": 0,
-     "dur": 4.752
+     "dur": 6.178
     },
     {
-     "t": "18:34:21",
+     "t": "05:54:18",
      "exit": 0,
-     "dur": 4.278
+     "dur": 6.397
     },
     {
-     "t": "18:03:21",
+     "t": "05:23:18",
      "exit": 0,
-     "dur": 4.417
+     "dur": 6.336
     }
    ]
   },
   {
-   "at": "2026-11-07T20:06:21.598000+08:00",
+   "at": "2026-11-26T07:24:18.077000+08:00",
    "kind": "run",
    "key": "run:state-sync",
    "title": "state-sync",
-   "detail": "×92 · 1 fail · last exit 0 · 0.17s",
+   "detail": "×93 · 93 fails · last exit 1 · 0.19s",
    "href": "",
-   "fails": 1,
+   "fails": 93,
    "runs": [
     {
-     "t": "20:06:21",
-     "exit": 0,
-     "dur": 0.17
+     "t": "07:24:18",
+     "exit": 1,
+     "dur": 0.187
     },
     {
-     "t": "19:35:21",
-     "exit": 0,
-     "dur": 0.185
+     "t": "06:53:18",
+     "exit": 1,
+     "dur": 0.183
     },
     {
-     "t": "19:04:21",
-     "exit": 0,
-     "dur": 0.172
+     "t": "06:22:18",
+     "exit": 1,
+     "dur": 0.183
     },
     {
-     "t": "18:33:21",
-     "exit": 0,
-     "dur": 0.175
+     "t": "05:51:18",
+     "exit": 1,
+     "dur": 0.182
     },
     {
-     "t": "18:02:21",
-     "exit": 0,
-     "dur": 0.173
+     "t": "05:20:18",
+     "exit": 1,
+     "dur": 0.19
     }
    ]
   },
   {
-   "at": "2026-11-07T20:00:21.682000+08:00",
+   "at": "2026-11-26T07:08:19.162000+08:00",
+   "kind": "run",
+   "key": "run:comms-page",
+   "title": "comms-page",
+   "detail": "×93 · 93 fails · last exit 1 · 0.55s",
+   "href": "",
+   "fails": 93,
+   "runs": [
+    {
+     "t": "07:08:19",
+     "exit": 1,
+     "dur": 0.554
+    },
+    {
+     "t": "06:37:19",
+     "exit": 1,
+     "dur": 0.532
+    },
+    {
+     "t": "06:06:19",
+     "exit": 1,
+     "dur": 0.496
+    },
+    {
+     "t": "05:35:22",
+     "exit": 1,
+     "dur": 0.493
+    },
+    {
+     "t": "05:04:19",
+     "exit": 1,
+     "dur": 0.51
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T07:08:18.166000+08:00",
+   "kind": "run",
+   "key": "run:surfaces-push",
+   "title": "surfaces-push",
+   "detail": "×93 · 93 fails · last exit 1 · 1.95s",
+   "href": "",
+   "fails": 93,
+   "runs": [
+    {
+     "t": "07:08:18",
+     "exit": 1,
+     "dur": 1.954
+    },
+    {
+     "t": "06:37:18",
+     "exit": 1,
+     "dur": 1.835
+    },
+    {
+     "t": "06:06:18",
+     "exit": 1,
+     "dur": 1.743
+    },
+    {
+     "t": "05:35:18",
+     "exit": 1,
+     "dur": 4.889
+    },
+    {
+     "t": "05:04:18",
+     "exit": 1,
+     "dur": 1.782
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T07:00:18.237000+08:00",
    "kind": "run",
    "key": "run:fi-contract-stamp",
    "title": "fi-contract-stamp",
-   "detail": "×48 · exit 0 · 22.99s",
+   "detail": "×48 · exit 0 · 3.16s",
    "href": "",
    "runs": [
     {
-     "t": "20:00:21",
+     "t": "07:00:18",
      "exit": 0,
-     "dur": 22.994
+     "dur": 3.158
     },
     {
-     "t": "19:00:21",
+     "t": "06:00:18",
      "exit": 0,
-     "dur": 23.048
+     "dur": 0.063
     },
     {
-     "t": "18:00:21",
+     "t": "05:00:18",
      "exit": 0,
-     "dur": 22.754
+     "dur": 0.063
     },
     {
-     "t": "17:00:21",
+     "t": "04:00:18",
      "exit": 0,
-     "dur": 23.466
+     "dur": 10.479
     },
     {
-     "t": "16:00:21",
+     "t": "03:00:18",
      "exit": 0,
-     "dur": 22.824
+     "dur": 5.884
     }
    ]
   },
   {
-   "at": "2026-11-07T20:00:21.514000+08:00",
+   "at": "2026-11-26T06:00:18.208000+08:00",
    "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×12 · exit 0 · 0.05s",
+   "key": "run:field-index-rebuild",
+   "title": "field-index-rebuild",
+   "detail": "×2 · exit 0 · 8.48s",
    "href": "",
    "runs": [
     {
-     "t": "20:00:21",
+     "t": "06:00:18",
      "exit": 0,
-     "dur": 0.05
+     "dur": 8.479
     },
     {
-     "t": "16:00:21",
+     "t": "06:00:18",
      "exit": 0,
-     "dur": 0.041
+     "dur": 9.903
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T06:00:18.167000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×6 · 6 fails · last exit 1 · 0.18s",
+   "href": "",
+   "fails": 6,
+   "runs": [
+    {
+     "t": "06:00:18",
+     "exit": 1,
+     "dur": 0.185
     },
     {
-     "t": "12:00:21",
+     "t": "22:00:18",
+     "exit": 1,
+     "dur": 6.364
+    },
+    {
+     "t": "14:00:18",
+     "exit": 1,
+     "dur": 6.295
+    },
+    {
+     "t": "06:00:18",
+     "exit": 1,
+     "dur": 0.118
+    },
+    {
+     "t": "22:00:18",
+     "exit": 1,
+     "dur": 0.087
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T05:00:18.341000+08:00",
+   "kind": "run",
+   "key": "run:daily-trunk-summary",
+   "title": "daily-trunk-summary",
+   "detail": "×2 · exit 0 · 0.15s",
+   "href": "",
+   "runs": [
+    {
+     "t": "05:00:18",
+     "exit": 0,
+     "dur": 0.147
+    },
+    {
+     "t": "05:00:18",
+     "exit": 0,
+     "dur": 0.131
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T04:08:18.174000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×10 · exit 0 · 0.13s",
+   "href": "",
+   "runs": [
+    {
+     "t": "04:08:18",
+     "exit": 0,
+     "dur": 0.126
+    },
+    {
+     "t": "00:02:18",
+     "exit": 0,
+     "dur": 0.132
+    },
+    {
+     "t": "19:56:18",
+     "exit": 0,
+     "dur": 0.141
+    },
+    {
+     "t": "15:51:18",
+     "exit": 0,
+     "dur": 0.14
+    },
+    {
+     "t": "11:45:18",
+     "exit": 0,
+     "dur": 0.143
+    }
+   ]
+  },
+  {
+   "at": "2026-11-26T04:00:18.205000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×12 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "04:00:18",
+     "exit": 0,
+     "dur": 0.067
+    },
+    {
+     "t": "00:00:18",
+     "exit": 0,
+     "dur": 0.085
+    },
+    {
+     "t": "20:00:18",
+     "exit": 0,
+     "dur": 0.08
+    },
+    {
+     "t": "16:00:18",
      "exit": 0,
      "dur": 0.023
     },
     {
-     "t": "08:00:21",
+     "t": "12:00:18",
      "exit": 0,
-     "dur": 0.024
-    },
-    {
-     "t": "04:00:21",
-     "exit": 0,
-     "dur": 0.067
+     "dur": 0.059
     }
    ]
   },
   {
-   "at": "2026-11-07T18:45:21.619000+08:00",
-   "kind": "run",
-   "key": "run:day-digest",
-   "title": "day-digest",
-   "detail": "×2 · exit 0 · 1.02s",
-   "href": "",
-   "runs": [
-    {
-     "t": "18:45:21",
-     "exit": 0,
-     "dur": 1.024
-    },
-    {
-     "t": "18:45:21",
-     "exit": 0,
-     "dur": 1.045
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T17:24:21.685000+08:00",
-   "kind": "run",
-   "key": "run:convergence-loop",
-   "title": "convergence-loop",
-   "detail": "×11 · exit 0 · 0.07s",
-   "href": "",
-   "runs": [
-    {
-     "t": "17:24:21",
-     "exit": 0,
-     "dur": 0.07
-    },
-    {
-     "t": "13:23:21",
-     "exit": 0,
-     "dur": 0.075
-    },
-    {
-     "t": "09:22:21",
-     "exit": 0,
-     "dur": 0.073
-    },
-    {
-     "t": "01:20:21",
-     "exit": 0,
-     "dur": 0.139
-    },
-    {
-     "t": "21:19:21",
-     "exit": 0,
-     "dur": 0.075
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T14:00:21.483000+08:00",
-   "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×6 · exit 0 · 5.58s",
-   "href": "",
-   "runs": [
-    {
-     "t": "14:00:21",
-     "exit": 0,
-     "dur": 5.58
-    },
-    {
-     "t": "06:00:21",
-     "exit": 0,
-     "dur": 0.033
-    },
-    {
-     "t": "22:00:21",
-     "exit": 0,
-     "dur": 5.194
-    },
-    {
-     "t": "14:00:21",
-     "exit": 0,
-     "dur": 16.825
-    },
-    {
-     "t": "06:00:21",
-     "exit": 0,
-     "dur": 0.033
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T10:30:21.767000+08:00",
-   "kind": "run",
-   "key": "run:calls-say",
-   "title": "calls-say",
-   "detail": "×2 · exit 0 · 0.06s",
-   "href": "",
-   "runs": [
-    {
-     "t": "10:30:21",
-     "exit": 0,
-     "dur": 0.062
-    },
-    {
-     "t": "10:30:21",
-     "exit": 0,
-     "dur": 0.063
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T09:20:21.713000+08:00",
-   "kind": "run",
-   "key": "run:signal",
-   "title": "signal",
-   "detail": "×2 · exit 0 · 1.56s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:20:21",
-     "exit": 0,
-     "dur": 1.56
-    },
-    {
-     "t": "09:20:21",
-     "exit": 0,
-     "dur": 1.426
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T09:00:21.784000+08:00",
-   "kind": "run",
-   "key": "run:anchor-digest",
-   "title": "anchor-digest",
-   "detail": "×4 · exit 0 · 0.05s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:00:21",
-     "exit": 0,
-     "dur": 0.053
-    },
-    {
-     "t": "21:00:21",
-     "exit": 0,
-     "dur": 0.048
-    },
-    {
-     "t": "09:00:22",
-     "exit": 0,
-     "dur": 0.055
-    },
-    {
-     "t": "21:00:21",
-     "exit": 0,
-     "dur": 0.052
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T09:00:21.730000+08:00",
-   "kind": "run",
-   "key": "run:pack-doctor",
-   "title": "pack-doctor",
-   "detail": "×2 · exit 0 · 14.66s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:00:21",
-     "exit": 0,
-     "dur": 14.658
-    },
-    {
-     "t": "09:00:22",
-     "exit": 0,
-     "dur": 14.466
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T07:00:21.709000+08:00",
-   "kind": "run",
-   "key": "run:integrity-audit",
-   "title": "integrity-audit",
-   "detail": "×1 · exit 0 · 14.62s",
-   "href": "",
-   "runs": [
-    {
-     "t": "07:00:21",
-     "exit": 0,
-     "dur": 14.621
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T06:00:21.655000+08:00",
-   "kind": "run",
-   "key": "run:field-index-rebuild",
-   "title": "field-index-rebuild",
-   "detail": "×2 · exit 0 · 8.44s",
-   "href": "",
-   "runs": [
-    {
-     "t": "06:00:21",
-     "exit": 0,
-     "dur": 8.442
-    },
-    {
-     "t": "06:00:21",
-     "exit": 0,
-     "dur": 2.165
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T05:00:21.902000+08:00",
-   "kind": "run",
-   "key": "run:daily-trunk-summary",
-   "title": "daily-trunk-summary",
-   "detail": "×2 · exit 0 · 0.72s",
-   "href": "",
-   "runs": [
-    {
-     "t": "05:00:21",
-     "exit": 0,
-     "dur": 0.72
-    },
-    {
-     "t": "05:00:22",
-     "exit": 0,
-     "dur": 0.667
-    }
-   ]
-  },
-  {
-   "at": "2026-11-07T02:00:21.630000+08:00",
+   "at": "2026-11-26T02:00:18.169000+08:00",
    "kind": "run",
    "key": "run:media-curator-nightly",
    "title": "media-curator-nightly",
@@ -1004,46 +922,177 @@
    "href": "",
    "runs": [
     {
-     "t": "02:00:21",
+     "t": "02:00:18",
      "exit": 0,
-     "dur": 0.012
+     "dur": 0.013
     },
     {
-     "t": "02:00:21",
+     "t": "02:00:18",
      "exit": 0,
      "dur": 0.013
     }
    ]
   },
   {
-   "at": "2026-11-07T01:50:21.785000+08:00",
+   "at": "2026-11-26T01:50:18.370000+08:00",
    "kind": "run",
    "key": "run:evolution-eval-gate",
    "title": "evolution-eval-gate",
-   "detail": "×2 · exit 0 · 68.10s",
+   "detail": "×2 · exit 0 · 1202.35s",
    "href": "",
    "runs": [
     {
-     "t": "01:50:21",
+     "t": "01:50:18",
      "exit": 0,
-     "dur": 68.104
+     "dur": 1202.346
     },
     {
-     "t": "01:50:21",
+     "t": "01:50:18",
      "exit": 0,
-     "dur": 64.922
+     "dur": 1202.307
     }
    ]
   },
   {
-   "at": "2026-11-07T20:14:32+08:00",
-   "kind": "repo",
-   "key": "repo:machine",
-   "title": "machine refresh",
-   "detail": "×139 · last comms: refresh machine-room page (2026-11-07T12:14Z)",
-   "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 139,
-   "machine": true
+   "at": "2026-11-25T21:00:18.379000+08:00",
+   "kind": "run",
+   "key": "run:anchor-digest",
+   "title": "anchor-digest",
+   "detail": "×4 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "21:00:18",
+     "exit": 0,
+     "dur": 0.057
+    },
+    {
+     "t": "09:00:18",
+     "exit": 0,
+     "dur": 0.065
+    },
+    {
+     "t": "21:00:18",
+     "exit": 0,
+     "dur": 0.054
+    },
+    {
+     "t": "09:00:18",
+     "exit": 0,
+     "dur": 0.061
+    }
+   ]
+  },
+  {
+   "at": "2026-11-25T18:45:18.227000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×2 · exit 0 · 1.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:18",
+     "exit": 0,
+     "dur": 1.042
+    },
+    {
+     "t": "18:45:18",
+     "exit": 0,
+     "dur": 1.052
+    }
+   ]
+  },
+  {
+   "at": "2026-11-25T10:30:18.200000+08:00",
+   "kind": "run",
+   "key": "run:calls-say",
+   "title": "calls-say",
+   "detail": "×2 · exit 0 · 0.10s",
+   "href": "",
+   "runs": [
+    {
+     "t": "10:30:18",
+     "exit": 0,
+     "dur": 0.096
+    },
+    {
+     "t": "10:30:18",
+     "exit": 0,
+     "dur": 0.068
+    }
+   ]
+  },
+  {
+   "at": "2026-11-25T09:20:18.134000+08:00",
+   "kind": "run",
+   "key": "run:signal",
+   "title": "signal",
+   "detail": "×2 · exit 0 · 1.08s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:20:18",
+     "exit": 0,
+     "dur": 1.076
+    },
+    {
+     "t": "09:20:18",
+     "exit": 0,
+     "dur": 4.066
+    }
+   ]
+  },
+  {
+   "at": "2026-11-25T09:00:18.314000+08:00",
+   "kind": "run",
+   "key": "run:pack-doctor",
+   "title": "pack-doctor",
+   "detail": "×2 · exit 0 · 151.98s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:18",
+     "exit": 0,
+     "dur": 151.983
+    },
+    {
+     "t": "09:00:18",
+     "exit": 0,
+     "dur": 151.042
+    }
+   ]
+  },
+  {
+   "at": "2026-11-25T08:40:18.289000+08:00",
+   "kind": "run",
+   "key": "run:discovery-radar",
+   "title": "discovery-radar",
+   "detail": "×1 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "08:40:18",
+     "exit": 0,
+     "dur": 0.059
+    }
+   ]
+  },
+  {
+   "at": "2026-11-25T07:00:18.253000+08:00",
+   "kind": "run",
+   "key": "run:integrity-audit",
+   "title": "integrity-audit",
+   "detail": "×1 · 1 fail · last exit 1 · 16.83s",
+   "href": "",
+   "fails": 1,
+   "runs": [
+    {
+     "t": "07:00:18",
+     "exit": 1,
+     "dur": 16.832
+    }
+   ]
   }
  ]
 }
