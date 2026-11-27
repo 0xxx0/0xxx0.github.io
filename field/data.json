@@ -1,12 +1,12 @@
 {
  "schema": "field-delta/v0.1",
- "generated_at": "2026-11-27T07:30:24+08:00",
+ "generated_at": "2026-11-28T07:30:24+08:00",
  "window_hours": 24,
  "source_window_hours": 72,
  "law": "measured rows only; machine clockwork collapses to one counted row; no priority, no ranking, no second store",
  "sources": {
   "repo": {
-   "rows": 73,
+   "rows": 149,
    "error": null
   },
   "route": {
@@ -29,32 +29,514 @@
   }
  },
  "counts": {
-  "repo": 73,
+  "repo": 76,
   "route": 1,
   "call": 0,
-  "run": 19,
+  "run": 18,
   "return": 0,
-  "run_fail": 5,
-  "repo_field": 0,
-  "repo_machine": 73
+  "run_fail": 0,
+  "repo_field": 1,
+  "repo_machine": 75
  },
  "counts_earlier": {
-  "repo": 0,
+  "repo": 73,
   "route": 0,
   "call": 0,
   "run": 20,
   "return": 0,
   "run_fail": 5,
   "repo_field": 0,
-  "repo_machine": 0
+  "repo_machine": 73
  },
  "now": [
+  {
+   "at": "2026-11-28T07:30:24.004000+08:00",
+   "kind": "run",
+   "key": "run:calltap",
+   "title": "calltap",
+   "detail": "×481 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:30:24",
+     "exit": 0,
+     "dur": 0.056
+    },
+    {
+     "t": "07:27:23",
+     "exit": 0,
+     "dur": 0.048
+    },
+    {
+     "t": "07:24:23",
+     "exit": 0,
+     "dur": 0.048
+    },
+    {
+     "t": "07:21:23",
+     "exit": 0,
+     "dur": 0.048
+    },
+    {
+     "t": "07:18:23",
+     "exit": 0,
+     "dur": 0.047
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T07:29:23.906000+08:00",
+   "kind": "run",
+   "key": "run:loops-tick",
+   "title": "loops-tick",
+   "detail": "×47 · exit 0 · 5.16s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:29:23",
+     "exit": 0,
+     "dur": 5.157
+    },
+    {
+     "t": "06:58:23",
+     "exit": 0,
+     "dur": 5.911
+    },
+    {
+     "t": "06:27:23",
+     "exit": 0,
+     "dur": 4.63
+    },
+    {
+     "t": "05:56:23",
+     "exit": 0,
+     "dur": 4.715
+    },
+    {
+     "t": "05:25:23",
+     "exit": 0,
+     "dur": 4.594
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T07:26:23.872000+08:00",
+   "kind": "run",
+   "key": "run:state-sync",
+   "title": "state-sync",
+   "detail": "×47 · exit 0 · 0.18s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:26:23",
+     "exit": 0,
+     "dur": 0.181
+    },
+    {
+     "t": "06:55:23",
+     "exit": 0,
+     "dur": 0.18
+    },
+    {
+     "t": "06:24:23",
+     "exit": 0,
+     "dur": 0.177
+    },
+    {
+     "t": "05:53:23",
+     "exit": 0,
+     "dur": 0.171
+    },
+    {
+     "t": "05:22:23",
+     "exit": 0,
+     "dur": 0.175
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T07:11:27.317000+08:00",
+   "kind": "run",
+   "key": "run:comms-page",
+   "title": "comms-page",
+   "detail": "×46 · exit 0 · 4.59s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:11:27",
+     "exit": 0,
+     "dur": 4.589
+    },
+    {
+     "t": "06:40:27",
+     "exit": 0,
+     "dur": 4.301
+    },
+    {
+     "t": "06:09:27",
+     "exit": 0,
+     "dur": 4.451
+    },
+    {
+     "t": "05:38:30",
+     "exit": 0,
+     "dur": 4.617
+    },
+    {
+     "t": "05:07:27",
+     "exit": 0,
+     "dur": 4.327
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T07:11:23.920000+08:00",
+   "kind": "run",
+   "key": "run:surfaces-push",
+   "title": "surfaces-push",
+   "detail": "×46 · exit 0 · 8.79s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:11:23",
+     "exit": 0,
+     "dur": 8.786
+    },
+    {
+     "t": "06:40:23",
+     "exit": 0,
+     "dur": 8.817
+    },
+    {
+     "t": "06:09:23",
+     "exit": 0,
+     "dur": 8.648
+    },
+    {
+     "t": "05:38:23",
+     "exit": 0,
+     "dur": 12.437
+    },
+    {
+     "t": "05:07:23",
+     "exit": 0,
+     "dur": 8.729
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T07:00:23.963000+08:00",
+   "kind": "run",
+   "key": "run:fi-contract-stamp",
+   "title": "fi-contract-stamp",
+   "detail": "×24 · exit 0 · 34.93s",
+   "href": "",
+   "runs": [
+    {
+     "t": "07:00:23",
+     "exit": 0,
+     "dur": 34.928
+    },
+    {
+     "t": "06:00:24",
+     "exit": 0,
+     "dur": 33.661
+    },
+    {
+     "t": "05:00:23",
+     "exit": 0,
+     "dur": 33.071
+    },
+    {
+     "t": "04:00:24",
+     "exit": 0,
+     "dur": 33.207
+    },
+    {
+     "t": "03:00:24",
+     "exit": 0,
+     "dur": 48.239
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T06:00:23.948000+08:00",
+   "kind": "run",
+   "key": "run:field-index-rebuild",
+   "title": "field-index-rebuild",
+   "detail": "×1 · exit 0 · 2.46s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:23",
+     "exit": 0,
+     "dur": 2.464
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T06:00:23.912000+08:00",
+   "kind": "run",
+   "key": "run:arxiv-alignment-feed",
+   "title": "arxiv-alignment-feed",
+   "detail": "×3 · exit 0 · 0.03s",
+   "href": "",
+   "runs": [
+    {
+     "t": "06:00:23",
+     "exit": 0,
+     "dur": 0.03
+    },
+    {
+     "t": "22:00:23",
+     "exit": 0,
+     "dur": 0.034
+    },
+    {
+     "t": "14:00:23",
+     "exit": 0,
+     "dur": 29.119
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T05:00:23.940000+08:00",
+   "kind": "run",
+   "key": "run:daily-trunk-summary",
+   "title": "daily-trunk-summary",
+   "detail": "×1 · exit 0 · 0.72s",
+   "href": "",
+   "runs": [
+    {
+     "t": "05:00:23",
+     "exit": 0,
+     "dur": 0.718
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T04:21:27+08:00",
+   "kind": "route",
+   "key": "route:/calls/",
+   "title": "CALLS — the decision queue",
+   "detail": "/calls/ · ACTIVE",
+   "href": "/calls/"
+  },
+  {
+   "at": "2026-11-28T04:00:24.016000+08:00",
+   "kind": "run",
+   "key": "run:session-to-artifact",
+   "title": "session-to-artifact",
+   "detail": "×6 · exit 0 · 0.04s",
+   "href": "",
+   "runs": [
+    {
+     "t": "04:00:24",
+     "exit": 0,
+     "dur": 0.045
+    },
+    {
+     "t": "00:00:23",
+     "exit": 0,
+     "dur": 0.066
+    },
+    {
+     "t": "20:00:23",
+     "exit": 0,
+     "dur": 0.033
+    },
+    {
+     "t": "16:00:23",
+     "exit": 0,
+     "dur": 0.097
+    },
+    {
+     "t": "12:00:23",
+     "exit": 0,
+     "dur": 0.065
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T02:00:23.884000+08:00",
+   "kind": "run",
+   "key": "run:media-curator-nightly",
+   "title": "media-curator-nightly",
+   "detail": "×1 · exit 0 · 0.03s",
+   "href": "",
+   "runs": [
+    {
+     "t": "02:00:23",
+     "exit": 0,
+     "dur": 0.025
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T01:50:23.764000+08:00",
+   "kind": "run",
+   "key": "run:evolution-eval-gate",
+   "title": "evolution-eval-gate",
+   "detail": "×1 · exit 0 · 82.51s",
+   "href": "",
+   "runs": [
+    {
+     "t": "01:50:23",
+     "exit": 0,
+     "dur": 82.506
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T00:32:23.903000+08:00",
+   "kind": "run",
+   "key": "run:convergence-loop",
+   "title": "convergence-loop",
+   "detail": "×5 · exit 0 · 0.07s",
+   "href": "",
+   "runs": [
+    {
+     "t": "00:32:23",
+     "exit": 0,
+     "dur": 0.072
+    },
+    {
+     "t": "20:31:23",
+     "exit": 0,
+     "dur": 0.201
+    },
+    {
+     "t": "16:30:23",
+     "exit": 0,
+     "dur": 0.213
+    },
+    {
+     "t": "12:29:23",
+     "exit": 0,
+     "dur": 0.106
+    },
+    {
+     "t": "08:28:23",
+     "exit": 0,
+     "dur": 0.07
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T21:00:24.011000+08:00",
+   "kind": "run",
+   "key": "run:anchor-digest",
+   "title": "anchor-digest",
+   "detail": "×2 · exit 0 · 0.06s",
+   "href": "",
+   "runs": [
+    {
+     "t": "21:00:24",
+     "exit": 0,
+     "dur": 0.057
+    },
+    {
+     "t": "09:00:23",
+     "exit": 0,
+     "dur": 0.06
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T18:45:23.830000+08:00",
+   "kind": "run",
+   "key": "run:day-digest",
+   "title": "day-digest",
+   "detail": "×1 · exit 0 · 2.19s",
+   "href": "",
+   "runs": [
+    {
+     "t": "18:45:23",
+     "exit": 0,
+     "dur": 2.192
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T10:30:23.728000+08:00",
+   "kind": "run",
+   "key": "run:calls-say",
+   "title": "calls-say",
+   "detail": "×1 · exit 0 · 0.10s",
+   "href": "",
+   "runs": [
+    {
+     "t": "10:30:23",
+     "exit": 0,
+     "dur": 0.099
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T09:20:23.722000+08:00",
+   "kind": "run",
+   "key": "run:signal",
+   "title": "signal",
+   "detail": "×1 · exit 0 · 8.42s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:20:23",
+     "exit": 0,
+     "dur": 8.42
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T09:00:23.904000+08:00",
+   "kind": "run",
+   "key": "run:pack-doctor",
+   "title": "pack-doctor",
+   "detail": "×1 · exit 0 · 10.66s",
+   "href": "",
+   "runs": [
+    {
+     "t": "09:00:23",
+     "exit": 0,
+     "dur": 10.665
+    }
+   ]
+  },
+  {
+   "at": "2026-11-27T07:30:24+08:00",
+   "kind": "repo",
+   "key": "repo:theme:repo · other",
+   "title": "repo · other",
+   "detail": "last · field: refresh change ledger (auto)",
+   "href": "",
+   "count": 1,
+   "commits": [
+    {
+     "t": "27 07:30",
+     "title": "field: refresh change ledger (auto)",
+     "href": "https://github.com/0xxx0/0xxx0.github.io/commit/fe984e9d5422ebd925b7ab18a5a0cd59bef73dde",
+     "sha": "fe984e9d"
+    }
+   ]
+  },
+  {
+   "at": "2026-11-28T07:11:28+08:00",
+   "kind": "repo",
+   "key": "repo:machine",
+   "title": "machine refresh",
+   "detail": "×75 · last comms: refresh machine-room page (2026-11-27T23:11Z)",
+   "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
+   "count": 75,
+   "machine": true
+  }
+ ],
+ "earlier": [
   {
    "at": "2026-11-27T07:28:23.755000+08:00",
    "kind": "run",
    "key": "run:calltap",
    "title": "calltap",
-   "detail": "×478 · exit 0 · 0.05s",
+   "detail": "×958 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
@@ -89,9 +571,9 @@
    "kind": "run",
    "key": "run:comms-page",
    "title": "comms-page",
-   "detail": "×47 · 15 fails · last exit 0 · 4.71s",
+   "detail": "×93 · 61 fails · last exit 0 · 4.71s",
    "href": "",
-   "fails": 15,
+   "fails": 61,
    "runs": [
     {
      "t": "07:24:28",
@@ -125,9 +607,9 @@
    "kind": "run",
    "key": "run:surfaces-push",
    "title": "surfaces-push",
-   "detail": "×47 · 15 fails · last exit 0 · 9.98s",
+   "detail": "×93 · 61 fails · last exit 0 · 9.98s",
    "href": "",
-   "fails": 15,
+   "fails": 61,
    "runs": [
     {
      "t": "07:24:23",
@@ -161,7 +643,7 @@
    "kind": "run",
    "key": "run:loops-tick",
    "title": "loops-tick",
-   "detail": "×46 · exit 0 · 6.05s",
+   "detail": "×93 · exit 0 · 6.05s",
    "href": "",
    "runs": [
     {
@@ -196,9 +678,9 @@
    "kind": "run",
    "key": "run:state-sync",
    "title": "state-sync",
-   "detail": "×46 · 14 fails · last exit 0 · 0.18s",
+   "detail": "×93 · 61 fails · last exit 0 · 0.18s",
    "href": "",
-   "fails": 14,
+   "fails": 61,
    "runs": [
     {
      "t": "07:09:23",
@@ -232,7 +714,7 @@
    "kind": "run",
    "key": "run:fi-contract-stamp",
    "title": "fi-contract-stamp",
-   "detail": "×24 · exit 0 · 33.28s",
+   "detail": "×48 · exit 0 · 33.28s",
    "href": "",
    "runs": [
     {
@@ -303,13 +785,18 @@
    "kind": "run",
    "key": "run:field-index-rebuild",
    "title": "field-index-rebuild",
-   "detail": "×1 · exit 0 · 2.14s",
+   "detail": "×2 · exit 0 · 2.14s",
    "href": "",
    "runs": [
     {
      "t": "06:00:23",
      "exit": 0,
      "dur": 2.137
+    },
+    {
+     "t": "06:00:18",
+     "exit": 0,
+     "dur": 8.479
     }
    ]
   },
@@ -318,9 +805,9 @@
    "kind": "run",
    "key": "run:arxiv-alignment-feed",
    "title": "arxiv-alignment-feed",
-   "detail": "×3 · 1 fail · last exit 0 · 0.03s",
+   "detail": "×6 · 4 fails · last exit 0 · 0.03s",
    "href": "",
-   "fails": 1,
+   "fails": 4,
    "runs": [
     {
      "t": "06:00:23",
@@ -336,6 +823,16 @@
      "t": "14:00:18",
      "exit": 1,
      "dur": 0.146
+    },
+    {
+     "t": "06:00:18",
+     "exit": 1,
+     "dur": 0.185
+    },
+    {
+     "t": "22:00:18",
+     "exit": 1,
+     "dur": 6.364
     }
    ]
   },
@@ -344,13 +841,18 @@
    "kind": "run",
    "key": "run:daily-trunk-summary",
    "title": "daily-trunk-summary",
-   "detail": "×1 · exit 0 · 0.63s",
+   "detail": "×2 · exit 0 · 0.63s",
    "href": "",
    "runs": [
     {
      "t": "05:00:23",
      "exit": 0,
      "dur": 0.63
+    },
+    {
+     "t": "05:00:18",
+     "exit": 0,
+     "dur": 0.147
     }
    ]
   },
@@ -359,7 +861,7 @@
    "kind": "run",
    "key": "run:convergence-loop",
    "title": "convergence-loop",
-   "detail": "×6 · exit 0 · 0.11s",
+   "detail": "×12 · exit 0 · 0.11s",
    "href": "",
    "runs": [
     {
@@ -390,19 +892,11 @@
    ]
   },
   {
-   "at": "2026-11-27T04:22:24+08:00",
-   "kind": "route",
-   "key": "route:/calls/",
-   "title": "CALLS — the decision queue",
-   "detail": "/calls/ · ACTIVE",
-   "href": "/calls/"
-  },
-  {
    "at": "2026-11-27T04:00:23.914000+08:00",
    "kind": "run",
    "key": "run:session-to-artifact",
    "title": "session-to-artifact",
-   "detail": "×6 · exit 0 · 0.03s",
+   "detail": "×12 · exit 0 · 0.03s",
    "href": "",
    "runs": [
     {
@@ -437,13 +931,18 @@
    "kind": "run",
    "key": "run:media-curator-nightly",
    "title": "media-curator-nightly",
-   "detail": "×1 · exit 0 · 0.03s",
+   "detail": "×2 · exit 0 · 0.03s",
    "href": "",
    "runs": [
     {
      "t": "02:00:23",
      "exit": 0,
      "dur": 0.025
+    },
+    {
+     "t": "02:00:18",
+     "exit": 0,
+     "dur": 0.013
     }
    ]
   },
@@ -452,13 +951,18 @@
    "kind": "run",
    "key": "run:evolution-eval-gate",
    "title": "evolution-eval-gate",
-   "detail": "×1 · exit 0 · 88.24s",
+   "detail": "×2 · exit 0 · 88.24s",
    "href": "",
    "runs": [
     {
      "t": "01:50:23",
      "exit": 0,
      "dur": 88.236
+    },
+    {
+     "t": "01:50:18",
+     "exit": 0,
+     "dur": 1202.346
     }
    ]
   },
@@ -467,7 +971,7 @@
    "kind": "run",
    "key": "run:anchor-digest",
    "title": "anchor-digest",
-   "detail": "×2 · exit 0 · 0.05s",
+   "detail": "×4 · exit 0 · 0.05s",
    "href": "",
    "runs": [
     {
@@ -479,488 +983,7 @@
      "t": "09:00:18",
      "exit": 0,
      "dur": 0.058
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T18:45:23.760000+08:00",
-   "kind": "run",
-   "key": "run:day-digest",
-   "title": "day-digest",
-   "detail": "×1 · exit 0 · 3.40s",
-   "href": "",
-   "runs": [
-    {
-     "t": "18:45:23",
-     "exit": 0,
-     "dur": 3.405
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T10:30:18.356000+08:00",
-   "kind": "run",
-   "key": "run:calls-say",
-   "title": "calls-say",
-   "detail": "×1 · exit 0 · 0.07s",
-   "href": "",
-   "runs": [
-    {
-     "t": "10:30:18",
-     "exit": 0,
-     "dur": 0.066
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T09:20:18.123000+08:00",
-   "kind": "run",
-   "key": "run:signal",
-   "title": "signal",
-   "detail": "×1 · exit 0 · 0.90s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:20:18",
-     "exit": 0,
-     "dur": 0.902
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T09:00:18.360000+08:00",
-   "kind": "run",
-   "key": "run:pack-doctor",
-   "title": "pack-doctor",
-   "detail": "×1 · exit 0 · 154.17s",
-   "href": "",
-   "runs": [
-    {
-     "t": "09:00:18",
-     "exit": 0,
-     "dur": 154.168
-    }
-   ]
-  },
-  {
-   "at": "2026-11-27T07:24:29+08:00",
-   "kind": "repo",
-   "key": "repo:machine",
-   "title": "machine refresh",
-   "detail": "×73 · last comms: refresh machine-room page (2026-11-26T23:24Z)",
-   "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
-   "count": 73,
-   "machine": true
-  }
- ],
- "earlier": [
-  {
-   "at": "2026-11-26T07:30:18.207000+08:00",
-   "kind": "run",
-   "key": "run:calltap",
-   "title": "calltap",
-   "detail": "×961 · exit 0 · 0.06s",
-   "href": "",
-   "runs": [
-    {
-     "t": "07:30:18",
-     "exit": 0,
-     "dur": 0.057
     },
-    {
-     "t": "07:27:18",
-     "exit": 0,
-     "dur": 0.066
-    },
-    {
-     "t": "07:24:18",
-     "exit": 0,
-     "dur": 0.057
-    },
-    {
-     "t": "07:21:18",
-     "exit": 0,
-     "dur": 0.051
-    },
-    {
-     "t": "07:18:18",
-     "exit": 0,
-     "dur": 0.05
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T07:27:18.145000+08:00",
-   "kind": "run",
-   "key": "run:loops-tick",
-   "title": "loops-tick",
-   "detail": "×93 · exit 0 · 6.33s",
-   "href": "",
-   "runs": [
-    {
-     "t": "07:27:18",
-     "exit": 0,
-     "dur": 6.334
-    },
-    {
-     "t": "06:56:18",
-     "exit": 0,
-     "dur": 6.3
-    },
-    {
-     "t": "06:25:18",
-     "exit": 0,
-     "dur": 6.178
-    },
-    {
-     "t": "05:54:18",
-     "exit": 0,
-     "dur": 6.397
-    },
-    {
-     "t": "05:23:18",
-     "exit": 0,
-     "dur": 6.336
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T07:24:18.077000+08:00",
-   "kind": "run",
-   "key": "run:state-sync",
-   "title": "state-sync",
-   "detail": "×93 · 93 fails · last exit 1 · 0.19s",
-   "href": "",
-   "fails": 93,
-   "runs": [
-    {
-     "t": "07:24:18",
-     "exit": 1,
-     "dur": 0.187
-    },
-    {
-     "t": "06:53:18",
-     "exit": 1,
-     "dur": 0.183
-    },
-    {
-     "t": "06:22:18",
-     "exit": 1,
-     "dur": 0.183
-    },
-    {
-     "t": "05:51:18",
-     "exit": 1,
-     "dur": 0.182
-    },
-    {
-     "t": "05:20:18",
-     "exit": 1,
-     "dur": 0.19
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T07:08:19.162000+08:00",
-   "kind": "run",
-   "key": "run:comms-page",
-   "title": "comms-page",
-   "detail": "×93 · 93 fails · last exit 1 · 0.55s",
-   "href": "",
-   "fails": 93,
-   "runs": [
-    {
-     "t": "07:08:19",
-     "exit": 1,
-     "dur": 0.554
-    },
-    {
-     "t": "06:37:19",
-     "exit": 1,
-     "dur": 0.532
-    },
-    {
-     "t": "06:06:19",
-     "exit": 1,
-     "dur": 0.496
-    },
-    {
-     "t": "05:35:22",
-     "exit": 1,
-     "dur": 0.493
-    },
-    {
-     "t": "05:04:19",
-     "exit": 1,
-     "dur": 0.51
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T07:08:18.166000+08:00",
-   "kind": "run",
-   "key": "run:surfaces-push",
-   "title": "surfaces-push",
-   "detail": "×93 · 93 fails · last exit 1 · 1.95s",
-   "href": "",
-   "fails": 93,
-   "runs": [
-    {
-     "t": "07:08:18",
-     "exit": 1,
-     "dur": 1.954
-    },
-    {
-     "t": "06:37:18",
-     "exit": 1,
-     "dur": 1.835
-    },
-    {
-     "t": "06:06:18",
-     "exit": 1,
-     "dur": 1.743
-    },
-    {
-     "t": "05:35:18",
-     "exit": 1,
-     "dur": 4.889
-    },
-    {
-     "t": "05:04:18",
-     "exit": 1,
-     "dur": 1.782
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T07:00:18.237000+08:00",
-   "kind": "run",
-   "key": "run:fi-contract-stamp",
-   "title": "fi-contract-stamp",
-   "detail": "×48 · exit 0 · 3.16s",
-   "href": "",
-   "runs": [
-    {
-     "t": "07:00:18",
-     "exit": 0,
-     "dur": 3.158
-    },
-    {
-     "t": "06:00:18",
-     "exit": 0,
-     "dur": 0.063
-    },
-    {
-     "t": "05:00:18",
-     "exit": 0,
-     "dur": 0.063
-    },
-    {
-     "t": "04:00:18",
-     "exit": 0,
-     "dur": 10.479
-    },
-    {
-     "t": "03:00:18",
-     "exit": 0,
-     "dur": 5.884
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T06:00:18.208000+08:00",
-   "kind": "run",
-   "key": "run:field-index-rebuild",
-   "title": "field-index-rebuild",
-   "detail": "×2 · exit 0 · 8.48s",
-   "href": "",
-   "runs": [
-    {
-     "t": "06:00:18",
-     "exit": 0,
-     "dur": 8.479
-    },
-    {
-     "t": "06:00:18",
-     "exit": 0,
-     "dur": 9.903
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T06:00:18.167000+08:00",
-   "kind": "run",
-   "key": "run:arxiv-alignment-feed",
-   "title": "arxiv-alignment-feed",
-   "detail": "×6 · 6 fails · last exit 1 · 0.18s",
-   "href": "",
-   "fails": 6,
-   "runs": [
-    {
-     "t": "06:00:18",
-     "exit": 1,
-     "dur": 0.185
-    },
-    {
-     "t": "22:00:18",
-     "exit": 1,
-     "dur": 6.364
-    },
-    {
-     "t": "14:00:18",
-     "exit": 1,
-     "dur": 6.295
-    },
-    {
-     "t": "06:00:18",
-     "exit": 1,
-     "dur": 0.118
-    },
-    {
-     "t": "22:00:18",
-     "exit": 1,
-     "dur": 0.087
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T05:00:18.341000+08:00",
-   "kind": "run",
-   "key": "run:daily-trunk-summary",
-   "title": "daily-trunk-summary",
-   "detail": "×2 · exit 0 · 0.15s",
-   "href": "",
-   "runs": [
-    {
-     "t": "05:00:18",
-     "exit": 0,
-     "dur": 0.147
-    },
-    {
-     "t": "05:00:18",
-     "exit": 0,
-     "dur": 0.131
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T04:08:18.174000+08:00",
-   "kind": "run",
-   "key": "run:convergence-loop",
-   "title": "convergence-loop",
-   "detail": "×10 · exit 0 · 0.13s",
-   "href": "",
-   "runs": [
-    {
-     "t": "04:08:18",
-     "exit": 0,
-     "dur": 0.126
-    },
-    {
-     "t": "00:02:18",
-     "exit": 0,
-     "dur": 0.132
-    },
-    {
-     "t": "19:56:18",
-     "exit": 0,
-     "dur": 0.141
-    },
-    {
-     "t": "15:51:18",
-     "exit": 0,
-     "dur": 0.14
-    },
-    {
-     "t": "11:45:18",
-     "exit": 0,
-     "dur": 0.143
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T04:00:18.205000+08:00",
-   "kind": "run",
-   "key": "run:session-to-artifact",
-   "title": "session-to-artifact",
-   "detail": "×12 · exit 0 · 0.07s",
-   "href": "",
-   "runs": [
-    {
-     "t": "04:00:18",
-     "exit": 0,
-     "dur": 0.067
-    },
-    {
-     "t": "00:00:18",
-     "exit": 0,
-     "dur": 0.085
-    },
-    {
-     "t": "20:00:18",
-     "exit": 0,
-     "dur": 0.08
-    },
-    {
-     "t": "16:00:18",
-     "exit": 0,
-     "dur": 0.023
-    },
-    {
-     "t": "12:00:18",
-     "exit": 0,
-     "dur": 0.059
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T02:00:18.169000+08:00",
-   "kind": "run",
-   "key": "run:media-curator-nightly",
-   "title": "media-curator-nightly",
-   "detail": "×2 · exit 0 · 0.01s",
-   "href": "",
-   "runs": [
-    {
-     "t": "02:00:18",
-     "exit": 0,
-     "dur": 0.013
-    },
-    {
-     "t": "02:00:18",
-     "exit": 0,
-     "dur": 0.013
-    }
-   ]
-  },
-  {
-   "at": "2026-11-26T01:50:18.370000+08:00",
-   "kind": "run",
-   "key": "run:evolution-eval-gate",
-   "title": "evolution-eval-gate",
-   "detail": "×2 · exit 0 · 1202.35s",
-   "href": "",
-   "runs": [
-    {
-     "t": "01:50:18",
-     "exit": 0,
-     "dur": 1202.346
-    },
-    {
-     "t": "01:50:18",
-     "exit": 0,
-     "dur": 1202.307
-    }
-   ]
-  },
-  {
-   "at": "2026-11-25T21:00:18.379000+08:00",
-   "kind": "run",
-   "key": "run:anchor-digest",
-   "title": "anchor-digest",
-   "detail": "×4 · exit 0 · 0.06s",
-   "href": "",
-   "runs": [
     {
      "t": "21:00:18",
      "exit": 0,
@@ -970,96 +993,86 @@
      "t": "09:00:18",
      "exit": 0,
      "dur": 0.065
-    },
-    {
-     "t": "21:00:18",
-     "exit": 0,
-     "dur": 0.054
-    },
-    {
-     "t": "09:00:18",
-     "exit": 0,
-     "dur": 0.061
     }
    ]
   },
   {
-   "at": "2026-11-25T18:45:18.227000+08:00",
+   "at": "2026-11-26T18:45:23.760000+08:00",
    "kind": "run",
    "key": "run:day-digest",
    "title": "day-digest",
-   "detail": "×2 · exit 0 · 1.04s",
+   "detail": "×2 · exit 0 · 3.40s",
    "href": "",
    "runs": [
+    {
+     "t": "18:45:23",
+     "exit": 0,
+     "dur": 3.405
+    },
     {
      "t": "18:45:18",
      "exit": 0,
      "dur": 1.042
-    },
-    {
-     "t": "18:45:18",
-     "exit": 0,
-     "dur": 1.052
     }
    ]
   },
   {
-   "at": "2026-11-25T10:30:18.200000+08:00",
+   "at": "2026-11-26T10:30:18.356000+08:00",
    "kind": "run",
    "key": "run:calls-say",
    "title": "calls-say",
-   "detail": "×2 · exit 0 · 0.10s",
+   "detail": "×2 · exit 0 · 0.07s",
    "href": "",
    "runs": [
+    {
+     "t": "10:30:18",
+     "exit": 0,
+     "dur": 0.066
+    },
     {
      "t": "10:30:18",
      "exit": 0,
      "dur": 0.096
-    },
-    {
-     "t": "10:30:18",
-     "exit": 0,
-     "dur": 0.068
     }
    ]
   },
   {
-   "at": "2026-11-25T09:20:18.134000+08:00",
+   "at": "2026-11-26T09:20:18.123000+08:00",
    "kind": "run",
    "key": "run:signal",
    "title": "signal",
-   "detail": "×2 · exit 0 · 1.08s",
+   "detail": "×2 · exit 0 · 0.90s",
    "href": "",
    "runs": [
+    {
+     "t": "09:20:18",
+     "exit": 0,
+     "dur": 0.902
+    },
     {
      "t": "09:20:18",
      "exit": 0,
      "dur": 1.076
-    },
-    {
-     "t": "09:20:18",
-     "exit": 0,
-     "dur": 4.066
     }
    ]
   },
   {
-   "at": "2026-11-25T09:00:18.314000+08:00",
+   "at": "2026-11-26T09:00:18.360000+08:00",
    "kind": "run",
    "key": "run:pack-doctor",
    "title": "pack-doctor",
-   "detail": "×2 · exit 0 · 151.98s",
+   "detail": "×2 · exit 0 · 154.17s",
    "href": "",
    "runs": [
     {
      "t": "09:00:18",
      "exit": 0,
-     "dur": 151.983
+     "dur": 154.168
     },
     {
      "t": "09:00:18",
      "exit": 0,
-     "dur": 151.042
+     "dur": 151.983
     }
    ]
   },
@@ -1079,20 +1092,14 @@
    ]
   },
   {
-   "at": "2026-11-25T07:00:18.253000+08:00",
-   "kind": "run",
-   "key": "run:integrity-audit",
-   "title": "integrity-audit",
-   "detail": "×1 · 1 fail · last exit 1 · 16.83s",
-   "href": "",
-   "fails": 1,
-   "runs": [
-    {
-     "t": "07:00:18",
-     "exit": 1,
-     "dur": 16.832
-    }
-   ]
+   "at": "2026-11-27T07:24:29+08:00",
+   "kind": "repo",
+   "key": "repo:machine",
+   "title": "machine refresh",
+   "detail": "×73 · last comms: refresh machine-room page (2026-11-26T23:24Z)",
+   "href": "https://github.com/0xxx0/0xxx0.github.io/commits/master",
+   "count": 73,
+   "machine": true
   }
  ]
 }
